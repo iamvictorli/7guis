@@ -112,7 +112,7 @@ export const { selectNames, selectNameById, selectUI } = crudSlice.selectors;
 // createSelector to memoize selector when we use array operations like map and filter, which return new array references
 // https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization
 export const selectFilteredNameIds = createSelector(
-  [selectNames, (state, prefix) => prefix],
+  [selectNames, (_, prefix) => prefix],
   (names, prefix) => {
     const nameIds = names.allIds;
     return nameIds.filter((nameId) => {
