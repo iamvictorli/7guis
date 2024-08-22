@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../store";
 import {
-  selectCRUDState,
   selectFilteredNameIds,
   selectNameById,
+  selectUI,
   nameCreated,
   nameUpdated,
   nameDeleted,
@@ -23,14 +23,16 @@ function Option({ id }: { id: string }) {
 
 function Crud() {
   const dispatch = useAppDispatch();
-  const { nameInput, surnameInput, prefix, nameSelectedId } =
-    useAppSelector(selectCRUDState);
-  const filteredNameIds = useAppSelector(selectFilteredNameIds);
+  const { nameInput, surnameInput, prefixInput, nameSelectedId } =
+    useAppSelector(selectUI);
+  const filteredNameIds = useAppSelector((state) =>
+    selectFilteredNameIds(state, prefixInput)
+  );
   return (
     <div>
       <span>Filter prefix:</span>
       <input
-        value={prefix}
+        value={prefixInput}
         onChange={(event) => {
           dispatch(prefixChanged(event.currentTarget.value));
         }}

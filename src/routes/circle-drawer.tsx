@@ -8,7 +8,7 @@ import {
   radiusChanged,
   selectUndoDisabled,
   selectRedoDisabled,
-  selectCircleDrawerState,
+  selectUI,
   selectCirclesIds,
   selectCircleById,
 } from "../state/circleDrawerSlice";
@@ -43,9 +43,7 @@ function Circle({
 
 function CircleDrawer() {
   const dispatch = useAppDispatch();
-  const { selectedCircleId, selectedCircleRadius } = useAppSelector(
-    selectCircleDrawerState
-  );
+  const { selectedCircleId, selectedCircleRadius } = useAppSelector(selectUI);
   const undoDisabled = useAppSelector(selectUndoDisabled);
   const redoDisabled = useAppSelector(selectRedoDisabled);
   const circleIds = useAppSelector(selectCirclesIds);

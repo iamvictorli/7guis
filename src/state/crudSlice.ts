@@ -14,10 +14,12 @@ interface Name {
 
 export interface CRUDState {
   names: EntityMap<Name>;
-  nameInput: string;
-  surnameInput: string;
-  prefix: string;
-  nameSelectedId: string;
+  ui: {
+    nameInput: string;
+    surnameInput: string;
+    prefixInput: string;
+    nameSelectedId: string;
+  };
 }
 
 const initialState: CRUDState = {
@@ -27,10 +29,12 @@ const initialState: CRUDState = {
     byId: {},
     allIds: [],
   },
-  nameInput: "",
-  surnameInput: "",
-  prefix: "",
-  nameSelectedId: "",
+  ui: {
+    nameInput: "",
+    surnameInput: "",
+    prefixInput: "",
+    nameSelectedId: "",
+  },
 } satisfies CRUDState as CRUDState;
 
 export const crudSlice = createSlice({
@@ -42,7 +46,7 @@ export const crudSlice = createSlice({
         const name = action.payload;
         state.names.byId[name.id] = name;
         state.names.allIds.push(name.id);
-        state.nameSelectedId = name.id;
+        state.ui.nameSelectedId = name.id;
       },
       prepare: (nameProps: Omit<Name, "id">) => {
         const id = nanoid();
@@ -68,49 +72,47 @@ export const crudSlice = createSlice({
       if (index !== -1) state.names.allIds.splice(index, 1);
 
       // select first name of name list
-      const newNameSelectedIndex = (state.nameSelectedId =
+      const newNameSelectedIndex = (state.ui.nameSelectedId =
         state.names.allIds.length > 0 ? state.names.allIds[0] : "");
 
-      state.nameInput =
+      state.ui.nameInput =
         newNameSelectedIndex === ""
           ? ""
           : state.names.byId[newNameSelectedIndex].name;
-      state.surnameInput =
+      state.ui.surnameInput =
         newNameSelectedIndex === ""
           ? ""
           : state.names.byId[newNameSelectedIndex].surname;
-      state.nameSelectedId = newNameSelectedIndex;
+      state.ui.nameSelectedId = newNameSelectedIndex;
     },
     nameSelected: (state, action: PayloadAction<string>) => {
-      state.nameSelectedId = action.payload;
-      state.nameInput = state.names.byId[action.payload].name;
-      state.surnameInput = state.names.byId[action.payload].surname;
+      state.ui.nameSelectedId = action.payload;
+      state.ui.nameInput = state.names.byId[action.payload].name;
+      state.ui.surnameInput = state.names.byId[action.payload].surname;
     },
     prefixChanged: (state, action: PayloadAction<string>) => {
-      state.prefix = action.payload;
+      state.ui.prefixInput = action.payload;
     },
     nameInputChanged: (state, action: PayloadAction<string>) => {
-      state.nameInput = action.payload;
+      state.ui.nameInput = action.payload;
     },
     surnameInputChanged: (state, action: PayloadAction<string>) => {
-      state.surnameInput = action.payload;
+      state.ui.surnameInput = action.payload;
     },
   },
   selectors: {
-    selectCRUDState: (state) => state,
     selectNames: (state) => state.names,
     selectNameById: (state, id: string) => state.names.byId[id],
-    selectPrefix: (state) => state.prefix,
+    selectUI: (state) => state.ui,
   },
 });
 
-export const { selectCRUDState, selectNames, selectNameById, selectPrefix } =
-  crudSlice.selectors;
+export const { selectNames, selectNameById, selectUI } = crudSlice.selectors;
 
 // createSelector to memoize selector when we use array operations like map and filter, which return new array references
 // https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization
 export const selectFilteredNameIds = createSelector(
-  [selectNames, selectPrefix],
+  [selectNames, (state, prefix) => prefix],
   (names, prefix) => {
     const nameIds = names.allIds;
     return nameIds.filter((nameId) => {

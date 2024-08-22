@@ -22,8 +22,10 @@ interface CircleDrawerState {
   // undos and redos is a stack of circles snapshot
   undos: EntityMap<Circle>[];
   redos: EntityMap<Circle>[];
-  selectedCircleId: string;
-  selectedCircleRadius: number;
+  ui: {
+    selectedCircleId: string;
+    selectedCircleRadius: number;
+  };
 }
 
 const initialState: CircleDrawerState = {
@@ -33,8 +35,10 @@ const initialState: CircleDrawerState = {
   },
   undos: [],
   redos: [],
-  selectedCircleId: "",
-  selectedCircleRadius: 0,
+  ui: {
+    selectedCircleId: "",
+    selectedCircleRadius: 0,
+  },
 } satisfies CircleDrawerState as CircleDrawerState;
 
 const circleDrawerSlice = createSlice({
@@ -54,7 +58,7 @@ const circleDrawerSlice = createSlice({
 
         // clear redos
         state.redos = [];
-        state.selectedCircleId = "";
+        state.ui.selectedCircleId = "";
       },
       prepare: (circleProps: Omit<Circle, "id">) => {
         return {
@@ -97,7 +101,7 @@ const circleDrawerSlice = createSlice({
         const previousCirclesSnapshot = state.undos.pop();
         state.circles = previousCirclesSnapshot!;
 
-        state.selectedCircleId = "";
+        state.ui.selectedCircleId = "";
       }
     },
     redo: (state) => {
@@ -110,23 +114,23 @@ const circleDrawerSlice = createSlice({
         const previousCirclesSnapshot = state.redos.pop();
         state.circles = previousCirclesSnapshot!;
 
-        state.selectedCircleId = "";
+        state.ui.selectedCircleId = "";
       }
     },
     circleSelected: (state, action: PayloadAction<string>) => {
       const id = action.payload;
-      state.selectedCircleId = id;
-      state.selectedCircleRadius = state.circles.byId[id].radius;
+      state.ui.selectedCircleId = id;
+      state.ui.selectedCircleRadius = state.circles.byId[id].radius;
     },
     radiusChanged: (state, action: PayloadAction<number>) => {
       const newRadius = action.payload;
-      if (state.selectedCircleId !== "") {
-        state.selectedCircleRadius = newRadius;
+      if (state.ui.selectedCircleId !== "") {
+        state.ui.selectedCircleRadius = newRadius;
       }
     },
   },
   selectors: {
-    selectCircleDrawerState: (state) => state,
+    selectUI: (state) => state.ui,
     selectCirclesIds: (state) => state.circles.allIds,
     selectUndoDisabled: (state) => state.undos.length === 0,
     selectRedoDisabled: (state) => state.redos.length === 0,
@@ -137,7 +141,7 @@ const circleDrawerSlice = createSlice({
 export const {
   selectUndoDisabled,
   selectRedoDisabled,
-  selectCircleDrawerState,
+  selectUI,
   selectCircleById,
   selectCirclesIds,
 } = circleDrawerSlice.selectors;
