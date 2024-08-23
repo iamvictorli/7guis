@@ -1,35 +1,35 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export interface TimerState {
-  start: number;
-  duration: number;
+  start: number
+  duration: number
 }
 
 const initialState: TimerState = {
   start: new Date().getTime(),
   duration: 15000,
-} satisfies TimerState as TimerState;
+} satisfies TimerState as TimerState
 
 export const timerSlice = createSlice({
-  name: "timer",
+  name: 'timer',
   initialState,
   reducers: {
     durationChanged: (state, action: PayloadAction<number>) => {
-      state.duration = action.payload;
+      state.duration = action.payload
     },
-    timerReset: (state) => {
-      state.start = new Date().getTime();
+    timerReset: state => {
+      state.start = new Date().getTime()
     },
   },
   selectors: {
-    selectTimerState: (state) => state,
+    selectTimerState: state => state,
   },
-});
+})
 
-export const { selectTimerState } = timerSlice.selectors;
+export const { selectTimerState } = timerSlice.selectors
 
-export const { durationChanged, timerReset } = timerSlice.actions;
+export const { durationChanged, timerReset } = timerSlice.actions
 
-export const TIMER_REDUCER_NAME = timerSlice.name;
+export const TIMER_REDUCER_NAME = timerSlice.name
 
-export default timerSlice.reducer;
+export default timerSlice.reducer

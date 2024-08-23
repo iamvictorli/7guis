@@ -1,61 +1,61 @@
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from '../store'
 import {
   selectTimerState,
   durationChanged,
   timerReset,
-} from "../state/timerSlice";
-import { useEffect, useRef, useState } from "react";
+} from '../state/timerSlice'
+import { useEffect, useRef, useState } from 'react'
 
 // TODO: middleware? listener middleware?
 // set into redux middleware b/c of interval side effects
 function Timer() {
-  const dispatch = useAppDispatch();
-  const { start, duration } = useAppSelector(selectTimerState);
-  const intervalRef = useRef<number>();
-  const [now, setNow] = useState<number>(new Date().getTime());
+  const dispatch = useAppDispatch()
+  const { start, duration } = useAppSelector(selectTimerState)
+  const intervalRef = useRef<number>()
+  const [now, setNow] = useState<number>(new Date().getTime())
 
   function startTimer() {
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current)
 
-    setNow(new Date().getTime());
+    setNow(new Date().getTime())
 
     intervalRef.current = setInterval(() => {
-      setNow(new Date().getTime());
-    }, 100);
+      setNow(new Date().getTime())
+    }, 100)
   }
 
   function stopTimer() {
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current)
   }
 
   useEffect(() => {
-    dispatch(timerReset());
-    startTimer();
+    dispatch(timerReset())
+    startTimer()
     return () => {
-      stopTimer();
-    };
-  }, [dispatch]);
+      stopTimer()
+    }
+  }, [dispatch])
 
   // clear interval after a min
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      stopTimer();
-    }, 60 * 1000);
+      stopTimer()
+    }, 60 * 1000)
 
     return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
+      clearTimeout(timeoutId)
+    }
+  }, [])
 
-  let elapsedMs;
+  let elapsedMs
   if (now - start >= duration) {
-    elapsedMs = duration;
+    elapsedMs = duration
   } else {
-    elapsedMs = now - start;
+    elapsedMs = now - start
   }
 
-  const seconds = Math.floor(elapsedMs / 1000);
-  const decisecond = Math.trunc(Math.floor(elapsedMs % 1000) / 100);
+  const seconds = Math.floor(elapsedMs / 1000)
+  const decisecond = Math.trunc(Math.floor(elapsedMs % 1000) / 100)
 
   return (
     <div>
@@ -69,20 +69,19 @@ function Timer() {
         min={0}
         max={30000}
         value={duration}
-        onChange={(e) =>
+        onChange={e =>
           dispatch(durationChanged(Math.max(1, parseInt(e.target.value))))
         }
       />
       <button
         onClick={() => {
-          dispatch(timerReset());
-          startTimer();
-        }}
-      >
+          dispatch(timerReset())
+          startTimer()
+        }}>
         Reset
       </button>
     </div>
-  );
+  )
 }
 
-export default Timer;
+export default Timer

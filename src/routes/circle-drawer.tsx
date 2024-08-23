@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from '../store'
 import {
   circleAdded,
   circleUpdated,
@@ -11,80 +11,77 @@ import {
   selectUI,
   selectCirclesIds,
   selectCircleById,
-} from "../state/circleDrawerSlice";
+} from '../state/circleDrawerSlice'
 
 function Circle({
   id,
   isSelected,
   selectedRadius,
 }: {
-  id: string;
-  isSelected: boolean;
-  selectedRadius: number;
+  id: string
+  isSelected: boolean
+  selectedRadius: number
 }) {
-  const circle = useAppSelector((state) => selectCircleById(state, id));
-  const dispatch = useAppDispatch();
+  const circle = useAppSelector(state => selectCircleById(state, id))
+  const dispatch = useAppDispatch()
   return (
     <circle
       cx={circle.x}
       cy={circle.y}
       r={isSelected ? selectedRadius : circle.radius}
       stroke="black"
-      fill={isSelected ? "#e5e7eb" : "transparent"}
+      fill={isSelected ? '#e5e7eb' : 'transparent'}
       className="hover:fill-gray-200"
-      onClick={(event) => {
-        event.stopPropagation();
+      onClick={event => {
+        event.stopPropagation()
         // popup adjustment
-        dispatch(circleSelected(circle.id));
+        dispatch(circleSelected(circle.id))
       }}
     />
-  );
+  )
 }
 
 function CircleDrawer() {
-  const dispatch = useAppDispatch();
-  const { selectedCircleId, selectedCircleRadius } = useAppSelector(selectUI);
-  const undoDisabled = useAppSelector(selectUndoDisabled);
-  const redoDisabled = useAppSelector(selectRedoDisabled);
-  const circleIds = useAppSelector(selectCirclesIds);
-  const currentCircle = useAppSelector((state) =>
-    selectCircleById(state, selectedCircleId)
-  );
+  const dispatch = useAppDispatch()
+  const { selectedCircleId, selectedCircleRadius } = useAppSelector(selectUI)
+  const undoDisabled = useAppSelector(selectUndoDisabled)
+  const redoDisabled = useAppSelector(selectRedoDisabled)
+  const circleIds = useAppSelector(selectCirclesIds)
+  const currentCircle = useAppSelector(state =>
+    selectCircleById(state, selectedCircleId),
+  )
 
   return (
     <div>
       <div>
         <button
           onClick={() => {
-            dispatch(undo());
+            dispatch(undo())
           }}
-          disabled={undoDisabled}
-        >
+          disabled={undoDisabled}>
           Undo
         </button>
         <button
           onClick={() => {
-            dispatch(redo());
+            dispatch(redo())
           }}
-          disabled={redoDisabled}
-        >
+          disabled={redoDisabled}>
           Redo
         </button>
       </div>
       <div>
         <svg
           className="w-96 h-60 border border-black border-solid"
-          onClick={(event) => {
-            const { x, y } = event.currentTarget.getBoundingClientRect();
+          onClick={event => {
+            const { x, y } = event.currentTarget.getBoundingClientRect()
             const circle = {
               x: event.clientX - x,
               y: event.clientY - y,
               radius: 20,
-            };
-            dispatch(circleAdded(circle));
-          }}
-        >
-          {circleIds.map((circleId) => (
+            }
+            dispatch(circleAdded(circle))
+          }}>
+          {circleIds.map(circleId => (
             <Circle
               key={circleId}
               id={circleId}
@@ -102,44 +99,44 @@ function CircleDrawer() {
             min="10"
             value={selectedCircleRadius}
             max="80"
-            onChange={(event) => {
-              dispatch(radiusChanged(Number(event.currentTarget.value)));
+            onChange={event => {
+              dispatch(radiusChanged(Number(event.currentTarget.value)))
             }}
-            onMouseUp={(event) => {
+            onMouseUp={event => {
               dispatch(
                 circleUpdated({
                   id: currentCircle.id,
                   x: currentCircle.x,
                   y: currentCircle.y,
                   radius: Number(event.currentTarget.value),
-                })
-              );
+                }),
+              )
             }}
-            onTouchEnd={(event) => {
+            onTouchEnd={event => {
               dispatch(
                 circleUpdated({
                   id: currentCircle.id,
                   x: currentCircle.x,
                   y: currentCircle.y,
                   radius: Number(event.currentTarget.value),
-                })
-              );
+                }),
+              )
             }}
-            onKeyUp={(event) => {
+            onKeyUp={event => {
               dispatch(
                 circleUpdated({
                   id: currentCircle.id,
                   x: currentCircle.x,
                   y: currentCircle.y,
                   radius: Number(event.currentTarget.value),
-                })
-              );
+                }),
+              )
             }}
           />
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default CircleDrawer;
+export default CircleDrawer

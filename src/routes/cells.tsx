@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from '../store'
 import {
   selectCellIdRows,
   selectColumnLabels,
@@ -7,13 +7,13 @@ import {
   cellChanged,
   cellSelected,
   cellInputChanged,
-} from "../state/cellsSlice";
+} from '../state/cellsSlice'
 
 function Cell({ id }: { id: string }) {
-  const isSelected = useAppSelector((state) => selectIsSelected(state, id));
-  const inputValue = useAppSelector((state) => selectInputValue(state, id));
+  const isSelected = useAppSelector(state => selectIsSelected(state, id))
+  const inputValue = useAppSelector(state => selectInputValue(state, id))
 
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   return (
     <td>
@@ -22,10 +22,10 @@ function Cell({ id }: { id: string }) {
         readOnly={!isSelected}
         value={inputValue}
         onFocus={() => {
-          dispatch(cellSelected(id));
+          dispatch(cellSelected(id))
         }}
-        onChange={(event) => {
-          dispatch(cellInputChanged(event.currentTarget.value));
+        onChange={event => {
+          dispatch(cellInputChanged(event.currentTarget.value))
         }}
         onBlur={() => {
           if (isSelected) {
@@ -33,32 +33,32 @@ function Cell({ id }: { id: string }) {
               cellChanged({
                 id,
                 value: inputValue,
-              })
-            );
+              }),
+            )
           }
         }}
-        onKeyUp={(event) => {
+        onKeyUp={event => {
           // pressing enter while editting cell, updates cell and its children
-          if (isSelected && ["Enter", "Escape"].includes(event.key)) {
+          if (isSelected && ['Enter', 'Escape'].includes(event.key)) {
             dispatch(
               cellChanged({
                 id,
                 value: inputValue,
-              })
-            );
-          } else if (!isSelected && event.key === "Enter") {
+              }),
+            )
+          } else if (!isSelected && event.key === 'Enter') {
             // focus is still on the cell, but sets input readonly to false
-            dispatch(cellSelected(id));
+            dispatch(cellSelected(id))
           }
         }}
       />
     </td>
-  );
+  )
 }
 
 function Cells() {
-  const columnLabels = useAppSelector(selectColumnLabels);
-  const cellIdRows = useAppSelector(selectCellIdRows);
+  const columnLabels = useAppSelector(selectColumnLabels)
+  const cellIdRows = useAppSelector(selectCellIdRows)
 
   return (
     <div>
@@ -66,7 +66,7 @@ function Cells() {
         <thead>
           <tr>
             <th> </th>
-            {columnLabels.map((columnLabel) => (
+            {columnLabels.map(columnLabel => (
               <th key={columnLabel}>{columnLabel}</th>
             ))}
           </tr>
@@ -75,7 +75,7 @@ function Cells() {
           {cellIdRows.map((cellIdRow, index) => (
             <tr key={index}>
               <th>{index}</th>
-              {cellIdRow.map((cellId) => (
+              {cellIdRow.map(cellId => (
                 <Cell key={cellId} id={cellId} />
               ))}
             </tr>
@@ -83,7 +83,7 @@ function Cells() {
         </tbody>
       </table>
     </div>
-  );
+  )
 }
 
-export default Cells;
+export default Cells
