@@ -1,9 +1,10 @@
+import { useAppDispatch, useAppSelector } from '~/store'
+
 import {
   celciusChanged,
   fahrenheitChanged,
   selectTemperatures,
-} from '../state/temperatureConverterSlice'
-import { useAppDispatch, useAppSelector } from '../store'
+} from 'state/temperatureConverterSlice'
 
 function TemperatureConverter() {
   const dispatch = useAppDispatch()

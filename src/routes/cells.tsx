@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from '~/store'
+
 import {
   cellChanged,
   cellInputChanged,
@@ -6,8 +8,7 @@ import {
   selectColumnLabels,
   selectInputValue,
   selectIsSelected,
-} from '../state/cellsSlice'
-import { useAppDispatch, useAppSelector } from '../store'
+} from 'state/cellsSlice'
 
 function Cell({ id }: { id: string }) {
   const isSelected = useAppSelector(state => selectIsSelected(state, id))

@@ -9,11 +9,16 @@ export default {
   trailingComma: 'all',
 
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
+  // https://www.jamesshopland.com/blog/sort-imports-with-prettier
   importOrder: [
     '<BUILTIN_MODULES>', // Node.js built-in modules
-    '',
     '<THIRD_PARTY_MODULES>', // Imports not matched by other special words or groups.
     '',
-    '^[.]', // relative imports
+    '^types$',
+    '^lib/(.*)$',
+    '^state/(.*)$',
+    '^components/(.*)$',
+    '',
+    '^[./]', // relative imports
   ],
 }

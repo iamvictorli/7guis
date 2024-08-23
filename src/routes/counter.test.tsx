@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
+import { renderWithProviders } from '~/test-utils'
 import { expect, test } from 'vitest'
 
-import { renderWithProviders } from '../test-utils'
 import Counter from './counter'
 
 test('counter', () => {

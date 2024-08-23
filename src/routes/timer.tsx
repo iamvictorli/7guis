@@ -1,11 +1,7 @@
+import { useAppDispatch, useAppSelector } from '~/store'
 import { useEffect, useRef, useState } from 'react'
 
-import {
-  durationChanged,
-  selectTimerState,
-  timerReset,
-} from '../state/timerSlice'
-import { useAppDispatch, useAppSelector } from '../store'
+import { durationChanged, selectTimerState, timerReset } from 'state/timerSlice'
 
 // TODO: middleware? listener middleware?
 // set into redux middleware b/c of interval side effects

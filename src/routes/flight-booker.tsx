@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from '~/store'
+
 import {
   dateChanged,
   FlightDateType,
@@ -5,8 +7,7 @@ import {
   flightTypeChanged,
   selectFlightBookerState,
   selectIsBookableFlight,
-} from '../state/flightBookerSlice'
-import { useAppDispatch, useAppSelector } from '../store'
+} from 'state/flightBookerSlice'
 
 function FlightBooker() {
   const dispatch = useAppDispatch()

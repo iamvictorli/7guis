@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from '~/store'
+
 import {
   nameCreated,
   nameDeleted,
@@ -9,8 +11,7 @@ import {
   selectNameById,
   selectUI,
   surnameInputChanged,
-} from '../state/crudSlice'
-import { useAppDispatch, useAppSelector } from '../store'
+} from 'state/crudSlice'
 
 function Option({ id }: { id: string }) {
   const name = useAppSelector(state => selectNameById(state, id))

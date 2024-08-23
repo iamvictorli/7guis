@@ -18,7 +18,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "~/*": ["./src/*"],
+      "state/*": ["./src/state/*"],
+      "components/*": ["./src/components/*"]
+    }
   },
   "include": ["src"]
 }

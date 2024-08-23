@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from '~/store'
+
 import {
   circleAdded,
   circleSelected,
@@ -10,8 +12,7 @@ import {
   selectUI,
   selectUndoDisabled,
   undo,
-} from '../state/circleDrawerSlice'
-import { useAppDispatch, useAppSelector } from '../store'
+} from 'state/circleDrawerSlice'
 
 function Circle({
   id,
