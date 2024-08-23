@@ -1,9 +1,5 @@
-import {
-  PayloadAction,
-  createSelector,
-  createSlice,
-  nanoid,
-} from '@reduxjs/toolkit'
+import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import type { EntityMap } from './types'
 
 interface Name {
@@ -112,7 +108,7 @@ export const { selectNames, selectNameById, selectUI } = crudSlice.selectors
 // createSelector to memoize selector when we use array operations like map and filter, which return new array references
 // https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization
 export const selectFilteredNameIds = createSelector(
-  [selectNames, (_, prefix) => prefix],
+  [selectNames, (_, prefix: string) => prefix],
   (names, prefix) => {
     const nameIds = names.allIds
     return nameIds.filter(nameId => {

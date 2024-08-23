@@ -21,7 +21,7 @@ function FlightBooker() {
         value={trip}
         onChange={event => {
           const flightType =
-            event.currentTarget.value === FlightTrip.OneWay
+            (event.currentTarget.value as FlightTrip) === FlightTrip.OneWay
               ? FlightTrip.OneWay
               : FlightTrip.RoundTrip
 

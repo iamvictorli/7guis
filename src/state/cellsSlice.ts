@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
-import { EntityMap } from './types'
+import { createSlice, createSelector } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
+import type { EntityMap } from './types'
 
 const ROW_COUNT = 2
 const COLUMN_COUNT = 2
@@ -80,15 +81,15 @@ function getInitialState(rows: number, columns: number): CellsState {
 
 const FORMULA_SYMBOL = '='
 
-export const initialState = getInitialState(
+const initialState = getInitialState(
   ROW_COUNT,
   COLUMN_COUNT,
-) satisfies CellsState as CellsState
+) satisfies CellsState
 
 function splitFormula(formula: string) {
   return formula
     .replace(/\s+/g, '')
-    .split(/(=|\+|\-|\*|\/)/)
+    .split(/(=|\+|-|\*|\/)/)
     .filter(char => char !== '')
 }
 
@@ -140,7 +141,7 @@ export const cellsSlice = createSlice({
           }
           return symbol
         })
-        const value = eval(replaceCellsWithValues.join(''))
+        const value = eval(replaceCellsWithValues.join('')) as number
 
         if (isNaN(value)) {
           throw Error()
@@ -163,7 +164,7 @@ export const cellsSlice = createSlice({
         try {
           const value = evaluateFormula(formula)
           computedValue = value
-        } catch (error) {
+        } catch {
           computedValue = 'ERROR'
         }
 
@@ -222,7 +223,7 @@ export const cellsSlice = createSlice({
       const cell = state.cells.byId[id]
 
       state.ui.selectedCellId = id
-      state.ui.selectedCellIdInputValue = cell.formula || cell.computedValue
+      state.ui.selectedCellIdInputValue = cell.formula ?? cell.computedValue
     },
     cellInputChanged: (state, action: PayloadAction<string>) => {
       const value = action.payload

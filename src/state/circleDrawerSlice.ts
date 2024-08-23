@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction, nanoid, current } from '@reduxjs/toolkit'
+import { createSlice, nanoid, current } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import type { EntityMap } from './types'
 
 interface Circle {
@@ -44,7 +45,7 @@ const circleDrawerSlice = createSlice({
         const newCircle = action.payload
         // push current snapshot to undo
         const currentCirclesSnapshot = current(state.circles)
-        state.undos.push(currentCirclesSnapshot!)
+        state.undos.push(currentCirclesSnapshot)
 
         // new circles snapshot
         state.circles.byId[newCircle.id] = newCircle
