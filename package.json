@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "format": "prettier --write .",
-    "knip": "knip"
+    "knip": "knip",
+    "prepare": "husky"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
@@ -34,8 +35,10 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "husky": "^9.1.5",
     "jsdom": "^24.1.1",
     "knip": "^5.27.3",
+    "lint-staged": "^15.2.9",
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.10",
@@ -44,5 +47,12 @@
     "vite": "^5.4.1",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^2.0.5"
+  },
+  "lint-staged": {
+    "*{.js,.jsx,.ts,.tsx}": [
+      "eslint --cache --fix",
+      "prettier --cache --write --ignore-unknown",
+      "vitest related --run"
+    ]
   }
 }

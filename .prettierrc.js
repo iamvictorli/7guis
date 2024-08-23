@@ -3,8 +3,8 @@
 /** @type {import("prettier").Config} */
 export default {
   semi: false,
-  arrowParens: 'avoid',
   bracketSameLine: true,
+  arrowParens: 'always',
   singleQuote: true,
   trailingComma: 'all',
 
