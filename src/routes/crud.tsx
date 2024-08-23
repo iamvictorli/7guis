@@ -1,16 +1,16 @@
-import { useAppDispatch, useAppSelector } from '../store'
 import {
+  nameCreated,
+  nameDeleted,
+  nameInputChanged,
+  nameSelected,
+  nameUpdated,
+  prefixChanged,
   selectFilteredNameIds,
   selectNameById,
   selectUI,
-  nameCreated,
-  nameUpdated,
-  nameDeleted,
-  nameSelected,
-  prefixChanged,
-  nameInputChanged,
   surnameInputChanged,
 } from '../state/crudSlice'
+import { useAppDispatch, useAppSelector } from '../store'
 
 function Option({ id }: { id: string }) {
   const name = useAppSelector(state => selectNameById(state, id))

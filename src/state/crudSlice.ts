@@ -1,5 +1,6 @@
 import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
 import type { EntityMap } from './types'
 
 interface Name {

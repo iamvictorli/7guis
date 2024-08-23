@@ -1,5 +1,5 @@
+import { increment, selectCount } from '../state/counterSlice'
 import { useAppDispatch, useAppSelector } from '../store'
-import { selectCount, increment } from '../state/counterSlice'
 
 function Counter() {
   const count = useAppSelector(selectCount)

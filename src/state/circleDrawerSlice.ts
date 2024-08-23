@@ -1,5 +1,6 @@
-import { createSlice, nanoid, current } from '@reduxjs/toolkit'
+import { createSlice, current, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
 import type { EntityMap } from './types'
 
 interface Circle {

@@ -1,18 +1,19 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import counterReducer, { COUNTER_REDUCER_NAME } from './state/counterSlice'
-import temperatureConverterReducer, {
-  TEMPERATURE_CONVERTER_REDUCER_NAME,
-} from './state/temperatureConverterSlice'
-import flightBookerReducer, {
-  FLIGHT_BOOKER_REDUCER_NAME,
-} from './state/flightBookerSlice'
-import timerReducer, { TIMER_REDUCER_NAME } from './state/timerSlice'
-import crudReducer, { CRUD_REDUCER_NAME } from './state/crudSlice'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
+
+import cellsReducer, { CELLS_REDUCER_NAME } from './state/cellsSlice'
 import circleDrawerReducer, {
   CIRCLE_DRAWER_REDUCER_NAME,
 } from './state/circleDrawerSlice'
-import cellsReducer, { CELLS_REDUCER_NAME } from './state/cellsSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import counterReducer, { COUNTER_REDUCER_NAME } from './state/counterSlice'
+import crudReducer, { CRUD_REDUCER_NAME } from './state/crudSlice'
+import flightBookerReducer, {
+  FLIGHT_BOOKER_REDUCER_NAME,
+} from './state/flightBookerSlice'
+import temperatureConverterReducer, {
+  TEMPERATURE_CONVERTER_REDUCER_NAME,
+} from './state/temperatureConverterSlice'
+import timerReducer, { TIMER_REDUCER_NAME } from './state/timerSlice'
 
 const rootReducer = combineReducers({
   [COUNTER_REDUCER_NAME]: counterReducer,

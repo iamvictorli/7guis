@@ -1,17 +1,17 @@
-import { useAppDispatch, useAppSelector } from '../store'
 import {
   circleAdded,
-  circleUpdated,
-  undo,
-  redo,
   circleSelected,
+  circleUpdated,
   radiusChanged,
-  selectUndoDisabled,
+  redo,
+  selectCircleById,
+  selectCirclesIds,
   selectRedoDisabled,
   selectUI,
-  selectCirclesIds,
-  selectCircleById,
+  selectUndoDisabled,
+  undo,
 } from '../state/circleDrawerSlice'
+import { useAppDispatch, useAppSelector } from '../store'
 
 function Circle({
   id,

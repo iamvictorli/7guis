@@ -1,5 +1,6 @@
-import { createSlice, createSelector } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
 import type { EntityMap } from './types'
 
 const ROW_COUNT = 2
