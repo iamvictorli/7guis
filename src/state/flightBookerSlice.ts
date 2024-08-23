@@ -11,7 +11,7 @@ export enum FlightDateType {
   RETURN = 'returnDate',
 }
 
-export interface FlightBookerState {
+interface FlightBookerState {
   departureDate: string
   returnDate: string
   trip: FlightTrip
@@ -23,7 +23,7 @@ const initialState: FlightBookerState = {
   trip: FlightTrip.OneWay,
 } satisfies FlightBookerState as FlightBookerState
 
-export const flightBookerSlice = createSlice({
+const flightBookerSlice = createSlice({
   name: 'flight-booker',
   initialState,
   reducers: {

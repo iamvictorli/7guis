@@ -38,7 +38,7 @@ interface Cell {
   formula: string | null
 }
 
-export interface CellsState {
+interface CellsState {
   cells: EntityMap<Cell>
   // both column labels and num columns is not state, as it doesnt change at all and could have been derived from all the ids
   // but it is easier to save it from getInitialState
@@ -107,7 +107,7 @@ function isFormula(string: string) {
   return isNaN(Number(string))
 }
 
-export const cellsSlice = createSlice({
+const cellsSlice = createSlice({
   name: 'cells',
   initialState,
   reducers: {
@@ -241,14 +241,10 @@ export const cellsSlice = createSlice({
   },
 })
 
-export const {
-  selectColumnLabels,
-  selectCellIds,
-  selectNumColumns,
-  selectCellbyId,
-  selectIsSelected,
-  selectUIInputValue,
-} = cellsSlice.selectors
+export const { selectColumnLabels, selectIsSelected } = cellsSlice.selectors
+
+const { selectCellIds, selectNumColumns, selectCellbyId, selectUIInputValue } =
+  cellsSlice.selectors
 
 // selects cellIds in number of column chunks
 // ie, ['A0', 'B0', 'A1', 'B1'] and 2 columns would be [['A0', 'B0'], ['A1', 'B1']]

@@ -1,0 +1,7 @@
+{
+  "paths": {
+    "~/*": ["./src/*"],
+    "state/*": ["./src/state/*"],
+    "components/*": ["./src/components/*"]
+  }
+}

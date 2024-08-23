@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface TemperatureConverterState {
+interface TemperatureConverterState {
   fahrenheit: string
   celcius: string
 }
@@ -11,7 +11,7 @@ const initialState: TemperatureConverterState = {
   celcius: '',
 } satisfies TemperatureConverterState as TemperatureConverterState
 
-export const temperatureConverterSlice = createSlice({
+const temperatureConverterSlice = createSlice({
   name: 'temperature-converter',
   initialState,
   reducers: {

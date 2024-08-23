@@ -8,7 +8,7 @@ import { durationChanged, selectTimerState, timerReset } from 'state/timerSlice'
 function Timer() {
   const dispatch = useAppDispatch()
   const { start, duration } = useAppSelector(selectTimerState)
-  const intervalRef = useRef<number>()
+  const intervalRef = useRef<ReturnType<typeof setInterval>>()
   const [now, setNow] = useState<number>(new Date().getTime())
 
   function startTimer() {

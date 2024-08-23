@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface TimerState {
+interface TimerState {
   start: number
   duration: number
 }
@@ -11,7 +11,7 @@ const initialState: TimerState = {
   duration: 15000,
 } satisfies TimerState as TimerState
 
-export const timerSlice = createSlice({
+const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
