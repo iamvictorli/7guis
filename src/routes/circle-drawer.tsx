@@ -23,7 +23,7 @@ function Circle({
   isSelected: boolean
   selectedRadius: number
 }) {
-  const circle = useAppSelector(state => selectCircleById(state, id))
+  const circle = useAppSelector((state) => selectCircleById(state, id))
   const dispatch = useAppDispatch()
   return (
     <circle
@@ -33,7 +33,7 @@ function Circle({
       stroke="black"
       fill={isSelected ? '#e5e7eb' : 'transparent'}
       className="hover:fill-gray-200"
-      onClick={event => {
+      onClick={(event) => {
         event.stopPropagation()
         // popup adjustment
         dispatch(circleSelected(circle.id))
@@ -48,7 +48,7 @@ function CircleDrawer() {
   const undoDisabled = useAppSelector(selectUndoDisabled)
   const redoDisabled = useAppSelector(selectRedoDisabled)
   const circleIds = useAppSelector(selectCirclesIds)
-  const currentCircle = useAppSelector(state =>
+  const currentCircle = useAppSelector((state) =>
     selectCircleById(state, selectedCircleId),
   )
 
@@ -73,7 +73,7 @@ function CircleDrawer() {
       <div>
         <svg
           className="w-96 h-60 border border-black border-solid"
-          onClick={event => {
+          onClick={(event) => {
             const { x, y } = event.currentTarget.getBoundingClientRect()
             const circle = {
               x: event.clientX - x,
@@ -82,7 +82,7 @@ function CircleDrawer() {
             }
             dispatch(circleAdded(circle))
           }}>
-          {circleIds.map(circleId => (
+          {circleIds.map((circleId) => (
             <Circle
               key={circleId}
               id={circleId}
@@ -100,10 +100,10 @@ function CircleDrawer() {
             min="10"
             value={selectedCircleRadius}
             max="80"
-            onChange={event => {
+            onChange={(event) => {
               dispatch(radiusChanged(Number(event.currentTarget.value)))
             }}
-            onMouseUp={event => {
+            onMouseUp={(event) => {
               dispatch(
                 circleUpdated({
                   id: currentCircle.id,
@@ -113,7 +113,7 @@ function CircleDrawer() {
                 }),
               )
             }}
-            onTouchEnd={event => {
+            onTouchEnd={(event) => {
               dispatch(
                 circleUpdated({
                   id: currentCircle.id,
@@ -123,7 +123,7 @@ function CircleDrawer() {
                 }),
               )
             }}
-            onKeyUp={event => {
+            onKeyUp={(event) => {
               dispatch(
                 circleUpdated({
                   id: currentCircle.id,

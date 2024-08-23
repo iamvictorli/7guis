@@ -87,7 +87,7 @@ const circleDrawerSlice = createSlice({
       // clear redos
       state.redos = []
     },
-    undo: state => {
+    undo: (state) => {
       if (state.undos.length > 0) {
         // push current snapshot to redo
         const currentCirclesSnapshot = current(state.circles)
@@ -100,7 +100,7 @@ const circleDrawerSlice = createSlice({
         state.ui.selectedCircleId = ''
       }
     },
-    redo: state => {
+    redo: (state) => {
       if (state.redos.length > 0) {
         // push current snapshot to undo
         const currentCirclesSnapshot = current(state.circles)
@@ -126,10 +126,10 @@ const circleDrawerSlice = createSlice({
     },
   },
   selectors: {
-    selectUI: state => state.ui,
-    selectCirclesIds: state => state.circles.allIds,
-    selectUndoDisabled: state => state.undos.length === 0,
-    selectRedoDisabled: state => state.redos.length === 0,
+    selectUI: (state) => state.ui,
+    selectCirclesIds: (state) => state.circles.allIds,
+    selectUndoDisabled: (state) => state.undos.length === 0,
+    selectRedoDisabled: (state) => state.redos.length === 0,
     selectCircleById: (state, id: string) => state.circles.byId[id],
   },
 })

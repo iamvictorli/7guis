@@ -43,7 +43,7 @@ const flightBookerSlice = createSlice({
     },
   },
   selectors: {
-    selectFlightBookerState: state => state,
+    selectFlightBookerState: (state) => state,
     selectIsBookableFlight: ({ trip, departureDate, returnDate }) => {
       return trip === FlightTrip.OneWay || departureDate <= returnDate
     },
