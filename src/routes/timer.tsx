@@ -1,25 +1,32 @@
 import { useAppDispatch, useAppSelector } from '~/store'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 
-import { durationChanged, selectTimerState, timerReset } from 'state/timerSlice'
+import {
+  durationChanged,
+  nowChanged,
+  selectDuration,
+  selectElapsedMs,
+  timerReset,
+} from 'state/timerSlice'
 
 // TODO: middleware? listener middleware?
 // set into redux middleware b/c of interval side effects
 function Timer() {
-  const dispatch = useAppDispatch()
-  const { start, duration } = useAppSelector(selectTimerState)
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
-  const [now, setNow] = useState<number>(new Date().getTime())
+  const dispatch = useAppDispatch()
+  const duration = useAppSelector(selectDuration)
+  const elapsedMs = useSelector(selectElapsedMs)
 
-  function startTimer() {
+  const startTimer = useCallback(() => {
     clearInterval(intervalRef.current)
 
-    setNow(new Date().getTime())
+    dispatch(nowChanged(new Date().getTime()))
 
     intervalRef.current = setInterval(() => {
-      setNow(new Date().getTime())
+      dispatch(nowChanged(new Date().getTime()))
     }, 100)
-  }
+  }, [dispatch])
 
   function stopTimer() {
     clearInterval(intervalRef.current)
@@ -28,10 +35,11 @@ function Timer() {
   useEffect(() => {
     dispatch(timerReset())
     startTimer()
+
     return () => {
       stopTimer()
     }
-  }, [dispatch])
+  }, [dispatch, startTimer])
 
   // clear interval after a min
   useEffect(() => {
@@ -43,13 +51,6 @@ function Timer() {
       clearTimeout(timeoutId)
     }
   }, [])
-
-  let elapsedMs
-  if (now - start >= duration) {
-    elapsedMs = duration
-  } else {
-    elapsedMs = now - start
-  }
 
   const seconds = Math.floor(elapsedMs / 1000)
   const decisecond = Math.trunc(Math.floor(elapsedMs % 1000) / 100)
@@ -66,9 +67,7 @@ function Timer() {
         min={0}
         max={30000}
         value={duration}
-        onChange={e =>
-          dispatch(durationChanged(Math.max(1, parseInt(e.target.value))))
-        }
+        onChange={(e) => dispatch(durationChanged(Number(e.target.value)))}
       />
       <button
         onClick={() => {

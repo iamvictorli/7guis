@@ -1,9 +1,8 @@
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
-  celciusChanged,
-  fahrenheitChanged,
   selectTemperatures,
+  temperatureChanged,
 } from 'state/temperatureConverterSlice'
 
 function TemperatureConverter() {
@@ -13,15 +12,25 @@ function TemperatureConverter() {
     <div>
       <input
         value={celcius}
-        onChange={event => {
-          dispatch(celciusChanged(event.currentTarget.value))
+        onChange={(event) => {
+          dispatch(
+            temperatureChanged({
+              temperatureType: 'celcius',
+              value: event.currentTarget.value,
+            }),
+          )
         }}
       />
       <span>Celcius</span>
       <input
         value={fahrenheit}
-        onChange={event => {
-          dispatch(fahrenheitChanged(event.currentTarget.value))
+        onChange={(event) => {
+          dispatch(
+            temperatureChanged({
+              temperatureType: 'fahrenheit',
+              value: event.currentTarget.value,
+            }),
+          )
         }}
       />
       <span>Fahrenheit</span>

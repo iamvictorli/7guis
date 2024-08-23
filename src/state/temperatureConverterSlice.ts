@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+type TemperatureType = 'fahrenheit' | 'celcius'
+
 interface TemperatureConverterState {
   fahrenheit: string
   celcius: string
@@ -15,30 +17,33 @@ const temperatureConverterSlice = createSlice({
   name: 'temperature-converter',
   initialState,
   reducers: {
-    fahrenheitChanged: (state, action: PayloadAction<string>) => {
-      state.fahrenheit = action.payload
-      state.celcius =
-        action.payload === ''
-          ? ''
-          : ((parseFloat(action.payload) - 32) * (5 / 9)).toString()
-    },
-    celciusChanged: (state, action: PayloadAction<string>) => {
-      state.celcius = action.payload
-      state.fahrenheit =
-        action.payload === ''
-          ? ''
-          : (parseFloat(action.payload) * (9 / 5) + 32).toString()
+    temperatureChanged: (
+      state,
+      action: PayloadAction<{
+        temperatureType: TemperatureType
+        value: string
+      }>,
+    ) => {
+      const { temperatureType, value } = action.payload
+      state[temperatureType] = value
+
+      if (temperatureType === 'fahrenheit') {
+        state.celcius =
+          value === '' ? '' : ((parseFloat(value) - 32) * (5 / 9)).toString()
+      } else {
+        state.fahrenheit =
+          value === '' ? '' : (parseFloat(value) * (9 / 5) + 32).toString()
+      }
     },
   },
   selectors: {
-    selectTemperatures: state => state,
+    selectTemperatures: (state) => state,
   },
 })
 
 export const { selectTemperatures } = temperatureConverterSlice.selectors
 
-export const { fahrenheitChanged, celciusChanged } =
-  temperatureConverterSlice.actions
+export const { temperatureChanged } = temperatureConverterSlice.actions
 
 export const TEMPERATURE_CONVERTER_REDUCER_NAME = temperatureConverterSlice.name
 

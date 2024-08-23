@@ -20,8 +20,6 @@ interface CRUDState {
 }
 
 const initialState: CRUDState = {
-  // normalizing state shape
-  // https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
   names: {
     byId: {},
     allIds: [],
@@ -45,6 +43,7 @@ const crudSlice = createSlice({
         state.names.allIds.push(name.id)
         state.ui.nameSelectedId = name.id
       },
+      // prepare to generate ids
       prepare: (nameProps: Omit<Name, 'id'>) => {
         const id = nanoid()
         return {
@@ -65,7 +64,7 @@ const crudSlice = createSlice({
       const idToDelete = action.payload
       delete state.names.byId[idToDelete]
 
-      const index = state.names.allIds.findIndex(id => id === idToDelete)
+      const index = state.names.allIds.findIndex((id) => id === idToDelete)
       if (index !== -1) state.names.allIds.splice(index, 1)
 
       // select first name of name list
@@ -98,9 +97,9 @@ const crudSlice = createSlice({
     },
   },
   selectors: {
-    selectNames: state => state.names,
+    selectNames: (state) => state.names,
     selectNameById: (state, id: string) => state.names.byId[id],
-    selectUI: state => state.ui,
+    selectUI: (state) => state.ui,
   },
 })
 
@@ -114,7 +113,7 @@ export const selectFilteredNameIds = createSelector(
   [selectNames, (_, prefix: string) => prefix],
   (names, prefix) => {
     const nameIds = names.allIds
-    return nameIds.filter(nameId => {
+    return nameIds.filter((nameId) => {
       const name = names.byId[nameId]
       return name.name.includes(prefix) || name.surname.includes(prefix)
     })

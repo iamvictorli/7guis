@@ -3,11 +3,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface TimerState {
   start: number
+  now: number
   duration: number
 }
 
 const initialState: TimerState = {
   start: new Date().getTime(),
+  now: new Date().getTime(),
   duration: 15000,
 } satisfies TimerState as TimerState
 
@@ -18,18 +20,38 @@ const timerSlice = createSlice({
     durationChanged: (state, action: PayloadAction<number>) => {
       state.duration = action.payload
     },
-    timerReset: state => {
-      state.start = new Date().getTime()
+    nowChanged: (state, action: PayloadAction<number>) => {
+      state.now = action.payload
+    },
+    timerReset: {
+      // using prepare callback to get the current timestamp
+      reducer: (state, action: PayloadAction<number>) => {
+        state.start = action.payload
+      },
+      prepare: () => {
+        return {
+          payload: new Date().getTime(),
+        }
+      },
     },
   },
   selectors: {
-    selectTimerState: state => state,
+    selectDuration: (state) => state.duration,
+    selectElapsedMs: ({ now, start, duration }) => {
+      // compares the time difference between now time and start time to the current duration
+      const timeDifference = now - start
+      if (timeDifference >= duration) {
+        return duration
+      } else {
+        return timeDifference
+      }
+    },
   },
 })
 
-export const { selectTimerState } = timerSlice.selectors
+export const { selectDuration, selectElapsedMs } = timerSlice.selectors
 
-export const { durationChanged, timerReset } = timerSlice.actions
+export const { durationChanged, timerReset, nowChanged } = timerSlice.actions
 
 export const TIMER_REDUCER_NAME = timerSlice.name
 

@@ -9,7 +9,7 @@ function Counter() {
   return (
     <div>
       <h1 className="text-3xl font-bold">{count}</h1>
-      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(increment(1))}>Increment</button>
     </div>
   )
 }

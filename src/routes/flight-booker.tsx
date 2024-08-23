@@ -20,7 +20,7 @@ function FlightBooker() {
     <div>
       <select
         value={trip}
-        onChange={event => {
+        onChange={(event) => {
           const flightType =
             (event.currentTarget.value as FlightTrip) === FlightTrip.OneWay
               ? FlightTrip.OneWay
@@ -34,7 +34,7 @@ function FlightBooker() {
       <input
         type="date"
         value={departureDate}
-        onChange={event => {
+        onChange={(event) => {
           dispatch(
             dateChanged({
               flightDateType: FlightDateType.DEPARTURE,
@@ -46,7 +46,7 @@ function FlightBooker() {
       <input
         type="date"
         value={returnDate}
-        onChange={event => {
+        onChange={(event) => {
           dispatch(
             dateChanged({
               flightDateType: FlightDateType.RETURN,

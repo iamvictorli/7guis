@@ -11,8 +11,8 @@ import {
 } from 'state/cellsSlice'
 
 function Cell({ id }: { id: string }) {
-  const isSelected = useAppSelector(state => selectIsSelected(state, id))
-  const inputValue = useAppSelector(state => selectInputValue(state, id))
+  const isSelected = useAppSelector((state) => selectIsSelected(state, id))
+  const inputValue = useAppSelector((state) => selectInputValue(state, id))
 
   const dispatch = useAppDispatch()
 
@@ -20,12 +20,14 @@ function Cell({ id }: { id: string }) {
     <td>
       <input
         className="p-4"
+        // readOnly https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly
+        // readOnly is false means the cell is on edit mode
         readOnly={!isSelected}
         value={inputValue}
         onFocus={() => {
           dispatch(cellSelected(id))
         }}
-        onChange={event => {
+        onChange={(event) => {
           dispatch(cellInputChanged(event.currentTarget.value))
         }}
         onBlur={() => {
@@ -38,8 +40,8 @@ function Cell({ id }: { id: string }) {
             )
           }
         }}
-        onKeyUp={event => {
-          // pressing enter while editting cell, updates cell and its children
+        onKeyUp={(event) => {
+          // pressing enter or escape while editting cell, updates cell and its children
           if (isSelected && ['Enter', 'Escape'].includes(event.key)) {
             dispatch(
               cellChanged({
@@ -48,7 +50,8 @@ function Cell({ id }: { id: string }) {
               }),
             )
           } else if (!isSelected && event.key === 'Enter') {
-            // focus is still on the cell, but sets input readonly to false
+            // for when accessibility focus is on cell, but not in "edit mode" for cell
+            // selects cell when pressing Enter and puts in "edit mode"
             dispatch(cellSelected(id))
           }
         }}
@@ -67,7 +70,7 @@ function Cells() {
         <thead>
           <tr>
             <th> </th>
-            {columnLabels.map(columnLabel => (
+            {columnLabels.map((columnLabel) => (
               <th key={columnLabel}>{columnLabel}</th>
             ))}
           </tr>
@@ -76,7 +79,7 @@ function Cells() {
           {cellIdRows.map((cellIdRow, index) => (
             <tr key={index}>
               <th>{index}</th>
-              {cellIdRow.map(cellId => (
+              {cellIdRow.map((cellId) => (
                 <Cell key={cellId} id={cellId} />
               ))}
             </tr>
