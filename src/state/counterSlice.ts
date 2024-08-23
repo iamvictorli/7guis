@@ -4,7 +4,7 @@ export interface CounterState {
   count: number;
 }
 
-const initialState: CounterState = {
+export const initialState: CounterState = {
   count: 0,
 } satisfies CounterState as CounterState;
 
