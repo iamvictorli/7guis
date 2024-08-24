@@ -54,9 +54,6 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      fontFamily: {
-        sans: ['Geist Sans', ...fontFamily.sans],
-      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
@@ -78,5 +75,5 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/forms')],
 }
