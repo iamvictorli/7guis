@@ -1,4 +1,5 @@
 import { cn } from '~/lib/utils'
+import { navLinks } from '~/shared/links'
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
@@ -9,37 +10,6 @@ import CRUD from './crud'
 import FlightBooker from './flight-booker'
 import TemperatureConverter from './temperature-converter'
 import Timer from './timer'
-
-const navLinks = [
-  {
-    title: 'Counter',
-    to: '/counter',
-  },
-  {
-    title: 'Temperature Converter',
-    to: '/temperature-converter',
-  },
-  {
-    title: 'Flight Booker',
-    to: '/flight-booker',
-  },
-  {
-    title: 'Timer',
-    to: '/timer',
-  },
-  {
-    title: 'CRUD',
-    to: '/crud',
-  },
-  {
-    title: 'Circle Drawer',
-    to: '/circle-drawer',
-  },
-  {
-    title: 'Cells',
-    to: '/cells',
-  },
-]
 
 function Nav() {
   return (
