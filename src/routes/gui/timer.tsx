@@ -56,7 +56,7 @@ function Timer() {
   const decisecond = Math.trunc(Math.floor(elapsedMs % 1000) / 100)
 
   return (
-    <div>
+    <>
       <meter min={0} max={duration} value={elapsedMs} />
 
       <div>
@@ -76,7 +76,7 @@ function Timer() {
         }}>
         Reset
       </button>
-    </div>
+    </>
   )
 }
 

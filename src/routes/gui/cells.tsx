@@ -65,7 +65,7 @@ function Cells() {
   const cellIdRows = useAppSelector(selectCellIdRows)
 
   return (
-    <div>
+    <>
       <table>
         <thead>
           <tr>
@@ -86,7 +86,7 @@ function Cells() {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   )
 }
 

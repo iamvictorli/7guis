@@ -9,7 +9,7 @@ function TemperatureConverter() {
   const dispatch = useAppDispatch()
   const { celcius, fahrenheit } = useAppSelector(selectTemperatures)
   return (
-    <div>
+    <>
       <input
         value={celcius}
         onChange={(event) => {
@@ -34,7 +34,7 @@ function TemperatureConverter() {
         }}
       />
       <span>Fahrenheit</span>
-    </div>
+    </>
   )
 }
 

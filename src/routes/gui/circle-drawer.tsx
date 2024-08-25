@@ -53,7 +53,7 @@ function CircleDrawer() {
   )
 
   return (
-    <div>
+    <>
       <div>
         <button
           onClick={() => {
@@ -136,7 +136,7 @@ function CircleDrawer() {
           />
         </div>
       )}
-    </div>
+    </>
   )
 }
 

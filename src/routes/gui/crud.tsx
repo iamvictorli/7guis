@@ -30,7 +30,7 @@ function Crud() {
     selectFilteredNameIds(state, prefixInput),
   )
   return (
-    <div>
+    <>
       <span>Filter prefix:</span>
       <input
         value={prefixInput}
@@ -94,7 +94,7 @@ function Crud() {
         }}>
         Delete
       </button>
-    </div>
+    </>
   )
 }
 

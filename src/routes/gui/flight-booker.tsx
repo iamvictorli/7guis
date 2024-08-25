@@ -17,7 +17,7 @@ function FlightBooker() {
   const isBookableFlight = useAppSelector(selectIsBookableFlight)
 
   return (
-    <div>
+    <>
       <select
         value={trip}
         onChange={(event) => {
@@ -69,7 +69,7 @@ function FlightBooker() {
         }}>
         Book
       </button>
-    </div>
+    </>
   )
 }
 
