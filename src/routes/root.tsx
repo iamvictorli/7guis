@@ -9,6 +9,7 @@ import {
   Link,
   Section,
   Text,
+  Tooltip,
 } from '@radix-ui/themes'
 import { navLinks } from '~/shared/links'
 import { Link as RRDLink } from 'react-router-dom'
@@ -29,20 +30,14 @@ export default function Root() {
               align="center"
               gap={{ initial: '2', sm: '3' }}
               className="border-y border-solid border-[#F2F2F2] py-2 px-1">
-              {/* TODO: Add github link */}
-              <Link href="https://github.com/">
-                <IconButton
-                  variant="ghost"
-                  highContrast
-                  className="cursor-pointer"
-                  size="2">
-                  <GitHubLogoIcon
-                    width="24"
-                    height="24"
-                    className="cursor-pointer"
-                  />
+              <Tooltip content="View Github">
+                <IconButton asChild variant="ghost" highContrast size="2">
+                  {/* TODO: Add github link */}
+                  <Link href="https:github.com">
+                    <GitHubLogoIcon width="24" height="24" />
+                  </Link>
                 </IconButton>
-              </Link>
+              </Tooltip>
               <Link
                 size={{ initial: '2', sm: '3' }}
                 href="https://www.linkedin.com/in/iamvictorli">
