@@ -1,7 +1,13 @@
-import { cn } from '~/lib/utils'
-import { navLinks } from '~/shared/links'
+import { Box, Flex } from '@radix-ui/themes'
+import { routes } from '~/shared/links'
 import React from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+
+import { DocsNav } from 'components/docs-nav'
+import { GUIMobileMenu } from 'components/gui-mobile-menu'
+import { Header } from 'components/header'
+import { MobileMenuProvider } from 'components/mobile-menu'
+import { SideNav } from 'components/side-nav'
 
 import Cells from './cells'
 import CircleDrawer from './circle-drawer'
@@ -11,28 +17,22 @@ import FlightBooker from './flight-booker'
 import TemperatureConverter from './temperature-converter'
 import Timer from './timer'
 
-function Nav() {
-  return (
-    <nav>
-      {navLinks.map(({ to, title }) => (
-        <NavLink
-          key={to}
-          to={to}
-          className={({ isActive }) => {
-            return cn(isActive ? 'text-blue-600 underline' : '', 'px-4 py-6')
-          }}>
-          {title}
-        </NavLink>
-      ))}
-    </nav>
-  )
-}
-
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Nav />
-      <main>{children}</main>
+      <MobileMenuProvider>
+        <Header />
+        <GUIMobileMenu />
+      </MobileMenuProvider>
+
+      <Flex>
+        <SideNav>
+          <Box pt="4" px="3" pb="9">
+            <DocsNav routes={routes} />
+          </Box>
+        </SideNav>
+        <main>{children}</main>
+      </Flex>
     </>
   )
 }
