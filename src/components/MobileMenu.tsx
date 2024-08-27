@@ -8,11 +8,7 @@ import { useEffect, useState } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useLocation } from 'react-router-dom'
 
-export const MobileMenuProvider = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+const MobileMenuProvider = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false)
   const location = useLocation()
 
@@ -41,14 +37,10 @@ export const MobileMenuProvider = ({
   )
 }
 
-// TODO: generate docs
-// when the mobile menu is open, render a container with its children
-// TODO: make it so similar to MobileMenu.Root, MobileMenu.Content
-export const MobileMenuContent = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+/**
+ * when mobile menu is open, overlays screen with rendered children
+ */
+const MobileMenuContent = ({ children }: { children: React.ReactNode }) => {
   const mobileMenu = useMobileMenuContext()
 
   if (!mobileMenu.open) {
@@ -59,10 +51,7 @@ export const MobileMenuContent = ({
     <Portal>
       <Theme asChild>
         <RemoveScroll as={Slot} allowPinchZoom enabled>
-          <Box
-            position="fixed"
-            inset="0"
-            className="z-[1] grid grid-rows-[auto_minmax(0,_1fr)] bg-white">
+          <Box position="fixed" inset="0" className="z-[1]bg-white">
             {children}
           </Box>
         </RemoveScroll>
@@ -70,3 +59,10 @@ export const MobileMenuContent = ({
     </Portal>
   )
 }
+
+const MobileMenu = {
+  Root: MobileMenuProvider,
+  Content: MobileMenuContent,
+}
+
+export default MobileMenu

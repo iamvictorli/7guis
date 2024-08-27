@@ -1,29 +1,44 @@
-import { Box, Flex, Section } from '@radix-ui/themes'
+import { Box, Flex, ScrollArea, Section } from '@radix-ui/themes'
 import { Header } from '~/components/Header'
+import MobileMenu from '~/components/MobileMenu'
 import { routes } from '~/shared/links'
 import { Outlet } from 'react-router-dom'
 
-import { MobileMenuProvider } from 'components/MobileMenu'
-import { MobileNav } from 'components/MobileNav'
 import { Nav } from 'components/Nav'
 import { Sidebar } from 'components/Sidebar'
+
+function GuiHeader() {
+  return (
+    <MobileMenu.Root>
+      {/* two headers
+      1. Homepage
+      2. When mobile menu is open */}
+      <Header />
+
+      <MobileMenu.Content>
+        <Header />
+        <ScrollArea>
+          <Box pt="4" px="3" pb="9">
+            <Nav routes={routes} />
+          </Box>
+        </ScrollArea>
+      </MobileMenu.Content>
+    </MobileMenu.Root>
+  )
+}
 
 export default function GUI() {
   return (
     <>
-      {/* TODO: consolidate this to be one file with similar design MobileMenu.Root, etc... */}
-      <MobileMenuProvider>
-        <Header />
-        <MobileNav />
-      </MobileMenuProvider>
-
+      <GuiHeader />
       <Flex>
-        {/* TODO: should this be in same file? Sidebar Navigation */}
+        {/* Sidebar navigation */}
         <Sidebar>
           <Box pt="4" px="3" pb="9">
             <Nav routes={routes} />
           </Box>
         </Sidebar>
+
         <Flex justify="center" maxWidth="100%" flexGrow="1" asChild>
           <main>
             <Section
