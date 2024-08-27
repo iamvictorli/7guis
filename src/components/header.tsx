@@ -30,7 +30,7 @@ export function Header() {
   }, [])
 
   return (
-    <Box height="48px">
+    <header className="h-12">
       <Box
         className={cn(
           scrollState === 'scrolling-down' ? 'duration-100' : '',
@@ -99,6 +99,6 @@ export function Header() {
           </Flex>
         </Box>
       </Box>
-    </Box>
+    </header>
   )
 }

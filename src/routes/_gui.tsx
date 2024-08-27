@@ -19,13 +19,11 @@ export default function GUI() {
 
       <Flex>
         {/* TODO: should this be in same file? Sidebar Navigation */}
-        {/* Check HTML Semantics */}
         <Sidebar>
           <Box pt="4" px="3" pb="9">
             <Nav routes={routes} />
           </Box>
         </Sidebar>
-        {/* TODO: main similar to radix docs */}
         <Flex justify="center" maxWidth="100%" flexGrow="1" asChild>
           <main>
             <Section

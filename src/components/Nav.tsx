@@ -19,7 +19,7 @@ function isExternalLink(link: string) {
 
 export const Nav = ({ routes }: NavProps) => {
   return (
-    <Box>
+    <nav>
       {routes.map((section, sectionIndex) => (
         <Box key={section.label ?? sectionIndex} mb="4">
           {section.label && (
@@ -59,6 +59,6 @@ export const Nav = ({ routes }: NavProps) => {
           ))}
         </Box>
       ))}
-    </Box>
+    </nav>
   )
 }
