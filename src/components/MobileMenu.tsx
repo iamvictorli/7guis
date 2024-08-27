@@ -41,7 +41,14 @@ export const MobileMenuProvider = ({
   )
 }
 
-export const MobileMenu = ({ children }: { children: React.ReactNode }) => {
+// TODO: generate docs
+// when the mobile menu is open, render a container with its children
+// TODO: make it so similar to MobileMenu.Root, MobileMenu.Content
+export const MobileMenuContent = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const mobileMenu = useMobileMenuContext()
 
   if (!mobileMenu.open) {

@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import { renderWithProviders } from '~/test-utils'
 import { expect, test } from 'vitest'
 
-import Counter from './counter'
+import Counter from './Counter'
 
 test('counter', () => {
   const { getByRole } = renderWithProviders(<Counter />)

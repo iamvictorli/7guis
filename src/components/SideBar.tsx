@@ -1,6 +1,7 @@
 import { Box, ScrollArea } from '@radix-ui/themes'
 
-export const SideNav = ({ children }: { children: React.ReactNode }) => (
+// Sidebar is a fixed area that is scrollable and to the side
+export const Sidebar = ({ children }: { children: React.ReactNode }) => (
   <Box display={{ initial: 'none', sm: 'block' }} className="w-64 shrink-0">
     <Box
       position="fixed"

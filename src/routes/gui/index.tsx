@@ -1,36 +1,38 @@
 import { Box, Flex } from '@radix-ui/themes'
+import { Sidebar } from '~/components/Sidebar'
 import { routes } from '~/shared/links'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { DocsNav } from 'components/docs-nav'
-import { GUIMobileMenu } from 'components/gui-mobile-menu'
-import { Header } from 'components/header'
-import { MobileMenuProvider } from 'components/mobile-menu'
-import { SideNav } from 'components/side-nav'
-
-import Cells from './cells'
-import CircleDrawer from './circle-drawer'
-import Counter from './counter'
-import CRUD from './crud'
-import FlightBooker from './flight-booker'
-import TemperatureConverter from './temperature-converter'
-import Timer from './timer'
+import Cells from 'components/guis/Cells'
+import CircleDrawer from 'components/guis/CircleDrawer'
+import Counter from 'components/guis/Counter'
+import CRUD from 'components/guis/CRUD'
+import FlightBooker from 'components/guis/FlightBooker'
+import TemperatureConverter from 'components/guis/TemperatureConverter'
+import Timer from 'components/guis/Timer'
+import { Header } from 'components/Header'
+import { MobileMenuProvider } from 'components/MobileMenu'
+import { MobileNav } from 'components/MobileNav'
+import { Nav } from 'components/Nav'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      {/* TODO: consolidate this to be one file with similar design MobileMenu.Root, etc... */}
       <MobileMenuProvider>
         <Header />
-        <GUIMobileMenu />
+        <MobileNav />
       </MobileMenuProvider>
 
       <Flex>
-        <SideNav>
+        {/* TODO: should this be in same file? Sidebar Navigation */}
+        <Sidebar>
           <Box pt="4" px="3" pb="9">
-            <DocsNav routes={routes} />
+            <Nav routes={routes} />
           </Box>
-        </SideNav>
+        </Sidebar>
+        {/* TODO: main similar to radix docs */}
         <main>{children}</main>
       </Flex>
     </>

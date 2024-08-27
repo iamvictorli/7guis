@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Text } from '@radix-ui/themes'
 import { cn } from '~/lib/utils'
 import { NavLink } from 'react-router-dom'
 
-interface DocsNavProps {
+interface NavProps {
   routes: {
     label?: string
     pages: {
@@ -17,7 +17,7 @@ function isExternalLink(link: string) {
   return link.startsWith('http')
 }
 
-export const DocsNav = ({ routes }: DocsNavProps) => {
+export const Nav = ({ routes }: NavProps) => {
   return (
     <Box>
       {routes.map((section, sectionIndex) => (

@@ -13,7 +13,7 @@ import {
   surnameInputChanged,
 } from 'state/crudSlice'
 
-function Option({ id }: { id: string }) {
+function NameOption({ id }: { id: string }) {
   const name = useAppSelector((state) => selectNameById(state, id))
   return (
     <option key={id} value={id}>
@@ -61,7 +61,7 @@ function Crud() {
         }}
         value={nameSelectedId}>
         {filteredNameIds.map((nameId) => (
-          <Option key={nameId} id={nameId} />
+          <NameOption key={nameId} id={nameId} />
         ))}
       </select>
 
