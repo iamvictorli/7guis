@@ -51,7 +51,7 @@ const MobileMenuContent = ({ children }: { children: React.ReactNode }) => {
     <Portal>
       <Theme asChild>
         <RemoveScroll as={Slot} allowPinchZoom enabled>
-          <Box position="fixed" inset="0" className="z-[1]bg-white">
+          <Box position="fixed" inset="0" className="z-[1] bg-white">
             {children}
           </Box>
         </RemoveScroll>
