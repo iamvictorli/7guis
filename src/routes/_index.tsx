@@ -14,7 +14,7 @@ import {
 import { navLinks } from '~/shared/links'
 import { Link as RRDLink } from 'react-router-dom'
 
-export default function Root() {
+export default function Index() {
   return (
     <main>
       <Flex justify="center">

@@ -57,7 +57,7 @@ export const MobileMenuContent = ({
 
   return (
     <Portal>
-      <Theme>
+      <Theme asChild>
         <RemoveScroll as={Slot} allowPinchZoom enabled>
           <Box
             position="fixed"
