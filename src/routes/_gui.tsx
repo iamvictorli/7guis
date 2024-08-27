@@ -1,8 +1,8 @@
 import { Box, Flex, Section } from '@radix-ui/themes'
+import { Header } from '~/components/Header'
 import { routes } from '~/shared/links'
 import { Outlet } from 'react-router-dom'
 
-import { Header } from 'components/H'
 import { MobileMenuProvider } from 'components/MobileMenu'
 import { MobileNav } from 'components/MobileNav'
 import { Nav } from 'components/Nav'
