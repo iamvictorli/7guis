@@ -2,7 +2,7 @@ import { Box, ScrollArea } from '@radix-ui/themes'
 
 // Sidebar is a fixed area that is scrollable and to the side
 export const Sidebar = ({ children }: { children: React.ReactNode }) => (
-  <Box display={{ initial: 'none', sm: 'block' }} className="w-64 shrink-0">
+  <Box display={{ initial: 'none', md: 'block' }} className="w-64 shrink-0">
     <Box
       position="fixed"
       left="0"

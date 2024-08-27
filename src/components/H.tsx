@@ -34,7 +34,7 @@ export function Header() {
       <Box
         className={cn(
           scrollState === 'scrolling-down' ? 'duration-100' : '',
-          'min-w-[320px] fixed [height:inherit] top-0 left-0 right-0 select-none [box-shadow:0_1px_var(--gray-a4)] [transition:background-color_180ms,_box-shadow_180ms] bg-white',
+          'min-w-[320px] fixed [height:inherit] top-0 left-0 right-0 z-[2] select-none [box-shadow:0_1px_var(--gray-a4)] [transition:background-color_180ms,_box-shadow_180ms] bg-white',
         )}>
         <Box
           className={
@@ -92,7 +92,7 @@ export function Header() {
                 variant="ghost"
                 color="gray"
                 onClick={() => setOpen((open) => !open)}
-                className="md:hidden">
+                className="lg:hidden">
                 <HamburgerMenuIcon width="16" height="16" />
               </IconButton>
             </Tooltip>

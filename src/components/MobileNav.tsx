@@ -1,7 +1,7 @@
 import { Box, ScrollArea } from '@radix-ui/themes'
 import { routes } from '~/shared/links'
 
-import { Header } from './Header'
+import { Header } from './H'
 import { MobileMenuContent } from './MobileMenu'
 import { Nav } from './Nav'
 
