@@ -5,9 +5,9 @@ import { expect, test } from 'vitest'
 import Counter from './Counter'
 
 test('counter', () => {
-  const { getByRole } = renderWithProviders(<Counter />)
+  const { getByRole, getByTestId } = renderWithProviders(<Counter />)
 
-  expect(getByRole('heading').textContent).toBe('0')
+  expect(getByTestId('count').textContent).toBe('0')
   fireEvent.click(getByRole('button', { name: /increment/i }))
-  expect(getByRole('heading').textContent).toBe('1')
+  expect(getByTestId('count').textContent).toBe('1')
 })
