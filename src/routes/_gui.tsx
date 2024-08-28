@@ -1,11 +1,11 @@
 import { Box, Flex, ScrollArea, Section } from '@radix-ui/themes'
+import { Sidebar } from '~/components/Bar'
 import { Header } from '~/components/Header'
 import MobileMenu from '~/components/MobileMenu'
 import { routes } from '~/shared/links'
 import { Outlet } from 'react-router-dom'
 
 import { Nav } from 'components/Nav'
-import { Sidebar } from 'components/Sidebar'
 
 function GuiHeader() {
   return (
