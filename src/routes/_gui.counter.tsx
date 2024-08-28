@@ -1,5 +1,5 @@
 import { ArrowTopRightIcon } from '@radix-ui/react-icons'
-import { Box, Flex, Heading, Link, Text } from '@radix-ui/themes'
+import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from 'components/GuiDisplay'
 import CounterGUI from 'components/guis/Counter'
@@ -38,23 +38,24 @@ export default function Counter() {
         Task
       </Heading>
 
-      {/* TODO: write tasks */}
-      <Flex
-        asChild
-        direction="column"
-        gap="1"
-        pl="4"
-        mt="3"
-        className="mb-5 [list-style-type:circle]">
-        <ul className="list-disc">
+      <Flex asChild direction="column" gap="1" pl="4" mt="3">
+        <ul className="mb-5 [list-style-type:circle]">
           <li>
-            <Text>hello</Text>
+            <Text>
+              Build a user interface that contains a label or read-only text
+              field and a button.
+            </Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>
+              Initially, display the value &quot;0&quot; in the text field.
+            </Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>
+              Each time the button is clicked, increase the value displayed in
+              the text field by one.
+            </Text>
           </li>
         </ul>
       </Flex>
@@ -64,7 +65,8 @@ export default function Counter() {
       </Heading>
 
       <Text mb="4" as="p" size="3">
-        blah blah blah blah
+        A simple counter example that could have been more easily implemented
+        using <Code>useState</Code>.
       </Text>
     </>
   )
