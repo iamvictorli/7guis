@@ -78,7 +78,7 @@ export function Header() {
                 color="gray"
                 highContrast>
                 <Link
-                  href="https:github.com"
+                  href="https://github.com/iamvictorli/7gui"
                   target="_blank"
                   aria-label="View GitHub"
                   rel="noreferrer">

@@ -23,7 +23,10 @@ export default function Counter() {
       />
 
       <Flex asChild align="center" gap="2" mt="5">
-        <Link size="3" target="_blank" href="https://github.com">
+        <Link
+          size="3"
+          target="_blank"
+          href="https://github.com/iamvictorli/7gui/blob/main/src/state/counterSlice.ts">
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -35,6 +38,7 @@ export default function Counter() {
         Task
       </Heading>
 
+      {/* TODO: write tasks */}
       <Flex
         asChild
         direction="column"

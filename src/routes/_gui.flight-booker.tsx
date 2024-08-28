@@ -22,7 +22,10 @@ export default function FlightBooker() {
         }
       />
       <Flex asChild align="center" gap="2" mt="5">
-        <Link size="3" target="_blank" href="https://github.com">
+        <Link
+          size="3"
+          target="_blank"
+          href="https://github.com/iamvictorli/7gui/blob/main/src/state/flightBookerSlice.ts">
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />

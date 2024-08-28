@@ -32,8 +32,7 @@ export default function Index() {
               className="border-y border-solid px-1 py-2">
               <Tooltip content="View Github">
                 <IconButton asChild variant="ghost" highContrast size="2">
-                  {/* TODO: Add github link */}
-                  <Link href="https:github.com">
+                  <Link href="https://github.com/iamvictorli/7gui">
                     <GitHubLogoIcon width="24" height="24" />
                   </Link>
                 </IconButton>
