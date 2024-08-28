@@ -8,7 +8,10 @@ export default {
   singleQuote: true,
   trailingComma: 'all',
 
-  plugins: ['@ianvs/prettier-plugin-sort-imports'],
+  plugins: [
+    '@ianvs/prettier-plugin-sort-imports',
+    'prettier-plugin-tailwindcss',
+  ],
   // https://www.jamesshopland.com/blog/sort-imports-with-prettier
   importOrder: [
     '<BUILTIN_MODULES>', // Node.js built-in modules

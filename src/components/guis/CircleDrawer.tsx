@@ -31,7 +31,7 @@ function Circle({
       cy={circle.y}
       r={isSelected ? selectedRadius : circle.radius}
       stroke="black"
-      fill={isSelected ? '#e5e7eb' : 'transparent'}
+      fill={isSelected ? 'var(--gray-a5)' : 'transparent'}
       className="hover:fill-gray-200"
       onClick={(event) => {
         event.stopPropagation()
@@ -72,7 +72,7 @@ function CircleDrawer() {
       </div>
       <div>
         <svg
-          className="w-96 h-60 border border-black border-solid"
+          className="h-60 w-96 border border-solid border-black"
           onClick={(event) => {
             const { x, y } = event.currentTarget.getBoundingClientRect()
             const circle = {

@@ -32,14 +32,15 @@ export function Header() {
   return (
     <header className="h-12">
       <Box
+        // TODO: own class
         className={cn(
           scrollState === 'scrolling-down' ? 'duration-100' : '',
-          'min-w-[320px] fixed [height:inherit] top-0 left-0 right-0 z-[2] select-none [box-shadow:0_1px_var(--gray-a4)] [transition:background-color_180ms,_box-shadow_180ms] bg-white',
+          'fixed left-0 right-0 top-0 z-[2] min-w-[320px] select-none bg-white [box-shadow:0_1px_var(--gray-a4)] [height:inherit] [transition:background-color_180ms,_box-shadow_180ms]',
         )}>
         <Box
           className={
             (cn(RemoveScroll.classNames.fullWidth),
-            'absolute [height:inherit] top-0 left-0 right-0')
+            'absolute left-0 right-0 top-0 [height:inherit]')
           }>
           <Flex
             align="center"

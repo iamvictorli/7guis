@@ -15,7 +15,7 @@ export default function Timer() {
         // description will be redux debugger
         description={
           <Box
-            className="box-border overflow-hidden leading-6 whitespace-pre"
+            className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />

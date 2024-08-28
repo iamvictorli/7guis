@@ -29,7 +29,7 @@ export default function Index() {
             <Flex
               align="center"
               gap={{ initial: '2', sm: '3' }}
-              className="border-y border-solid border-[#F2F2F2] py-2 px-1">
+              className="border-y border-solid px-1 py-2">
               <Tooltip content="View Github">
                 <IconButton asChild variant="ghost" highContrast size="2">
                   {/* TODO: Add github link */}
@@ -104,11 +104,11 @@ export default function Index() {
           </Heading>
 
           <Section size={{ initial: '1', sm: '2' }}>
-            <ul className="flex flex-col gap-4 list-disc marker:text-[#002bb7c5] list-inside text-xl">
+            <ul className="flex list-inside list-disc flex-col gap-4 text-xl marker:text-[var(--indigo-a11)]">
               {navLinks.map(({ to, title }) => (
                 <li
                   key={to}
-                  className="underline decoration-[#002bb7c5] underline-offset-[calc(0.025em+2px)]">
+                  className="underline decoration-[var(--indigo-a11)] underline-offset-[calc(0.025em+2px)]">
                   <Link asChild size={{ initial: '4', sm: '5' }}>
                     <RRDLink to={to}>{title}</RRDLink>
                   </Link>

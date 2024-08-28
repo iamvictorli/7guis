@@ -33,12 +33,13 @@ export const Nav = ({ routes }: NavProps) => {
           {section.pages.map((page, pageIndex) => (
             // TODO: scroll into view active links
             // https://github.com/radix-ui/website/blob/a01a0ff156ea80be39d34b20e3214b3dae6c96bc/components/DocsNav.tsx#L76-L99
+            // TODO: own class?
             <NavLink
               key={page.slug}
               to={page.slug}
               className={({ isActive }) => {
                 return cn(
-                  'flex items-center no-underline px-3 py-2 rounded-[999px] [transition:background-color_50ms_linear] select-none min-h-[var(--space-6)] text-[var(--gray-12)] focus:outline-none hover:bg-[var(--accent-a4)] focus-visible:[box-shadow:inset_0_0_0_1px_var(--accent-8),_0_0_0_1px_var(--accent-8)]',
+                  'flex min-h-8 select-none items-center rounded-[999px] px-3 py-2 text-[var(--gray-12)] no-underline [transition:background-color_50ms_linear] hover:bg-[var(--accent-a4)] focus:outline-none focus-visible:[box-shadow:inset_0_0_0_1px_var(--accent-8),_0_0_0_1px_var(--accent-8)]',
                   isActive
                     ? 'bg-[var(--accent-a5)] hover:bg-[var(--accent-a5)]'
                     : '',

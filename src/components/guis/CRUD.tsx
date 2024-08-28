@@ -55,7 +55,7 @@ function Crud() {
 
       <select
         size={3}
-        className="w-full mt-6 mb-4"
+        className="mb-4 mt-6 w-full"
         onChange={(event) => {
           dispatch(nameSelected(event.currentTarget.value))
         }}
