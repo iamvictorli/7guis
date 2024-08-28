@@ -1,3 +1,4 @@
+import { Box, Flex, Text, TextField } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
@@ -10,30 +11,43 @@ function TemperatureConverter() {
   const { celcius, fahrenheit } = useAppSelector(selectTemperatures)
   return (
     <>
-      <input
-        value={celcius}
-        onChange={(event) => {
-          dispatch(
-            temperatureChanged({
-              temperatureType: 'celcius',
-              value: event.currentTarget.value,
-            }),
-          )
-        }}
-      />
-      <span>Celcius</span>
-      <input
-        value={fahrenheit}
-        onChange={(event) => {
-          dispatch(
-            temperatureChanged({
-              temperatureType: 'fahrenheit',
-              value: event.currentTarget.value,
-            }),
-          )
-        }}
-      />
-      <span>Fahrenheit</span>
+      <Flex maxWidth="350px" align="center" gap="4">
+        <TextField.Root
+          size={{ initial: '2', sm: '3' }}
+          placeholder="Celcius"
+          value={celcius}
+          type="number"
+          onChange={(event) => {
+            dispatch(
+              temperatureChanged({
+                temperatureType: 'celcius',
+                value: event.currentTarget.value,
+              }),
+            )
+          }}
+        />
+        <Text size={{ initial: '5', sm: '6' }}>Celcius</Text>
+      </Flex>
+
+      <Box height="12px" />
+
+      <Flex maxWidth="350px" align="center" gap="4">
+        <TextField.Root
+          size={{ initial: '2', sm: '3' }}
+          placeholder="Fahrenheit"
+          value={fahrenheit}
+          type="number"
+          onChange={(event) => {
+            dispatch(
+              temperatureChanged({
+                temperatureType: 'fahrenheit',
+                value: event.currentTarget.value,
+              }),
+            )
+          }}
+        />
+        <Text size={{ initial: '5', sm: '6' }}>Fahrenheit</Text>
+      </Flex>
     </>
   )
 }
