@@ -16,7 +16,7 @@ export default function TemperatureConverter() {
         <TextField.Root
           id="celcius"
           size={{ initial: '2', sm: '3' }}
-          placeholder="Celcius"
+          placeholder="°C"
           value={celcius}
           type="number"
           onChange={(event) => {
@@ -39,7 +39,7 @@ export default function TemperatureConverter() {
         <TextField.Root
           id="fahrenheit"
           size={{ initial: '2', sm: '3' }}
-          placeholder="Fahrenheit"
+          placeholder="°F"
           value={fahrenheit}
           type="number"
           onChange={(event) => {
