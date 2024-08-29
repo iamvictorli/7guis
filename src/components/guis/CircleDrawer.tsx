@@ -42,7 +42,7 @@ function Circle({
   )
 }
 
-function CircleDrawer() {
+export default function CircleDrawer() {
   const dispatch = useAppDispatch()
   const { selectedCircleId, selectedCircleRadius } = useAppSelector(selectUI)
   const undoDisabled = useAppSelector(selectUndoDisabled)
@@ -139,5 +139,3 @@ function CircleDrawer() {
     </>
   )
 }
-
-export default CircleDrawer

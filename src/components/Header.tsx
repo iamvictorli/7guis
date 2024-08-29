@@ -8,7 +8,7 @@ import { Link as RRDLink } from 'react-router-dom'
 
 type ScrollState = 'at-top' | 'scrolling-up' | 'scrolling-down'
 
-export function Header() {
+export default function Header() {
   const { setOpen } = useMobileMenuContext()
   const [scrollState, setScrollState] = useState<ScrollState>('at-top')
 

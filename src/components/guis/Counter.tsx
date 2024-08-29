@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '~/store'
 
 import { increment, selectCount } from 'state/counterSlice'
 
-function Counter() {
+export default function Counter() {
   const count = useAppSelector(selectCount)
   const dispatch = useAppDispatch()
 
@@ -22,5 +22,3 @@ function Counter() {
     </Flex>
   )
 }
-
-export default Counter

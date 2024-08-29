@@ -9,7 +9,7 @@ import {
   selectIsBookableFlight,
 } from 'state/flightBookerSlice'
 
-function FlightBooker() {
+export default function FlightBooker() {
   const dispatch = useAppDispatch()
   const { departureDate, returnDate, trip } = useAppSelector(
     selectFlightBookerState,
@@ -72,5 +72,3 @@ function FlightBooker() {
     </>
   )
 }
-
-export default FlightBooker

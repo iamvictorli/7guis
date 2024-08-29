@@ -22,7 +22,7 @@ function NameOption({ id }: { id: string }) {
   )
 }
 
-function Crud() {
+export default function Crud() {
   const dispatch = useAppDispatch()
   const { nameInput, surnameInput, prefixInput, nameSelectedId } =
     useAppSelector(selectUI)
@@ -97,5 +97,3 @@ function Crud() {
     </>
   )
 }
-
-export default Crud

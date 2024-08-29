@@ -60,7 +60,7 @@ function Cell({ id }: { id: string }) {
   )
 }
 
-function Cells() {
+export default function Cells() {
   const columnLabels = useAppSelector(selectColumnLabels)
   const cellIdRows = useAppSelector(selectCellIdRows)
 
@@ -89,5 +89,3 @@ function Cells() {
     </>
   )
 }
-
-export default Cells

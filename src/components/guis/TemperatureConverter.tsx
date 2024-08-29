@@ -6,7 +6,7 @@ import {
   temperatureChanged,
 } from 'state/temperatureConverterSlice'
 
-function TemperatureConverter() {
+export default function TemperatureConverter() {
   const dispatch = useAppDispatch()
   const { celcius, fahrenheit } = useAppSelector(selectTemperatures)
   return (
@@ -51,5 +51,3 @@ function TemperatureConverter() {
     </>
   )
 }
-
-export default TemperatureConverter

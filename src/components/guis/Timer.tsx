@@ -12,7 +12,7 @@ import {
 
 // TODO: middleware? listener middleware?
 // set into redux middleware b/c of interval side effects
-function Timer() {
+export default function Timer() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
   const dispatch = useAppDispatch()
   const duration = useAppSelector(selectDuration)
@@ -79,5 +79,3 @@ function Timer() {
     </>
   )
 }
-
-export default Timer

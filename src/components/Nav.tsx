@@ -17,7 +17,7 @@ function isExternalLink(link: string) {
   return link.startsWith('http')
 }
 
-export const Nav = ({ routes }: NavProps) => {
+export default function Nav({ routes }: NavProps) {
   return (
     <nav>
       {routes.map((section, sectionIndex) => (
