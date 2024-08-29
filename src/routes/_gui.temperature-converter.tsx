@@ -1,5 +1,5 @@
 import { ArrowTopRightIcon } from '@radix-ui/react-icons'
-import { Box, Flex, Heading, Link, Text } from '@radix-ui/themes'
+import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from 'components/GuiDisplay'
 import TemperatureConverterGUI from 'components/guis/TemperatureConverter'
@@ -48,13 +48,38 @@ export default function TemperatureConverter() {
         className="mb-5 [list-style-type:circle]">
         <ul className="list-disc">
           <li>
-            <Text>hello</Text>
+            <Text>
+              Create a user interface with two text fields representing
+              temperature in Celsius and Fahrenheit.
+            </Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>Both text fields are initially empty.</Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>
+              When a numerical value is entered into the Celsius field, the
+              corresponding value in the Fahrenheit field is automatically
+              updated.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              Similarly, when a numerical value is entered into the Fahrenheit
+              field, the Celsius field is updated accordingly.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              If a non-numerical value is entered into either field, the other
+              field does not update.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              The conversion between Celsius and Fahrenheit is done using the
+              appropriate formulas for each direction.
+            </Text>
           </li>
         </ul>
       </Flex>
@@ -64,7 +89,8 @@ export default function TemperatureConverter() {
       </Heading>
 
       <Text mb="4" as="p" size="3">
-        blah blah blah blah
+        Another scenario where using <Code>useState</Code> would have been a
+        more suitable choice.
       </Text>
     </>
   )
