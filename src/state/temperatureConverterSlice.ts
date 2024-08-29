@@ -8,7 +8,7 @@ interface TemperatureConverterState {
   celcius: string
 }
 
-const initialState: TemperatureConverterState = {
+export const initialState: TemperatureConverterState = {
   fahrenheit: '',
   celcius: '',
 } satisfies TemperatureConverterState as TemperatureConverterState
