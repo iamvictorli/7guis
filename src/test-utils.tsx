@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import type { RenderOptions } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import type { PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 
@@ -25,5 +26,9 @@ export function renderWithProviders(
   function Wrapper({ children }: PropsWithChildren) {
     return <Provider store={store}>{children}</Provider>
   }
-  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
+  return {
+    store,
+    user: userEvent.setup(),
+    ...render(ui, { wrapper: Wrapper, ...renderOptions }),
+  }
 }

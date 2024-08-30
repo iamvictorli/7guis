@@ -24,7 +24,9 @@
       "~/*": ["./src/*"],
       "state/*": ["./src/state/*"],
       "components/*": ["./src/components/*"]
-    }
+    },
+
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src"]
 }
