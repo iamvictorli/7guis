@@ -1,3 +1,6 @@
+import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
+import { Label } from '@radix-ui/react-label'
+import { Button, Flex, Select } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
@@ -9,6 +12,9 @@ import {
   selectIsBookableFlight,
 } from 'state/flightBookerSlice'
 
+import { DatePicker } from '../DatePicker/DatePicker'
+import { DateRangePicker } from '../DatePicker/DateRangePicker'
+
 export default function FlightBooker() {
   const dispatch = useAppDispatch()
   const { departureDate, returnDate, trip } = useAppSelector(
@@ -16,47 +22,75 @@ export default function FlightBooker() {
   )
   const isBookableFlight = useAppSelector(selectIsBookableFlight)
 
-  return (
-    <>
-      <select
-        value={trip}
-        onChange={(event) => {
-          const flightType =
-            (event.currentTarget.value as FlightTrip) === FlightTrip.OneWay
-              ? FlightTrip.OneWay
-              : FlightTrip.RoundTrip
+  // TODO: design first with figma
+  // TODO: Date Picker should be a range, one way should have return gone
+  // TODO: set initial empty
+  // TODO: day name, shorten month, and day
+  // TODO: show two months at a time
+  // TODO: clear return date if going back to one way
+  // TODO: allow for multiple toast for after submitting what was booked
+  // TODO: icons for one way and round trip
+  // forget about mobile design, on flight booking sites, like google flights/capital one travel, the popover takes up the whole screen, and there's a scrolldown of months instead of "next"/"prev" month buttons
 
-          dispatch(flightTypeChanged(flightType))
-        }}>
-        <option value={FlightTrip.OneWay}>One Way</option>
-        <option value={FlightTrip.RoundTrip}>Round Trip</option>
-      </select>
-      <input
-        type="date"
-        value={departureDate}
-        onChange={(event) => {
-          dispatch(
-            dateChanged({
-              flightDateType: FlightDateType.DEPARTURE,
-              date: event.currentTarget.value,
-            }),
-          )
-        }}
-      />
-      <input
-        type="date"
-        value={returnDate}
-        onChange={(event) => {
-          dispatch(
-            dateChanged({
-              flightDateType: FlightDateType.RETURN,
-              date: event.currentTarget.value,
-            }),
-          )
-        }}
-        disabled={trip === FlightTrip.OneWay}
-      />
-      <button
+  return (
+    <Flex direction="column" gap="4" align="start">
+      <Flex direction="column" gap="3">
+        <Label htmlFor="flight-trip">Flight trip</Label>
+        <Select.Root
+          value={trip}
+          onValueChange={(value) => {
+            dispatch(flightTypeChanged(value as FlightTrip))
+          }}>
+          <Select.Trigger id="flight-trip" />
+          <Select.Content position="popper">
+            <Select.Group>
+              <Select.Item value={FlightTrip.OneWay}>One Way</Select.Item>
+              <Select.Item value={FlightTrip.RoundTrip}>Round Trip</Select.Item>
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
+      </Flex>
+
+      {trip === FlightTrip.OneWay ? (
+        <DatePicker
+          label="Departure"
+          minValue={today(getLocalTimeZone())}
+          value={parseDate(departureDate)}
+          onChange={(value) => {
+            dispatch(
+              dateChanged({
+                flightDateType: FlightDateType.DEPARTURE,
+                date: value.toString(),
+              }),
+            )
+          }}
+        />
+      ) : (
+        <DateRangePicker
+          label="Trip dates"
+          minValue={today(getLocalTimeZone())}
+          value={{
+            start: parseDate(departureDate),
+            end: parseDate(returnDate),
+          }}
+          onChange={({ start, end }) => {
+            dispatch(
+              dateChanged({
+                flightDateType: FlightDateType.DEPARTURE,
+                date: start.toString(),
+              }),
+            )
+            dispatch(
+              dateChanged({
+                flightDateType: FlightDateType.RETURN,
+                date: end.toString(),
+              }),
+            )
+          }}
+        />
+      )}
+
+      <Button
         disabled={!isBookableFlight}
         onClick={() => {
           if (trip === FlightTrip.OneWay) {
@@ -68,7 +102,7 @@ export default function FlightBooker() {
           }
         }}>
         Book
-      </button>
-    </>
+      </Button>
+    </Flex>
   )
 }
