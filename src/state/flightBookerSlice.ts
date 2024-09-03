@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export enum FlightTrip {
-  OneWay = 'OneWay',
-  RoundTrip = 'RoundTrip',
+  OneWay = 'One Way',
+  RoundTrip = 'Round Trip',
 }
 
 export enum FlightDateType {
