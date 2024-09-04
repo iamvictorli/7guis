@@ -1,3 +1,4 @@
+import { Button, Flex, Progress, Slider, Text } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 import { useCallback, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
@@ -56,26 +57,28 @@ export default function Timer() {
   const decisecond = Math.trunc(Math.floor(elapsedMs % 1000) / 100)
 
   return (
-    <>
-      <meter min={0} max={duration} value={elapsedMs} />
-
-      <div>
+    <Flex direction="column" gap="4">
+      <Text>
         {seconds}.{decisecond}s
-      </div>
-      <input
-        type="range"
+      </Text>
+
+      <Progress max={duration} value={elapsedMs} />
+      <Slider
         min={0}
         max={30000}
-        value={duration}
-        onChange={(e) => dispatch(durationChanged(Number(e.target.value)))}
+        value={[duration]}
+        onValueChange={(value) => {
+          dispatch(durationChanged(value[0]))
+        }}
       />
-      <button
+      <Button
+        variant="outline"
         onClick={() => {
           dispatch(timerReset())
           startTimer()
         }}>
         Reset
-      </button>
-    </>
+      </Button>
+    </Flex>
   )
 }
