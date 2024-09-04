@@ -1,12 +1,11 @@
 import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
 import { ArrowRightIcon, WidthIcon } from '@radix-ui/react-icons'
 import { Label } from '@radix-ui/react-label'
-import { Button, Flex, Select } from '@radix-ui/themes'
+import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
   dateChanged,
-  FlightDateType,
   FlightTrip,
   flightTypeChanged,
   selectFlightBookerState,
@@ -16,6 +15,20 @@ import {
 import { DatePicker } from '../DatePicker/DatePicker'
 import { DateRangePicker } from '../DatePicker/DateRangePicker'
 
+/**
+ * Retrieves the range picker value based on the departure and return dates.
+ */
+function getRangePickerValue(
+  departureDate: string | null,
+  returnDate: string | null,
+) {
+  if (!departureDate) return null
+  return {
+    start: parseDate(departureDate),
+    end: returnDate ? parseDate(returnDate) : null,
+  }
+}
+
 export default function FlightBooker() {
   const dispatch = useAppDispatch()
   const { departureDate, returnDate, trip } = useAppSelector(
@@ -23,19 +36,25 @@ export default function FlightBooker() {
   )
   const isBookableFlight = useAppSelector(selectIsBookableFlight)
 
-  // TODO: design first with figma
-  // TODO: Date Picker should be a range, one way should have return gone
-  // TODO: set initial empty
-  // TODO: day name, shorten month, and day
-  // TODO: show two months at a time
-  // TODO: clear return date if going back to one way
   // TODO: allow for multiple toast for after submitting what was booked
-  // forget about mobile design, on flight booking sites, like google flights/capital one travel, the popover takes up the whole screen, and there's a scrolldown of months instead of "next"/"prev" month buttons
+
+  // TODOs for Building a Flight Booker
+  // While working on the flight booker, I’ve taken inspiration from popular flight booking sites like Google Flights and Capital One Travel. Below are some key tasks I need to implement, following their design principles:
+
+  // Range Calendar Behavior: When a start date is selected but no end date is chosen, only the start date should be highlighted on the date range picker.
+  // Consistent Date Picker Sizing: The one-way date picker should maintain the same width as the date range picker for visual consistency.
+  // Date Format Display: The selected dates should be displayed using abbreviated formats, like this: "Tue, Sep 3" (weekday, month name, and day).
+  // Continuous Month View: The date picker popover should display two months side by side for easy navigation.
+  // Mobile Design Considerations: On mobile devices, the date picker popover should take up the entire screen. Instead of "next" and "previous" buttons, users should be able to scroll through the months seamlessly.
 
   return (
     <Flex direction="column" gap="4" align="start">
-      <Flex direction="column" gap="2">
-        <Label htmlFor="flight-trip">Flight trip</Label>
+      <Flex direction="column" gap="1">
+        <Label htmlFor="flight-trip" asChild>
+          <Text as="label" size="3">
+            Flight Type
+          </Text>
+        </Label>
         <Select.Root
           value={trip}
           onValueChange={(value) => {
@@ -44,7 +63,7 @@ export default function FlightBooker() {
           <Select.Trigger id="flight-trip">
             <Flex as="span" align="center" gap="2">
               {trip === FlightTrip.OneWay ? <ArrowRightIcon /> : <WidthIcon />}
-              {trip}
+              <Text size="3">{trip}</Text>
             </Flex>
           </Select.Trigger>
           <Select.Content position="popper">
@@ -62,37 +81,28 @@ export default function FlightBooker() {
 
       {trip === FlightTrip.OneWay ? (
         <DatePicker
-          label="Departure"
+          label="Departure Date"
           minValue={today(getLocalTimeZone())}
-          value={parseDate(departureDate)}
+          value={departureDate ? parseDate(departureDate) : null}
           onChange={(value) => {
             dispatch(
               dateChanged({
-                flightDateType: FlightDateType.DEPARTURE,
-                date: value.toString(),
+                departureDate: value.toString(),
               }),
             )
           }}
         />
       ) : (
         <DateRangePicker
-          label="Trip dates"
+          label="Deparature and Return Dates"
           minValue={today(getLocalTimeZone())}
-          value={{
-            start: parseDate(departureDate),
-            end: parseDate(returnDate),
-          }}
+          // @ts-expect-error both departure date and return date could be null, and the types expect both to be a DateValue and not null
+          value={getRangePickerValue(departureDate, returnDate)}
           onChange={({ start, end }) => {
             dispatch(
               dateChanged({
-                flightDateType: FlightDateType.DEPARTURE,
-                date: start.toString(),
-              }),
-            )
-            dispatch(
-              dateChanged({
-                flightDateType: FlightDateType.RETURN,
-                date: end.toString(),
+                departureDate: start.toString(),
+                returnDate: end.toString(),
               }),
             )
           }}
@@ -101,6 +111,7 @@ export default function FlightBooker() {
 
       <Button
         disabled={!isBookableFlight}
+        size="3"
         onClick={() => {
           if (trip === FlightTrip.OneWay) {
             console.log(`You have booked a one-way flight for ${departureDate}`)

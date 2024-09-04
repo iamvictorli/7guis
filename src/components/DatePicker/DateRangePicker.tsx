@@ -1,4 +1,5 @@
 import { CalendarIcon, ExclamationTriangleIcon } from '@radix-ui/react-icons'
+import { Label } from '@radix-ui/react-label'
 import { useRef } from 'react'
 import { useDateRangePicker } from 'react-aria'
 import type { DateValue } from 'react-aria'
@@ -24,11 +25,14 @@ export function DateRangePicker(props: DateRangePickerStateOptions<DateValue>) {
     calendarProps,
   } = useDateRangePicker(props, state, ref)
 
+  // TODO: replace with radix components
+  // - Div, Span, Popper, Button
+
   return (
-    <div className="relative inline-flex flex-col text-left text-base">
-      <span {...labelProps} className="text-sm text-[var(--gray-12)]">
-        {props.label}
-      </span>
+    <div className="relative inline-flex flex-col gap-1 text-left text-base">
+      <Label asChild>
+        <span {...labelProps}>{props.label}</span>
+      </Label>
       <div {...groupProps} ref={ref} className="group flex">
         <div className="relative flex rounded-l-md border border-[var(--gray-7)] bg-white p-1 pr-10 transition-colors group-focus-within:border-[var(--accent-9)] group-hover:border-[var(--gray-10)] group-focus-within:group-hover:border-[var(--accent-9)]">
           <DateField {...startFieldProps} />
