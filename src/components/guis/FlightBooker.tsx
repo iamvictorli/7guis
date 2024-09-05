@@ -38,15 +38,6 @@ export default function FlightBooker() {
 
   // TODO: allow for multiple toast for after submitting what was booked
 
-  // TODOs for Building a Flight Booker
-  // While working on the flight booker, I’ve taken inspiration from popular flight booking sites like Google Flights and Capital One Travel. Below are some key tasks I need to implement, following their design principles:
-
-  // Range Calendar Behavior: When a start date is selected but no end date is chosen, only the start date should be highlighted on the date range picker.
-  // Consistent Date Picker Sizing: The one-way date picker should maintain the same width as the date range picker for visual consistency.
-  // Date Format Display: The selected dates should be displayed using abbreviated formats, like this: "Tue, Sep 3" (weekday, month name, and day).
-  // Continuous Month View: The date picker popover should display two months side by side for easy navigation.
-  // Mobile Design Considerations: On mobile devices, the date picker popover should take up the entire screen. Instead of "next" and "previous" buttons, users should be able to scroll through the months seamlessly.
-
   return (
     <Flex direction="column" gap="4" align="start">
       <Flex direction="column" gap="1">
