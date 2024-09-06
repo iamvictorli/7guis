@@ -1,6 +1,6 @@
 import { Box, Flex, ScrollArea, Section } from '@radix-ui/themes'
 import { routes } from '~/shared/links'
-import { Outlet } from 'react-router-dom'
+import { Outlet, ScrollRestoration } from 'react-router-dom'
 
 import Header from 'components/Header'
 import MobileMenu from 'components/MobileMenu'
@@ -51,6 +51,7 @@ export default function GUI() {
           </main>
         </Flex>
       </Flex>
+      <ScrollRestoration />
     </>
   )
 }
