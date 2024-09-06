@@ -2,6 +2,7 @@ import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
 import { ArrowRightIcon, WidthIcon } from '@radix-ui/react-icons'
 import { Label } from '@radix-ui/react-label'
 import { Button, Flex, Select, Text } from '@radix-ui/themes'
+import { useToast } from '~/hooks/useToast'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
@@ -14,6 +15,7 @@ import {
 
 import { DatePicker } from '../DatePicker/DatePicker'
 import { DateRangePicker } from '../DatePicker/DateRangePicker'
+import { Toaster } from '../Toast/Toaster'
 
 /**
  * Retrieves the range picker value based on the departure and return dates.
@@ -35,8 +37,7 @@ export default function FlightBooker() {
     selectFlightBookerState,
   )
   const isBookableFlight = useAppSelector(selectIsBookableFlight)
-
-  // TODO: allow for multiple toast for after submitting what was booked
+  const { toast } = useToast()
 
   return (
     <Flex direction="column" gap="4" align="start">
@@ -105,15 +106,21 @@ export default function FlightBooker() {
         size="3"
         onClick={() => {
           if (trip === FlightTrip.OneWay) {
-            console.log(`You have booked a one-way flight for ${departureDate}`)
+            toast({
+              title: 'One-Way Flight Booked',
+              description: `Your one-way flight for ${departureDate} has been successfully booked`,
+            })
           } else {
-            console.log(
-              `You have booked a return flight from ${departureDate} to ${returnDate}`,
-            )
+            toast({
+              title: 'Round-trip Flight Booked',
+              description: `Your round-trip flight has been successfully booked. Departure on ${departureDate}, returning on ${returnDate}`,
+            })
           }
         }}>
         Book
       </Button>
+
+      <Toaster />
     </Flex>
   )
 }
