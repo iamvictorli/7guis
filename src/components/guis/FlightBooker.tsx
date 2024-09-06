@@ -1,13 +1,35 @@
+import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
+import { ArrowRightIcon, WidthIcon } from '@radix-ui/react-icons'
+import { Label } from '@radix-ui/react-label'
+import { Button, Flex, Select, Text } from '@radix-ui/themes'
+import { useToast } from '~/hooks/useToast'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
   dateChanged,
-  FlightDateType,
   FlightTrip,
   flightTypeChanged,
   selectFlightBookerState,
   selectIsBookableFlight,
 } from 'state/flightBookerSlice'
+
+import { DatePicker } from '../DatePicker/DatePicker'
+import { DateRangePicker } from '../DatePicker/DateRangePicker'
+import { Toaster } from '../Toast/Toaster'
+
+/**
+ * Retrieves the range picker value based on the departure and return dates.
+ */
+function getRangePickerValue(
+  departureDate: string | null,
+  returnDate: string | null,
+) {
+  if (!departureDate) return null
+  return {
+    start: parseDate(departureDate),
+    end: returnDate ? parseDate(returnDate) : null,
+  }
+}
 
 export default function FlightBooker() {
   const dispatch = useAppDispatch()
@@ -15,60 +37,90 @@ export default function FlightBooker() {
     selectFlightBookerState,
   )
   const isBookableFlight = useAppSelector(selectIsBookableFlight)
+  const { toast } = useToast()
 
   return (
-    <>
-      <select
-        value={trip}
-        onChange={(event) => {
-          const flightType =
-            (event.currentTarget.value as FlightTrip) === FlightTrip.OneWay
-              ? FlightTrip.OneWay
-              : FlightTrip.RoundTrip
+    <Flex direction="column" gap="4" align="start">
+      <Flex direction="column" gap="1">
+        <Label htmlFor="flight-trip" asChild>
+          <Text as="label" size="3">
+            Flight Type
+          </Text>
+        </Label>
+        <Select.Root
+          value={trip}
+          onValueChange={(value) => {
+            dispatch(flightTypeChanged(value as FlightTrip))
+          }}>
+          <Select.Trigger id="flight-trip">
+            <Flex as="span" align="center" gap="2">
+              {trip === FlightTrip.OneWay ? <ArrowRightIcon /> : <WidthIcon />}
+              <Text size="3">{trip}</Text>
+            </Flex>
+          </Select.Trigger>
+          <Select.Content position="popper">
+            <Select.Group>
+              <Select.Item value={FlightTrip.OneWay}>
+                {FlightTrip.OneWay}
+              </Select.Item>
+              <Select.Item value={FlightTrip.RoundTrip}>
+                {FlightTrip.RoundTrip}
+              </Select.Item>
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
+      </Flex>
 
-          dispatch(flightTypeChanged(flightType))
-        }}>
-        <option value={FlightTrip.OneWay}>One Way</option>
-        <option value={FlightTrip.RoundTrip}>Round Trip</option>
-      </select>
-      <input
-        type="date"
-        value={departureDate}
-        onChange={(event) => {
-          dispatch(
-            dateChanged({
-              flightDateType: FlightDateType.DEPARTURE,
-              date: event.currentTarget.value,
-            }),
-          )
-        }}
-      />
-      <input
-        type="date"
-        value={returnDate}
-        onChange={(event) => {
-          dispatch(
-            dateChanged({
-              flightDateType: FlightDateType.RETURN,
-              date: event.currentTarget.value,
-            }),
-          )
-        }}
-        disabled={trip === FlightTrip.OneWay}
-      />
-      <button
+      {trip === FlightTrip.OneWay ? (
+        <DatePicker
+          label="Departure Date"
+          minValue={today(getLocalTimeZone())}
+          value={departureDate ? parseDate(departureDate) : null}
+          onChange={(value) => {
+            dispatch(
+              dateChanged({
+                departureDate: value.toString(),
+              }),
+            )
+          }}
+        />
+      ) : (
+        <DateRangePicker
+          label="Deparature and Return Dates"
+          minValue={today(getLocalTimeZone())}
+          // @ts-expect-error both departure date and return date could be null, and the types expect both to be a DateValue and not null
+          value={getRangePickerValue(departureDate, returnDate)}
+          onChange={({ start, end }) => {
+            dispatch(
+              dateChanged({
+                departureDate: start.toString(),
+                returnDate: end.toString(),
+              }),
+            )
+          }}
+        />
+      )}
+
+      <Button
         disabled={!isBookableFlight}
+        size="3"
         onClick={() => {
           if (trip === FlightTrip.OneWay) {
-            console.log(`You have booked a one-way flight for ${departureDate}`)
+            toast({
+              title: 'One-Way Flight Booked',
+              description: `Your one-way flight for ${departureDate} has been successfully booked`,
+            })
           } else {
-            console.log(
-              `You have booked a return flight from ${departureDate} to ${returnDate}`,
-            )
+            toast({
+              title: 'Round-trip Flight Booked',
+              description: `Your round-trip flight has been successfully booked. Departure on ${departureDate}, returning on ${returnDate}`,
+            })
           }
         }}>
         Book
-      </button>
-    </>
+      </Button>
+
+      <Toaster />
+    </Flex>
   )
 }
