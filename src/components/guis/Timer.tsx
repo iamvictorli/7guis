@@ -1,3 +1,4 @@
+import { Box, Button, Progress, Slider, Text } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 import { useCallback, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
@@ -10,8 +11,6 @@ import {
   timerReset,
 } from 'state/timerSlice'
 
-// TODO: middleware? listener middleware?
-// set into redux middleware b/c of interval side effects
 export default function Timer() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
   const dispatch = useAppDispatch()
@@ -57,25 +56,40 @@ export default function Timer() {
 
   return (
     <>
-      <meter min={0} max={duration} value={elapsedMs} />
+      <Box width={{ sm: '350px' }}>
+        <Progress max={duration} value={elapsedMs} size="3" />
+      </Box>
 
-      <div>
+      <Box height="16px" />
+
+      <Text size="7">
         {seconds}.{decisecond}s
-      </div>
-      <input
-        type="range"
-        min={0}
-        max={30000}
-        value={duration}
-        onChange={(e) => dispatch(durationChanged(Number(e.target.value)))}
-      />
-      <button
+      </Text>
+
+      <Box height="16px" />
+
+      <Box width={{ sm: '350px' }}>
+        <Slider
+          min={0}
+          max={30000}
+          value={[duration]}
+          onValueChange={(value) => {
+            dispatch(durationChanged(value[0]))
+          }}
+          size="2"
+        />
+      </Box>
+
+      <Box height="16px" />
+
+      <Button
+        variant="outline"
         onClick={() => {
           dispatch(timerReset())
           startTimer()
         }}>
         Reset
-      </button>
+      </Button>
     </>
   )
 }
