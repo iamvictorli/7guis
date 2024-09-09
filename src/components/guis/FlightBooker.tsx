@@ -15,7 +15,6 @@ import {
 
 import { DatePicker } from '../DatePicker/DatePicker'
 import { DateRangePicker } from '../DatePicker/DateRangePicker'
-import { Toaster } from '../Toast/Toaster'
 
 /**
  * Retrieves the range picker value based on the departure and return dates.
@@ -119,8 +118,6 @@ export default function FlightBooker() {
         }}>
         Book
       </Button>
-
-      <Toaster />
     </Flex>
   )
 }

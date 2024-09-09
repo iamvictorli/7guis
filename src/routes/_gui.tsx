@@ -6,6 +6,7 @@ import Header from 'components/Header'
 import MobileMenu from 'components/MobileMenu'
 import Nav from 'components/Nav'
 import Sidebar from 'components/Sidebar'
+import { Toaster } from 'components/Toast/Toaster'
 
 function GuiHeader() {
   return (
@@ -31,6 +32,7 @@ export default function GUI() {
   return (
     <>
       <GuiHeader />
+      <Toaster />
       <Flex>
         {/* Sidebar navigation */}
         <Sidebar>
