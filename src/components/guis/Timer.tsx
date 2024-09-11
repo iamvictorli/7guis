@@ -1,4 +1,5 @@
-import { Box, Button, Progress, Slider, Text } from '@radix-ui/themes'
+import { Label } from '@radix-ui/react-label'
+import { Button, Flex, Progress, Slider, Text } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 import { useCallback, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
@@ -55,21 +56,20 @@ export default function Timer() {
   const decisecond = Math.trunc(Math.floor(elapsedMs % 1000) / 100)
 
   return (
-    <>
-      <Box width={{ sm: '350px' }}>
-        <Progress max={duration} value={elapsedMs} size="3" />
-      </Box>
-
-      <Box height="16px" />
+    <Flex direction="column" gap="4" maxWidth="350px">
+      <Flex direction="row" gap="4" align="center">
+        <Label htmlFor="elapsed-time">Elapsed Time:</Label>
+        <Progress id="elapsed-time" max={duration} value={elapsedMs} size="3" />
+      </Flex>
 
       <Text size="7">
         {seconds}.{decisecond}s
       </Text>
 
-      <Box height="16px" />
-
-      <Box width={{ sm: '350px' }}>
+      <Flex direction="row" gap="4" align="center">
+        <Label htmlFor="duration">Duration:</Label>
         <Slider
+          id="duration"
           min={0}
           max={30000}
           value={[duration]}
@@ -78,9 +78,7 @@ export default function Timer() {
           }}
           size="2"
         />
-      </Box>
-
-      <Box height="16px" />
+      </Flex>
 
       <Button
         variant="outline"
@@ -90,6 +88,6 @@ export default function Timer() {
         }}>
         Reset
       </Button>
-    </>
+    </Flex>
   )
 }

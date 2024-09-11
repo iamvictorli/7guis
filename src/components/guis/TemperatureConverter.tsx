@@ -1,5 +1,5 @@
-import * as Label from '@radix-ui/react-label'
-import { Box, Flex, Text, TextField } from '@radix-ui/themes'
+import { Label } from '@radix-ui/react-label'
+import { Flex, Text, TextField } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
@@ -11,8 +11,11 @@ export default function TemperatureConverter() {
   const dispatch = useAppDispatch()
   const { celcius, fahrenheit } = useAppSelector(selectTemperatures)
   return (
-    <>
-      <Flex maxWidth="350px" align="center" gap="4">
+    <Flex gap={{ initial: '2', sm: '3' }} align="center">
+      <Flex
+        align={{ initial: 'start', sm: 'center' }}
+        direction={{ initial: 'column', sm: 'row' }}
+        gap={{ initial: '1', sm: '3' }}>
         <TextField.Root
           id="celcius"
           size={{ initial: '2', sm: '3' }}
@@ -28,14 +31,17 @@ export default function TemperatureConverter() {
             )
           }}
         />
-        <Label.Root htmlFor="celcius">
+        <Label htmlFor="celcius">
           <Text size={{ initial: '5', sm: '6' }}>Celcius</Text>
-        </Label.Root>
+        </Label>
       </Flex>
 
-      <Box height="12px" />
+      <Text size={{ initial: '5', sm: '6' }}>=</Text>
 
-      <Flex maxWidth="350px" align="center" gap="4">
+      <Flex
+        align={{ initial: 'start', sm: 'center' }}
+        direction={{ initial: 'column', sm: 'row' }}
+        gap={{ initial: '1', sm: '3' }}>
         <TextField.Root
           id="fahrenheit"
           size={{ initial: '2', sm: '3' }}
@@ -51,10 +57,10 @@ export default function TemperatureConverter() {
             )
           }}
         />
-        <Label.Root htmlFor="fahrenheit">
+        <Label htmlFor="fahrenheit">
           <Text size={{ initial: '5', sm: '6' }}>Fahrenheit</Text>
-        </Label.Root>
+        </Label>
       </Flex>
-    </>
+    </Flex>
   )
 }
