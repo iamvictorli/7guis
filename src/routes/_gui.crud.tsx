@@ -47,13 +47,43 @@ export default function CRUD() {
         className="mb-5 [list-style-type:circle]">
         <ul className="list-disc">
           <li>
-            <Text>hello</Text>
+            <Text>
+              Create a user interface with the following elements: a text field
+              for a prefix, two text fields for first and last names, a listbox,
+              buttons for creating, updating, and deleting, and three labels.
+            </Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>
+              The listbox displays names from a database, allowing only one
+              selection at a time.
+            </Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>
+              Entering a string in the prefix text field filters the names by
+              surnames that start with the entered prefix in real-time, without
+              needing to press enter.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              The &quot;Create&quot; button appends a new name, created by
+              combining the first and last names, to the list.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              The &quot;Update&quot; and &quot;Delete&quot; buttons are only
+              enabled when a name is selected in the list.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              The &quot;Update&quot; button replaces the selected name with the
+              new one from the text fields, while the &quot;Delete&quot; button
+              removes the selected name.
+            </Text>
           </li>
         </ul>
       </Flex>

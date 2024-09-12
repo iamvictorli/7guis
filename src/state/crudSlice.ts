@@ -3,31 +3,31 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
-interface Name {
+export interface Name {
   name: string
   surname: string
   id: string
 }
 
 interface CRUDState {
-  names: EntityMap<Name>
+  nameRecords: EntityMap<Name>
   ui: {
     nameInput: string
     surnameInput: string
-    prefixInput: string
+    searchInput: string
     nameSelectedId: string
   }
 }
 
 const initialState: CRUDState = {
-  names: {
+  nameRecords: {
     byId: {},
     allIds: [],
   },
   ui: {
     nameInput: '',
     surnameInput: '',
-    prefixInput: '',
+    searchInput: '',
     nameSelectedId: '',
   },
 } satisfies CRUDState as CRUDState
@@ -39,8 +39,8 @@ const crudSlice = createSlice({
     nameCreated: {
       reducer: (state, action: PayloadAction<Name>) => {
         const name = action.payload
-        state.names.byId[name.id] = name
-        state.names.allIds.push(name.id)
+        state.nameRecords.byId[name.id] = name
+        state.nameRecords.allIds.push(name.id)
         state.ui.nameSelectedId = name.id
       },
       // prepare to generate ids
@@ -56,38 +56,46 @@ const crudSlice = createSlice({
     },
     nameUpdated: (state, action: PayloadAction<Name>) => {
       const name = action.payload
-      if (state.names.byId[name.id]) {
-        state.names.byId[name.id] = name
+      if (state.nameRecords.byId[name.id]) {
+        state.nameRecords.byId[name.id] = name
       }
     },
     nameDeleted: (state, action: PayloadAction<string>) => {
       const idToDelete = action.payload
-      delete state.names.byId[idToDelete]
+      delete state.nameRecords.byId[idToDelete]
 
-      const index = state.names.allIds.findIndex((id) => id === idToDelete)
-      if (index !== -1) state.names.allIds.splice(index, 1)
+      const index = state.nameRecords.allIds.findIndex(
+        (id) => id === idToDelete,
+      )
+      if (index !== -1) state.nameRecords.allIds.splice(index, 1)
 
       // select first name of name list
       const newNameSelectedIndex = (state.ui.nameSelectedId =
-        state.names.allIds.length > 0 ? state.names.allIds[0] : '')
+        state.nameRecords.allIds.length > 0 ? state.nameRecords.allIds[0] : '')
 
       state.ui.nameInput =
         newNameSelectedIndex === ''
           ? ''
-          : state.names.byId[newNameSelectedIndex].name
+          : state.nameRecords.byId[newNameSelectedIndex].name
       state.ui.surnameInput =
         newNameSelectedIndex === ''
           ? ''
-          : state.names.byId[newNameSelectedIndex].surname
+          : state.nameRecords.byId[newNameSelectedIndex].surname
       state.ui.nameSelectedId = newNameSelectedIndex
     },
     nameSelected: (state, action: PayloadAction<string>) => {
       state.ui.nameSelectedId = action.payload
-      state.ui.nameInput = state.names.byId[action.payload].name
-      state.ui.surnameInput = state.names.byId[action.payload].surname
+      // empty string to deselect
+      if (action.payload === '') {
+        state.ui.nameInput = ''
+        state.ui.surnameInput = ''
+      } else {
+        state.ui.nameInput = state.nameRecords.byId[action.payload].name
+        state.ui.surnameInput = state.nameRecords.byId[action.payload].surname
+      }
     },
-    prefixChanged: (state, action: PayloadAction<string>) => {
-      state.ui.prefixInput = action.payload
+    searchChanged: (state, action: PayloadAction<string>) => {
+      state.ui.searchInput = action.payload
     },
     nameInputChanged: (state, action: PayloadAction<string>) => {
       state.ui.nameInput = action.payload
@@ -97,25 +105,23 @@ const crudSlice = createSlice({
     },
   },
   selectors: {
-    selectNames: (state) => state.names,
-    selectNameById: (state, id: string) => state.names.byId[id],
+    selectNameRecords: (state) => state.nameRecords,
     selectUI: (state) => state.ui,
   },
 })
 
-export const { selectNameById, selectUI } = crudSlice.selectors
+export const { selectUI } = crudSlice.selectors
 
-const { selectNames } = crudSlice.selectors
+const { selectNameRecords } = crudSlice.selectors
 
-// createSelector to memoize selector when we use array operations like map and filter, which return new array references
-// https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization
-export const selectFilteredNameIds = createSelector(
-  [selectNames, (_, prefix: string) => prefix],
-  (names, prefix) => {
-    const nameIds = names.allIds
-    return nameIds.filter((nameId) => {
-      const name = names.byId[nameId]
-      return name.name.includes(prefix) || name.surname.includes(prefix)
+export const selectFilteredNameRecords = createSelector(
+  [selectNameRecords, selectUI],
+  (nameRecords, { searchInput }) => {
+    return Object.values(nameRecords.byId).filter((nameRecord) => {
+      return (
+        nameRecord.name.includes(searchInput) ||
+        nameRecord.surname.includes(searchInput)
+      )
     })
   },
 )
@@ -125,7 +131,7 @@ export const {
   nameUpdated,
   nameDeleted,
   nameSelected,
-  prefixChanged,
+  searchChanged,
   nameInputChanged,
   surnameInputChanged,
 } = crudSlice.actions
