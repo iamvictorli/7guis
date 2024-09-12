@@ -48,7 +48,9 @@ export default function Crud() {
               dispatch(nameSelected((Array.from(keys)[0] as string) || ''))
             }}
             selectedKeys={[nameSelectedId]}
-            items={filteredNameRecords}>
+            items={filteredNameRecords}
+            shouldFocusWrap
+            disallowEmptySelection={false}>
             {(nameRecord) => (
               <ListBox.Item>{`${nameRecord.surname}, ${nameRecord.name}`}</ListBox.Item>
             )}
