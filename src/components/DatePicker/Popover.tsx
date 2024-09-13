@@ -28,7 +28,7 @@ export function Popover(props: {
         <div
           {...popoverProps}
           ref={ref}
-          className="absolute top-full z-10 mt-2 rounded-md border border-[var(--gray-6)] bg-white p-8 shadow-lg">
+          className="absolute top-full z-10 mt-2 rounded-md border border-[var(--gray-6)] bg-[var(--color-background)] p-8 shadow-lg">
           <DismissButton onDismiss={() => state.close()} />
           {children}
           <DismissButton onDismiss={() => state.close()} />

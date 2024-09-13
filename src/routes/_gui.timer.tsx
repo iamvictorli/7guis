@@ -99,10 +99,9 @@ export default function Timer() {
         I used Redux to manage the core state for the timer, specifically
         tracking the start time, current time, and duration. For side effects,
         like handling intervals and timeouts, I relied on React’s{' '}
-        <Code>useEffect</Code>
-        hook. This approach worked well, as React effects allowed me to manage
-        the asynchronous logic needed to update the timer in real-time while
-        keeping the Redux store focused on managing state.
+        <Code>useEffect</Code> hook. This approach worked well, as React effects
+        allowed me to manage the asynchronous logic needed to update the timer
+        in real-time while keeping the Redux store focused on managing state.
       </Text>
 
       <Text mb="4" as="p" size="3">

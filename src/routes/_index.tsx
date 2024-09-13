@@ -103,11 +103,11 @@ export default function Index() {
           </Heading>
 
           <Section size={{ initial: '1', sm: '2' }}>
-            <ul className="flex list-inside list-disc flex-col gap-4 text-xl marker:text-[var(--indigo-a11)]">
+            <ul className="flex list-inside list-disc flex-col gap-4 text-xl marker:text-[var(--accent-a11)]">
               {navLinks.map(({ to, title }) => (
                 <li
                   key={to}
-                  className="underline decoration-[var(--indigo-a11)] underline-offset-[calc(0.025em+2px)]">
+                  className="underline decoration-[var(--accent-a11)] underline-offset-[calc(0.025em+2px)]">
                   <Link asChild size={{ initial: '4', sm: '5' }}>
                     <RRDLink to={to}>{title}</RRDLink>
                   </Link>
