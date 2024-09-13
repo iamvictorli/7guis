@@ -1,5 +1,5 @@
 import { ArrowTopRightIcon } from '@radix-ui/react-icons'
-import { Box, Flex, Heading, Link, Text } from '@radix-ui/themes'
+import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from 'components/GuiDisplay'
 import CRUDGui from 'components/guis/CRUD'
@@ -93,7 +93,26 @@ export default function CRUD() {
       </Heading>
 
       <Text mb="4" as="p" size="3">
-        blah blah blah blah
+        Implementing CRUD functionality is a common requirement in many
+        applications. Using Redux for UI state management increased the lines of
+        code (LOC) that there&apos;s more Redux UI state code than CRUD business
+        logic. Utilizing <Code>useState</Code> for UI code would&apos;ve been a
+        better choice for the component&apos;s internal state.
+      </Text>
+
+      <Text mb="4" as="p" size="3">
+        I chose to use{' '}
+        <Link href="https://react-spectrum.adobe.com/react-aria/useListBox.html">
+          Listbox
+        </Link>{' '}
+        from React Aria because Radix UI doesn’t offer a built-in option for
+        this functionality.
+      </Text>
+
+      <Text mb="4" as="p" size="3">
+        <Link href="https://redux.js.org/faq/organizing-state">
+          Organizing State in Redux
+        </Link>
       </Text>
     </>
   )
