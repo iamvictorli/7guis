@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
-export interface Name {
+interface Name {
   name: string
   surname: string
   id: string
