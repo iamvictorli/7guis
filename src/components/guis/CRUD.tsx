@@ -1,3 +1,5 @@
+import { Label } from '@radix-ui/react-label'
+import { Box, Button, Flex, TextField } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
@@ -6,94 +8,126 @@ import {
   nameInputChanged,
   nameSelected,
   nameUpdated,
-  prefixChanged,
-  selectFilteredNameIds,
-  selectNameById,
+  searchChanged,
+  selectFilteredNameRecords,
   selectUI,
   surnameInputChanged,
 } from 'state/crudSlice'
-
-function NameOption({ id }: { id: string }) {
-  const name = useAppSelector((state) => selectNameById(state, id))
-  return (
-    <option key={id} value={id}>
-      {`${name.surname}, ${name.name}`}
-    </option>
-  )
-}
+import ListBox from 'components/ListBox/ListBox'
 
 export default function Crud() {
   const dispatch = useAppDispatch()
-  const { nameInput, surnameInput, prefixInput, nameSelectedId } =
+  const { nameInput, surnameInput, searchInput, nameSelectedId } =
     useAppSelector(selectUI)
-  const filteredNameIds = useAppSelector((state) =>
-    selectFilteredNameIds(state, prefixInput),
-  )
+  const filteredNameRecords = useAppSelector(selectFilteredNameRecords)
+
   return (
     <>
-      <span>Filter prefix:</span>
-      <input
-        value={prefixInput}
+      <Label htmlFor="search">Search:</Label>
+      <Box height="8px" />
+      <TextField.Root
+        id="search"
+        value={searchInput}
         onChange={(event) => {
-          dispatch(prefixChanged(event.currentTarget.value))
+          dispatch(searchChanged(event.currentTarget.value))
         }}
+        placeholder="Search"
       />
-      <span>Name:</span>
-      <input
-        value={nameInput}
-        onChange={(event) => {
-          dispatch(nameInputChanged(event.currentTarget.value))
-        }}
-      />
-      <span>Surname:</span>
-      <input
-        value={surnameInput}
-        onChange={(event) => {
-          dispatch(surnameInputChanged(event.currentTarget.value))
-        }}
-      />
+      <Box height="16px" />
 
-      <select
-        size={3}
-        className="mb-4 mt-6 w-full"
-        onChange={(event) => {
-          dispatch(nameSelected(event.currentTarget.value))
-        }}
-        value={nameSelectedId}>
-        {filteredNameIds.map((nameId) => (
-          <NameOption key={nameId} id={nameId} />
-        ))}
-      </select>
+      <Flex
+        gap="4"
+        direction={{ initial: 'column-reverse', sm: 'row' }}
+        align={{ initial: 'stretch', sm: 'center' }}
+        className="w-full">
+        <Box className="flex-1">
+          <ListBox.Root
+            label="Name Records:"
+            selectionMode="single"
+            onSelectionChange={(keys) => {
+              dispatch(nameSelected((Array.from(keys)[0] as string) || ''))
+            }}
+            selectedKeys={[nameSelectedId]}
+            items={filteredNameRecords}
+            shouldFocusWrap
+            disallowEmptySelection={false}>
+            {(nameRecord) => (
+              <ListBox.Item>{`${nameRecord.surname}, ${nameRecord.name}`}</ListBox.Item>
+            )}
+          </ListBox.Root>
+        </Box>
 
-      <button
-        onClick={() => {
-          dispatch(
-            nameCreated({
-              name: nameInput,
-              surname: surnameInput,
-            }),
-          )
-        }}>
-        Create
-      </button>
-      <button
-        onClick={() => {
-          dispatch(
-            nameUpdated({
-              id: nameSelectedId,
-              name: nameInput,
-              surname: surnameInput,
-            }),
-          )
-        }}>
-        Update
-      </button>
-      <button
-        onClick={() => {
-          dispatch(nameDeleted(nameSelectedId))
-        }}>
-        Delete
-      </button>
+        <Box className="flex-1">
+          <Label htmlFor="name">Name:</Label>
+          <Box height="8px" />
+          <TextField.Root
+            id="name"
+            value={nameInput}
+            onChange={(event) => {
+              dispatch(nameInputChanged(event.currentTarget.value))
+            }}
+            placeholder="Name"
+          />
+
+          <Box height="16px" />
+
+          <Label htmlFor="surname">Surname:</Label>
+          <Box height="8px" />
+          <TextField.Root
+            id="surname"
+            value={surnameInput}
+            onChange={(event) => {
+              dispatch(surnameInputChanged(event.currentTarget.value))
+            }}
+            placeholder="Surname"
+          />
+        </Box>
+      </Flex>
+
+      <Box height="16px" />
+
+      <Flex gap="3">
+        <Button
+          variant="outline"
+          onClick={() => {
+            dispatch(
+              nameCreated({
+                name: nameInput,
+                surname: surnameInput,
+              }),
+            )
+          }}
+          // Couldn't override styles with className, so had to use style
+          style={{ flex: '1 1 0' }}>
+          Create
+        </Button>
+
+        <Button
+          variant="outline"
+          onClick={() => {
+            dispatch(
+              nameUpdated({
+                id: nameSelectedId,
+                name: nameInput,
+                surname: surnameInput,
+              }),
+            )
+          }}
+          style={{ flex: '1 1 0' }}
+          disabled={nameSelectedId === ''}>
+          Update
+        </Button>
+
+        <Button
+          variant="outline"
+          onClick={() => {
+            dispatch(nameDeleted(nameSelectedId))
+          }}
+          style={{ flex: '1 1 0' }}
+          disabled={nameSelectedId === ''}>
+          Delete
+        </Button>
+      </Flex>
     </>
   )
 }
