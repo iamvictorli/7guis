@@ -1,5 +1,5 @@
 import { ArrowTopRightIcon } from '@radix-ui/react-icons'
-import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
+import { Box, Code, Flex, Heading, Link, Strong, Text } from '@radix-ui/themes'
 
 import GuiDisplay from 'components/GuiDisplay'
 import TimerGUI from 'components/guis/Timer'
@@ -88,11 +88,12 @@ export default function Timer() {
       </Heading>
 
       <Text mb="4" as="p" size="3">
-        Implementing a timer in this application requires managing side effects,
-        particularly when it comes to handling intervals and time-based updates.
-        Since Redux is focused on state management and encourages pure
-        functions, handling side effects like intervals must be carefully
-        managed to keep the logic clean and predictable.
+        Implementing a timer in this application requires managing{' '}
+        <Strong>side effects</Strong>, particularly when it comes to handling
+        intervals and time-based updates. Since Redux is focused on state
+        management and encourages pure functions, handling side effects like
+        intervals must be carefully managed to keep the logic clean and
+        predictable.
       </Text>
 
       <Text mb="4" as="p" size="3">

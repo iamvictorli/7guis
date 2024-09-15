@@ -118,6 +118,10 @@ const circleDrawerSlice = createSlice({
       state.ui.selectedCircleId = id
       state.ui.selectedCircleRadius = state.circles.byId[id].radius
     },
+    deselect: (state) => {
+      state.ui.selectedCircleId = ''
+      state.ui.selectedCircleRadius = 0
+    },
     radiusChanged: (state, action: PayloadAction<number>) => {
       const newRadius = action.payload
       if (state.ui.selectedCircleId !== '') {
@@ -149,6 +153,7 @@ export const {
   circleUpdated,
   undo,
   redo,
+  deselect,
 } = circleDrawerSlice.actions
 
 export const CIRCLE_DRAWER_REDUCER_NAME = circleDrawerSlice.name

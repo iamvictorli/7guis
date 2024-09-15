@@ -1,5 +1,5 @@
 import { ArrowTopRightIcon } from '@radix-ui/react-icons'
-import { Box, Flex, Heading, Link, Text } from '@radix-ui/themes'
+import { Box, Flex, Heading, Link, Strong, Text } from '@radix-ui/themes'
 
 import GuiDisplay from 'components/GuiDisplay'
 import CircleDrawerGui from 'components/guis/CircleDrawer'
@@ -47,13 +47,54 @@ export default function CircleDrawer() {
         className="mb-5 [list-style-type:circle]">
         <ul className="list-disc">
           <li>
-            <Text>hello</Text>
+            <Text>
+              Create a user interface with undo and redo buttons and a canvas
+              area.
+            </Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>
+              Left-clicking on an empty area of the canvas creates an unfilled
+              circle at the click location with a fixed diameter.
+            </Text>
           </li>
           <li>
-            <Text>hello</Text>
+            <Text>
+              If a circle exists near the mouse pointer, where the
+              pointer&apos;s distance to the circle&apos;s center is less than
+              its radius, that circle is filled with gray and becomes the
+              selected circle.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              Right-clicking the selected circle opens a popup menu with an
+              option labeled &quot;Adjust diameter.&quot;
+            </Text>
+          </li>
+          <li>
+            <Text>
+              Clicking &quot;Adjust diameter&quot; opens a new frame with a
+              slider to adjust the diameter of the selected circle in real-time.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              Closing the slider frame records the diameter adjustment as a
+              significant change for undo/redo tracking.
+            </Text>
+          </li>
+          <li>
+            <Text>
+              Clicking undo reverses the last significant change (either circle
+              creation or diameter adjustment).
+            </Text>
+          </li>
+          <li>
+            <Text>
+              Clicking redo re-applies the last undone change unless new changes
+              have been made.
+            </Text>
           </li>
         </ul>
       </Flex>
@@ -63,7 +104,30 @@ export default function CircleDrawer() {
       </Heading>
 
       <Text mb="4" as="p" size="3">
-        blah blah blah blah
+        Implementing the circle drawer felt similar to the CRUD application
+        since it also involves managing a collection of records—in this case,
+        circles on a canvas. However, the main difference here is the inclusion
+        of <Strong>undo/redo</Strong> functionality, which adds a new layer of
+        complexity.
+      </Text>
+
+      <Text mb="4" as="p" size="3">
+        I used a <Strong>snapshot-based approach</Strong>, where each action,
+        like creating a circle or adjusting its size, stores the entire current
+        state of the canvas and makes a new copy with appending new state
+        changes. A disadvantage of this approach is that it can become
+        memory-intensive as the number of snapshots increases when there are
+        numerous circles and circle changes.
+      </Text>
+
+      <Text mb="4" as="p" size="3">
+        A better more memory-efficient approach would be to utilize a stack of
+        actions. Instead of storing the entire state after every change, we
+        record the specific actions performed (e.g., &quot;add circle,&quot;
+        &quot;update circle&quot;) and use these actions to reverse or reapply
+        changes. This method consumes significantly less memory because it only
+        tracks the necessary steps to modify the state rather than duplicating
+        the entire state each time.
       </Text>
     </>
   )
