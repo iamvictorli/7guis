@@ -48,7 +48,7 @@ function DateSegment({
           : undefined,
       }}
       className={cn(
-        'group box-content rounded-sm px-0.5 text-right tabular-nums outline-none focus:bg-[var(--accent-9)] focus:text-white',
+        'group box-content rounded-[var(--radius-1)] px-0.5 text-right tabular-nums outline-none focus:bg-[var(--accent-9)] focus:text-white',
         segment.isEditable ? 'text-[var(--gray-12)]' : 'text-[var(--gray-11)]',
       )}>
       {/* Always reserve space for the placeholder, to prevent layout shift when editing. */}

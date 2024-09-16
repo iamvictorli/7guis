@@ -22,7 +22,7 @@ function ListBoxProvider<T extends object>(props: AriaListBoxProps<T>) {
         {...listBoxProps}
         ref={ref}
         className={cn(
-          'mt-2 h-[200px] overflow-auto rounded-lg border border-solid border-[var(--gray-a7)] p-2 transition-colors',
+          'mt-2 h-[200px] overflow-auto rounded-[var(--radius-4)] border border-solid border-[var(--gray-a7)] p-2 transition-colors',
           state.selectionManager.isFocused &&
             'outline outline-1 -outline-offset-1 outline-[var(--gray-a8)]',
         )}>
@@ -49,9 +49,9 @@ function Option<T>({ item, state }: { item: Node<T>; state: ListState<T> }) {
       ref={ref}
       data-focus-visible={isFocusVisible}
       className={cn(
-        'block px-2 py-2 text-[var(--gray-a12)] transition-colors aria-[selected=true]:rounded aria-[selected=true]:bg-[var(--accent-a9)] aria-[selected=true]:text-[var(--accent-contrast)]',
+        'block px-2 py-2 text-[var(--gray-a12)] transition-colors aria-[selected=true]:rounded-[var(--radius-2)] aria-[selected=true]:bg-[var(--accent-a9)] aria-[selected=true]:text-[var(--accent-contrast)]',
         isFocusVisible
-          ? 'rounded outline outline-2 outline-offset-2 outline-[var(--accent-a9)]'
+          ? 'rounded-[var(--radius-2)] outline outline-2 outline-offset-2 outline-[var(--accent-a9)]'
           : '[outline:none]',
       )}>
       {item.rendered}

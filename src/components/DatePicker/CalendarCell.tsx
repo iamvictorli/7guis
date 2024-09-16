@@ -78,15 +78,15 @@ export function CalendarCell({
         hidden={isOutsideVisibleRange}
         className={cn(
           'group h-10 w-10 outline-none',
-          isRoundedLeft && 'rounded-l-full',
-          isRoundedRight && 'rounded-r-full',
+          isRoundedLeft && 'rounded-l-[var(--radius-thumb)]',
+          isRoundedRight && 'rounded-r-[var(--radius-thumb)]',
           isSelected &&
             (isInvalid ? 'bg-[var(--red-3)]' : 'bg-[var(--accent-3)]'),
           isDisabled && 'disabled',
         )}>
         <div
           className={cn(
-            'flex h-full w-full cursor-default items-center justify-center rounded-full',
+            'flex h-full w-full cursor-default items-center justify-center rounded-[var(--radius-thumb)]',
             isDisabled && !isInvalid && 'text-[var(--gray-6)]',
             isFocusVisible &&
               'group-focus:z-2 ring-2 ring-[var(--accent-9)] ring-offset-2',

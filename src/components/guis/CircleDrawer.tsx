@@ -104,7 +104,7 @@ export default function CircleDrawer() {
       <Box height="16px" />
 
       <svg
-        className="h-60 w-full rounded-lg border border-solid border-[var(--gray-a9)]"
+        className="h-60 w-full rounded-[var(--radius-4)] border border-solid border-[var(--gray-a9)]"
         onClick={(event) => {
           const { x, y } = event.currentTarget.getBoundingClientRect()
           const circle = {

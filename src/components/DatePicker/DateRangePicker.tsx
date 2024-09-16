@@ -34,7 +34,7 @@ export function DateRangePicker(props: DateRangePickerStateOptions<DateValue>) {
         <span {...labelProps}>{props.label}</span>
       </Label>
       <div {...groupProps} ref={ref} className="group flex">
-        <div className="relative flex rounded-l-md border border-[var(--gray-7)] bg-[var(--color-background)] p-1 pr-10 transition-colors group-focus-within:border-[var(--accent-9)] group-hover:border-[var(--gray-10)] group-focus-within:group-hover:border-[var(--accent-9)]">
+        <div className="relative flex rounded-l-[var(--radius-3)] border border-[var(--gray-7)] bg-[var(--color-background)] p-1 pr-10 transition-colors group-focus-within:border-[var(--accent-9)] group-hover:border-[var(--gray-10)] group-focus-within:group-hover:border-[var(--accent-9)]">
           <DateField {...startFieldProps} />
           <span aria-hidden="true" className="px-2">
             –
