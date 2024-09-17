@@ -77,7 +77,7 @@ export default function Spreadsheet({
 
   // Function to enter edit mode
   const enterEditMode = (row: number, col: number) => {
-    setPrevValue(data[row][col]) // Store previous value
+    setPrevValue(data[row][columns[col]]) // Store previous value
     setEditCell({ row, col }) // Set the cell in edit mode
   }
 
@@ -236,49 +236,43 @@ export default function Spreadsheet({
           </div>
 
           {/* Render cells */}
-          {columns
-            .map((column) => dataRow[column])
-            .map((_, colIndex) => {
-              const cellValue = data[rowIndex][colIndex]
-              const isFocused =
-                focusedCell &&
-                focusedCell.row === rowIndex &&
-                focusedCell.col === colIndex
-              const isEditing =
-                editCell &&
-                editCell.row === rowIndex &&
-                editCell.col === colIndex
+          {columns.map((column, colIndex) => {
+            const cellValue = dataRow[column]
+            const isFocused =
+              focusedCell &&
+              focusedCell.row === rowIndex &&
+              focusedCell.col === colIndex
+            const isEditing =
+              editCell && editCell.row === rowIndex && editCell.col === colIndex
 
-              return (
-                <div
-                  key={colIndex}
-                  id={`cell-${rowIndex}-${colIndex}`} // Assign unique ID
-                  role="gridcell"
-                  aria-rowindex={rowIndex + 1}
-                  aria-colindex={colIndex + 1}
-                  tabIndex={0} // TODO: Focus management grid to be only focusable
-                  className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
-                    isFocused ? 'border-blue-500' : ''
-                  }`}
-                  onFocus={() =>
-                    setFocusedCell({ row: rowIndex, col: colIndex })
-                  }
-                  onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="h-full w-full focus:outline-none"
-                      value={cellValue}
-                      onChange={(e) => handleChange(e, rowIndex, colIndex)}
-                      onBlur={() => exitEditMode()}
-                      autoFocus
-                    />
-                  ) : (
-                    cellValue
-                  )}
-                </div>
-              )
-            })}
+            return (
+              <div
+                key={colIndex}
+                id={`cell-${rowIndex}-${colIndex}`} // Assign unique ID
+                role="gridcell"
+                aria-rowindex={rowIndex + 1}
+                aria-colindex={colIndex + 1}
+                tabIndex={0} // TODO: Focus management grid to be only focusable
+                className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
+                  isFocused ? 'border-blue-500' : ''
+                }`}
+                onFocus={() => setFocusedCell({ row: rowIndex, col: colIndex })}
+                onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    className="h-full w-full focus:outline-none"
+                    value={cellValue}
+                    onChange={(e) => handleChange(e, rowIndex, colIndex)}
+                    onBlur={() => exitEditMode()}
+                    autoFocus
+                  />
+                ) : (
+                  cellValue
+                )}
+              </div>
+            )
+          })}
         </div>
       ))}
     </div>

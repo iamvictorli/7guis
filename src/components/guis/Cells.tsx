@@ -84,12 +84,12 @@ export default function Cells() {
         onCellChange={({ rowIndex, colIndex, value }) => {
           // dispatch(
           //   cellChanged({
-          //     id,
-          //     value: inputValue,
+          //     id: `${columns[colIndex]}${rowIndex + 1}}`,
+          //     value,
           //   }),
           // )
           const newData = [...data]
-          newData[rowIndex][colIndex] = value // Restore previous value
+          newData[rowIndex][columns[colIndex]] = value
           setData(newData)
         }}
       />
