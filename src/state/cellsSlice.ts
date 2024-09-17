@@ -39,10 +39,11 @@ interface Cell {
 }
 
 interface CellsState {
+  // TODO: do i need entity map of cell? Think just cellRows and columnLabel are just needed
   cells: EntityMap<Cell>
-  // The columnLabels and numColumns properties are not part of the state, as they do not change and can be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI.
+  // The columnLabels and cellRows property is not part of the state, as it does not change and can probably be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI.
   columnLabels: string[]
-  numColumns: number
+  cellRows: Record<string, Cell>[]
   ui: {
     selectedCellId: string | null
     selectedCellIdInputValue: string
@@ -54,23 +55,28 @@ function getInitialState(rows: number, columns: number): CellsState {
     byId: {},
     allIds: [],
   }
+  const cellRows = []
   const columnLabels = generateColumnLabels(columns)
-  for (let number = 0; number < rows; number++) {
-    columnLabels.forEach((label) => {
-      const id = `${label}${number}`
+  for (let rowNumber = 1; rowNumber <= rows; rowNumber++) {
+    const cellRow: Record<string, Cell> = {}
+    columnLabels.forEach((columnLabel) => {
+      const id = `${columnLabel}${rowNumber}`
       cells.allIds.push(id)
-      cells.byId[id] = {
+      const cell: Cell = {
         id,
         children: [],
         computedValue: '',
         formula: null,
       }
+      cells.byId[id] = cell
+      cellRow[columnLabel] = cell
     })
+    cellRows.push(cellRow)
   }
   return {
     cells,
     columnLabels,
-    numColumns: columns,
+    cellRows,
     ui: {
       selectedCellId: null,
       selectedCellIdInputValue: '',
@@ -243,31 +249,17 @@ const cellsSlice = createSlice({
   },
   selectors: {
     selectColumnLabels: (state) => state.columnLabels,
-    selectCellIds: (state) => state.cells.allIds,
-    selectNumColumns: (state) => state.numColumns,
+    selectCellRows: (state) => state.cellRows,
     selectCellbyId: (state, id: string) => state.cells.byId[id],
     selectIsSelected: (state, id: string) => state.ui.selectedCellId === id,
     selectUIInputValue: (state) => state.ui.selectedCellIdInputValue,
   },
 })
 
-export const { selectColumnLabels, selectIsSelected } = cellsSlice.selectors
-
-const { selectCellIds, selectNumColumns, selectCellbyId, selectUIInputValue } =
+export const { selectColumnLabels, selectCellRows, selectIsSelected } =
   cellsSlice.selectors
 
-// selects cellIds in number of column chunks
-// ie, ['A0', 'B0', 'A1', 'B1'] and 2 columns would be [['A0', 'B0'], ['A1', 'B1']]
-export const selectCellIdRows = createSelector(
-  [selectCellIds, selectNumColumns],
-  (cellIds, numColumns) => {
-    const rows = []
-    for (let i = 0; i < cellIds.length; i += numColumns) {
-      rows.push(cellIds.slice(i, i + numColumns))
-    }
-    return rows
-  },
-)
+const { selectCellbyId, selectUIInputValue } = cellsSlice.selectors
 
 export const selectInputValue = createSelector(
   [selectIsSelected, selectUIInputValue, selectCellbyId],

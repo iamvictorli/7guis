@@ -4,11 +4,12 @@ import {
   cellChanged,
   cellInputChanged,
   cellSelected,
-  selectCellIdRows,
+  selectCellRows,
   selectColumnLabels,
   selectInputValue,
   selectIsSelected,
 } from 'state/cellsSlice'
+import SpreadSheet from 'components/Spreadsheet/SpreadSheet'
 
 function Cell({ id }: { id: string }) {
   const isSelected = useAppSelector((state) => selectIsSelected(state, id))
@@ -62,11 +63,12 @@ function Cell({ id }: { id: string }) {
 
 export default function Cells() {
   const columnLabels = useAppSelector(selectColumnLabels)
-  const cellIdRows = useAppSelector(selectCellIdRows)
+  const cellRows = useAppSelector(selectCellRows)
 
   return (
     <>
-      <table>
+      <SpreadSheet />
+      {/* <table>
         <thead>
           <tr>
             <th> </th>
@@ -85,7 +87,7 @@ export default function Cells() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </>
   )
 }
