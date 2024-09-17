@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '~/store'
+import { useState } from 'react'
 
 import {
   cellChanged,
@@ -65,9 +66,16 @@ export default function Cells() {
   const columnLabels = useAppSelector(selectColumnLabels)
   const cellRows = useAppSelector(selectCellRows)
 
+  // Initialize the grid data with empty strings
+  const [data, setData] = useState<string[][]>([
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+  ])
+
   return (
     <>
-      <SpreadSheet />
+      <SpreadSheet data={data} setData={setData} />
       {/* <table>
         <thead>
           <tr>

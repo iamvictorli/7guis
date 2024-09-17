@@ -19,13 +19,13 @@ import type { KeyboardEvent } from 'react'
 // integrate with current slice first
 // define props for each hook, define the props for each hook, so it can be used as for js spread
 
-export default function Spreadsheet() {
-  // Initialize the grid data with empty strings
-  const [data, setData] = useState<string[][]>([
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', ''],
-  ])
+export default function Spreadsheet({
+  data,
+  setData,
+}: {
+  data: string[][]
+  setData: React.Dispatch<React.SetStateAction<string[][]>>
+}) {
   // State for the currently focused cell
   const [focusedCell, setFocusedCell] = useState<{
     row: number
@@ -181,104 +181,83 @@ export default function Spreadsheet() {
       aria-rowcount={data.length + 1} // +1 to include header row
       aria-colcount={data[0].length + 1} // +1 to include header column
       className="inline-block border border-gray-300">
-      {/* Render rows */}
-      {Array.from({ length: data.length + 1 }).map((_, rowIndex) => (
-        <div role="row" key={rowIndex} className="flex">
-          {/* Render cells */}
-          {Array.from({ length: data[0].length + 1 }).map((_, colIndex) => {
-            // Top-left corner cell (empty)
-            if (rowIndex === 0 && colIndex === 0) {
-              return (
-                <div
-                  key={colIndex}
-                  role="gridcell"
-                  aria-readonly="true"
-                  className="h-8 w-16 border border-gray-300 bg-gray-100"
-                />
-              )
-            }
-            // Column headers
-            else if (rowIndex === 0) {
-              const columnHeader = String.fromCharCode(64 + colIndex) // 1 -> 'A', 2 -> 'B', etc.
-              return (
-                <div
-                  key={colIndex}
-                  role="columnheader"
-                  aria-readonly="true"
-                  aria-colindex={colIndex}
-                  className={`flex h-8 w-16 items-center justify-center border border-gray-300 bg-gray-100 ${
-                    focusedCell && focusedCell.col === colIndex - 1
-                      ? 'bg-blue-100'
-                      : ''
-                  }`}>
-                  {columnHeader}
-                </div>
-              )
-            }
-            // Row headers
-            else if (colIndex === 0) {
-              const rowHeader = rowIndex
-              return (
-                <div
-                  key={colIndex}
-                  role="rowheader"
-                  aria-readonly="true"
-                  aria-rowindex={rowIndex}
-                  className={`flex h-8 w-16 items-center justify-center border border-gray-300 bg-gray-100 ${
-                    focusedCell && focusedCell.row === rowIndex - 1
-                      ? 'bg-blue-100'
-                      : ''
-                  }`}>
-                  {rowHeader}
-                </div>
-              )
-            }
-            // Data cells
-            else {
-              const cellValue = data[rowIndex - 1][colIndex - 1]
-              const isFocused =
-                focusedCell &&
-                focusedCell.row === rowIndex - 1 &&
-                focusedCell.col === colIndex - 1
-              const isEditing =
-                editCell &&
-                editCell.row === rowIndex - 1 &&
-                editCell.col === colIndex - 1
+      {/* Render first row with column names */}
+      <div role="row" className="flex">
+        {/* Top-left cornder cell (empty) */}
+        <div
+          role="gridcell"
+          aria-readonly="true"
+          className="h-8 w-16 border border-gray-300 bg-gray-100"
+        />
 
-              return (
-                <div
-                  key={colIndex}
-                  id={`cell-${rowIndex - 1}-${colIndex - 1}`} // Assign unique ID
-                  role="gridcell"
-                  aria-rowindex={rowIndex}
-                  aria-colindex={colIndex}
-                  tabIndex={0} // TODO: Focus management grid to be only focusable
-                  className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
-                    isFocused ? 'border-blue-500' : ''
-                  }`}
-                  onFocus={() =>
-                    setFocusedCell({ row: rowIndex - 1, col: colIndex - 1 })
-                  }
-                  onKeyDown={(e) =>
-                    handleKeyDown(e, rowIndex - 1, colIndex - 1)
-                  }>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="h-full w-full focus:outline-none"
-                      value={cellValue}
-                      onChange={(e) =>
-                        handleChange(e, rowIndex - 1, colIndex - 1)
-                      }
-                      onBlur={() => exitEditMode()}
-                      autoFocus
-                    />
-                  ) : (
-                    cellValue
-                  )}
-                </div>
-              )
-            }
+        {data[0].map((_, colIndex) => {
+          const columnHeader = String.fromCharCode(65 + colIndex) // 1 -> 'A', 2 -> 'B', etc.
+          return (
+            <div
+              key={colIndex}
+              role="columnheader"
+              aria-readonly="true"
+              aria-colindex={colIndex + 1}
+              className={`flex h-8 w-16 items-center justify-center border border-gray-300 bg-gray-100 ${
+                focusedCell && focusedCell.col === colIndex ? 'bg-blue-100' : ''
+              }`}>
+              {columnHeader}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Render rows */}
+      {data.map((row, rowIndex) => (
+        <div role="row" key={rowIndex} className="flex">
+          {/* Render row header */}
+          <div
+            role="rowheader"
+            aria-readonly="true"
+            aria-rowindex={rowIndex + 1}
+            className={`flex h-8 w-16 items-center justify-center border border-gray-300 bg-gray-100 ${
+              focusedCell && focusedCell.row === rowIndex ? 'bg-blue-100' : ''
+            }`}>
+            {rowIndex + 1}
+          </div>
+
+          {/* Render cells */}
+          {row.map((_, colIndex) => {
+            const cellValue = data[rowIndex][colIndex]
+            const isFocused =
+              focusedCell &&
+              focusedCell.row === rowIndex &&
+              focusedCell.col === colIndex
+            const isEditing =
+              editCell && editCell.row === rowIndex && editCell.col === colIndex
+
+            return (
+              <div
+                key={colIndex}
+                id={`cell-${rowIndex}-${colIndex}`} // Assign unique ID
+                role="gridcell"
+                aria-rowindex={rowIndex + 1}
+                aria-colindex={colIndex + 1}
+                tabIndex={0} // TODO: Focus management grid to be only focusable
+                className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
+                  isFocused ? 'border-blue-500' : ''
+                }`}
+                onFocus={() => setFocusedCell({ row: rowIndex, col: colIndex })}
+                onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    className="h-full w-full focus:outline-none"
+                    value={cellValue}
+                    onChange={(e) => handleChange(e, rowIndex, colIndex)}
+                    onBlur={() => exitEditMode()}
+                    autoFocus
+                  />
+                ) : (
+                  cellValue
+                )}
+              </div>
+            )
           })}
         </div>
       ))}
