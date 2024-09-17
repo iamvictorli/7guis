@@ -34,7 +34,7 @@ function generateColumnLabels(n: number) {
 interface Cell {
   id: string
   children: string[] // holds child ids
-  computedValue: string // displayed value of cell. if formula exists and the focus is on cell, displayed value is formula
+  computedValue: string // displayed value of cell. if formula exists and the edit mode is on cell, displayed value is formula
   formula: string | null // null means cell is not a formula
 }
 

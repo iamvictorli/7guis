@@ -16,15 +16,32 @@ import type { KeyboardEvent } from 'react'
 // useSpreadSheetState(props)
 // useSpreadSheetCell(state, props, ref)?
 
+// changes to row number, and column label
+// focused cell should be the same row number
+// render individual cell, Spreadsheet Cell
+
+// use an interface of Cell, and use renderProp, similar to ListBox
+// TODO: check if aria properties are set properly
+
 // integrate with current slice first
 // define props for each hook, define the props for each hook, so it can be used as for js spread
 
 export default function Spreadsheet({
   data,
-  setData,
+  columns,
+  onCellChange,
 }: {
-  data: string[][]
-  setData: React.Dispatch<React.SetStateAction<string[][]>>
+  data: Record<string, string>[]
+  columns: string[]
+  onCellChange: ({
+    rowIndex,
+    colIndex,
+    value,
+  }: {
+    rowIndex: number
+    colIndex: number
+    value: string
+  }) => void
 }) {
   // State for the currently focused cell
   const [focusedCell, setFocusedCell] = useState<{
@@ -73,9 +90,7 @@ export default function Spreadsheet({
   const cancelEditMode = () => {
     if (editCell) {
       const { row, col } = editCell
-      const newData = [...data]
-      newData[row][col] = prevValue // Restore previous value
-      setData(newData)
+      onCellChange({ rowIndex: row, colIndex: col, value: prevValue })
       setEditCell(null)
     }
   }
@@ -86,9 +101,7 @@ export default function Spreadsheet({
     row: number,
     col: number,
   ) => {
-    const newData = [...data]
-    newData[row][col] = e.target.value // Update cell value
-    setData(newData)
+    onCellChange({ rowIndex: row, colIndex: col, value: e.target.value })
   }
 
   // Function to handle keyboard navigation and interactions
@@ -98,7 +111,7 @@ export default function Spreadsheet({
     col: number,
   ) => {
     const isFirstCell = row === 0 && col === 0
-    const isLastCell = row === data.length - 1 && col === data[0].length - 1
+    const isLastCell = row === data.length - 1 && col === columns.length - 1
 
     if (e.key === 'Enter') {
       if (editCell && editCell.row === row && editCell.col === col) {
@@ -123,7 +136,7 @@ export default function Spreadsheet({
       cancelEditMode()
     } else if (e.key === 'ArrowRight') {
       // Move focus right
-      if (col + 1 < data[0].length) {
+      if (col + 1 < columns.length) {
         setFocusedCell({ row, col: col + 1 })
       }
     } else if (e.key === 'ArrowLeft') {
@@ -157,11 +170,11 @@ export default function Spreadsheet({
         let nextCol = col + (e.shiftKey ? -1 : 1)
 
         // Handle wrapping to next/previous row
-        if (nextCol >= data[0].length) {
+        if (nextCol >= columns.length) {
           nextCol = 0
           nextRow = row + 1
         } else if (nextCol < 0) {
-          nextCol = data[0].length - 1
+          nextCol = columns.length - 1
           nextRow = row - 1
         }
 
@@ -179,7 +192,7 @@ export default function Spreadsheet({
       role="grid"
       aria-label="Spreadsheet"
       aria-rowcount={data.length + 1} // +1 to include header row
-      aria-colcount={data[0].length + 1} // +1 to include header column
+      aria-colcount={columns.length + 1} // +1 to include header column
       className="inline-block border border-gray-300">
       {/* Render first row with column names */}
       <div role="row" className="flex">
@@ -190,25 +203,26 @@ export default function Spreadsheet({
           className="h-8 w-16 border border-gray-300 bg-gray-100"
         />
 
-        {data[0].map((_, colIndex) => {
-          const columnHeader = String.fromCharCode(65 + colIndex) // 1 -> 'A', 2 -> 'B', etc.
+        {columns.map((column, columnIndex) => {
           return (
             <div
-              key={colIndex}
+              key={column}
               role="columnheader"
               aria-readonly="true"
-              aria-colindex={colIndex + 1}
+              aria-colindex={columnIndex + 1}
               className={`flex h-8 w-16 items-center justify-center border border-gray-300 bg-gray-100 ${
-                focusedCell && focusedCell.col === colIndex ? 'bg-blue-100' : ''
+                focusedCell && focusedCell.col === columnIndex
+                  ? 'bg-blue-100'
+                  : ''
               }`}>
-              {columnHeader}
+              {column}
             </div>
           )
         })}
       </div>
 
       {/* Render rows */}
-      {data.map((row, rowIndex) => (
+      {data.map((dataRow, rowIndex) => (
         <div role="row" key={rowIndex} className="flex">
           {/* Render row header */}
           <div
@@ -222,43 +236,49 @@ export default function Spreadsheet({
           </div>
 
           {/* Render cells */}
-          {row.map((_, colIndex) => {
-            const cellValue = data[rowIndex][colIndex]
-            const isFocused =
-              focusedCell &&
-              focusedCell.row === rowIndex &&
-              focusedCell.col === colIndex
-            const isEditing =
-              editCell && editCell.row === rowIndex && editCell.col === colIndex
+          {columns
+            .map((column) => dataRow[column])
+            .map((_, colIndex) => {
+              const cellValue = data[rowIndex][colIndex]
+              const isFocused =
+                focusedCell &&
+                focusedCell.row === rowIndex &&
+                focusedCell.col === colIndex
+              const isEditing =
+                editCell &&
+                editCell.row === rowIndex &&
+                editCell.col === colIndex
 
-            return (
-              <div
-                key={colIndex}
-                id={`cell-${rowIndex}-${colIndex}`} // Assign unique ID
-                role="gridcell"
-                aria-rowindex={rowIndex + 1}
-                aria-colindex={colIndex + 1}
-                tabIndex={0} // TODO: Focus management grid to be only focusable
-                className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
-                  isFocused ? 'border-blue-500' : ''
-                }`}
-                onFocus={() => setFocusedCell({ row: rowIndex, col: colIndex })}
-                onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    className="h-full w-full focus:outline-none"
-                    value={cellValue}
-                    onChange={(e) => handleChange(e, rowIndex, colIndex)}
-                    onBlur={() => exitEditMode()}
-                    autoFocus
-                  />
-                ) : (
-                  cellValue
-                )}
-              </div>
-            )
-          })}
+              return (
+                <div
+                  key={colIndex}
+                  id={`cell-${rowIndex}-${colIndex}`} // Assign unique ID
+                  role="gridcell"
+                  aria-rowindex={rowIndex + 1}
+                  aria-colindex={colIndex + 1}
+                  tabIndex={0} // TODO: Focus management grid to be only focusable
+                  className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
+                    isFocused ? 'border-blue-500' : ''
+                  }`}
+                  onFocus={() =>
+                    setFocusedCell({ row: rowIndex, col: colIndex })
+                  }
+                  onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      className="h-full w-full focus:outline-none"
+                      value={cellValue}
+                      onChange={(e) => handleChange(e, rowIndex, colIndex)}
+                      onBlur={() => exitEditMode()}
+                      autoFocus
+                    />
+                  ) : (
+                    cellValue
+                  )}
+                </div>
+              )
+            })}
         </div>
       ))}
     </div>

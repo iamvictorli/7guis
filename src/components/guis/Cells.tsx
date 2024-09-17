@@ -65,17 +65,34 @@ function Cell({ id }: { id: string }) {
 export default function Cells() {
   const columnLabels = useAppSelector(selectColumnLabels)
   const cellRows = useAppSelector(selectCellRows)
+  const dispatch = useAppDispatch()
 
   // Initialize the grid data with empty strings
-  const [data, setData] = useState<string[][]>([
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', ''],
+  const [data, setData] = useState<Record<string, string>[]>([
+    { A: '', B: '', C: '' },
+    { A: '', B: '', C: '' },
+    { A: '', B: '', C: '' },
   ])
+
+  const columns = ['A', 'B', 'C']
 
   return (
     <>
-      <SpreadSheet data={data} setData={setData} />
+      <SpreadSheet
+        data={data}
+        columns={columns}
+        onCellChange={({ rowIndex, colIndex, value }) => {
+          // dispatch(
+          //   cellChanged({
+          //     id,
+          //     value: inputValue,
+          //   }),
+          // )
+          const newData = [...data]
+          newData[rowIndex][colIndex] = value // Restore previous value
+          setData(newData)
+        }}
+      />
       {/* <table>
         <thead>
           <tr>
