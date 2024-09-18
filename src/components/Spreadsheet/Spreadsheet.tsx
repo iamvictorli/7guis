@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 
 import type { Cell } from 'state/cellsSlice'
@@ -7,7 +7,6 @@ import type { Cell } from 'state/cellsSlice'
 // bring ref out to focus
 
 // useSpreadSheetState(props)
-// useSpreadSheetCell(state, props, ref)?
 
 // changes to row number, and column label
 // focused cell should be the same row number
@@ -66,6 +65,7 @@ function useSpreadsheetCell({
   function exitEditMode() {
     setEditCell(null) // Exit edit mode
   }
+
   // Function to enter edit mode
   function enterEditMode(row: number, col: number) {
     setEditCell({ row, col }) // Set the cell in edit mode
@@ -131,23 +131,22 @@ interface SpreadsheetCellProps {
   columnLength: number
 }
 
-const SpreadsheetCell = forwardRef<HTMLDivElement, SpreadsheetCellProps>(
-  function SpreadsheetCell(
-    {
-      row,
-      col,
-      setFocusedCell,
-      setEditCell,
-      onCellChange,
-      cell,
-      isEditing,
-      isFocused,
-      dataLength,
-      columnLength,
-    }: SpreadsheetCellProps,
-    ref,
-  ) {
+const SpreadsheetCell = memo(
+  function SpreadsheetCell({
+    row,
+    col,
+    setFocusedCell,
+    setEditCell,
+    onCellChange,
+    cell,
+    isEditing,
+    isFocused,
+    dataLength,
+    columnLength,
+  }: SpreadsheetCellProps) {
     const [inputValue, setInputValue] = useState('')
+
+    const ref = useRef<HTMLDivElement | null>(null)
 
     const {
       cellProps,
@@ -164,6 +163,12 @@ const SpreadsheetCell = forwardRef<HTMLDivElement, SpreadsheetCellProps>(
       isEditing,
       isFocused,
     })
+
+    useEffect(() => {
+      if (isFocused && ref.current && !isEditing) {
+        ref.current.focus()
+      }
+    }, [isFocused, isEditing])
 
     function cellChange() {
       if (isEditing) {
@@ -210,7 +215,7 @@ const SpreadsheetCell = forwardRef<HTMLDivElement, SpreadsheetCellProps>(
         // Cancel edit mode
         cancelEditMode()
       } else if (e.key === 'ArrowRight') {
-        // on edit mode, doesnt do anything
+        // on edit mode, doesn't do anything
         if (isEditing) return
 
         cellChange()
@@ -220,32 +225,29 @@ const SpreadsheetCell = forwardRef<HTMLDivElement, SpreadsheetCellProps>(
           focusCell(row, col + 1)
         }
       } else if (e.key === 'ArrowLeft') {
-        // on edit mode, doesnt do anything
+        // on edit mode, doesn't do anything
         if (isEditing) return
         cellChange()
 
         // Move focus left
-        // onChange
         if (col - 1 >= 0) {
           focusCell(row, col - 1)
         }
       } else if (e.key === 'ArrowDown') {
-        // on edit mode, doesnt do anything
+        // on edit mode, doesn't do anything
         if (isEditing) return
         cellChange()
 
         // Move focus down
-        // onChange
         if (row + 1 < dataLength) {
           focusCell(row + 1, col)
         }
       } else if (e.key === 'ArrowUp') {
-        // on edit mode, doesnt do anything
+        // on edit mode, doesn't do anything
         if (isEditing) return
         cellChange()
 
         // Move focus up
-        // onChange
         if (row - 1 >= 0) {
           focusCell(row - 1, col)
         }
@@ -304,6 +306,22 @@ const SpreadsheetCell = forwardRef<HTMLDivElement, SpreadsheetCellProps>(
       </div>
     )
   },
+  (prevProps, nextProps) => {
+    // Re-render if isFocused or isEditing changes
+    if (
+      prevProps.isFocused !== nextProps.isFocused ||
+      prevProps.isEditing !== nextProps.isEditing
+    ) {
+      return false // Props have changed, re-render
+    }
+
+    if (prevProps.cell.computedValue !== nextProps.cell.computedValue) {
+      return false
+    }
+
+    // Otherwise, do not re-render
+    return true
+  },
 )
 
 export default function Spreadsheet({
@@ -334,25 +352,6 @@ export default function Spreadsheet({
     null,
   )
 
-  const cellRefs = useRef<Record<string, HTMLDivElement | null>>({})
-  // Effect to focus the new cell when focusedCell changes
-  useEffect(() => {
-    if (focusedCell) {
-      // Check if the focused cell is not in edit mode
-      if (
-        !editCell ||
-        editCell.row !== focusedCell.row ||
-        editCell.col !== focusedCell.col
-      ) {
-        const cellId = `${columns[focusedCell.col]}${focusedCell.row + 1}`
-        const cellElement = cellRefs.current[cellId]
-        if (cellElement) {
-          cellElement.focus()
-        }
-      }
-    }
-  }, [columns, focusedCell, editCell])
-
   // Render the grid
   return (
     <div
@@ -363,7 +362,7 @@ export default function Spreadsheet({
       className="inline-block border border-gray-300">
       {/* Render first row with column names */}
       <div role="row" className="flex">
-        {/* Top-left cornder cell (empty) */}
+        {/* Top-left corner cell (empty) */}
         <div
           role="gridcell"
           aria-readonly="true"
@@ -415,9 +414,6 @@ export default function Spreadsheet({
                 setFocusedCell={setFocusedCell}
                 setEditCell={setEditCell}
                 onCellChange={onCellChange}
-                ref={(el) => {
-                  cellRefs.current[cell.id] = el
-                }}
                 cell={cell}
                 isEditing={Boolean(
                   editCell &&
