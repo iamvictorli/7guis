@@ -186,10 +186,10 @@ const cellsSlice = createSlice({
       const { id, value: newValue } = action.payload
       const cell = state.cells.byId[id]
 
-      // if formula exists, check if the editting value is the same as formula
+      // if formula exists, check if the editing value is the same as formula
       if (cell.formula !== null && cell.formula === newValue) return
 
-      // if formula doesnt exist, check if editting value is the same as computed value
+      // if formula doesnt exist, check if editing value is the same as computed value
       if (cell.formula === null && cell.computedValue === newValue) return
 
       // remove existing formula, remove cells that were part of this formula

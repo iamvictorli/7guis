@@ -1,3 +1,4 @@
+import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import {
@@ -5,7 +6,6 @@ import {
   selectCellMatrix,
   selectColumnLabels,
 } from 'state/cellsSlice'
-import SpreadSheet from 'components/Spreadsheet/SpreadSheet'
 
 export default function Cells() {
   const columnLabels = useAppSelector(selectColumnLabels)
