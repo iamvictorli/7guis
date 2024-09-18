@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 
-// props to have
-// columns, 'A', 'B', 'C'
-// data: data row
+import type { Cell } from 'state/cellsSlice'
 
 // hook to manage focus cell
 // bring ref out to focus
-
-// no initial focus, tablIndex 0 outer, but when it does does focused -1 outer, but cell has tabIndex 0, others -1
-
-// onChangeCell?
-// focused column header, focused row header
 
 // useSpreadSheetState(props)
 // useSpreadSheetCell(state, props, ref)?
@@ -19,19 +12,29 @@ import type { KeyboardEvent } from 'react'
 // changes to row number, and column label
 // focused cell should be the same row number
 // render individual cell, Spreadsheet Cell
-
 // use an interface of Cell, and use renderProp, similar to ListBox
-// TODO: check if aria properties are set properly
-
-// integrate with current slice first
 // define props for each hook, define the props for each hook, so it can be used as for js spread
+
+// check with browser, and focus
+
+// aria tags are to be the same
+// focused cell should be highlighted, col/row header to be colored
+// when in edit cell, up/left/right/down does nothing, tab changes cell and goes to the right, enter changes cell and goes down,
+// escape stays in same cell, but leaves edit mode
+
+// arrow keys works
+// tab leaves focus elsewhere
+// tabIndex stays the same
+
+// colors
+// performance with a bunch of rows and columns, would using an individual selector work better?
 
 export default function Spreadsheet({
   data,
   columns,
   onCellChange,
 }: {
-  data: Record<string, string>[]
+  data: Record<string, Cell>[]
   columns: string[]
   onCellChange: ({
     rowIndex,
@@ -53,10 +56,7 @@ export default function Spreadsheet({
   const [editCell, setEditCell] = useState<{ row: number; col: number } | null>(
     null,
   )
-
-  // State to store the previous value of a cell before editing
-  const [prevValue, setPrevValue] = useState<string>('')
-
+  const [inputValue, setInputValue] = useState('')
   // Effect to focus the new cell when focusedCell changes
   useEffect(() => {
     if (focusedCell) {
@@ -76,45 +76,49 @@ export default function Spreadsheet({
   }, [focusedCell, editCell])
 
   // Function to enter edit mode
-  const enterEditMode = (row: number, col: number) => {
-    setPrevValue(data[row][columns[col]]) // Store previous value
+  function enterEditMode(row: number, col: number) {
+    const cell = data[row][columns[col]]
+    setInputValue(cell.formula ?? cell.computedValue ?? '')
     setEditCell({ row, col }) // Set the cell in edit mode
   }
 
   // Function to exit edit mode
-  const exitEditMode = () => {
+  function exitEditMode() {
     setEditCell(null) // Exit edit mode
   }
 
   // Function to cancel editing and restore previous value
-  const cancelEditMode = () => {
+  function cancelEditMode() {
     if (editCell) {
-      const { row, col } = editCell
-      onCellChange({ rowIndex: row, colIndex: col, value: prevValue })
       setEditCell(null)
     }
   }
 
+  function cellChange() {
+    if (editCell) {
+      onCellChange({
+        rowIndex: editCell.row,
+        colIndex: editCell.col,
+        value: inputValue,
+      })
+    }
+  }
+
   // Function to handle input changes
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    row: number,
-    col: number,
-  ) => {
-    onCellChange({ rowIndex: row, colIndex: col, value: e.target.value })
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value)
   }
 
   // Function to handle keyboard navigation and interactions
-  const handleKeyDown = (
+  function handleKeyDown(
     e: KeyboardEvent<HTMLDivElement>,
     row: number,
     col: number,
-  ) => {
-    const isFirstCell = row === 0 && col === 0
-    const isLastCell = row === data.length - 1 && col === columns.length - 1
-
+  ) {
     if (e.key === 'Enter') {
       if (editCell && editCell.row === row && editCell.col === col) {
+        cellChange()
+
         // If already in edit mode, exit and move focus down
         exitEditMode()
         if (row + 1 < data.length) {
@@ -126,6 +130,8 @@ export default function Spreadsheet({
       }
     } else if (e.key === 'F2') {
       if (editCell && editCell.row === row && editCell.col === col) {
+        cellChange()
+
         // Toggle edit mode
         exitEditMode()
       } else {
@@ -135,36 +141,49 @@ export default function Spreadsheet({
       // Cancel edit mode
       cancelEditMode()
     } else if (e.key === 'ArrowRight') {
+      // on edit mode, doesnt do anything
+      if (editCell) return
+
+      cellChange()
+
       // Move focus right
       if (col + 1 < columns.length) {
         setFocusedCell({ row, col: col + 1 })
       }
     } else if (e.key === 'ArrowLeft') {
+      // on edit mode, doesnt do anything
+      if (editCell) return
+      cellChange()
+
       // Move focus left
+      // onChange
       if (col - 1 >= 0) {
         setFocusedCell({ row, col: col - 1 })
       }
     } else if (e.key === 'ArrowDown') {
+      // on edit mode, doesnt do anything
+      if (editCell) return
+      cellChange()
+
       // Move focus down
+      // onChange
       if (row + 1 < data.length) {
         setFocusedCell({ row: row + 1, col })
       }
     } else if (e.key === 'ArrowUp') {
+      // on edit mode, doesnt do anything
+      if (editCell) return
+      cellChange()
+
       // Move focus up
+      // onChange
       if (row - 1 >= 0) {
         setFocusedCell({ row: row - 1, col })
       }
     } else if (e.key === 'Tab') {
-      if (
-        // Pressing "Tab" on the last cell without "Shift"
-        (!e.shiftKey && isLastCell) ||
-        // Pressing "Shift+Tab" on the first cell
-        (e.shiftKey && isFirstCell)
-      ) {
-        // Allow default behavior to let focus move out of the grid
-        return
-      } else {
+      if (editCell) {
         e.preventDefault() // Prevent default tab behavior
+        cellChange()
         // Move focus to next or previous cell
         let nextRow = row
         let nextCol = col + (e.shiftKey ? -1 : 1)
@@ -210,10 +229,10 @@ export default function Spreadsheet({
               role="columnheader"
               aria-readonly="true"
               aria-colindex={columnIndex + 1}
-              className={`flex h-8 w-16 items-center justify-center border border-gray-300 bg-gray-100 ${
+              className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
                 focusedCell && focusedCell.col === columnIndex
                   ? 'bg-blue-100'
-                  : ''
+                  : 'bg-gray-100'
               }`}>
               {column}
             </div>
@@ -229,15 +248,17 @@ export default function Spreadsheet({
             role="rowheader"
             aria-readonly="true"
             aria-rowindex={rowIndex + 1}
-            className={`flex h-8 w-16 items-center justify-center border border-gray-300 bg-gray-100 ${
-              focusedCell && focusedCell.row === rowIndex ? 'bg-blue-100' : ''
+            className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
+              focusedCell && focusedCell.row === rowIndex
+                ? 'bg-blue-100'
+                : 'bg-gray-100'
             }`}>
             {rowIndex + 1}
           </div>
 
           {/* Render cells */}
           {columns.map((column, colIndex) => {
-            const cellValue = dataRow[column]
+            const cell = dataRow[column]
             const isFocused =
               focusedCell &&
               focusedCell.row === rowIndex &&
@@ -252,23 +273,39 @@ export default function Spreadsheet({
                 role="gridcell"
                 aria-rowindex={rowIndex + 1}
                 aria-colindex={colIndex + 1}
-                tabIndex={0} // TODO: Focus management grid to be only focusable
-                className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
-                  isFocused ? 'border-blue-500' : ''
+                aria-selected={isFocused ?? false}
+                tabIndex={
+                  // if there is no focused cell, make the first cell tabIndex of 0
+                  focusedCell
+                    ? isFocused
+                      ? 0
+                      : -1
+                    : rowIndex === 0 && colIndex === 0
+                      ? 0
+                      : -1
+                }
+                className={`flex h-8 w-16 items-center justify-center border ${
+                  isFocused ? 'border-blue-500' : 'border-gray-300'
                 }`}
                 onFocus={() => setFocusedCell({ row: rowIndex, col: colIndex })}
-                onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}>
+                onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}
+                onClick={() => {
+                  setFocusedCell({ row: rowIndex, col: colIndex })
+                }}>
                 {isEditing ? (
                   <input
                     type="text"
                     className="h-full w-full focus:outline-none"
-                    value={cellValue}
-                    onChange={(e) => handleChange(e, rowIndex, colIndex)}
-                    onBlur={() => exitEditMode()}
+                    value={inputValue}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={() => {
+                      cellChange()
+                      exitEditMode()
+                    }}
                     autoFocus
                   />
                 ) : (
-                  cellValue
+                  cell.computedValue
                 )}
               </div>
             )

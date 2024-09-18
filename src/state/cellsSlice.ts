@@ -31,7 +31,7 @@ function generateColumnLabels(n: number) {
   return result
 }
 
-interface Cell {
+export interface Cell {
   id: string
   children: string[] // holds child ids
   computedValue: string // displayed value of cell. if formula exists and the edit mode is on cell, displayed value is formula
@@ -41,13 +41,9 @@ interface Cell {
 interface CellsState {
   // TODO: do i need entity map of cell? Think just cellRows and columnLabel are just needed
   cells: EntityMap<Cell>
-  // The columnLabels and cellRows property is not part of the state, as it does not change and can probably be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI.
+  // The columnLabels and cellLabelMatrix property is not part of the state, as it does not change and can probably be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI.
   columnLabels: string[]
-  cellRows: Record<string, Cell>[]
-  ui: {
-    selectedCellId: string | null
-    selectedCellIdInputValue: string
-  }
+  cellLabelMatrix: Record<string, string>[] // Record of columnLabel to cellId, to be later used in selectCellMatrix
 }
 
 function getInitialState(rows: number, columns: number): CellsState {
@@ -55,32 +51,27 @@ function getInitialState(rows: number, columns: number): CellsState {
     byId: {},
     allIds: [],
   }
-  const cellRows = []
+  const cellLabelMatrix = []
   const columnLabels = generateColumnLabels(columns)
   for (let rowNumber = 1; rowNumber <= rows; rowNumber++) {
-    const cellRow: Record<string, Cell> = {}
+    const cellLabel: Record<string, string> = {}
     columnLabels.forEach((columnLabel) => {
       const id = `${columnLabel}${rowNumber}`
+      cellLabel[columnLabel] = id
       cells.allIds.push(id)
-      const cell: Cell = {
+      cells.byId[id] = {
         id,
         children: [],
         computedValue: '',
         formula: null,
       }
-      cells.byId[id] = cell
-      cellRow[columnLabel] = cell
     })
-    cellRows.push(cellRow)
+    cellLabelMatrix.push(cellLabel)
   }
   return {
     cells,
     columnLabels,
-    cellRows,
-    ui: {
-      selectedCellId: null,
-      selectedCellIdInputValue: '',
-    },
+    cellLabelMatrix,
   }
 }
 
@@ -195,9 +186,6 @@ const cellsSlice = createSlice({
       const { id, value: newValue } = action.payload
       const cell = state.cells.byId[id]
 
-      state.ui.selectedCellId = null
-      state.ui.selectedCellIdInputValue = ''
-
       // if formula exists, check if the editting value is the same as formula
       if (cell.formula !== null && cell.formula === newValue) return
 
@@ -235,40 +223,32 @@ const cellsSlice = createSlice({
         calcCell(childId)
       })
     },
-    cellSelected: (state, action: PayloadAction<string>) => {
-      const id = action.payload
-      const cell = state.cells.byId[id]
-
-      state.ui.selectedCellId = id
-      state.ui.selectedCellIdInputValue = cell.formula ?? cell.computedValue
-    },
-    cellInputChanged: (state, action: PayloadAction<string>) => {
-      const value = action.payload
-      state.ui.selectedCellIdInputValue = value
-    },
   },
   selectors: {
     selectColumnLabels: (state) => state.columnLabels,
-    selectCellRows: (state) => state.cellRows,
-    selectCellbyId: (state, id: string) => state.cells.byId[id],
-    selectIsSelected: (state, id: string) => state.ui.selectedCellId === id,
-    selectUIInputValue: (state) => state.ui.selectedCellIdInputValue,
+    selectCellLabelMatrix: (state) => state.cellLabelMatrix,
+    selectCells: (state) => state.cells,
   },
 })
 
-export const { selectColumnLabels, selectCellRows, selectIsSelected } =
-  cellsSlice.selectors
+export const { selectColumnLabels } = cellsSlice.selectors
 
-const { selectCellbyId, selectUIInputValue } = cellsSlice.selectors
+const { selectCells, selectCellLabelMatrix } = cellsSlice.selectors
 
-export const selectInputValue = createSelector(
-  [selectIsSelected, selectUIInputValue, selectCellbyId],
-  (isSelected, uiInputValue, cell) =>
-    isSelected ? uiInputValue : cell.computedValue,
+export const selectCellMatrix = createSelector(
+  [selectCellLabelMatrix, selectCells],
+  (cellLabelMatrix, cells) => {
+    return cellLabelMatrix.map((cellLabel) => {
+      const row: Record<string, Cell> = {}
+      Object.entries(cellLabel).forEach(([columnLabel, cellId]) => {
+        row[columnLabel] = cells.byId[cellId]
+      })
+      return row
+    })
+  },
 )
 
-export const { cellChanged, cellSelected, cellInputChanged } =
-  cellsSlice.actions
+export const { cellChanged } = cellsSlice.actions
 
 export const CELLS_REDUCER_NAME = cellsSlice.name
 
