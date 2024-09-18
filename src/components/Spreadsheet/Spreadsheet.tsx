@@ -1,12 +1,8 @@
+import { cn } from '~/lib/utils'
 import { memo, useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 
 import type { Cell } from 'state/cellsSlice'
-
-// hook to manage focus cell
-// bring ref out to focus
-
-// useSpreadSheetState(props)
 
 // changes to row number, and column label
 // focused cell should be the same row number
@@ -26,107 +22,16 @@ import type { Cell } from 'state/cellsSlice'
 // tabIndex stays the same
 
 // colors
-// performance with a bunch of rows and columns, would using an individual selector work better?
-
-function useSpreadsheetCell({
-  row,
-  col,
-  setFocusedCell,
-  setEditCell,
-  isEditing,
-  isFocused,
-}: {
-  row: number
-  col: number
-  setFocusedCell: React.Dispatch<
-    React.SetStateAction<{
-      row: number
-      col: number
-    } | null>
-  >
-  setEditCell: React.Dispatch<
-    React.SetStateAction<{
-      row: number
-      col: number
-    } | null>
-  >
-  isEditing: boolean
-  isFocused: boolean
-}) {
-  function focusCell(row: number, col: number) {
-    setFocusedCell({ row, col })
-  }
-
-  function focusCurrentCell() {
-    focusCell(row, col)
-  }
-
-  // Function to exit edit mode
-  function exitEditMode() {
-    setEditCell(null) // Exit edit mode
-  }
-
-  // Function to enter edit mode
-  function enterEditMode(row: number, col: number) {
-    setEditCell({ row, col }) // Set the cell in edit mode
-  }
-
-  // Function to cancel editing and restore previous value
-  function cancelEditMode() {
-    if (isEditing) {
-      setEditCell(null)
-    }
-  }
-
-  const cellProps = {
-    role: 'gridcell',
-    ['aria-rowindex']: row + 1,
-    ['aria-colindex']: col + 1,
-    ['aria-selected']: isFocused ?? false,
-    tabIndex:
-      // if there is no focused cell, make the first cell tabIndex of 0
-      // focusedCell ? (isFocused ? 0 : -1) : row === 0 && col === 0 ? 0 : -1,
-      isFocused ? 0 : -1,
-  }
-
-  return {
-    cellProps,
-    isFocused,
-    focusCell,
-    focusCurrentCell,
-    exitEditMode,
-    enterEditMode,
-    cancelEditMode,
-  }
-}
 
 interface SpreadsheetCellProps {
   row: number
   col: number
-  setFocusedCell: React.Dispatch<
-    React.SetStateAction<{
-      row: number
-      col: number
-    } | null>
-  >
-  setEditCell: React.Dispatch<
-    React.SetStateAction<{
-      row: number
-      col: number
-    } | null>
-  >
-  onCellChange: ({
-    rowIndex,
-    colIndex,
-    value,
-  }: {
-    rowIndex: number
-    colIndex: number
-    value: string
-  }) => void
+  onCellChange: (value: string) => void
   cell: Cell
-  isEditing: boolean
   isFocused: boolean
+  focusCell: (row: number, col: number) => void
+  focusCurrentCell: () => void
+  hasSpreadsheetBeenFocused: boolean
   dataLength: number
   columnLength: number
 }
@@ -135,34 +40,19 @@ const SpreadsheetCell = memo(
   function SpreadsheetCell({
     row,
     col,
-    setFocusedCell,
-    setEditCell,
     onCellChange,
     cell,
-    isEditing,
     isFocused,
+    focusCell,
+    focusCurrentCell,
+    hasSpreadsheetBeenFocused,
     dataLength,
     columnLength,
   }: SpreadsheetCellProps) {
     const [inputValue, setInputValue] = useState('')
+    const [isEditing, setIsEditing] = useState(false)
 
     const ref = useRef<HTMLDivElement | null>(null)
-
-    const {
-      cellProps,
-      focusCell,
-      focusCurrentCell,
-      exitEditMode,
-      enterEditMode,
-      cancelEditMode,
-    } = useSpreadsheetCell({
-      row,
-      col,
-      setFocusedCell,
-      setEditCell,
-      isEditing,
-      isFocused,
-    })
 
     useEffect(() => {
       if (isFocused && ref.current && !isEditing) {
@@ -172,11 +62,24 @@ const SpreadsheetCell = memo(
 
     function cellChange() {
       if (isEditing) {
-        onCellChange({
-          rowIndex: row,
-          colIndex: col,
-          value: inputValue,
-        })
+        onCellChange(inputValue)
+      }
+    }
+
+    // Function to exit edit mode
+    function exitEditMode() {
+      setIsEditing(false) // Exit edit mode
+    }
+
+    // Function to enter edit mode
+    function enterEditMode() {
+      setIsEditing(true) // Set the cell in edit mode
+    }
+
+    // Function to cancel editing
+    function cancelEditMode() {
+      if (isEditing) {
+        setIsEditing(false)
       }
     }
 
@@ -199,7 +102,7 @@ const SpreadsheetCell = memo(
         } else {
           // Enter edit mode
           setInputValue(cell.formula ?? cell.computedValue ?? '')
-          enterEditMode(row, col)
+          enterEditMode()
         }
       } else if (e.key === 'F2') {
         if (isEditing) {
@@ -209,7 +112,7 @@ const SpreadsheetCell = memo(
           exitEditMode()
         } else {
           setInputValue(cell.formula ?? cell.computedValue ?? '')
-          enterEditMode(row, col)
+          enterEditMode()
         }
       } else if (e.key === 'Escape') {
         // Cancel edit mode
@@ -279,10 +182,25 @@ const SpreadsheetCell = memo(
     return (
       <div
         ref={ref}
-        {...cellProps}
-        className={`flex h-8 w-16 items-center justify-center border ${
-          isFocused ? 'border-blue-500' : 'border-gray-300'
-        }`}
+        role="gridcell"
+        aria-rowindex={row + 2} // adding 2, for 0 based and column header row
+        aria-colindex={col + 2} // adding 2, for 0 based and extra column for row header
+        aria-selected={isFocused}
+        // if spreadsheet hasnt been focused yet, make the first cell tabIndex Of 0
+        // else tabIndex of 0 for the current focused cell
+        tabIndex={
+          hasSpreadsheetBeenFocused
+            ? isFocused
+              ? 0
+              : -1
+            : row === 0 && col === 0
+              ? 0
+              : -1
+        }
+        className={cn(
+          'flex h-8 w-16 items-center justify-center border',
+          isFocused ? 'border-blue-500' : 'border-gray-300',
+        )}
         onFocus={() => focusCurrentCell()}
         onKeyDown={(e) => handleKeyDown(e)}
         onClick={() => {
@@ -307,11 +225,8 @@ const SpreadsheetCell = memo(
     )
   },
   (prevProps, nextProps) => {
-    // Re-render if isFocused or isEditing changes
-    if (
-      prevProps.isFocused !== nextProps.isFocused ||
-      prevProps.isEditing !== nextProps.isEditing
-    ) {
+    // Re-render if isFocused changes
+    if (prevProps.isFocused !== nextProps.isFocused) {
       return false // Props have changed, re-render
     }
 
@@ -323,6 +238,54 @@ const SpreadsheetCell = memo(
     return true
   },
 )
+
+const RowHeader = memo(function RowHeader({
+  isFocusedRow,
+  row,
+  rowIndex,
+}: {
+  isFocusedRow: boolean
+  row: number
+  rowIndex: number
+}) {
+  return (
+    <div
+      role="rowheader"
+      aria-readonly="true"
+      aria-colindex={1}
+      aria-rowindex={rowIndex}
+      className={cn(
+        'flex h-8 w-16 items-center justify-center border border-gray-300',
+        isFocusedRow ? 'bg-blue-100' : 'bg-gray-100',
+      )}>
+      {row}
+    </div>
+  )
+})
+
+const ColHeader = memo(function ColHeader({
+  isFocusedCol,
+  columnLabel,
+  colIndex,
+}: {
+  isFocusedCol: boolean
+  columnLabel: string
+  colIndex: number
+}) {
+  return (
+    <div
+      role="columnheader"
+      aria-readonly="true"
+      aria-rowindex={1}
+      aria-colindex={colIndex}
+      className={cn(
+        'flex h-8 w-16 items-center justify-center border border-gray-300',
+        isFocusedCol ? 'bg-blue-100' : 'bg-gray-100',
+      )}>
+      {columnLabel}
+    </div>
+  )
+})
 
 export default function Spreadsheet({
   data,
@@ -347,11 +310,6 @@ export default function Spreadsheet({
     col: number
   } | null>(null)
 
-  // State for the cell that is in edit mode
-  const [editCell, setEditCell] = useState<{ row: number; col: number } | null>(
-    null,
-  )
-
   // Render the grid
   return (
     <div
@@ -366,23 +324,19 @@ export default function Spreadsheet({
         <div
           role="gridcell"
           aria-readonly="true"
+          aria-rowindex={1}
+          aria-colindex={1}
           className="h-8 w-16 border border-gray-300 bg-gray-100"
         />
 
         {columns.map((column, columnIndex) => {
           return (
-            <div
-              key={column}
-              role="columnheader"
-              aria-readonly="true"
-              aria-colindex={columnIndex + 1}
-              className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
-                focusedCell && focusedCell.col === columnIndex
-                  ? 'bg-blue-100'
-                  : 'bg-gray-100'
-              }`}>
-              {column}
-            </div>
+            <ColHeader
+              key={columnIndex}
+              isFocusedCol={focusedCell?.col === columnIndex}
+              columnLabel={column}
+              colIndex={columnIndex + 2} // adding 2, +1 b/c of 0 based, +1 for the top left corner cell
+            />
           )
         })}
       </div>
@@ -390,18 +344,11 @@ export default function Spreadsheet({
       {/* Render rows */}
       {data.map((dataRow, rowIndex) => (
         <div role="row" key={rowIndex} className="flex">
-          {/* Render row header */}
-          <div
-            role="rowheader"
-            aria-readonly="true"
-            aria-rowindex={rowIndex + 1}
-            className={`flex h-8 w-16 items-center justify-center border border-gray-300 ${
-              focusedCell && focusedCell.row === rowIndex
-                ? 'bg-blue-100'
-                : 'bg-gray-100'
-            }`}>
-            {rowIndex + 1}
-          </div>
+          <RowHeader
+            isFocusedRow={focusedCell?.row === rowIndex}
+            row={rowIndex + 1}
+            rowIndex={rowIndex + 2} // adding 2, +1 b/c 0 based, +1 from column header row
+          />
 
           {/* Render cells */}
           {columns.map((column, colIndex) => {
@@ -411,20 +358,20 @@ export default function Spreadsheet({
                 key={cell.id}
                 row={rowIndex}
                 col={colIndex}
-                setFocusedCell={setFocusedCell}
-                setEditCell={setEditCell}
-                onCellChange={onCellChange}
+                onCellChange={(value) =>
+                  onCellChange({ rowIndex, colIndex, value })
+                }
                 cell={cell}
-                isEditing={Boolean(
-                  editCell &&
-                    editCell.row === rowIndex &&
-                    editCell.col === colIndex,
-                )}
                 isFocused={Boolean(
                   focusedCell &&
                     focusedCell.row === rowIndex &&
                     focusedCell.col === colIndex,
                 )}
+                focusCell={(row, col) => setFocusedCell({ row, col })}
+                focusCurrentCell={() =>
+                  setFocusedCell({ row: rowIndex, col: colIndex })
+                }
+                hasSpreadsheetBeenFocused={!!focusedCell}
                 dataLength={data.length}
                 columnLength={columns.length}
               />
