@@ -21,8 +21,6 @@ import type { Cell } from 'state/cellsSlice'
 // tab leaves focus elsewhere
 // tabIndex stays the same
 
-// colors
-
 interface SpreadsheetCellProps {
   row: number
   col: number
@@ -198,8 +196,8 @@ const SpreadsheetCell = memo(
               : -1
         }
         className={cn(
-          'flex h-8 w-16 items-center justify-center border',
-          isFocused ? 'border-blue-500' : 'border-gray-300',
+          'flex h-8 w-16 items-center justify-center border focus:outline focus:outline-1 focus:outline-[var(--focus-10)]',
+          isFocused ? 'border-[var(--accent-a9)]' : 'border-[var(--gray-a6)]',
         )}
         onFocus={() => focusCurrentCell()}
         onKeyDown={(e) => handleKeyDown(e)}
@@ -255,8 +253,8 @@ const RowHeader = memo(function RowHeader({
       aria-colindex={1}
       aria-rowindex={rowIndex}
       className={cn(
-        'flex h-8 w-16 items-center justify-center border border-gray-300',
-        isFocusedRow ? 'bg-blue-100' : 'bg-gray-100',
+        'flex h-8 w-16 items-center justify-center border border-[var(--gray-a6)]',
+        isFocusedRow ? 'bg-[var(--accent-a5)]' : 'bg-[var(--gray-a2)]',
       )}>
       {row}
     </div>
@@ -279,8 +277,8 @@ const ColHeader = memo(function ColHeader({
       aria-rowindex={1}
       aria-colindex={colIndex}
       className={cn(
-        'flex h-8 w-16 items-center justify-center border border-gray-300',
-        isFocusedCol ? 'bg-blue-100' : 'bg-gray-100',
+        'flex h-8 w-16 items-center justify-center border border-[var(--gray-a6)]',
+        isFocusedCol ? 'bg-[var(--accent-a5)]' : 'bg-[var(--gray-a2)]',
       )}>
       {columnLabel}
     </div>
@@ -317,7 +315,7 @@ export default function Spreadsheet({
       aria-label="Spreadsheet"
       aria-rowcount={data.length + 1} // +1 to include header row
       aria-colcount={columns.length + 1} // +1 to include header column
-      className="inline-block border border-gray-300">
+      className="inline-block rounded-[var(--radius-1)] border border-solid border-[var(--gray-a6)]">
       {/* Render first row with column names */}
       <div role="row" className="flex">
         {/* Top-left corner cell (empty) */}
@@ -326,7 +324,7 @@ export default function Spreadsheet({
           aria-readonly="true"
           aria-rowindex={1}
           aria-colindex={1}
-          className="h-8 w-16 border border-gray-300 bg-gray-100"
+          className="h-8 w-16 border border-[var(--gray-a6)] bg-[var(--gray-a2)]"
         />
 
         {columns.map((column, columnIndex) => {
