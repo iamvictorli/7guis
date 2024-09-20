@@ -190,6 +190,10 @@ const SpreadsheetCell = memo(
         onKeyDown={(e) => handleKeyDown(e)}
         onClick={() => {
           focusCurrentCell()
+        }}
+        onDoubleClick={() => {
+          focusCurrentCell()
+          enterEditMode()
         }}>
         {isEditing ? (
           <input
