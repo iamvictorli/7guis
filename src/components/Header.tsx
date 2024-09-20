@@ -34,7 +34,7 @@ export default function Header() {
       <Box
         // TODO: own class
         className={cn(
-          scrollState === 'scrolling-down' ? 'duration-100' : '',
+          scrollState === 'scrolling-down' && 'duration-100',
           'fixed left-0 right-0 top-0 z-[2] min-w-[320px] select-none bg-[var(--color-background)] [box-shadow:0_1px_var(--gray-a4)] [height:inherit] [transition:background-color_180ms,_box-shadow_180ms]',
         )}>
         <Box

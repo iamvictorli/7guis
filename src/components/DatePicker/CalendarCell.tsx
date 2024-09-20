@@ -71,7 +71,7 @@ export function CalendarCell({
   return (
     <td
       {...cellProps}
-      className={`relative py-0.5 ${isFocusVisible ? 'z-10' : 'z-0'}`}>
+      className={cn('relative py-0.5', isFocusVisible ? 'z-10' : 'z-0')}>
       <div
         {...mergeProps(buttonProps, focusProps)}
         ref={ref}
