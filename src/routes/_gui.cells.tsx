@@ -31,6 +31,7 @@ export default function Cells() {
             px="4"
           />
         }
+        displayBoxProps={{ height: '400px' }}
       />
 
       <Flex asChild align="center" gap="2" mt="5">
