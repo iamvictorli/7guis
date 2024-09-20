@@ -38,14 +38,8 @@ export default function CircleDrawer() {
         Task
       </Heading>
 
-      <Flex
-        asChild
-        direction="column"
-        gap="1"
-        pl="4"
-        mt="3"
-        className="mb-5 [list-style-type:circle]">
-        <ul className="list-disc">
+      <Flex asChild direction="column" gap="1" pl="4" mt="3">
+        <ul className="mb-5 [list-style-type:circle]">
           <li>
             <Text>
               Create a user interface with undo and redo buttons and a canvas

@@ -49,14 +49,8 @@ export default function Cells() {
         Task
       </Heading>
 
-      <Flex
-        asChild
-        direction="column"
-        gap="1"
-        pl="4"
-        mt="3"
-        className="mb-5 [list-style-type:circle]">
-        <ul className="list-disc">
+      <Flex asChild direction="column" gap="1" pl="4" mt="3">
+        <ul className="mb-5 [list-style-type:circle]">
           <li>
             <Text>
               Create a scrollable spreadsheet application with numbered rows
@@ -126,13 +120,8 @@ export default function Cells() {
         supports:
       </Text>
 
-      <Flex
-        asChild
-        direction="column"
-        gap="1"
-        pl="4"
-        className="mb-5 [list-style-type:circle]">
-        <ul className="list-disc">
+      <Flex asChild direction="column" gap="1" pl="4">
+        <ul className="mb-5 [list-style-type:circle]">
           <li>
             <Text>
               Editing cells by either double-clicking or pressing{' '}

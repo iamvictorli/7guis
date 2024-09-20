@@ -37,14 +37,8 @@ export default function FlightBooker() {
         Task
       </Heading>
 
-      <Flex
-        asChild
-        direction="column"
-        gap="1"
-        pl="4"
-        mt="3"
-        className="mb-5 [list-style-type:circle]">
-        <ul className="list-disc">
+      <Flex asChild direction="column" gap="1" pl="4" mt="3">
+        <ul className="mb-5 [list-style-type:circle]">
           <li>
             <Text>
               Create a user interface with a combobox offering &quot;one-way
