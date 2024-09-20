@@ -41,7 +41,7 @@ export function DateRangePicker(props: DateRangePickerStateOptions<DateValue>) {
           </span>
           <DateField {...endFieldProps} />
           {state.isInvalid && (
-            <ExclamationTriangleIcon className="absolute right-1 h-6 w-6 text-red-500" />
+            <ExclamationTriangleIcon className="absolute right-1 h-6 w-6 text-[var(--red-a5)]" />
           )}
         </div>
         <FieldButton {...buttonProps} isPressed={state.isOpen}>
