@@ -3,8 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
-const ROW_COUNT = 3
-const COLUMN_COUNT = 3
+const ROW_COUNT = 6
+const COLUMN_COUNT = 6
 
 const ALPHABET_START = 65 // ASCII value for 'A'
 const ALPHABET_COUNT = 26 // Total number of letters in the alphabet
@@ -31,22 +31,18 @@ function generateColumnLabels(n: number) {
   return result
 }
 
-interface Cell {
+export interface Cell {
   id: string
   children: string[] // holds child ids
-  computedValue: string // displayed value of cell. if formula exists and the focus is on cell, displayed value is formula
+  computedValue: string // displayed value of cell. if formula exists and the edit mode is on cell, displayed value is formula
   formula: string | null // null means cell is not a formula
 }
 
 interface CellsState {
   cells: EntityMap<Cell>
-  // The columnLabels and numColumns properties are not part of the state, as they do not change and can be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI.
+  // The columnLabels and cellLabelMatrix property is not part of the state, as it does not change and can probably be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI.
   columnLabels: string[]
-  numColumns: number
-  ui: {
-    selectedCellId: string | null
-    selectedCellIdInputValue: string
-  }
+  cellLabelMatrix: Record<string, string>[] // Record of columnLabel to cellId, to be later used in selectCellMatrix
 }
 
 function getInitialState(rows: number, columns: number): CellsState {
@@ -54,10 +50,13 @@ function getInitialState(rows: number, columns: number): CellsState {
     byId: {},
     allIds: [],
   }
+  const cellLabelMatrix = []
   const columnLabels = generateColumnLabels(columns)
-  for (let number = 0; number < rows; number++) {
-    columnLabels.forEach((label) => {
-      const id = `${label}${number}`
+  for (let rowNumber = 1; rowNumber <= rows; rowNumber++) {
+    const cellLabel: Record<string, string> = {}
+    columnLabels.forEach((columnLabel) => {
+      const id = `${columnLabel}${rowNumber}`
+      cellLabel[columnLabel] = id
       cells.allIds.push(id)
       cells.byId[id] = {
         id,
@@ -66,15 +65,12 @@ function getInitialState(rows: number, columns: number): CellsState {
         formula: null,
       }
     })
+    cellLabelMatrix.push(cellLabel)
   }
   return {
     cells,
     columnLabels,
-    numColumns: columns,
-    ui: {
-      selectedCellId: null,
-      selectedCellIdInputValue: '',
-    },
+    cellLabelMatrix,
   }
 }
 
@@ -189,13 +185,10 @@ const cellsSlice = createSlice({
       const { id, value: newValue } = action.payload
       const cell = state.cells.byId[id]
 
-      state.ui.selectedCellId = null
-      state.ui.selectedCellIdInputValue = ''
-
-      // if formula exists, check if the editting value is the same as formula
+      // if formula exists, check if the editing value is the same as formula
       if (cell.formula !== null && cell.formula === newValue) return
 
-      // if formula doesnt exist, check if editting value is the same as computed value
+      // if formula doesnt exist, check if editing value is the same as computed value
       if (cell.formula === null && cell.computedValue === newValue) return
 
       // remove existing formula, remove cells that were part of this formula
@@ -229,54 +222,32 @@ const cellsSlice = createSlice({
         calcCell(childId)
       })
     },
-    cellSelected: (state, action: PayloadAction<string>) => {
-      const id = action.payload
-      const cell = state.cells.byId[id]
-
-      state.ui.selectedCellId = id
-      state.ui.selectedCellIdInputValue = cell.formula ?? cell.computedValue
-    },
-    cellInputChanged: (state, action: PayloadAction<string>) => {
-      const value = action.payload
-      state.ui.selectedCellIdInputValue = value
-    },
   },
   selectors: {
     selectColumnLabels: (state) => state.columnLabels,
-    selectCellIds: (state) => state.cells.allIds,
-    selectNumColumns: (state) => state.numColumns,
-    selectCellbyId: (state, id: string) => state.cells.byId[id],
-    selectIsSelected: (state, id: string) => state.ui.selectedCellId === id,
-    selectUIInputValue: (state) => state.ui.selectedCellIdInputValue,
+    selectCellLabelMatrix: (state) => state.cellLabelMatrix,
+    selectCells: (state) => state.cells,
   },
 })
 
-export const { selectColumnLabels, selectIsSelected } = cellsSlice.selectors
+export const { selectColumnLabels } = cellsSlice.selectors
 
-const { selectCellIds, selectNumColumns, selectCellbyId, selectUIInputValue } =
-  cellsSlice.selectors
+const { selectCells, selectCellLabelMatrix } = cellsSlice.selectors
 
-// selects cellIds in number of column chunks
-// ie, ['A0', 'B0', 'A1', 'B1'] and 2 columns would be [['A0', 'B0'], ['A1', 'B1']]
-export const selectCellIdRows = createSelector(
-  [selectCellIds, selectNumColumns],
-  (cellIds, numColumns) => {
-    const rows = []
-    for (let i = 0; i < cellIds.length; i += numColumns) {
-      rows.push(cellIds.slice(i, i + numColumns))
-    }
-    return rows
+export const selectCellMatrix = createSelector(
+  [selectCellLabelMatrix, selectCells],
+  (cellLabelMatrix, cells) => {
+    return cellLabelMatrix.map((cellLabel) => {
+      const row: Record<string, Cell> = {}
+      Object.entries(cellLabel).forEach(([columnLabel, cellId]) => {
+        row[columnLabel] = cells.byId[cellId]
+      })
+      return row
+    })
   },
 )
 
-export const selectInputValue = createSelector(
-  [selectIsSelected, selectUIInputValue, selectCellbyId],
-  (isSelected, uiInputValue, cell) =>
-    isSelected ? uiInputValue : cell.computedValue,
-)
-
-export const { cellChanged, cellSelected, cellInputChanged } =
-  cellsSlice.actions
+export const { cellChanged } = cellsSlice.actions
 
 export const CELLS_REDUCER_NAME = cellsSlice.name
 
