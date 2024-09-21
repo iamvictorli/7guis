@@ -9,7 +9,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         left="0"
         bottom="0"
         top="8"
-        className="z-[1] overflow-x-hidden [width:inherit]">
+        className="overflow-x-hidden [width:inherit]">
         <ScrollArea>{children}</ScrollArea>
       </Box>
     </Box>

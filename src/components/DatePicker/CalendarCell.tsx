@@ -89,7 +89,7 @@ export function CalendarCell({
             'flex h-full w-full cursor-default items-center justify-center rounded-[var(--radius-thumb)]',
             isDisabled && !isInvalid && 'text-[var(--gray-6)]',
             isFocusVisible &&
-              'group-focus:z-2 ring-2 ring-[var(--accent-9)] ring-offset-2',
+              'ring-2 ring-[var(--accent-9)] ring-offset-2 group-focus:z-10',
             (isSelectionStart || isSelectionEnd) &&
               (isInvalid
                 ? 'bg-[var(--red-9)] text-white hover:bg-[var(--red-10)]'

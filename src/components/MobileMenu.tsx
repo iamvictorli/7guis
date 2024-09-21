@@ -54,7 +54,7 @@ const MobileMenuContent = ({ children }: { children: React.ReactNode }) => {
           <Box
             position="fixed"
             inset="0"
-            className="z-[1] bg-[var(--color-background)]">
+            className="bg-[var(--color-background)]">
             {children}
           </Box>
         </RemoveScroll>
