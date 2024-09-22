@@ -3,8 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
-const ROW_COUNT = 100
-const COLUMN_COUNT = 26
+const ROW_COUNT = 10
+const COLUMN_COUNT = 10
 
 const ALPHABET_START = 65 // ASCII value for 'A'
 const ALPHABET_COUNT = 26 // Total number of letters in the alphabet
