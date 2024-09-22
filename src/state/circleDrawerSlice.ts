@@ -1,4 +1,4 @@
-import { createSlice, current, nanoid } from '@reduxjs/toolkit'
+import { createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
@@ -10,14 +10,34 @@ interface Circle {
   radius: number
 }
 
-// This implementation uses snapshots of circles with each action
-// Ideally implementation should use a stack of actions (command pattern) because it is more memory efficient
+interface CircleAddAction {
+  type: 'add'
+  id: string
+  x: number
+  y: number
+  radius: number
+}
+
+interface CircleDeleteAction {
+  type: 'delete'
+  id: string
+}
+
+interface CircleUpdateAction {
+  type: 'update'
+  id: string
+  x: number
+  y: number
+  radius: number
+}
+
+type CircleAction = CircleAddAction | CircleDeleteAction | CircleUpdateAction
 
 interface CircleDrawerState {
   circles: EntityMap<Circle>
-  // undos and redos is a stack of circles snapshot
-  undos: EntityMap<Circle>[]
-  redos: EntityMap<Circle>[]
+  // undos and redos is a stack of circles actions, when popped does the CircleAction
+  undos: CircleAction[]
+  redos: CircleAction[]
   ui: {
     selectedCircleId: string
     selectedCircleRadius: number
@@ -44,16 +64,15 @@ const circleDrawerSlice = createSlice({
     circleAdded: {
       reducer: (state, action: PayloadAction<Circle>) => {
         const newCircle = action.payload
-        // push current snapshot to undo
-        const currentCirclesSnapshot = current(state.circles)
-        state.undos.push(currentCirclesSnapshot)
-
-        // new circles snapshot
+        // add new circle
         state.circles.byId[newCircle.id] = newCircle
         state.circles.allIds.push(newCircle.id)
 
+        // when undo happens, delete that circle
+        state.undos.push({ type: 'delete', id: newCircle.id })
         // clear redos
         state.redos = []
+
         state.ui.selectedCircleId = ''
       },
       prepare: (circleProps: Omit<Circle, 'id'>) => {
@@ -68,18 +87,19 @@ const circleDrawerSlice = createSlice({
     circleUpdated: (state, action: PayloadAction<Circle>) => {
       const circle = action.payload
       const { x: newX, y: newY, radius: newRadius } = circle
-      if (!state.circles.byId[circle.id]) return
+      const circleToUpdate = state.circles.byId[circle.id]
+      // make sure circle exists, and there are changes to the circle
+      if (!circleToUpdate) return
 
       if (
-        state.circles.byId[circle.id].radius === newRadius &&
-        state.circles.byId[circle.id].x === newX &&
-        state.circles.byId[circle.id].y === newY
+        circleToUpdate.radius === newRadius &&
+        circleToUpdate.x === newX &&
+        circleToUpdate.y === newY
       )
         return
 
-      // push current snapshot to undo
-      const currentCirclesSnapshot = current(state.circles)
-      state.undos.push(currentCirclesSnapshot)
+      // when undo happens, go back to the old circle state
+      state.undos.push({ type: 'update', ...circleToUpdate })
 
       // updates circle
       state.circles.byId[circle.id] = circle
@@ -89,26 +109,116 @@ const circleDrawerSlice = createSlice({
     },
     undo: (state) => {
       if (state.undos.length > 0) {
-        // push current snapshot to redo
-        const currentCirclesSnapshot = current(state.circles)
-        state.redos.push(currentCirclesSnapshot)
+        // pop and do that action
+        const circleAction = state.undos.pop()!
+        const circleId = circleAction.id
 
-        // revert to previous circle snapshot from undo
-        const previousCirclesSnapshot = state.undos.pop()
-        state.circles = previousCirclesSnapshot!
+        switch (circleAction.type) {
+          case 'add': {
+            // add delete to redo
+            state.redos.push({ type: 'delete', id: circleId })
+
+            // add new circle
+            state.circles.allIds.push(circleId)
+            state.circles.byId[circleId] = {
+              id: circleId,
+              x: circleAction.x,
+              y: circleAction.y,
+              radius: circleAction.radius,
+            }
+
+            break
+          }
+          case 'update': {
+            // add update to redo
+            const circleToUpdate = state.circles.byId[circleId]
+            state.redos.push({ type: 'update', ...circleToUpdate })
+
+            // update circle
+            state.circles.byId[circleId] = {
+              id: circleId,
+              x: circleAction.x,
+              y: circleAction.y,
+              radius: circleAction.radius,
+            }
+
+            break
+          }
+          case 'delete': {
+            // add to redo
+            const circleToDelete = state.circles.byId[circleId]
+            state.redos.push({ type: 'add', ...circleToDelete })
+
+            // delete circle
+            delete state.circles.byId[circleId]
+            const index = state.circles.allIds.findIndex(
+              (id) => id === circleId,
+            )
+            if (index !== -1) state.circles.allIds.splice(index, 1)
+
+            break
+          }
+          default:
+            break
+        }
 
         state.ui.selectedCircleId = ''
       }
     },
     redo: (state) => {
       if (state.redos.length > 0) {
-        // push current snapshot to undo
-        const currentCirclesSnapshot = current(state.circles)
-        state.undos.push(currentCirclesSnapshot)
+        // pop and do that action
+        const circleAction = state.redos.pop()!
+        const circleId = circleAction.id
 
-        // pop from redo snapshot
-        const previousCirclesSnapshot = state.redos.pop()
-        state.circles = previousCirclesSnapshot!
+        switch (circleAction.type) {
+          case 'add': {
+            // add delete to undo
+            state.undos.push({ type: 'delete', id: circleId })
+
+            // add new circle
+            state.circles.allIds.push(circleId)
+            state.circles.byId[circleId] = {
+              id: circleId,
+              x: circleAction.x,
+              y: circleAction.y,
+              radius: circleAction.radius,
+            }
+
+            break
+          }
+          case 'update': {
+            // add update to undo
+            const circleToUpdate = state.circles.byId[circleId]
+            state.undos.push({ type: 'update', ...circleToUpdate })
+
+            // update circle
+            state.circles.byId[circleId] = {
+              id: circleId,
+              x: circleAction.x,
+              y: circleAction.y,
+              radius: circleAction.radius,
+            }
+
+            break
+          }
+          case 'delete': {
+            // add to undo
+            const circleToDelete = state.circles.byId[circleId]
+            state.undos.push({ type: 'add', ...circleToDelete })
+
+            // delete circle
+            delete state.circles.byId[circleId]
+            const index = state.circles.allIds.findIndex(
+              (id) => id === circleId,
+            )
+            if (index !== -1) state.circles.allIds.splice(index, 1)
+
+            break
+          }
+          default:
+            break
+        }
 
         state.ui.selectedCircleId = ''
       }
