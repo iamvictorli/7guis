@@ -83,7 +83,6 @@ const Circle = memo(
     )
   },
   (prevProps, nextProps) => {
-    console.log(nextProps, nextProps)
     // only rerender selected/deselected circle
     if (prevProps.isSelected !== nextProps.isSelected) {
       return false
