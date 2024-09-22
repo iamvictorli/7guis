@@ -33,12 +33,9 @@ interface CircleUpdateAction {
 
 type CircleAction = CircleAddAction | CircleDeleteAction | CircleUpdateAction
 
-// This implementation uses snapshots of circles with each action
-// Ideally implementation should use a stack of actions (command pattern) because it is more memory efficient
-
 interface CircleDrawerState {
   circles: EntityMap<Circle>
-  // undos and redos is a stack of circles snapshot
+  // undos and redos is a stack of circles actions, when popped does the CircleAction
   undos: CircleAction[]
   redos: CircleAction[]
   ui: {
