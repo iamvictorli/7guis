@@ -33,7 +33,8 @@ function generateColumnLabels(n: number) {
 
 export interface Cell {
   id: string
-  children: string[] // holds child ids
+  // children are dependencies cellIds, once the cell is updated, all of the children needs to be updated as well
+  children: Record<string, string> // should be using Set, but redux does not work with set b/c set is not serializable. https://github.com/reduxjs/redux-toolkit/issues/3197
   computedValue: string // displayed value of cell. if formula exists and the edit mode is on cell, displayed value is formula
   formula: string | null // null means cell is not a formula
 }
@@ -60,7 +61,7 @@ function getInitialState(rows: number, columns: number): CellsState {
       cells.allIds.push(id)
       cells.byId[id] = {
         id,
-        children: [],
+        children: {},
         computedValue: '',
         formula: null,
       }
@@ -122,15 +123,13 @@ const cellsSlice = createSlice({
       // adds childId to parentId's children
       function addChild(parentId: string, childId: string) {
         const parentCell = state.cells.byId[parentId]
-        const index = parentCell.children.findIndex((id) => id === childId)
-        if (index === -1) parentCell.children.push(childId)
+        parentCell.children[childId] = childId
       }
 
       // removes childId to parentId's children
       function removeChild(parentId: string, childId: string) {
         const parentCell = state.cells.byId[parentId]
-        const index = parentCell.children.findIndex((id) => id === childId)
-        if (index !== -1) parentCell.children.splice(index, 1)
+        delete parentCell.children[childId]
       }
 
       function evaluateFormula(formula: string) {
@@ -177,7 +176,7 @@ const cellsSlice = createSlice({
 
         cell.computedValue = computedValue
         visited.add(id)
-        cell.children.forEach((childId) => {
+        Object.values(cell.children).forEach((childId) => {
           calcCell(childId, visited)
         })
       }
@@ -218,7 +217,7 @@ const cellsSlice = createSlice({
       calcCell(id)
 
       // update children cells that depend on this cell
-      cell.children.forEach((childId) => {
+      Object.values(cell.children).forEach((childId) => {
         calcCell(childId)
       })
     },
