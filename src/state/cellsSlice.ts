@@ -49,7 +49,7 @@ interface CellsState {
 function getInitialState(rows: number, columns: number): CellsState {
   const cells: EntityMap<Cell> = {
     byId: {},
-    allIds: [],
+    allIds: {},
   }
   const cellLabelMatrix = []
   const columnLabels = generateColumnLabels(columns)
@@ -58,7 +58,7 @@ function getInitialState(rows: number, columns: number): CellsState {
     columnLabels.forEach((columnLabel) => {
       const id = `${columnLabel}${rowNumber}`
       cellLabel[columnLabel] = id
-      cells.allIds.push(id)
+      cells.allIds[id] = id
       cells.byId[id] = {
         id,
         children: {},

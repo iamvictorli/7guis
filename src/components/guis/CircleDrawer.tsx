@@ -10,7 +10,7 @@ import {
   radiusChanged,
   redo,
   selectCircleById,
-  selectCirclesIds,
+  selectCircleIds,
   selectRedoDisabled,
   selectUI,
   selectUndoDisabled,
@@ -58,26 +58,24 @@ const Circle = memo(
           onPointerDownOutside={() => {
             dispatch(deselect())
           }}>
-          <Box>
-            <Slider
-              value={[selectedCircleRadius]}
-              min={10}
-              max={80}
-              onValueChange={([value]) => {
-                dispatch(radiusChanged(value))
-              }}
-              onValueCommit={([value]) => {
-                dispatch(
-                  circleUpdated({
-                    id: circle.id,
-                    x: circle.x,
-                    y: circle.y,
-                    radius: value,
-                  }),
-                )
-              }}
-            />
-          </Box>
+          <Slider
+            value={[selectedCircleRadius]}
+            min={10}
+            max={80}
+            onValueChange={([value]) => {
+              dispatch(radiusChanged(value))
+            }}
+            onValueCommit={([value]) => {
+              dispatch(
+                circleUpdated({
+                  id: circle.id,
+                  x: circle.x,
+                  y: circle.y,
+                  radius: value,
+                }),
+              )
+            }}
+          />
         </Popover.Content>
       </Popover.Root>
     )
@@ -106,7 +104,7 @@ export default function CircleDrawer() {
 
   const undoDisabled = useAppSelector(selectUndoDisabled)
   const redoDisabled = useAppSelector(selectRedoDisabled)
-  const circleIds = useAppSelector(selectCirclesIds)
+  const circleIds = useAppSelector(selectCircleIds)
   const { selectedCircleId, selectedCircleRadius } = useAppSelector(selectUI)
 
   return (

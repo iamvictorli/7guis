@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit'
+import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
@@ -47,7 +47,7 @@ interface CircleDrawerState {
 const initialState: CircleDrawerState = {
   circles: {
     byId: {},
-    allIds: [],
+    allIds: {},
   },
   undos: [],
   redos: [],
@@ -66,7 +66,7 @@ const circleDrawerSlice = createSlice({
         const newCircle = action.payload
         // add new circle
         state.circles.byId[newCircle.id] = newCircle
-        state.circles.allIds.push(newCircle.id)
+        state.circles.allIds[newCircle.id] = newCircle.id
 
         // when undo happens, delete that circle
         state.undos.push({ type: 'delete', id: newCircle.id })
@@ -119,13 +119,13 @@ const circleDrawerSlice = createSlice({
             state.redos.push({ type: 'delete', id: circleId })
 
             // add new circle
-            state.circles.allIds.push(circleId)
             state.circles.byId[circleId] = {
               id: circleId,
               x: circleAction.x,
               y: circleAction.y,
               radius: circleAction.radius,
             }
+            state.circles.allIds[circleId] = circleId
 
             break
           }
@@ -151,10 +151,7 @@ const circleDrawerSlice = createSlice({
 
             // delete circle
             delete state.circles.byId[circleId]
-            const index = state.circles.allIds.findIndex(
-              (id) => id === circleId,
-            )
-            if (index !== -1) state.circles.allIds.splice(index, 1)
+            delete state.circles.allIds[circleId]
 
             break
           }
@@ -177,13 +174,13 @@ const circleDrawerSlice = createSlice({
             state.undos.push({ type: 'delete', id: circleId })
 
             // add new circle
-            state.circles.allIds.push(circleId)
             state.circles.byId[circleId] = {
               id: circleId,
               x: circleAction.x,
               y: circleAction.y,
               radius: circleAction.radius,
             }
+            state.circles.allIds[circleId] = circleId
 
             break
           }
@@ -209,10 +206,7 @@ const circleDrawerSlice = createSlice({
 
             // delete circle
             delete state.circles.byId[circleId]
-            const index = state.circles.allIds.findIndex(
-              (id) => id === circleId,
-            )
-            if (index !== -1) state.circles.allIds.splice(index, 1)
+            delete state.circles.allIds[circleId]
 
             break
           }
@@ -241,7 +235,7 @@ const circleDrawerSlice = createSlice({
   },
   selectors: {
     selectUI: (state) => state.ui,
-    selectCirclesIds: (state) => state.circles.allIds,
+    selectCircles: (state) => state.circles,
     selectUndoDisabled: (state) => state.undos.length === 0,
     selectRedoDisabled: (state) => state.redos.length === 0,
     selectCircleById: (state, id: string) => state.circles.byId[id],
@@ -253,8 +247,12 @@ export const {
   selectRedoDisabled,
   selectUI,
   selectCircleById,
-  selectCirclesIds,
 } = circleDrawerSlice.selectors
+const { selectCircles } = circleDrawerSlice.selectors
+
+export const selectCircleIds = createSelector([selectCircles], (circles) => {
+  return Object.values(circles.allIds)
+})
 
 export const {
   circleAdded,
