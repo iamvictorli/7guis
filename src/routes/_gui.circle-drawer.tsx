@@ -123,6 +123,11 @@ export default function CircleDrawer() {
         tracks the necessary steps to modify the state rather than duplicating
         the entire state each time.
       </Text>
+
+      <Text mb="4" as="p" size="3">
+        <Strong>Edit:</Strong> Changed to use stack of actions for undo/redo
+        functionality
+      </Text>
     </>
   )
 }
