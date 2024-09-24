@@ -9,6 +9,8 @@ import ErrorPage from './routes/error-page'
 
 import './index.css'
 
+import SkeletenIndex from 'components/Skeleton/SkeletonIndex'
+
 import {
   Cells,
   CircleDrawer,
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<div>Loading</div>}>
+          <Suspense fallback={<SkeletenIndex />}>
             <Index />
           </Suspense>
         ),

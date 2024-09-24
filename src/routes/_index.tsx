@@ -2,7 +2,6 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import {
   Blockquote,
   Box,
-  Container,
   Flex,
   Heading,
   IconButton,
@@ -14,10 +13,12 @@ import {
 import { navLinks } from '~/shared/links'
 import { Link as RRDLink } from 'react-router-dom'
 
+import IndexLayout from 'components/Layout/IndexLayout'
+
 export default function Index() {
   return (
-    <Container size="2" px="5" asChild>
-      <main>
+    <IndexLayout>
+      <Box pb="7">
         <Section size={{ initial: '1', sm: '2' }}>
           <Heading size={{ initial: '8', sm: '9' }} weight="bold">
             7GUIs
@@ -103,8 +104,7 @@ export default function Index() {
             ))}
           </ul>
         </Section>
-        <Box height="40px" />
-      </main>
-    </Container>
+      </Box>
+    </IndexLayout>
   )
 }
