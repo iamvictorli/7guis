@@ -31,11 +31,13 @@ export default function Index() {
             gap={{ initial: '2', sm: '3' }}
             className="border-y border-solid px-1 py-2">
             <Tooltip content="View Github">
-              <IconButton asChild variant="ghost" highContrast size="2">
-                <Link href="https://github.com/iamvictorli/7gui">
+              <Link
+                href="https://github.com/iamvictorli/7gui"
+                aria-label="7gui Github Repo">
+                <IconButton asChild variant="ghost" highContrast size="2">
                   <GitHubLogoIcon width="24" height="24" />
-                </Link>
-              </IconButton>
+                </IconButton>
+              </Link>
             </Tooltip>
             <Link
               size={{ initial: '2', sm: '3' }}
@@ -70,7 +72,7 @@ export default function Index() {
         </Blockquote>
 
         <Section size="2">
-          <Heading size={{ initial: '5', sm: '6' }} weight="bold" as="h3">
+          <Heading size={{ initial: '5', sm: '6' }} weight="bold" as="h2">
             Goals:
           </Heading>
           <Box height={{ initial: '28px', sm: '32px' }} />
@@ -89,7 +91,7 @@ export default function Index() {
           </Text>
         </Section>
 
-        <Heading size={{ initial: '5', sm: '6' }} weight="bold" as="h3">
+        <Heading size={{ initial: '5', sm: '6' }} weight="bold" as="h2">
           GUIs:
         </Heading>
 
