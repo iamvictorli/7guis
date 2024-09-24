@@ -4,15 +4,6 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import GUI from './routes/_gui'
-import Cells from './routes/_gui.cells'
-import CircleDrawer from './routes/_gui.circle-drawer'
-import Counter from './routes/_gui.counter'
-import CRUD from './routes/_gui.crud'
-import FlightBooker from './routes/_gui.flight-booker'
-import TemperatureConverter from './routes/_gui.temperature-converter'
-import Timer from './routes/_gui.timer'
-import Index from './routes/_index'
 import ErrorPage from './routes/error-page'
 
 import './index.css'
@@ -25,46 +16,79 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Index />,
+        lazy: async function () {
+          const { default: Index } = await import('./routes/_index')
+          return { Component: Index }
+        },
         errorElement: <ErrorPage />,
       },
       {
-        element: <GUI />,
+        lazy: async function () {
+          const { default: GUI } = await import('./routes/_gui')
+          return { Component: GUI }
+        },
         errorElement: <ErrorPage />,
         children: [
           {
             path: 'counter',
-            element: <Counter />,
+            lazy: async function () {
+              const { default: Counter } = await import('./routes/_gui.counter')
+              return { Component: Counter }
+            },
             errorElement: <ErrorPage />,
           },
           {
             path: 'temperature-converter',
-            element: <TemperatureConverter />,
+            lazy: async function () {
+              const { default: TemperatureConverter } = await import(
+                './routes/_gui.temperature-converter'
+              )
+              return { Component: TemperatureConverter }
+            },
             errorElement: <ErrorPage />,
           },
           {
             path: 'flight-booker',
-            element: <FlightBooker />,
+            lazy: async function () {
+              const { default: FlightBooker } = await import(
+                './routes/_gui.flight-booker'
+              )
+              return { Component: FlightBooker }
+            },
             errorElement: <ErrorPage />,
           },
           {
             path: 'timer',
-            element: <Timer />,
+            lazy: async function () {
+              const { default: Timer } = await import('./routes/_gui.timer')
+              return { Component: Timer }
+            },
             errorElement: <ErrorPage />,
           },
           {
             path: 'crud',
-            element: <CRUD />,
+            lazy: async function () {
+              const { default: CRUD } = await import('./routes/_gui.crud')
+              return { Component: CRUD }
+            },
             errorElement: <ErrorPage />,
           },
           {
             path: 'circle-drawer',
-            element: <CircleDrawer />,
+            lazy: async function () {
+              const { default: CircleDrawer } = await import(
+                './routes/_gui.circle-drawer'
+              )
+              return { Component: CircleDrawer }
+            },
             errorElement: <ErrorPage />,
           },
           {
             path: 'cells',
-            element: <Cells />,
+            lazy: async function () {
+              const { default: Cells } = await import('./routes/_gui.cells')
+              return { Component: Cells }
+            },
             errorElement: <ErrorPage />,
           },
         ],
