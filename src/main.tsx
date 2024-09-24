@@ -1,13 +1,24 @@
 import { Theme } from '@radix-ui/themes'
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import GUI from './routes/_gui'
 import ErrorPage from './routes/error-page'
 
 import './index.css'
 
+import {
+  Cells,
+  CircleDrawer,
+  Counter,
+  CRUD,
+  FlightBooker,
+  Index,
+  TemperatureConverter,
+  Timer,
+} from './routes'
 import { store } from './store'
 
 const router = createBrowserRouter([
@@ -16,79 +27,78 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        lazy: async function () {
-          const { default: Index } = await import('./routes/_index')
-          return { Component: Index }
-        },
+        element: (
+          <Suspense fallback={<div>Loading</div>}>
+            <Index />
+          </Suspense>
+        ),
         errorElement: <ErrorPage />,
       },
       {
-        lazy: async function () {
-          const { default: GUI } = await import('./routes/_gui')
-          return { Component: GUI }
-        },
+        element: <GUI />,
         errorElement: <ErrorPage />,
         children: [
           {
             path: 'counter',
-            lazy: async function () {
-              const { default: Counter } = await import('./routes/_gui.counter')
-              return { Component: Counter }
-            },
+            element: (
+              <Suspense fallback={<div>Loading</div>}>
+                <Counter />
+              </Suspense>
+            ),
             errorElement: <ErrorPage />,
           },
           {
             path: 'temperature-converter',
-            lazy: async function () {
-              const { default: TemperatureConverter } = await import(
-                './routes/_gui.temperature-converter'
-              )
-              return { Component: TemperatureConverter }
-            },
+            element: (
+              <Suspense fallback={<div>Loading</div>}>
+                <TemperatureConverter />
+              </Suspense>
+            ),
             errorElement: <ErrorPage />,
           },
           {
             path: 'flight-booker',
-            lazy: async function () {
-              const { default: FlightBooker } = await import(
-                './routes/_gui.flight-booker'
-              )
-              return { Component: FlightBooker }
-            },
+            element: (
+              <Suspense fallback={<div>Loading</div>}>
+                <FlightBooker />
+              </Suspense>
+            ),
             errorElement: <ErrorPage />,
           },
           {
             path: 'timer',
-            lazy: async function () {
-              const { default: Timer } = await import('./routes/_gui.timer')
-              return { Component: Timer }
-            },
+            element: (
+              <Suspense fallback={<div>Loading</div>}>
+                <Timer />
+              </Suspense>
+            ),
             errorElement: <ErrorPage />,
           },
           {
             path: 'crud',
-            lazy: async function () {
-              const { default: CRUD } = await import('./routes/_gui.crud')
-              return { Component: CRUD }
-            },
+            element: (
+              <Suspense fallback={<div>Loading</div>}>
+                <CRUD />
+              </Suspense>
+            ),
             errorElement: <ErrorPage />,
           },
           {
             path: 'circle-drawer',
-            lazy: async function () {
-              const { default: CircleDrawer } = await import(
-                './routes/_gui.circle-drawer'
-              )
-              return { Component: CircleDrawer }
-            },
+            element: (
+              <Suspense fallback={<div>Loading</div>}>
+                <CircleDrawer />
+              </Suspense>
+            ),
             errorElement: <ErrorPage />,
           },
           {
             path: 'cells',
-            lazy: async function () {
-              const { default: Cells } = await import('./routes/_gui.cells')
-              return { Component: Cells }
-            },
+            element: (
+              <Suspense fallback={<div>Loading</div>}>
+                <Cells />
+              </Suspense>
+            ),
             errorElement: <ErrorPage />,
           },
         ],
