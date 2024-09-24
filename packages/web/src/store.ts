@@ -27,6 +27,8 @@ import {
   reducer as timerReducer,
 } from '@7gui/state/timerSlice'
 
+import { DevTools } from '~/components/ReduxDevtools'
+
 const rootReducer = combineReducers({
   [counterName]: counterReducer,
   [temperatureConverterName]: temperatureConverterReducer,
@@ -41,6 +43,9 @@ export function setupStore(preloadedState?: Partial<RootState>) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
+    devTools: false,
+    enhancers: (getDefaultEnhancers) =>
+      getDefaultEnhancers().concat(DevTools.instrument()),
   })
 }
 

@@ -3,6 +3,7 @@ import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from '~/components/GuiDisplay'
 import CounterGUI from '~/components/guis/Counter'
+import { DevTools } from '~/components/ReduxDevtools'
 
 export default function Counter() {
   return (
@@ -17,8 +18,9 @@ export default function Counter() {
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
-            px="4"
-          />
+            px="4">
+            <DevTools />
+          </Box>
         }
       />
 
