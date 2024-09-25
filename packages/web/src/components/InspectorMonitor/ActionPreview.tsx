@@ -163,7 +163,10 @@ function ActionPreview<S, A extends Action<string>>({
       }}>
       <ActionPreviewHeader
         tabs={renderedTabs as unknown as Tab<unknown, Action<string>>[]}
-        {...{ inspectedPath, onInspectPath, tabName, onSelectTab }}
+        inspectedPath={inspectedPath}
+        onInspectPath={onInspectPath}
+        tabName={tabName}
+        onSelectTab={onSelectTab}
       />
       {!error && (
         <div key="actionPreviewContent" style={{ flex: 1, overflowY: 'auto' }}>

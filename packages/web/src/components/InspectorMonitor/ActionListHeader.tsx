@@ -55,11 +55,11 @@ const ActionListHeader: FunctionComponent<Props> = ({
           backgroundColor: theme.BACKGROUND_COLOR,
           color: theme.TEXT_COLOR,
 
-          '&::-webkit-input-placeholder': {
+          '&::WebkitInputPlaceholder': {
             color: theme.TEXT_PLACEHOLDER_COLOR,
           },
 
-          '&::-moz-placeholder': {
+          '&::MozPlaceholder': {
             color: theme.TEXT_PLACEHOLDER_COLOR,
           },
         }}

@@ -1,8 +1,8 @@
-import { ThemeProvider } from '@emotion/react'
+import { ThemeProvider, useTheme } from '@emotion/react'
 import type { LiftedAction, LiftedState } from '@redux-devtools/core'
 import { ActionCreators } from '@redux-devtools/core'
 import type { Delta, DiffContext } from 'jsondiffpatch'
-import React, { PureComponent } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { Base16Theme } from 'react-base16-styling'
 import type { Action, Dispatch } from 'redux'
 
@@ -28,19 +28,15 @@ const {
   reorderAction,
 } = ActionCreators
 
-function getLastActionId<S, A extends Action<string>>(
-  props: DevtoolsInspectorProps<S, A>,
-) {
-  return props.stagedActionIds[props.stagedActionIds.length - 1]
+function getLastActionId(stagedActionIds) {
+  return stagedActionIds[stagedActionIds.length - 1]
 }
 
-function getCurrentActionId<S, A extends Action<string>>(
-  props: DevtoolsInspectorProps<S, A>,
+function getCurrentActionId(
+  { stagedActionIds, currentStateIndex },
   monitorState: DevtoolsInspectorState,
 ) {
-  return monitorState.selectedActionId === null
-    ? props.stagedActionIds[props.currentStateIndex]
-    : monitorState.selectedActionId
+  return monitorState.selectedActionId ?? stagedActionIds[currentStateIndex]
 }
 
 function getFromState<S>(
@@ -58,20 +54,23 @@ function getFromState<S>(
   return computedStates[fromStateIdx]
 }
 
-function createIntermediateState<S, A extends Action<string>>(
-  props: DevtoolsInspectorProps<S, A>,
-  monitorState: DevtoolsInspectorState,
-) {
-  const {
+function createIntermediateState(
+  {
     supportImmutable,
     computedStates,
     stagedActionIds,
     actionsById: actions,
     diffObjectHash,
     diffPropertyFilter,
-  } = props
+    currentStateIndex,
+  },
+  monitorState: DevtoolsInspectorState,
+) {
   const { inspectedStatePath, inspectedActionPath } = monitorState
-  const currentActionId = getCurrentActionId(props, monitorState)
+  const currentActionId = getCurrentActionId(
+    { stagedActionIds, currentStateIndex },
+    monitorState,
+  )
   const currentAction =
     actions[currentActionId] && actions[currentActionId].action
 
@@ -83,7 +82,7 @@ function createIntermediateState<S, A extends Action<string>>(
     monitorState,
   )
   const toState = computedStates[actionIndex]
-  const error = toState && toState.error
+  const error = toState?.error
 
   const fromInspectedState =
     !error &&
@@ -165,113 +164,84 @@ interface State<S, A extends Action<string>> {
   nextState: S
   action: A
   error: string | undefined
-  isWideLayout: boolean
 }
 
-class DevtoolsInspector<S, A extends Action<string>> extends PureComponent<
-  DevtoolsInspectorProps<S, A>,
-  State<S, A>
-> {
-  state: State<S, A> = {
-    ...createIntermediateState(this.props, this.props.monitorState),
-    isWideLayout: false,
-  }
+export const DevtoolsInspector = <S, A extends Action<string>>({
+  supportImmutable = false,
+  draggableActions = true,
+  theme = 'inspector',
+  invertTheme = true,
+  monitorState,
+  dispatch,
+  stagedActionIds,
+  actionsById,
+  computedStates,
+  skippedActionIds,
+  hideMainButtons,
+  hideActionButtons,
+  tabs,
+  dataTypeKey,
+  sortStateTreeAlphabetically,
+  disableStateTreeCollection,
+  currentStateIndex,
+  diffObjectHash,
+  diffPropertyFilter,
+}: DevtoolsInspectorProps<S, A>) => {
+  const [wideLayoutState, setWideLayoutState] = useState(false)
 
-  static update = reducer
+  const emotionTheme = useTheme()
 
-  static defaultProps = {
-    select: (state: unknown) => state,
-    supportImmutable: false,
-    draggableActions: true,
-    theme: 'inspector',
-    invertTheme: true,
-  }
+  const inspectorRef = useRef<HTMLDivElement | null>(null)
+  const updateSizeTimeout = useRef<number | undefined>(undefined)
 
-  updateSizeTimeout?: number
-  inspectorRef?: HTMLDivElement | null
-
-  componentDidMount() {
-    this.updateSizeMode()
-    this.updateSizeTimeout = window.setInterval(
-      this.updateSizeMode.bind(this),
-      150,
-    )
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.updateSizeTimeout)
-  }
-
-  updateMonitorState = (monitorState: Partial<DevtoolsInspectorState>) => {
-    this.props.dispatch(updateMonitorState(monitorState))
-  }
-
-  updateSizeMode() {
-    const isWideLayout = this.inspectorRef!.offsetWidth > 500
-
-    if (isWideLayout !== this.state.isWideLayout) {
-      this.setState({ isWideLayout })
+  const updateSizeMode = useCallback(() => {
+    const isWideLayout = inspectorRef.current!.offsetWidth > 500
+    if (isWideLayout !== wideLayoutState) {
+      setWideLayoutState(isWideLayout)
     }
-  }
+  }, [wideLayoutState])
 
-  UNSAFE_componentWillReceiveProps(nextProps: DevtoolsInspectorProps<S, A>) {
-    const nextMonitorState = nextProps.monitorState
-    const monitorState = this.props.monitorState
-
-    if (
-      getCurrentActionId(this.props, monitorState) !==
-        getCurrentActionId(nextProps, nextMonitorState) ||
-      monitorState.startActionId !== nextMonitorState.startActionId ||
-      monitorState.inspectedStatePath !== nextMonitorState.inspectedStatePath ||
-      monitorState.inspectedActionPath !==
-        nextMonitorState.inspectedActionPath ||
-      this.props.computedStates !== nextProps.computedStates ||
-      this.props.stagedActionIds !== nextProps.stagedActionIds
-    ) {
-      this.setState(createIntermediateState(nextProps, nextMonitorState))
+  useEffect(() => {
+    updateSizeMode()
+    updateSizeTimeout.current = window.setInterval(updateSizeMode, 150)
+    return () => {
+      clearTimeout(updateSizeTimeout.current)
     }
+  }, [updateSizeMode])
+
+  const handleToggleAction = (actionId: number) => {
+    dispatch(toggleAction(actionId))
   }
 
-  inspectorCreateRef: React.RefCallback<HTMLDivElement> = (node) => {
-    this.inspectorRef = node
-  }
-
-  handleToggleAction = (actionId: number) => {
-    this.props.dispatch(toggleAction(actionId))
-  }
-
-  handleJumpToState = (actionId: number) => {
+  const handleJumpToState = (actionId: number) => {
     if (jumpToAction) {
-      this.props.dispatch(jumpToAction(actionId))
+      dispatch(jumpToAction(actionId))
     } else {
-      // Fallback for redux-devtools-instrument < 1.5
-      const index = this.props.stagedActionIds.indexOf(actionId)
-      if (index !== -1) this.props.dispatch(jumpToState(index))
+      const index = stagedActionIds.indexOf(actionId)
+      if (index !== -1) dispatch(jumpToState(index))
     }
   }
 
-  handleReorderAction = (actionId: number, beforeActionId: number) => {
-    if (reorderAction)
-      this.props.dispatch(reorderAction(actionId, beforeActionId))
+  const handleReorderAction = (actionId: number, beforeActionId: number) => {
+    if (reorderAction) dispatch(reorderAction(actionId, beforeActionId))
   }
 
-  handleCommit = () => {
-    this.props.dispatch(commit())
+  const handleCommit = () => {
+    dispatch(commit())
   }
 
-  handleSweep = () => {
-    this.props.dispatch(sweep())
+  const handleSweep = () => {
+    dispatch(sweep())
   }
 
-  handleSearch = (val: string) => {
-    this.updateMonitorState({ searchValue: val })
+  const handleSearch = (val: string) => {
+    dispatch(updateMonitorState({ searchValue: val }))
   }
 
-  handleSelectAction = (
+  const handleSelectAction = (
     e: React.MouseEvent<HTMLDivElement>,
     actionId: number,
   ) => {
-    const { monitorState } = this.props
     let startActionId
     let selectedActionId
 
@@ -306,126 +276,120 @@ class DevtoolsInspector<S, A extends Action<string>> extends PureComponent<
       }
     }
 
-    this.updateMonitorState({ startActionId, selectedActionId })
+    dispatch(updateMonitorState({ startActionId, selectedActionId }))
   }
 
-  handleInspectPath = (
+  const handleInspectPath = (
     pathType: 'inspectedActionPath' | 'inspectedStatePath',
     path: (string | number)[],
   ) => {
-    this.updateMonitorState({ [pathType]: path })
+    dispatch(updateMonitorState({ [pathType]: path }))
   }
 
-  handleSelectTab = (tabName: string) => {
-    this.updateMonitorState({ tabName })
+  const handleSelectTab = (tabName: string) => {
+    dispatch(updateMonitorState({ tabName }))
   }
 
-  render() {
-    const {
-      stagedActionIds: actionIds,
-      actionsById: actions,
-      computedStates,
-      draggableActions,
-      tabs,
-      theme,
-      invertTheme,
-      skippedActionIds,
-      currentStateIndex,
+  const { action, nextState, delta, error }: State<S, A> = {
+    ...createIntermediateState(
+      {
+        supportImmutable,
+        computedStates,
+        stagedActionIds,
+        actionsById,
+        diffObjectHash,
+        diffPropertyFilter,
+        currentStateIndex,
+      },
       monitorState,
-      dataTypeKey,
-      hideMainButtons,
-      hideActionButtons,
-      sortStateTreeAlphabetically,
-      disableStateTreeCollection,
-    } = this.props
-    const { selectedActionId, startActionId, searchValue, tabName } =
-      monitorState
-    const inspectedPathType =
-      tabName === 'Action' ? 'inspectedActionPath' : 'inspectedStatePath'
-    const { isWideLayout, action, nextState, delta, error } = this.state
-
-    const base16Theme = resolveBase16Theme(theme)!
-    const inspectorMonitorTheme = createInspectorMonitorThemeFromBase16Theme(
-      base16Theme,
-      invertTheme,
-    )
-    return (
-      <ThemeProvider theme={inspectorMonitorTheme}>
-        <div
-          key="inspector"
-          data-testid="inspector"
-          ref={this.inspectorCreateRef}
-          css={[
-            (theme) => ({
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              height: '100%',
-              fontFamily: 'monaco, Consolas, "Lucida Console", monospace',
-              fontSize: '12px',
-              WebkitFontSmoothing: 'antialiased',
-              lineHeight: '1.5em',
-
-              backgroundColor: theme.BACKGROUND_COLOR,
-              color: theme.TEXT_COLOR,
-            }),
-            isWideLayout && { flexDirection: 'row' },
-          ]}>
-          <ActionList
-            {...{
-              actions,
-              actionIds,
-              isWideLayout,
-              searchValue,
-              selectedActionId,
-              startActionId,
-              skippedActionIds,
-              draggableActions,
-              hideMainButtons,
-              hideActionButtons,
-            }}
-            onSearch={this.handleSearch}
-            onSelect={this.handleSelectAction}
-            onToggleAction={this.handleToggleAction}
-            onJumpToState={this.handleJumpToState}
-            onCommit={this.handleCommit}
-            onSweep={this.handleSweep}
-            onReorderAction={this.handleReorderAction}
-            currentActionId={actionIds[currentStateIndex]}
-            lastActionId={getLastActionId(this.props)}
-          />
-          <ActionPreview
-            {...{
-              base16Theme,
-              invertTheme,
-              isWideLayout,
-              tabs,
-              tabName,
-              delta,
-              error,
-              nextState,
-              computedStates,
-              action,
-              actions,
-              selectedActionId,
-              startActionId,
-              dataTypeKey,
-              sortStateTreeAlphabetically,
-              disableStateTreeCollection,
-            }}
-            monitorState={this.props.monitorState}
-            updateMonitorState={this.updateMonitorState}
-            onInspectPath={(path: (string | number)[]) =>
-              this.handleInspectPath(inspectedPathType, path)
-            }
-            inspectedPath={monitorState[inspectedPathType]}
-            onSelectTab={this.handleSelectTab}
-          />
-        </div>
-      </ThemeProvider>
-    )
+    ),
   }
+
+  const { selectedActionId, startActionId, searchValue, tabName } = monitorState
+  const inspectedPathType =
+    tabName === 'Action' ? 'inspectedActionPath' : 'inspectedStatePath'
+
+  const base16Theme = resolveBase16Theme(theme)!
+  const inspectorMonitorTheme = createInspectorMonitorThemeFromBase16Theme(
+    base16Theme,
+    invertTheme,
+  )
+  return (
+    <ThemeProvider theme={inspectorMonitorTheme}>
+      <div
+        key="inspector"
+        data-testid="inspector"
+        ref={inspectorRef}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          height: '100%',
+          fontFamily: 'monaco, Consolas, "Lucida Console", monospace',
+          fontSize: '12px',
+          WebkitFontSmoothing: 'antialiased',
+          lineHeight: '1.5em',
+
+          backgroundColor: emotionTheme.BACKGROUND_COLOR,
+          color: emotionTheme.TEXT_COLOR,
+          ...(wideLayoutState && { flexDirection: 'row' }),
+        }}>
+        <ActionList
+          actions={actionsById}
+          actionIds={stagedActionIds}
+          isWideLayout={wideLayoutState}
+          searchValue={searchValue}
+          selectedActionId={selectedActionId}
+          startActionId={startActionId}
+          skippedActionIds={skippedActionIds}
+          draggableActions={draggableActions}
+          hideMainButtons={hideMainButtons}
+          hideActionButtons={hideActionButtons}
+          onSearch={handleSearch}
+          onSelect={handleSelectAction}
+          onToggleAction={handleToggleAction}
+          onJumpToState={handleJumpToState}
+          onCommit={handleCommit}
+          onSweep={handleSweep}
+          onReorderAction={handleReorderAction}
+          currentActionId={stagedActionIds[currentStateIndex]}
+          lastActionId={getLastActionId(stagedActionIds)}
+        />
+        <ActionPreview
+          base16Theme={base16Theme}
+          invertTheme={invertTheme}
+          isWideLayout={wideLayoutState}
+          tabs={tabs}
+          tabName={tabName}
+          delta={delta}
+          error={error}
+          nextState={nextState}
+          computedStates={computedStates}
+          action={action}
+          actions={actionsById}
+          selectedActionId={selectedActionId}
+          startActionId={startActionId}
+          dataTypeKey={dataTypeKey}
+          sortStateTreeAlphabetically={sortStateTreeAlphabetically}
+          disableStateTreeCollection={disableStateTreeCollection}
+          monitorState={monitorState}
+          updateMonitorState={(
+            monitorState: Partial<DevtoolsInspectorState>,
+          ) => {
+            dispatch(updateMonitorState(monitorState))
+          }}
+          onInspectPath={(path: (string | number)[]) =>
+            handleInspectPath(inspectedPathType, path)
+          }
+          inspectedPath={monitorState[inspectedPathType] ?? []}
+          onSelectTab={handleSelectTab}
+        />
+      </div>
+    </ThemeProvider>
+  )
 }
+
+DevtoolsInspector.update = reducer
 
 export default DevtoolsInspector as unknown as React.ComponentType<
   ExternalProps<unknown, Action<string>>

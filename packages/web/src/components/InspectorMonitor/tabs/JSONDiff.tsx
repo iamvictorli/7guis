@@ -20,8 +20,10 @@ function stringifyAndShrink(val: unknown, isWideLayout?: boolean) {
   }
 
   if (isWideLayout)
-    return str.length > 42 ? str.substr(0, 30) + '…' + str.substr(-10) : str
-  return str.length > 22 ? `${str.substr(0, 15)}…${str.substr(-5)}` : str
+    return str.length > 42
+      ? str.substring(0, 30) + '…' + str.substring(-10)
+      : str
+  return str.length > 22 ? `${str.substring(0, 15)}…${str.substring(-5)}` : str
 }
 
 const expandFirstLevel: ShouldExpandNodeInitially = (_keyName, _data, level) =>
@@ -92,7 +94,7 @@ export default function JSONDiff({ delta, base16Theme, ...props }: Props) {
               <span
                 key="diffUpdateFrom"
                 style={{
-                  ...diffCss,
+                  ...diffCss(theme),
                   textDecoration: 'line-through',
                   backgroundColor: theme.DIFF_REMOVE_COLOR,
                 }}>
@@ -106,7 +108,7 @@ export default function JSONDiff({ delta, base16Theme, ...props }: Props) {
               <span
                 key="diffUpdateTo"
                 style={{
-                  ...diffCss,
+                  ...diffCss(theme),
                   backgroundColor: theme.DIFF_ADD_COLOR,
                 }}>
                 {stringifyAndShrink(value[1], isWideLayout)}
@@ -119,7 +121,7 @@ export default function JSONDiff({ delta, base16Theme, ...props }: Props) {
               <span
                 key="diffRemove"
                 style={{
-                  ...diffCss,
+                  ...diffCss(theme),
                   textDecoration: 'line-through',
                   backgroundColor: theme.DIFF_REMOVE_COLOR,
                 }}>

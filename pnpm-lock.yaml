@@ -152,6 +152,9 @@ importers:
       jsondiffpatch:
         specifier: ^0.6.0
         version: 0.6.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       lodash.debounce:
         specifier: ^4.0.8
         version: 4.0.8
@@ -182,6 +185,9 @@ importers:
       react-stately:
         specifier: ^3.32.2
         version: 3.32.2(react@18.3.1)
+      redux:
+        specifier: ^5.0.1
+        version: 5.0.1
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
