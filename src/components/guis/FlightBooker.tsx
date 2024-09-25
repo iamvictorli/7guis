@@ -51,7 +51,7 @@ export default function FlightBooker() {
           onValueChange={(value) => {
             dispatch(flightTypeChanged(value as FlightTrip))
           }}>
-          <Select.Trigger id="flight-trip">
+          <Select.Trigger id="flight-trip" aria-label="Select Flight Type">
             <Flex as="span" align="center" gap="2">
               {trip === FlightTrip.OneWay ? <ArrowRightIcon /> : <WidthIcon />}
               <Text size="3">{trip}</Text>

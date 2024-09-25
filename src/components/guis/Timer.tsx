@@ -59,7 +59,13 @@ export default function Timer() {
     <Flex direction="column" gap="4" maxWidth="350px">
       <Flex direction="row" gap="4" align="center">
         <Label htmlFor="elapsed-time">Elapsed Time:</Label>
-        <Progress id="elapsed-time" max={duration} value={elapsedMs} size="3" />
+        <Progress
+          id="elapsed-time"
+          max={duration}
+          value={elapsedMs}
+          size="3"
+          aria-label="Elapased Time"
+        />
       </Flex>
 
       <Text size="7">
@@ -77,6 +83,7 @@ export default function Timer() {
             dispatch(durationChanged(value[0]))
           }}
           size="2"
+          aria-label="Duration"
         />
       </Flex>
 
