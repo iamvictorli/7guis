@@ -9,7 +9,7 @@ import ErrorPage from './routes/error-page'
 
 import './index.css'
 
-import SkeletenIndex from 'components/Skeleton/SkeletonIndex'
+import { GuiSkeleton, IndexSkeleton } from 'components/Skeleton'
 
 import {
   Cells,
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<SkeletenIndex />}>
+          <Suspense fallback={<IndexSkeleton />}>
             <Index />
           </Suspense>
         ),
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
           {
             path: 'counter',
             element: (
-              <Suspense fallback={<div>Loading</div>}>
+              <Suspense fallback={<GuiSkeleton />}>
                 <Counter />
               </Suspense>
             ),
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
           {
             path: 'temperature-converter',
             element: (
-              <Suspense fallback={<div>Loading</div>}>
+              <Suspense fallback={<GuiSkeleton />}>
                 <TemperatureConverter />
               </Suspense>
             ),
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
           {
             path: 'flight-booker',
             element: (
-              <Suspense fallback={<div>Loading</div>}>
+              <Suspense fallback={<GuiSkeleton />}>
                 <FlightBooker />
               </Suspense>
             ),
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
           {
             path: 'timer',
             element: (
-              <Suspense fallback={<div>Loading</div>}>
+              <Suspense fallback={<GuiSkeleton />}>
                 <Timer />
               </Suspense>
             ),
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
           {
             path: 'crud',
             element: (
-              <Suspense fallback={<div>Loading</div>}>
+              <Suspense fallback={<GuiSkeleton />}>
                 <CRUD />
               </Suspense>
             ),
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
           {
             path: 'circle-drawer',
             element: (
-              <Suspense fallback={<div>Loading</div>}>
+              <Suspense fallback={<GuiSkeleton />}>
                 <CircleDrawer />
               </Suspense>
             ),
@@ -97,7 +97,7 @@ const router = createBrowserRouter([
           {
             path: 'cells',
             element: (
-              <Suspense fallback={<div>Loading</div>}>
+              <Suspense fallback={<GuiSkeleton />}>
                 <Cells />
               </Suspense>
             ),
