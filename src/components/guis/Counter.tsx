@@ -1,4 +1,4 @@
-import { Button, Flex, Heading } from '@radix-ui/themes'
+import { Button, Flex, Text } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 import { increment, selectCount } from 'state/counterSlice'
@@ -9,9 +9,9 @@ export default function Counter() {
 
   return (
     <Flex align="center" gap="4">
-      <Heading size="9" as="h4">
+      <Text size="9" weight="bold" data-testid="count">
         {count}
-      </Heading>
+      </Text>
       <Button
         color="gray"
         variant="solid"

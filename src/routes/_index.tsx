@@ -33,7 +33,7 @@ export default function Index() {
             <Tooltip content="View Github">
               <Link
                 href="https://github.com/iamvictorli/7gui"
-                aria-label="View 7gui Github Repo">
+                aria-label="View Github">
                 <IconButton asChild variant="ghost" highContrast size="2">
                   <GitHubLogoIcon width="24" height="24" />
                 </IconButton>

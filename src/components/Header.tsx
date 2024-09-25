@@ -71,20 +71,20 @@ export default function Header() {
             <Tooltip
               className="radix-themes-custom-fonts"
               content="View GitHub">
-              <IconButton
-                asChild
-                size="3"
-                variant="ghost"
-                color="gray"
-                highContrast>
-                <Link
-                  href="https://github.com/iamvictorli/7gui"
-                  target="_blank"
-                  aria-label="View GitHub"
-                  rel="noreferrer">
+              <Link
+                href="https://github.com/iamvictorli/7gui"
+                target="_blank"
+                aria-label="View GitHub"
+                rel="noreferrer">
+                <IconButton
+                  asChild
+                  size="3"
+                  variant="ghost"
+                  color="gray"
+                  highContrast>
                   <GitHubLogoIcon width="24" height="24" />
-                </Link>
-              </IconButton>
+                </IconButton>
+              </Link>
             </Tooltip>
 
             <Tooltip content="Navigation">
@@ -93,7 +93,8 @@ export default function Header() {
                 variant="ghost"
                 color="gray"
                 onClick={() => setOpen((open) => !open)}
-                className="lg:hidden">
+                className="lg:hidden"
+                aria-label="Navigation">
                 <HamburgerMenuIcon width="16" height="16" />
               </IconButton>
             </Tooltip>
