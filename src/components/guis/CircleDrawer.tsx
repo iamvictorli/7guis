@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Popover, Slider } from '@radix-ui/themes'
+import { Box, Button, Flex, Popover } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 import { memo } from 'react'
 
@@ -16,6 +16,7 @@ import {
   selectUndoDisabled,
   undo,
 } from 'state/circleDrawerSlice'
+import Slider from 'components/Slider'
 
 const Circle = memo(
   function Circle({
@@ -75,6 +76,7 @@ const Circle = memo(
                 }),
               )
             }}
+            thumbLabel="Circle Diameter Slider"
           />
         </Popover.Content>
       </Popover.Root>

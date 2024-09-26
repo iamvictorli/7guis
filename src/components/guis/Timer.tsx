@@ -1,5 +1,5 @@
 import { Label } from '@radix-ui/react-label'
-import { Button, Flex, Progress, Slider, Text } from '@radix-ui/themes'
+import { Button, Flex, Progress, Text } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'
 import { useCallback, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
@@ -11,6 +11,7 @@ import {
   selectElapsedMs,
   timerReset,
 } from 'state/timerSlice'
+import Slider from 'components/Slider'
 
 export default function Timer() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
@@ -82,8 +83,7 @@ export default function Timer() {
           onValueChange={(value) => {
             dispatch(durationChanged(value[0]))
           }}
-          size="2"
-          aria-label="Duration"
+          thumbLabel="Duration"
         />
       </Flex>
 
