@@ -1,0 +1,11 @@
+node_modules
+
+.changeset
+.github/**/*.yaml
+.github/**/*.yml
+
+dist
+
+CHANGELOG.md
+
+pnpm-lock.yaml
