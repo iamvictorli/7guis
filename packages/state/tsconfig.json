@@ -1,0 +1,20 @@
+{
+  "extends": "@7gui/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "rootDir": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+
+    "declaration": true,
+    "composite": true,
+    "declarationMap": true,
+
+    "lib": ["ES2022"],
+
+    "types": ["vitest/globals"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "@7gui/state",
+  "version": "1.0.0",
+  "description": "7gui state using redux",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist node_modules tsconfig.tsbuildinfo",
+    "dev": "tsc --watch",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@internationalized/date": "^3.5.5",
+    "@reduxjs/toolkit": "^2.2.7"
+  },
+  "devDependencies": {
+    "@7gui/typescript-config": "workspace:*",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.1"
+  },
+  "exports": {
+    "./counterSlice": {
+      "types": "./src/counterSlice.ts",
+      "default": "./dist/counterSlice.js"
+    },
+    "./temperatureConverterSlice": {
+      "types": "./src/temperatureConverterSlice.ts",
+      "default": "./dist/temperatureConverterSlice.js"
+    },
+    "./flightBookerSlice": {
+      "types": "./src/flightBookerSlice.ts",
+      "default": "./dist/flightBookerSlice.js"
+    },
+    "./timerSlice": {
+      "types": "./src/timerSlice.ts",
+      "default": "./dist/timerSlice.js"
+    },
+    "./crudSlice": {
+      "types": "./src/crudSlice.ts",
+      "default": "./dist/crudSlice.js"
+    },
+    "./circleDrawerSlice": {
+      "types": "./src/circleDrawerSlice.ts",
+      "default": "./dist/circleDrawerSlice.js"
+    },
+    "./cellsSlice": {
+      "types": "./src/cellsSlice.ts",
+      "default": "./dist/cellsSlice.js"
+    }
+  }
+}
