@@ -1,13 +1,13 @@
 import { expect, test } from 'vitest'
 
 import {
-  temperatureConverterReducer as reducer,
+  initialState,
+  reducer,
   temperatureChanged,
-  temperatureConverterInitialState,
 } from './temperatureConverterSlice'
 
 test('should update fahrenheit when celcius is changed', () => {
-  let state = temperatureConverterInitialState
+  let state = initialState
 
   state = reducer(
     state,
@@ -35,7 +35,7 @@ test('should update fahrenheit when celcius is changed', () => {
 })
 
 test('should update celcius when fahrenheit is changed', () => {
-  let state = temperatureConverterInitialState
+  let state = initialState
 
   state = reducer(
     state,

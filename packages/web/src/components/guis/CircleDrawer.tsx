@@ -6,12 +6,12 @@ import {
   radiusChanged,
   redo,
   selectCircleById,
-  selectCircleDrawerUI,
   selectCircleIds,
   selectRedoDisabled,
+  selectUI,
   selectUndoDisabled,
   undo,
-} from '@7gui/state'
+} from '@7gui/state/circleDrawerSlice'
 import { Box, Button, Flex, Popover } from '@radix-ui/themes'
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
@@ -106,8 +106,7 @@ export default function CircleDrawer() {
   const undoDisabled = useAppSelector(selectUndoDisabled)
   const redoDisabled = useAppSelector(selectRedoDisabled)
   const circleIds = useAppSelector(selectCircleIds)
-  const { selectedCircleId, selectedCircleRadius } =
-    useAppSelector(selectCircleDrawerUI)
+  const { selectedCircleId, selectedCircleRadius } = useAppSelector(selectUI)
 
   return (
     <>

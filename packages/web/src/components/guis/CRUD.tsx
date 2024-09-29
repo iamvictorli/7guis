@@ -5,10 +5,10 @@ import {
   nameSelected,
   nameUpdated,
   searchChanged,
-  selectCrudUI,
   selectFilteredNameRecords,
+  selectUI,
   surnameInputChanged,
-} from '@7gui/state'
+} from '@7gui/state/crudSlice'
 import { Label } from '@radix-ui/react-label'
 import { Box, Button, Flex, TextField } from '@radix-ui/themes'
 import ListBox from '~/components/ListBox/ListBox'
@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '~/store'
 export default function Crud() {
   const dispatch = useAppDispatch()
   const { nameInput, surnameInput, searchInput, nameSelectedId } =
-    useAppSelector(selectCrudUI)
+    useAppSelector(selectUI)
   const filteredNameRecords = useAppSelector(selectFilteredNameRecords)
 
   return (

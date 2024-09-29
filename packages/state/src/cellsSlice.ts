@@ -231,9 +231,12 @@ const cellsSlice = createSlice({
   },
 })
 
-export const { selectColumnLabels } = cellsSlice.selectors
+export const { name, reducer } = cellsSlice
 
-const { selectCells, selectCellLabelMatrix } = cellsSlice.selectors
+const { actions, selectors } = cellsSlice
+export const { cellChanged } = actions
+export const { selectColumnLabels } = selectors
+const { selectCells, selectCellLabelMatrix } = selectors
 
 export const selectCellMatrix = createSelector(
   [selectCellLabelMatrix, selectCells],
@@ -247,9 +250,3 @@ export const selectCellMatrix = createSelector(
     })
   },
 )
-
-export const { cellChanged } = cellsSlice.actions
-
-export const cellsName = cellsSlice.name
-
-export const cellsReducer = cellsSlice.reducer

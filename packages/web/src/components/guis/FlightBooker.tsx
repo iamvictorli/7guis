@@ -4,7 +4,7 @@ import {
   flightTypeChanged,
   selectFlightBookerState,
   selectIsBookableFlight,
-} from '@7gui/state'
+} from '@7gui/state/flightBookerSlice'
 import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
 import { ArrowRightIcon, WidthIcon } from '@radix-ui/react-icons'
 import { Label } from '@radix-ui/react-label'

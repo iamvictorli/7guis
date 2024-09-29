@@ -10,7 +10,7 @@ import { FieldButton } from './Button'
 import { DateField } from './DateField'
 import { Dialog } from './Dialog'
 import { Popover } from './Popover'
-import { RangeCalendar } from './RangeCalendar.tsx'
+import { RangeCalendar } from './RangeCalendar'
 
 export function DateRangePicker(props: DateRangePickerStateOptions<DateValue>) {
   const state = useDateRangePickerState(props)

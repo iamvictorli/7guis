@@ -8,14 +8,14 @@ interface TemperatureConverterState {
   celcius: string
 }
 
-export const temperatureConverterInitialState: TemperatureConverterState = {
+export const initialState: TemperatureConverterState = {
   fahrenheit: '',
   celcius: '',
 } satisfies TemperatureConverterState as TemperatureConverterState
 
 const temperatureConverterSlice = createSlice({
   name: 'temperature-converter',
-  initialState: temperatureConverterInitialState,
+  initialState,
   reducers: {
     temperatureChanged: (
       state,
@@ -41,10 +41,8 @@ const temperatureConverterSlice = createSlice({
   },
 })
 
-export const { selectTemperatures } = temperatureConverterSlice.selectors
+export const { name, reducer } = temperatureConverterSlice
 
-export const { temperatureChanged } = temperatureConverterSlice.actions
-
-export const temperatureConverterName = temperatureConverterSlice.name
-
-export const temperatureConverterReducer = temperatureConverterSlice.reducer
+const { actions, selectors } = temperatureConverterSlice
+export const { selectTemperatures } = selectors
+export const { temperatureChanged } = actions

@@ -49,10 +49,8 @@ const timerSlice = createSlice({
   },
 })
 
-export const { selectDuration, selectElapsedMs } = timerSlice.selectors
+export const { name, reducer } = timerSlice
 
-export const { durationChanged, timerReset, nowChanged } = timerSlice.actions
-
-export const timerName = timerSlice.name
-
-export const timerReducer = timerSlice.reducer
+const { actions, selectors } = timerSlice
+export const { durationChanged, timerReset, nowChanged } = actions
+export const { selectDuration, selectElapsedMs } = selectors

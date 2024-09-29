@@ -5,13 +5,13 @@ interface CounterState {
   count: number
 }
 
-export const counterInitialState: CounterState = {
+export const initialState: CounterState = {
   count: 0,
 } satisfies CounterState as CounterState
 
 const counterSlice = createSlice({
   name: 'counter',
-  initialState: counterInitialState,
+  initialState,
   reducers: {
     increment: (state, action: PayloadAction<number>) => {
       const incrementBy = action.payload
@@ -23,10 +23,8 @@ const counterSlice = createSlice({
   },
 })
 
-export const { selectCount } = counterSlice.selectors
+export const { name, reducer } = counterSlice
 
-export const { increment } = counterSlice.actions
-
-export const counterName = counterSlice.name
-
-export const counterReducer = counterSlice.reducer
+const { actions, selectors } = counterSlice
+export const { increment } = actions
+export const { selectCount } = selectors

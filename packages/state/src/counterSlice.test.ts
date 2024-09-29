@@ -1,13 +1,9 @@
 import { expect, test } from 'vitest'
 
-import {
-  counterInitialState,
-  increment,
-  counterReducer as reducer,
-} from './counterSlice'
+import { increment, initialState, reducer } from './counterSlice'
 
 test('count should increment', () => {
-  let state = counterInitialState
+  let state = initialState
 
   state = reducer(state, increment(1))
   expect(state).toEqual({ count: 1 })

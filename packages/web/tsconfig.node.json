@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "module": "preserve",
-    "noEmit": true,
-    "lib": ["ES2022"]
-  },
-  "include": ["vite.config.ts", "vitest.config.ts", "vitest.setup.ts"]
-}

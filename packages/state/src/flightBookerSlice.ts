@@ -93,11 +93,8 @@ const flightBookerSlice = createSlice({
   },
 })
 
-export const { selectFlightBookerState, selectIsBookableFlight } =
-  flightBookerSlice.selectors
+export const { name, reducer } = flightBookerSlice
 
-export const { flightTypeChanged, dateChanged } = flightBookerSlice.actions
-
-export const flightBookerName = flightBookerSlice.name
-
-export const flightBookerReducer = flightBookerSlice.reducer
+const { actions, selectors } = flightBookerSlice
+export const { flightTypeChanged, dateChanged } = actions
+export const { selectFlightBookerState, selectIsBookableFlight } = selectors

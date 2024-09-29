@@ -248,18 +248,9 @@ const circleDrawerSlice = createSlice({
   },
 })
 
-export const {
-  selectUndoDisabled,
-  selectRedoDisabled,
-  selectUI: selectCircleDrawerUI,
-  selectCircleById,
-} = circleDrawerSlice.selectors
-const { selectCircles } = circleDrawerSlice.selectors
+export const { name, reducer } = circleDrawerSlice
 
-export const selectCircleIds = createSelector([selectCircles], (circles) => {
-  return Object.values(circles.allIds)
-})
-
+const { actions, selectors } = circleDrawerSlice
 export const {
   circleAdded,
   circleSelected,
@@ -268,7 +259,15 @@ export const {
   undo,
   redo,
   deselect,
-} = circleDrawerSlice.actions
+} = actions
+export const {
+  selectUndoDisabled,
+  selectRedoDisabled,
+  selectUI,
+  selectCircleById,
+} = selectors
 
-export const circleDrawerName = circleDrawerSlice.name
-export const circleDrawerReducer = circleDrawerSlice.reducer
+const { selectCircles } = selectors
+export const selectCircleIds = createSelector([selectCircles], (circles) => {
+  return Object.values(circles.allIds)
+})

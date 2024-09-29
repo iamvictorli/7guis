@@ -231,21 +231,9 @@ const crudSlice = createSlice({
   },
 })
 
-export const { selectUI: selectCrudUI } = crudSlice.selectors
+export const { name, reducer } = crudSlice
 
-const { selectNameRecords } = crudSlice.selectors
-
-export const selectFilteredNameRecords = createSelector(
-  [selectNameRecords, selectCrudUI],
-  (nameRecords, { searchInput }) => {
-    return Object.values(nameRecords.byId).filter((nameRecord) => {
-      return (
-        nameRecord.name.includes(searchInput) ||
-        nameRecord.surname.includes(searchInput)
-      )
-    })
-  },
-)
+const { actions, selectors } = crudSlice
 
 export const {
   nameCreated,
@@ -255,8 +243,18 @@ export const {
   searchChanged,
   nameInputChanged,
   surnameInputChanged,
-} = crudSlice.actions
+} = actions
 
-export const crudName = crudSlice.name
-
-export const crudReducer = crudSlice.reducer
+export const { selectUI } = selectors
+const { selectNameRecords } = selectors
+export const selectFilteredNameRecords = createSelector(
+  [selectNameRecords, selectUI],
+  (nameRecords, { searchInput }) => {
+    return Object.values(nameRecords.byId).filter((nameRecord) => {
+      return (
+        nameRecord.name.includes(searchInput) ||
+        nameRecord.surname.includes(searchInput)
+      )
+    })
+  },
+)

@@ -1,5 +1,9 @@
-import { cellChanged, selectCellMatrix, selectColumnLabels } from '@7gui/state'
-import type { Cell } from '@7gui/state'
+import {
+  cellChanged,
+  selectCellMatrix,
+  selectColumnLabels,
+} from '@7gui/state/cellsSlice'
+import type { Cell } from '@7gui/state/cellsSlice'
 import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
 import type {
   CellProps,

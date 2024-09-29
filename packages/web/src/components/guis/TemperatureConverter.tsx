@@ -1,4 +1,7 @@
-import { selectTemperatures, temperatureChanged } from '@7gui/state'
+import {
+  selectTemperatures,
+  temperatureChanged,
+} from '@7gui/state/temperatureConverterSlice'
 import { Label } from '@radix-ui/react-label'
 import { Flex, Text, TextField } from '@radix-ui/themes'
 import { useAppDispatch, useAppSelector } from '~/store'

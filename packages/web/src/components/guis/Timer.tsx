@@ -4,7 +4,7 @@ import {
   selectDuration,
   selectElapsedMs,
   timerReset,
-} from '@7gui/state'
+} from '@7gui/state/timerSlice'
 import { Label } from '@radix-ui/react-label'
 import { Button, Flex, Progress, Text } from '@radix-ui/themes'
 import Slider from '~/components/Slider'

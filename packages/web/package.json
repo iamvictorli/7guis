@@ -4,10 +4,10 @@
   "description": "7gui web",
   "type": "module",
   "scripts": {
-    "build": "tsc --project tsconfig.json && vite build",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
     "test": "vitest",
     "clean": "rimraf dist node_modules",
-    "dev": "vite",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@7gui/typescript-config": "workspace:*",
     "@react-types/shared": "^3.24.1",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",

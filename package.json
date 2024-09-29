@@ -10,18 +10,15 @@
     "test": "vitest",
     "build:all": "pnpm -r run build",
     "clean:all": "pnpm -r run clean && rimraf node_modules",
+    "dev:all": "pnpm -r run dev",
     "web:dev": "pnpm -F web run dev",
     "web:preview": "pnpm -F web run preview"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
-    "globals": "^15.9.0",
-    "husky": "^9.1.6",
-    "knip": "^5.30.5",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "rimraf": "^6.0.1",
-    "typescript-eslint": "^8.7.0",
     "vitest": "^2.1.1"
   },
   "engines": {
