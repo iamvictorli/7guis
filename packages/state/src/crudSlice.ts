@@ -1,8 +1,6 @@
 import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import type { EntityMap } from './types'
-
 interface Name {
   name: string
   surname: string
@@ -10,7 +8,10 @@ interface Name {
 }
 
 interface CRUDState {
-  nameRecords: EntityMap<Name>
+  nameRecords: {
+    byId: Record<string, Name>
+    allIds: string[]
+  }
   ui: {
     nameInput: string
     surnameInput: string
@@ -22,7 +23,7 @@ interface CRUDState {
 const initialState: CRUDState = {
   nameRecords: {
     byId: {},
-    allIds: {},
+    allIds: [],
   },
   ui: {
     nameInput: '',
@@ -40,7 +41,7 @@ const crudSlice = createSlice({
       reducer: (state, action: PayloadAction<Name>) => {
         const nameRecord = action.payload
         state.nameRecords.byId[nameRecord.id] = nameRecord
-        state.nameRecords.allIds[nameRecord.id] = nameRecord.id
+        state.nameRecords.allIds.push(nameRecord.id)
 
         const searchInput = state.ui.searchInput
 
@@ -103,16 +104,13 @@ const crudSlice = createSlice({
         return
       }
 
-      // updates selected name record to the first on the list
-      const newNameSelectedIndex = Object.values(state.nameRecords.allIds).find(
-        (id) => {
-          const nameRecord = state.nameRecords.byId[id]
-          if (!nameRecord) return false
-          const { name, surname } = nameRecord
+      const newNameSelectedIndex = state.nameRecords.allIds.find((id) => {
+        const nameRecord = state.nameRecords.byId[id]
+        if (!nameRecord) return false
+        const { name, surname } = nameRecord
 
-          return name.includes(searchInput) || surname.includes(searchInput)
-        },
-      )
+        return name.includes(searchInput) || surname.includes(searchInput)
+      })
 
       if (
         newNameSelectedIndex &&
@@ -131,15 +129,17 @@ const crudSlice = createSlice({
     nameDeleted: (state, action: PayloadAction<string>) => {
       const idToDelete = action.payload
       delete state.nameRecords.byId[idToDelete]
-      delete state.nameRecords.allIds[idToDelete]
+      const index = state.nameRecords.allIds.findIndex(
+        (id) => id === idToDelete,
+      )
+
+      if (index !== -1) state.nameRecords.allIds.splice(index, 1)
 
       if (state.ui.nameSelectedId === idToDelete) {
         const searchInput = state.ui.searchInput
 
         // updates selected name record to the first on the list
-        const newNameSelectedIndex = Object.values(
-          state.nameRecords.allIds,
-        ).find((id) => {
+        const newNameSelectedIndex = state.nameRecords.allIds.find((id) => {
           const nameRecord = state.nameRecords.byId[id]
           if (!nameRecord) return false
           const { name, surname } = nameRecord
@@ -192,17 +192,13 @@ const crudSlice = createSlice({
       }
 
       // updates selected name record to the first on the list
-      const newNameSelectedIndex = Object.values(state.nameRecords.allIds).find(
-        (id) => {
-          const nameRecord = state.nameRecords.byId[id]
-          if (!nameRecord) return false
-          const { name, surname } = nameRecord
+      const newNameSelectedIndex = state.nameRecords.allIds.find((id) => {
+        const nameRecord = state.nameRecords.byId[id]
+        if (!nameRecord) return false
+        const { name, surname } = nameRecord
 
-          return (
-            name.includes(newSearchInput) || surname.includes(newSearchInput)
-          )
-        },
-      )
+        return name.includes(newSearchInput) || surname.includes(newSearchInput)
+      })
 
       if (
         newNameSelectedIndex &&
