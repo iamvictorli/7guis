@@ -7,7 +7,6 @@
     "build": "tsc -b && vite build",
     "clean": "rimraf dist node_modules tsconfig.tsbuildinfo",
     "dev": "vite",
-    "lint": "eslint .",
     "test": "vitest",
     "preview": "vite preview"
   },
@@ -35,7 +34,6 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@7gui/eslint-config": "workspace:*",
     "@7gui/typescript-config": "workspace:*",
     "@react-types/shared": "^3.24.1",
     "@testing-library/jest-dom": "^6.5.0",
