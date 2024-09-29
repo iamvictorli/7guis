@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "test": "vitest",
     "build": "pnpm -r run build",
     "clean": "pnpm -r run clean && rimraf node_modules",
     "dev": "concurrently pnpm:dev:*",
     "dev:web": "pnpm -F web run dev",
     "dev:state": "pnpm -F state run dev",
+    "lint": "pnpm -r run lint",
+    "test": "vitest",
+    "format": "prettier --write .",
     "preview:web": "pnpm -F web run preview"
   },
   "devDependencies": {

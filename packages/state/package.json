@@ -4,10 +4,11 @@
   "description": "7gui state using redux",
   "type": "module",
   "scripts": {
-    "dev": "tsc --watch",
     "build": "tsc",
-    "test": "vitest",
-    "clean": "rimraf dist node_modules tsconfig.tsbuildinfo"
+    "clean": "rimraf dist node_modules tsconfig.tsbuildinfo",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -17,9 +18,11 @@
     "@reduxjs/toolkit": "^2.2.7"
   },
   "devDependencies": {
+    "@7gui/eslint-config": "workspace:*",
     "@7gui/typescript-config": "workspace:*",
+    "eslint": "^9.11.1",
     "rimraf": "^6.0.1",
-    "typescript": "^5.6.2",
+    "typescript": "^5.5.4",
     "vitest": "^2.1.1"
   },
   "exports": {

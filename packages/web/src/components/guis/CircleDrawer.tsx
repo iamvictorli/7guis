@@ -28,8 +28,8 @@ const Circle = memo(
     selectedCircleRadius: number
   }) {
     const circle = useAppSelector((state) => selectCircleById(state, id))
-    if (!circle) return null
     const dispatch = useAppDispatch()
+    if (!circle) return null
     return (
       <Popover.Root>
         <Popover.Trigger>
