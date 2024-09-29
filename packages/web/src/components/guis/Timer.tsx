@@ -80,7 +80,9 @@ export default function Timer() {
           max={30000}
           value={[duration]}
           onValueChange={(value) => {
-            dispatch(durationChanged(value[0]))
+            if (value[0]) {
+              dispatch(durationChanged(value[0]))
+            }
           }}
           thumbLabel="Duration"
         />

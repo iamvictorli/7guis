@@ -159,6 +159,10 @@ export default function Spreadsheet<T>({
                 {/* Render cells */}
                 {columns.map((column, colIndex) => {
                   const cell = dataRow[column]
+                  if (!cell)
+                    throw new Error(
+                      `Key ${column} does not exist in row index ${rowIndex}`,
+                    )
                   const isFocused = !!(
                     focusedCell &&
                     focusedCell.row === rowIndex &&

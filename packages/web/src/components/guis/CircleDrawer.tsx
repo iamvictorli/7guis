@@ -28,6 +28,7 @@ const Circle = memo(
     selectedCircleRadius: number
   }) {
     const circle = useAppSelector((state) => selectCircleById(state, id))
+    if (!circle) return null
     const dispatch = useAppDispatch()
     return (
       <Popover.Root>
@@ -63,17 +64,19 @@ const Circle = memo(
             min={10}
             max={80}
             onValueChange={([value]) => {
-              dispatch(radiusChanged(value))
+              if (value) dispatch(radiusChanged(value))
             }}
             onValueCommit={([value]) => {
-              dispatch(
-                circleUpdated({
-                  id: circle.id,
-                  x: circle.x,
-                  y: circle.y,
-                  radius: value,
-                }),
-              )
+              if (value) {
+                dispatch(
+                  circleUpdated({
+                    id: circle.id,
+                    x: circle.x,
+                    y: circle.y,
+                    radius: value,
+                  }),
+                )
+              }
             }}
             thumbLabel="Circle Diameter Slider"
           />
