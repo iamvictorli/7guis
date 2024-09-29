@@ -1,3 +1,8 @@
+import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
+import { ArrowRightIcon, WidthIcon } from '@radix-ui/react-icons'
+import { Label } from '@radix-ui/react-label'
+import { Button, Flex, Select, Text } from '@radix-ui/themes'
+
 import {
   dateChanged,
   FlightTrip,
@@ -5,13 +10,10 @@ import {
   selectFlightBookerState,
   selectIsBookableFlight,
 } from '@7gui/state/flightBookerSlice'
-import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
-import { ArrowRightIcon, WidthIcon } from '@radix-ui/react-icons'
-import { Label } from '@radix-ui/react-label'
-import { Button, Flex, Select, Text } from '@radix-ui/themes'
+
+import { useToast } from '~/hooks/useToast'
 import { DatePicker } from '~/components/DatePicker/DatePicker'
 import { DateRangePicker } from '~/components/DatePicker/DateRangePicker'
-import { useToast } from '~/hooks/useToast'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 /**

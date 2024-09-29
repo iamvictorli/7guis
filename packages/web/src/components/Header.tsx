@@ -1,10 +1,11 @@
 import { GitHubLogoIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Box, Flex, IconButton, Link, Tooltip } from '@radix-ui/themes'
-import { useMobileMenuContext } from '~/hooks/useMobileMenuContext'
-import { cn } from '~/lib/utils'
 import { useEffect, useState } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 import { Link as RRDLink } from 'react-router-dom'
+
+import { cn } from '~/lib/utils'
+import { useMobileMenuContext } from '~/hooks/useMobileMenuContext'
 
 type ScrollState = 'at-top' | 'scrolling-up' | 'scrolling-down'
 

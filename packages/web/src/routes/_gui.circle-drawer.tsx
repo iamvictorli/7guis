@@ -1,5 +1,6 @@
 import { ArrowTopRightIcon } from '@radix-ui/react-icons'
 import { Box, Flex, Heading, Link, Strong, Text } from '@radix-ui/themes'
+
 import GuiDisplay from '~/components/GuiDisplay'
 import CircleDrawerGui from '~/components/guis/CircleDrawer'
 

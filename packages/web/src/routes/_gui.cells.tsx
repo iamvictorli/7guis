@@ -10,6 +10,7 @@ import {
   Strong,
   Text,
 } from '@radix-ui/themes'
+
 import GuiDisplay from '~/components/GuiDisplay'
 import CellsGui from '~/components/guis/Cells'
 

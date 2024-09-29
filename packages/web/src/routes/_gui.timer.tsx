@@ -1,5 +1,6 @@
 import { ArrowTopRightIcon } from '@radix-ui/react-icons'
 import { Box, Code, Flex, Heading, Link, Strong, Text } from '@radix-ui/themes'
+
 import GuiDisplay from '~/components/GuiDisplay'
 import TimerGUI from '~/components/guis/Timer'
 

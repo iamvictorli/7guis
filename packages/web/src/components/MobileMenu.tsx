@@ -1,12 +1,13 @@
 import { Slot } from '@radix-ui/react-slot'
 import { Box, Portal, Theme } from '@radix-ui/themes'
+import { useEffect, useState } from 'react'
+import { RemoveScroll } from 'react-remove-scroll'
+import { useLocation } from 'react-router-dom'
+
 import {
   MenuProvider,
   useMobileMenuContext,
 } from '~/hooks/useMobileMenuContext'
-import { useEffect, useState } from 'react'
-import { RemoveScroll } from 'react-remove-scroll'
-import { useLocation } from 'react-router-dom'
 
 const MobileMenuProvider = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false)

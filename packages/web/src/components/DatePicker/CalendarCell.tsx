@@ -1,6 +1,5 @@
 import { getDayOfWeek, isSameDay } from '@internationalized/date'
 import type { CalendarDate } from '@internationalized/date'
-import { cn } from '~/lib/utils'
 import { useRef } from 'react'
 import {
   mergeProps,
@@ -9,6 +8,8 @@ import {
   useLocale,
 } from 'react-aria'
 import type { CalendarState, RangeCalendarState } from 'react-stately'
+
+import { cn } from '~/lib/utils'
 
 export function CalendarCell({
   state,

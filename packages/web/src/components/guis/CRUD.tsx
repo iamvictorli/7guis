@@ -1,3 +1,6 @@
+import { Label } from '@radix-ui/react-label'
+import { Box, Button, Flex, TextField } from '@radix-ui/themes'
+
 import {
   nameCreated,
   nameDeleted,
@@ -9,8 +12,7 @@ import {
   selectUI,
   surnameInputChanged,
 } from '@7gui/state/crudSlice'
-import { Label } from '@radix-ui/react-label'
-import { Box, Button, Flex, TextField } from '@radix-ui/themes'
+
 import ListBox from '~/components/ListBox/ListBox'
 import { useAppDispatch, useAppSelector } from '~/store'
 

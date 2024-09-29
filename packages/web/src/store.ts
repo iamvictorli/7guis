@@ -1,3 +1,6 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
+
 import {
   name as cellsName,
   reducer as cellsReducer,
@@ -23,8 +26,6 @@ import {
   name as timerName,
   reducer as timerReducer,
 } from '@7gui/state/timerSlice'
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { useDispatch, useSelector } from 'react-redux'
 
 const rootReducer = combineReducers({
   [counterName]: counterReducer,

@@ -1,11 +1,12 @@
 // https://react-spectrum.adobe.com/react-aria/useListBox.html#example
 import type { Node } from '@react-types/shared'
-import { cn } from '~/lib/utils'
 import { useRef } from 'react'
 import type { AriaListBoxProps } from 'react-aria'
 import { mergeProps, useFocusRing, useListBox, useOption } from 'react-aria'
 import { Item, useListState } from 'react-stately'
 import type { ListState } from 'react-stately'
+
+import { cn } from '~/lib/utils'
 
 function ListBoxProvider<T extends object>(props: AriaListBoxProps<T>) {
   // Create state based on the incoming props

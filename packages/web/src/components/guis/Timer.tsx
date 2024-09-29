@@ -1,3 +1,8 @@
+import { Label } from '@radix-ui/react-label'
+import { Button, Flex, Progress, Text } from '@radix-ui/themes'
+import { useCallback, useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
+
 import {
   durationChanged,
   nowChanged,
@@ -5,12 +10,9 @@ import {
   selectElapsedMs,
   timerReset,
 } from '@7gui/state/timerSlice'
-import { Label } from '@radix-ui/react-label'
-import { Button, Flex, Progress, Text } from '@radix-ui/themes'
+
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
-import { useCallback, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
 
 export default function Timer() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>()

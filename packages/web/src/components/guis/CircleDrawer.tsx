@@ -1,3 +1,6 @@
+import { Box, Button, Flex, Popover } from '@radix-ui/themes'
+import { memo } from 'react'
+
 import {
   circleAdded,
   circleSelected,
@@ -12,10 +15,9 @@ import {
   selectUndoDisabled,
   undo,
 } from '@7gui/state/circleDrawerSlice'
-import { Box, Button, Flex, Popover } from '@radix-ui/themes'
+
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
-import { memo } from 'react'
 
 const Circle = memo(
   function Circle({

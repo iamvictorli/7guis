@@ -17,10 +17,12 @@ export default {
     '<BUILTIN_MODULES>', // Node.js built-in modules
     '<THIRD_PARTY_MODULES>', // Imports not matched by other special words or groups.
     '',
-    '^types$',
-    '^lib/(.*)$',
-    '^state/(.*)$',
-    '^components/(.*)$',
+    '^@7gui/(.*)$',
+    '',
+    '^~/lib/(.*)$',
+    '^~/hooks/(.*)$',
+    '^~/components/(.*)$',
+    '^~/(.*)$',
     '',
     '^[./]', // relative imports
   ],

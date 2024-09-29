@@ -1,11 +1,12 @@
 import { Box, Flex, ScrollArea, Section } from '@radix-ui/themes'
+import { Outlet, ScrollRestoration } from 'react-router-dom'
+
 import Header from '~/components/Header'
 import MobileMenu from '~/components/MobileMenu'
 import Nav from '~/components/Nav'
 import Sidebar from '~/components/Sidebar'
 import { Toaster } from '~/components/Toast/Toaster'
 import { routes } from '~/shared/links'
-import { Outlet, ScrollRestoration } from 'react-router-dom'
 
 function GuiHeader() {
   return (

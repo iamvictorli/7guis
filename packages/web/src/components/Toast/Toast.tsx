@@ -1,8 +1,9 @@
 // from shadcn ui, https://ui.shadcn.com/docs/components/toast
 import { Cross2Icon } from '@radix-ui/react-icons'
 import * as ToastPrimitives from '@radix-ui/react-toast'
-import { cn } from '~/lib/utils'
 import * as React from 'react'
+
+import { cn } from '~/lib/utils'
 
 const ToastProvider = ToastPrimitives.Provider
 

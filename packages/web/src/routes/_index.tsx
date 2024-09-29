@@ -11,8 +11,9 @@ import {
   Text,
   Tooltip,
 } from '@radix-ui/themes'
-import { navLinks } from '~/shared/links'
 import { Link as RRDLink } from 'react-router-dom'
+
+import { navLinks } from '~/shared/links'
 
 export default function Index() {
   return (

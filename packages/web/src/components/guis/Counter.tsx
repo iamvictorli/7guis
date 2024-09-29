@@ -1,5 +1,7 @@
-import { increment, selectCount } from '@7gui/state/counterSlice'
 import { Button, Flex, Text } from '@radix-ui/themes'
+
+import { increment, selectCount } from '@7gui/state/counterSlice'
+
 import { useAppDispatch, useAppSelector } from '~/store'
 
 export default function Counter() {
