@@ -9,9 +9,6 @@
     "dev": "tsc --watch",
     "test": "vitest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@internationalized/date": "^3.5.5",
     "@reduxjs/toolkit": "^2.2.7"
