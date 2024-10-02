@@ -1,6 +1,8 @@
 import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+import type { EntityMapOrdering } from './types'
+
 interface Name {
   name: string
   surname: string
@@ -8,10 +10,7 @@ interface Name {
 }
 
 interface CRUDState {
-  nameRecords: {
-    byId: Record<string, Name>
-    allIds: string[]
-  }
+  nameRecords: EntityMapOrdering<Name>
   ui: {
     nameInput: string
     surnameInput: string
@@ -244,8 +243,8 @@ export const {
 export const { selectUI } = selectors
 const { selectNameRecords } = selectors
 export const selectFilteredNameRecords = createSelector(
-  [selectNameRecords, selectUI],
-  (nameRecords, { searchInput }) => {
+  [selectNameRecords, (_, searchInput: string) => searchInput],
+  (nameRecords, searchInput) => {
     return Object.values(nameRecords.byId).filter((nameRecord) => {
       return (
         nameRecord.name.includes(searchInput) ||

@@ -47,7 +47,6 @@ interface CircleDrawerState {
 const initialState: CircleDrawerState = {
   circles: {
     byId: {},
-    allIds: {},
   },
   undos: [],
   redos: [],
@@ -66,7 +65,6 @@ const circleDrawerSlice = createSlice({
         const newCircle = action.payload
         // add new circle
         state.circles.byId[newCircle.id] = newCircle
-        state.circles.allIds[newCircle.id] = newCircle.id
 
         // when undo happens, delete that circle
         state.undos.push({ type: 'delete', id: newCircle.id })
@@ -125,7 +123,6 @@ const circleDrawerSlice = createSlice({
               y: circleAction.y,
               radius: circleAction.radius,
             }
-            state.circles.allIds[circleId] = circleId
 
             break
           }
@@ -153,7 +150,6 @@ const circleDrawerSlice = createSlice({
 
             // delete circle
             delete state.circles.byId[circleId]
-            delete state.circles.allIds[circleId]
 
             break
           }
@@ -182,7 +178,6 @@ const circleDrawerSlice = createSlice({
               y: circleAction.y,
               radius: circleAction.radius,
             }
-            state.circles.allIds[circleId] = circleId
 
             break
           }
@@ -210,7 +205,6 @@ const circleDrawerSlice = createSlice({
 
             // delete circle
             delete state.circles.byId[circleId]
-            delete state.circles.allIds[circleId]
 
             break
           }
@@ -269,5 +263,5 @@ export const {
 
 const { selectCircles } = selectors
 export const selectCircleIds = createSelector([selectCircles], (circles) => {
-  return Object.values(circles.allIds)
+  return Object.keys(circles.byId)
 })

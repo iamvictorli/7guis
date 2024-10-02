@@ -20,7 +20,9 @@ export default function Crud() {
   const dispatch = useAppDispatch()
   const { nameInput, surnameInput, searchInput, nameSelectedId } =
     useAppSelector(selectUI)
-  const filteredNameRecords = useAppSelector(selectFilteredNameRecords)
+  const filteredNameRecords = useAppSelector((state) =>
+    selectFilteredNameRecords(state, searchInput),
+  )
 
   return (
     <>
