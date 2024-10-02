@@ -57,35 +57,11 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1(@types/node@22.7.4)(jsdom@25.0.1)
 
-  packages/state:
-    dependencies:
-      '@internationalized/date':
-        specifier: ^3.5.5
-        version: 3.5.5
-      '@reduxjs/toolkit':
-        specifier: ^2.2.7
-        version: 2.2.7(react-redux@9.1.2(@types/react@18.3.10)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
-    devDependencies:
-      '@7gui/typescript-config':
-        specifier: workspace:*
-        version: link:../tsconfig
-      rimraf:
-        specifier: ^6.0.1
-        version: 6.0.1
-      typescript:
-        specifier: ^5.5.4
-        version: 5.6.2
-      vitest:
-        specifier: ^2.1.1
-        version: 2.1.1(@types/node@22.7.4)(jsdom@25.0.1)
-
-  packages/tsconfig: {}
-
-  packages/web:
+  apps/web:
     dependencies:
       '@7gui/state':
         specifier: workspace:*
-        version: link:../state
+        version: link:../../packages/state
       '@internationalized/date':
         specifier: ^3.5.5
         version: 3.5.5
@@ -149,7 +125,7 @@ importers:
     devDependencies:
       '@7gui/typescript-config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../packages/tsconfig
       '@react-types/shared':
         specifier: ^3.24.1
         version: 3.24.1(react@18.3.1)
@@ -192,6 +168,9 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      state:
+        specifier: ^0.2.0
+        version: 0.2.0
       tailwindcss:
         specifier: ^3.4.13
         version: 3.4.13
@@ -207,6 +186,30 @@ importers:
       vitest:
         specifier: ^2.1.1
         version: 2.1.1(@types/node@22.7.4)(jsdom@25.0.1)
+
+  packages/state:
+    dependencies:
+      '@internationalized/date':
+        specifier: ^3.5.5
+        version: 3.5.5
+      '@reduxjs/toolkit':
+        specifier: ^2.2.7
+        version: 2.2.7(react-redux@9.1.2(@types/react@18.3.10)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
+    devDependencies:
+      '@7gui/typescript-config':
+        specifier: workspace:*
+        version: link:../tsconfig
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      typescript:
+        specifier: ^5.5.4
+        version: 5.6.2
+      vitest:
+        specifier: ^2.1.1
+        version: 2.1.1(@types/node@22.7.4)(jsdom@25.0.1)
+
+  packages/tsconfig: {}
 
 packages:
 
@@ -3003,6 +3006,9 @@ packages:
     resolution: {integrity: sha512-yBYjY9QX2hnRmZHAjG/f13MzmBzxzYgQhFrke06TTyKY5zSTEqkOeukBzIdVA3j3ulu8Qa3MbVFShV7T2RmGtQ==}
     engines: {node: '>= 0.4'}
 
+  omicron@0.2.0:
+    resolution: {integrity: sha512-pv4/a3GWzcw7z3xavdjsNGRRVHJ2SjwsU080MoK6RJHwrU8Y5eQXBd9E3Tyx0/hJtQtSPSlEgiyi4UkW+62Zqg==}
+
   onetime@6.0.0:
     resolution: {integrity: sha512-1FlR+gjXK7X+AsAHso35MnyN5KqGwJRi/31ft6x0M194ht7S+rWAvd7PHss9xSKMzE0asv1pyIHaJYq+BbacAQ==}
     engines: {node: '>=12'}
@@ -3493,6 +3499,9 @@ packages:
 
   stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
+
+  state@0.2.0:
+    resolution: {integrity: sha512-USXyoYrQg6xwsUtKTp613UAebyRdc3hlQwMwrZvMim6tikbw7HsOcaovhGVu+4mmxJOejEiX9ya5j+Y5XhcCcw==}
 
   std-env@3.7.0:
     resolution: {integrity: sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==}
@@ -7329,6 +7338,8 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.0.0
 
+  omicron@0.2.0: {}
+
   onetime@6.0.0:
     dependencies:
       mimic-fn: 4.0.0
@@ -7818,6 +7829,10 @@ snapshots:
   source-map-js@1.2.1: {}
 
   stackback@0.0.2: {}
+
+  state@0.2.0:
+    dependencies:
+      omicron: 0.2.0
 
   std-env@3.7.0: {}
 
