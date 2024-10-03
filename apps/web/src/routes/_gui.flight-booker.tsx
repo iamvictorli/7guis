@@ -25,7 +25,7 @@ export default function FlightBooker() {
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/src/state/flightBookerSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/flightBookerSlice.ts">
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
