@@ -44,13 +44,11 @@ export function setupStore(preloadedState?: Partial<RootState>) {
   })
 }
 
-export const store = configureStore({
-  reducer: rootReducer,
-})
+export const store = setupStore({})
 
 export type AppStore = ReturnType<typeof setupStore>
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof rootReducer>
 type AppDispatch = typeof store.dispatch
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
