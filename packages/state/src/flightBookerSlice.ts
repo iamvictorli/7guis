@@ -31,9 +31,7 @@ function isSameOrBeforeToday(date: string | null) {
 }
 
 export enum FlightTrip {
-  // eslint-disable-next-line no-unused-vars
   OneWay = 'One Way',
-  // eslint-disable-next-line no-unused-vars
   RoundTrip = 'Round Trip',
 }
 
