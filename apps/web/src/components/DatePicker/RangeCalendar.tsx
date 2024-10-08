@@ -1,8 +1,9 @@
+import type { DateValue, RangeCalendarProps } from 'react-aria'
+
 import { createCalendar } from '@internationalized/date'
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
 import { useRef } from 'react'
 import { useLocale, useRangeCalendar } from 'react-aria'
-import type { DateValue, RangeCalendarProps } from 'react-aria'
 import { useRangeCalendarState } from 'react-stately'
 
 import { CalendarButton } from './Button'
@@ -17,8 +18,8 @@ export function RangeCalendar(props: RangeCalendarProps<DateValue>) {
   })
 
   const ref = useRef(null)
-  const { calendarProps, prevButtonProps, nextButtonProps, title } =
-    useRangeCalendar(props, state, ref)
+  const { calendarProps, prevButtonProps, nextButtonProps, title }
+    = useRangeCalendar(props, state, ref)
 
   return (
     <div {...calendarProps} ref={ref} className="inline-block">

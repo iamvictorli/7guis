@@ -1,11 +1,12 @@
 import { screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
 
 import { renderWithProviders } from '~/test-utils'
 
 import CircleDrawer from './CircleDrawer'
 
-describe('CircleDrawer', () => {
-  test('adding circles to circle drawer', async () => {
+describe('circleDrawer', () => {
+  it('adding circles to circle drawer', async () => {
     const { user } = renderWithProviders(<CircleDrawer />)
     // expects both empty undo and redo
     expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled()
@@ -38,7 +39,7 @@ describe('CircleDrawer', () => {
   })
 
   // resource: https://github.com/adevinta/spark/blob/main/packages/components/slider/src/Slider.test.tsx
-  test('adjust diamter of circle', async () => {
+  it('adjust diamter of circle', async () => {
     const { user } = renderWithProviders(<CircleDrawer />)
     // expects both empty undo and redo
     expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled()

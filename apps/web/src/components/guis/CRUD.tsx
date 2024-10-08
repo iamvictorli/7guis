@@ -12,15 +12,14 @@ import {
   selectUI,
   surnameInputChanged,
 } from '@7gui/state/crudSlice'
-
 import ListBox from '~/components/ListBox/ListBox'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 export default function Crud() {
   const dispatch = useAppDispatch()
-  const { nameInput, surnameInput, searchInput, nameSelectedId } =
-    useAppSelector(selectUI)
-  const filteredNameRecords = useAppSelector((state) =>
+  const { nameInput, surnameInput, searchInput, nameSelectedId }
+    = useAppSelector(selectUI)
+  const filteredNameRecords = useAppSelector(state =>
     selectFilteredNameRecords(state, searchInput),
   )
 
@@ -42,7 +41,8 @@ export default function Crud() {
         gap="4"
         direction={{ initial: 'column-reverse', sm: 'row' }}
         align={{ initial: 'stretch', sm: 'center' }}
-        className="w-full">
+        className="w-full"
+      >
         <Box className="flex-1">
           <ListBox.Root
             label="Name Records:"
@@ -53,8 +53,9 @@ export default function Crud() {
             selectedKeys={[nameSelectedId]}
             items={filteredNameRecords}
             shouldFocusWrap
-            disallowEmptySelection={false}>
-            {(nameRecord) => (
+            disallowEmptySelection={false}
+          >
+            {nameRecord => (
               <ListBox.Item>{`${nameRecord.surname}, ${nameRecord.name}`}</ListBox.Item>
             )}
           </ListBox.Root>
@@ -101,7 +102,8 @@ export default function Crud() {
             )
           }}
           // Couldn't override styles with className, so had to use style
-          style={{ flex: '1 1 0' }}>
+          style={{ flex: '1 1 0' }}
+        >
           Create
         </Button>
 
@@ -117,7 +119,8 @@ export default function Crud() {
             )
           }}
           style={{ flex: '1 1 0' }}
-          disabled={nameSelectedId === ''}>
+          disabled={nameSelectedId === ''}
+        >
           Update
         </Button>
 
@@ -127,7 +130,8 @@ export default function Crud() {
             dispatch(nameDeleted(nameSelectedId))
           }}
           style={{ flex: '1 1 0' }}
-          disabled={nameSelectedId === ''}>
+          disabled={nameSelectedId === ''}
+        >
           Delete
         </Button>
       </Flex>

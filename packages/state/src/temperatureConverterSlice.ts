@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+import { createSlice } from '@reduxjs/toolkit'
 
 type TemperatureType = 'fahrenheit' | 'celcius'
 
@@ -28,16 +29,17 @@ const temperatureConverterSlice = createSlice({
       state[temperatureType] = value
 
       if (temperatureType === 'fahrenheit') {
-        state.celcius =
-          value === '' ? '' : ((parseFloat(value) - 32) * (5 / 9)).toString()
-      } else {
-        state.fahrenheit =
-          value === '' ? '' : (parseFloat(value) * (9 / 5) + 32).toString()
+        state.celcius
+          = value === '' ? '' : ((Number.parseFloat(value) - 32) * (5 / 9)).toString()
+      }
+      else {
+        state.fahrenheit
+          = value === '' ? '' : (Number.parseFloat(value) * (9 / 5) + 32).toString()
       }
     },
   },
   selectors: {
-    selectTemperatures: (state) => state,
+    selectTemperatures: state => state,
   },
 })
 

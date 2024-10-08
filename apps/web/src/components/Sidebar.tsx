@@ -1,4 +1,5 @@
 import { Box, ScrollArea } from '@radix-ui/themes'
+import React from 'react'
 
 // Sidebar is a fixed area that is scrollable and to the side
 export default function Sidebar({ children }: { children: React.ReactNode }) {
@@ -9,7 +10,8 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         left="0"
         bottom="0"
         top="8"
-        className="overflow-x-hidden [width:inherit]">
+        className="overflow-x-hidden [width:inherit]"
+      >
         <ScrollArea>{children}</ScrollArea>
       </Box>
     </Box>

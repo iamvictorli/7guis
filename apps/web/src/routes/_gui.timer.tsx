@@ -13,20 +13,21 @@ export default function Timer() {
       <GuiDisplay
         content={<TimerGUI />}
         // description will be redux debugger
-        description={
+        description={(
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />
-        }
+        )}
       />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/timerSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/timerSlice.ts"
+        >
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -82,8 +83,10 @@ export default function Timer() {
       </Heading>
 
       <Text mb="4" as="p" size="3">
-        Implementing a timer in this application requires managing{' '}
-        <Strong>side effects</Strong>, particularly when it comes to handling
+        Implementing a timer in this application requires managing
+        {' '}
+        <Strong>side effects</Strong>
+        , particularly when it comes to handling
         intervals and time-based updates. Since Redux is focused on state
         management and encourages pure functions, handling side effects like
         intervals must be carefully managed to keep the logic clean and
@@ -93,8 +96,11 @@ export default function Timer() {
       <Text mb="4" as="p" size="3">
         I used Redux to manage the core state for the timer, specifically
         tracking the start time, current time, and duration. For side effects,
-        like handling intervals and timeouts, I relied on React’s{' '}
-        <Code>useEffect</Code> hook. This approach worked well, as React effects
+        like handling intervals and timeouts, I relied on React’s
+        {' '}
+        <Code>useEffect</Code>
+        {' '}
+        hook. This approach worked well, as React effects
         allowed me to manage the asynchronous logic needed to update the timer
         in real-time while keeping the Redux store focused on managing state.
       </Text>
@@ -102,10 +108,12 @@ export default function Timer() {
       <Text mb="4" as="p" size="3">
         However, while this method was effective, there&rsquo;s room for
         improvement in how side effects are handled. A follow-up idea I’m eager
-        to explore is using the{' '}
+        to explore is using the
+        {' '}
         <Link href="https://redux-toolkit.js.org/api/createListenerMiddleware">
           createListenerMiddleware API
-        </Link>{' '}
+        </Link>
+        {' '}
         from Redux Toolkit. This middleware is specifically designed to handle
         side effects within Redux, enabling a more Redux-centric approach to
         managing asynchronous logic like intervals and timeouts.

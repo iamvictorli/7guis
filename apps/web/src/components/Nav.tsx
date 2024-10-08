@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Text } from '@radix-ui/themes'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { cn } from '~/lib/utils'
@@ -45,14 +46,15 @@ export default function Nav({ routes }: NavProps) {
                     ? 'bg-[var(--accent-a5)] hover:bg-[var(--accent-a5)]'
                     : '',
                   // emulates not last of type link css. :not(:last-of-type)
-                  sectionIndex === routes.length - 1 &&
-                    pageIndex === section.pages.length - 1
+                  sectionIndex === routes.length - 1
+                  && pageIndex === section.pages.length - 1
                     ? ''
                     : 'mb-px',
                 )
               }}
               target={isExternalLink(page.slug) ? '_blank' : undefined}
-              rel={isExternalLink(page.slug) ? 'noreferral' : undefined}>
+              rel={isExternalLink(page.slug) ? 'noreferral' : undefined}
+            >
               <Flex gap="2" align="center">
                 {page.icon}
                 <Text size={{ initial: '3', sm: '2' }}>{page.title}</Text>

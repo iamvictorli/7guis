@@ -13,20 +13,21 @@ export default function Counter() {
       <GuiDisplay
         content={<CounterGUI />}
         // description will be redux debugger
-        description={
+        description={(
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />
-        }
+        )}
       />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/counterSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/counterSlice.ts"
+        >
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -66,7 +67,10 @@ export default function Counter() {
 
       <Text mb="4" as="p" size="3">
         A simple counter example that could have been more easily implemented
-        using <Code>useState</Code>.
+        using
+        {' '}
+        <Code>useState</Code>
+        .
       </Text>
     </>
   )

@@ -1,5 +1,7 @@
-import { getDayOfWeek, isSameDay } from '@internationalized/date'
 import type { CalendarDate } from '@internationalized/date'
+import type { CalendarState, RangeCalendarState } from 'react-stately'
+
+import { getDayOfWeek, isSameDay } from '@internationalized/date'
 import { useRef } from 'react'
 import {
   mergeProps,
@@ -7,7 +9,6 @@ import {
   useFocusRing,
   useLocale,
 } from 'react-aria'
-import type { CalendarState, RangeCalendarState } from 'react-stately'
 
 import { cn } from '~/lib/utils'
 
@@ -38,16 +39,19 @@ export function CalendarCell({
     if (state.highlightedRange === null) {
       isSelectionStart = false
       isSelectionEnd = false
-    } else {
+    }
+    else {
       if (state.highlightedRange.start === null) {
         isSelectionStart = false
-      } else {
+      }
+      else {
         isSelectionStart = isSameDay(date, state.highlightedRange.start)
       }
 
       if (state.highlightedRange.end === null) {
         isSelectionEnd = false
-      } else {
+      }
+      else {
         isSelectionEnd = isSameDay(date, state.highlightedRange.end)
       }
     }
@@ -59,20 +63,21 @@ export function CalendarCell({
   // the last day of each week, and the end date of the selection.
   const { locale } = useLocale()
   const dayOfWeek = getDayOfWeek(date, locale)
-  const isRoundedLeft =
-    isSelected && (isSelectionStart || dayOfWeek === 0 || date.day === 1)
-  const isRoundedRight =
-    isSelected &&
-    (isSelectionEnd ||
-      dayOfWeek === 6 ||
-      date.day === date.calendar.getDaysInMonth(date))
+  const isRoundedLeft
+    = isSelected && (isSelectionStart || dayOfWeek === 0 || date.day === 1)
+  const isRoundedRight
+    = isSelected
+    && (isSelectionEnd
+      || dayOfWeek === 6
+      || date.day === date.calendar.getDaysInMonth(date))
 
   const { focusProps, isFocusVisible } = useFocusRing()
 
   return (
     <td
       {...cellProps}
-      className={cn('relative py-0.5', isFocusVisible ? 'z-10' : 'z-auto')}>
+      className={cn('relative py-0.5', isFocusVisible ? 'z-10' : 'z-auto')}
+    >
       <div
         {...mergeProps(buttonProps, focusProps)}
         ref={ref}
@@ -81,28 +86,30 @@ export function CalendarCell({
           'group h-10 w-10 outline-none',
           isRoundedLeft && 'rounded-l-[var(--radius-thumb)]',
           isRoundedRight && 'rounded-r-[var(--radius-thumb)]',
-          isSelected &&
-            (isInvalid ? 'bg-[var(--red-3)]' : 'bg-[var(--accent-3)]'),
+          isSelected
+          && (isInvalid ? 'bg-[var(--red-3)]' : 'bg-[var(--accent-3)]'),
           isDisabled && 'disabled',
-        )}>
+        )}
+      >
         <div
           className={cn(
             'flex h-full w-full cursor-default items-center justify-center rounded-[var(--radius-thumb)]',
             isDisabled && !isInvalid && 'text-[var(--gray-6)]',
-            isFocusVisible &&
-              'ring-2 ring-[var(--accent-9)] ring-offset-2 group-focus:z-10',
-            (isSelectionStart || isSelectionEnd) &&
-              (isInvalid
-                ? 'bg-[var(--red-9)] text-white hover:bg-[var(--red-10)]'
-                : 'bg-[var(--accent-9)] text-white hover:bg-[var(--accent-10)]'),
-            isSelected &&
-              !isDisabled &&
-              !(isSelectionStart || isSelectionEnd) &&
-              (isInvalid
-                ? 'hover:bg-[var(--red-5)]'
-                : 'hover:bg-[var(--accent-5)]'),
+            isFocusVisible
+            && 'ring-2 ring-[var(--accent-9)] ring-offset-2 group-focus:z-10',
+            (isSelectionStart || isSelectionEnd)
+            && (isInvalid
+              ? 'bg-[var(--red-9)] text-white hover:bg-[var(--red-10)]'
+              : 'bg-[var(--accent-9)] text-white hover:bg-[var(--accent-10)]'),
+            isSelected
+            && !isDisabled
+            && !(isSelectionStart || isSelectionEnd)
+            && (isInvalid
+              ? 'hover:bg-[var(--red-5)]'
+              : 'hover:bg-[var(--accent-5)]'),
             !isSelected && !isDisabled && 'hover:bg-[var(--accent-4)]',
-          )}>
+          )}
+        >
           {formattedDate}
         </div>
       </div>

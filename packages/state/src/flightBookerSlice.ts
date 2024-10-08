@@ -1,6 +1,7 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
+
 import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 
 /**
  * Determines if the selected date is the same or before the reference date.
@@ -9,7 +10,8 @@ function isSameOrBefore(
   selectedDate: string | null,
   referenceDate: string | null,
 ) {
-  if (selectedDate === null || referenceDate === null) return false
+  if (selectedDate === null || referenceDate === null)
+    return false
 
   return parseDate(selectedDate).compare(parseDate(referenceDate)) <= 0
 }
@@ -18,7 +20,8 @@ function isSameOrBefore(
  * Checks if the given date is the same as or before today.
  */
 function isSameOrBeforeToday(date: string | null) {
-  if (date === null) return false
+  if (date === null)
+    return false
   const givenDate = parseDate(date).toString()
   // Get today's date
   const todayDate = today(getLocalTimeZone()).toString()
@@ -28,7 +31,9 @@ function isSameOrBeforeToday(date: string | null) {
 }
 
 export enum FlightTrip {
+  // eslint-disable-next-line no-unused-vars
   OneWay = 'One Way',
+  // eslint-disable-next-line no-unused-vars
   RoundTrip = 'Round Trip',
 }
 
@@ -70,21 +75,22 @@ const flightBookerSlice = createSlice({
     },
   },
   selectors: {
-    selectFlightBookerState: (state) => state,
+    selectFlightBookerState: state => state,
     selectIsBookableFlight: ({ trip, departureDate, returnDate }) => {
       try {
         return (
-          (trip === FlightTrip.OneWay &&
-            departureDate !== null &&
-            isSameOrBeforeToday(departureDate)) ||
-          (trip === FlightTrip.RoundTrip &&
-            departureDate !== null &&
-            returnDate !== null &&
-            isSameOrBefore(departureDate, returnDate) &&
-            isSameOrBeforeToday(departureDate) &&
-            isSameOrBeforeToday(returnDate))
+          (trip === FlightTrip.OneWay
+            && departureDate !== null
+            && isSameOrBeforeToday(departureDate))
+            || (trip === FlightTrip.RoundTrip
+              && departureDate !== null
+              && returnDate !== null
+              && isSameOrBefore(departureDate, returnDate)
+              && isSameOrBeforeToday(departureDate)
+              && isSameOrBeforeToday(returnDate))
         )
-      } catch {
+      }
+      catch {
         // parse date can throw an error if dates dont match YYYY-MM-DD format
         // https://github.com/adobe/react-spectrum/blob/98e21e19d50b4bf5c9114e17a75cca4c11254db0/packages/%40internationalized/date/src/string.ts#L48-L50
         return false

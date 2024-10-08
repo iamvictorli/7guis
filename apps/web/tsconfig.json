@@ -1,20 +1,20 @@
 {
   "extends": "@7gui/typescript-config/tsconfig.json",
   "compilerOptions": {
+
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "rootDir": "src",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "rootDir": "src",
-    "outDir": "dist",
 
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "outDir": "dist"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

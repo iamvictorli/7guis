@@ -10,10 +10,9 @@ import {
   selectFlightBookerState,
   selectIsBookableFlight,
 } from '@7gui/state/flightBookerSlice'
-
-import { useToast } from '~/hooks/useToast'
 import { DatePicker } from '~/components/DatePicker/DatePicker'
 import { DateRangePicker } from '~/components/DatePicker/DateRangePicker'
+import { useToast } from '~/hooks/useToast'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 /**
@@ -23,7 +22,8 @@ function getRangePickerValue(
   departureDate: string | null,
   returnDate: string | null,
 ) {
-  if (!departureDate) return null
+  if (!departureDate)
+    return null
   return {
     start: parseDate(departureDate),
     end: returnDate ? parseDate(returnDate) : null,
@@ -50,7 +50,8 @@ export default function FlightBooker() {
           value={trip}
           onValueChange={(value) => {
             dispatch(flightTypeChanged(value as FlightTrip))
-          }}>
+          }}
+        >
           <Select.Trigger id="flight-trip" aria-label="Select Flight Type">
             <Flex as="span" align="center" gap="2">
               {trip === FlightTrip.OneWay ? <ArrowRightIcon /> : <WidthIcon />}
@@ -70,35 +71,37 @@ export default function FlightBooker() {
         </Select.Root>
       </Flex>
 
-      {trip === FlightTrip.OneWay ? (
-        <DatePicker
-          label="Departure Date"
-          minValue={today(getLocalTimeZone())}
-          value={departureDate ? parseDate(departureDate) : null}
-          onChange={(value) => {
-            dispatch(
-              dateChanged({
-                departureDate: value.toString(),
-              }),
-            )
-          }}
-        />
-      ) : (
-        <DateRangePicker
-          label="Deparature and Return Dates"
-          minValue={today(getLocalTimeZone())}
-          // @ts-expect-error both departure date and return date could be null, and the types expect both to be a DateValue and not null
-          value={getRangePickerValue(departureDate, returnDate)}
-          onChange={({ start, end }) => {
-            dispatch(
-              dateChanged({
-                departureDate: start.toString(),
-                returnDate: end.toString(),
-              }),
-            )
-          }}
-        />
-      )}
+      {trip === FlightTrip.OneWay
+        ? (
+            <DatePicker
+              label="Departure Date"
+              minValue={today(getLocalTimeZone())}
+              value={departureDate ? parseDate(departureDate) : null}
+              onChange={(value) => {
+                dispatch(
+                  dateChanged({
+                    departureDate: value.toString(),
+                  }),
+                )
+              }}
+            />
+          )
+        : (
+            <DateRangePicker
+              label="Deparature and Return Dates"
+              minValue={today(getLocalTimeZone())}
+              // @ts-expect-error both departure date and return date could be null, and the types expect both to be a DateValue and not null
+              value={getRangePickerValue(departureDate, returnDate)}
+              onChange={({ start, end }) => {
+                dispatch(
+                  dateChanged({
+                    departureDate: start.toString(),
+                    returnDate: end.toString(),
+                  }),
+                )
+              }}
+            />
+          )}
 
       <Button
         disabled={!isBookableFlight}
@@ -109,13 +112,15 @@ export default function FlightBooker() {
               title: 'One-Way Flight Booked',
               description: `Your one-way flight for ${departureDate} has been successfully booked`,
             })
-          } else {
+          }
+          else {
             toast({
               title: 'Round-trip Flight Booked',
               description: `Your round-trip flight has been successfully booked. Departure on ${departureDate}, returning on ${returnDate}`,
             })
           }
-        }}>
+        }}
+      >
         Book
       </Button>
     </Flex>

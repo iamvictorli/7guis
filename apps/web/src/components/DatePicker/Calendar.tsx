@@ -1,7 +1,8 @@
+import type { CalendarProps, DateValue } from 'react-aria'
+
 import { createCalendar } from '@internationalized/date'
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
 import { useCalendar, useLocale } from 'react-aria'
-import type { CalendarProps, DateValue } from 'react-aria'
 import { useCalendarState } from 'react-stately'
 
 import { CalendarButton } from './Button'
@@ -15,8 +16,8 @@ export function Calendar(props: CalendarProps<DateValue>) {
     createCalendar,
   })
 
-  const { calendarProps, prevButtonProps, nextButtonProps, title } =
-    useCalendar(props, state)
+  const { calendarProps, prevButtonProps, nextButtonProps, title }
+    = useCalendar(props, state)
 
   return (
     <div {...calendarProps} className="inline-block text-[var(--gray-12)]">

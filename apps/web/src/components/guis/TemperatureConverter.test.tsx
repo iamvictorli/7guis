@@ -1,11 +1,12 @@
 import { screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
 
 import { renderWithProviders } from '~/test-utils'
 
 import TemperatureConverter from './TemperatureConverter'
 
-describe('TemperatureConverter', () => {
-  test('Text fields to be initially empty', () => {
+describe('temperatureConverter', () => {
+  it('text fields to be initially empty', () => {
     renderWithProviders(<TemperatureConverter />)
 
     expect(
@@ -16,7 +17,7 @@ describe('TemperatureConverter', () => {
     ).toHaveValue(null)
   })
 
-  test('updates fahrenheit field when number is entered in celcius field', async () => {
+  it('updates fahrenheit field when number is entered in celcius field', async () => {
     const { user } = renderWithProviders(<TemperatureConverter />)
 
     const celciusInput = screen.getByLabelText(/celcius/i, {
@@ -39,7 +40,7 @@ describe('TemperatureConverter', () => {
     expect(fahrenheitInput).toHaveValue(32)
   })
 
-  test('updates celcius field when number is entered in fahrenheit field', async () => {
+  it('updates celcius field when number is entered in fahrenheit field', async () => {
     const { user } = renderWithProviders(<TemperatureConverter />)
 
     const celciusInput = screen.getByLabelText(/celcius/i, {

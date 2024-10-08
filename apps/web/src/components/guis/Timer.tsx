@@ -10,7 +10,6 @@ import {
   selectElapsedMs,
   timerReset,
 } from '@7gui/state/timerSlice'
-
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
 
@@ -71,7 +70,10 @@ export default function Timer() {
       </Flex>
 
       <Text size="7">
-        {seconds}.{decisecond}s
+        {seconds}
+        .
+        {decisecond}
+        s
       </Text>
 
       <Flex direction="row" gap="4" align="center">
@@ -95,7 +97,8 @@ export default function Timer() {
         onClick={() => {
           dispatch(timerReset())
           startTimer()
-        }}>
+        }}
+      >
         Reset
       </Button>
     </Flex>

@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+import { createSlice } from '@reduxjs/toolkit'
 
 interface TimerState {
   start: number
@@ -36,13 +37,14 @@ const timerSlice = createSlice({
     },
   },
   selectors: {
-    selectDuration: (state) => state.duration,
+    selectDuration: state => state.duration,
     selectElapsedMs: ({ now, start, duration }) => {
       // compares the time difference between now time and start time to the current duration
       const timeDifference = now - start
       if (timeDifference >= duration) {
         return duration
-      } else {
+      }
+      else {
         return timeDifference
       }
     },

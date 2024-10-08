@@ -1,3 +1,5 @@
+import type React from 'react'
+
 import { createContext } from '@radix-ui/react-context'
 
 const [MenuProvider, useMenuContext] = createContext<{

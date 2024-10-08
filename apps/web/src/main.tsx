@@ -4,13 +4,9 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import GUI from './routes/_gui'
-import ErrorPage from './routes/error-page'
-
-import './index.css'
-
 import { GuiSkeleton, IndexSkeleton } from '~/components/Skeleton'
 
+import './index.css'
 import {
   Cells,
   CircleDrawer,
@@ -21,6 +17,8 @@ import {
   TemperatureConverter,
   Timer,
 } from './routes'
+import GUI from './routes/_gui'
+import ErrorPage from './routes/error-page'
 import { store } from './store'
 
 const router = createBrowserRouter([

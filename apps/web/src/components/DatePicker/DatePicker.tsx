@@ -1,10 +1,11 @@
 import type { CalendarDate } from '@internationalized/date'
+import type { DatePickerStateOptions } from 'react-stately'
+
 import { CalendarIcon, ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import { Label } from '@radix-ui/react-label'
 import { useRef } from 'react'
 import { useDatePicker } from 'react-aria'
 import { useDatePickerState } from 'react-stately'
-import type { DatePickerStateOptions } from 'react-stately'
 
 import { FieldButton } from './Button'
 import { Calendar } from './Calendar'
@@ -27,10 +28,12 @@ export function DatePicker(props: DatePickerStateOptions<CalendarDate>) {
   // TODO: replace with radix components
   // - Div, Span, Popper, Button
 
+  const { label } = props
+
   return (
     <div className="relative inline-flex flex-col gap-1 text-left text-base">
       <Label asChild>
-        <span {...labelProps}>{props.label}</span>
+        <span {...labelProps}>{label}</span>
       </Label>
 
       <div {...groupProps} ref={ref} className="group flex">

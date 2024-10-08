@@ -84,7 +84,8 @@ const ToastClose = React.forwardRef<
       className,
     )}
     toast-close=""
-    {...props}>
+    {...props}
+  >
     <Cross2Icon className="h-4 w-4" />
   </ToastPrimitives.Close>
 ))
@@ -126,13 +127,13 @@ ToastDescription.displayName = ToastPrimitives.Description.displayName
 type ToastActionElement = React.ReactElement<typeof ToastAction>
 
 export {
-  type ToastProps,
-  type ToastActionElement,
-  ToastProvider,
-  ToastViewport,
   Toast,
-  ToastTitle,
-  ToastDescription,
+  type ToastActionElement,
   ToastClose,
+  ToastDescription,
+  type ToastProps,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
   // ToastAction,
 }

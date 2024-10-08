@@ -1,10 +1,11 @@
 import { screen } from '@testing-library/react'
+import { expect, it } from 'vitest'
 
 import { renderWithProviders } from '~/test-utils'
 
 import Counter from './Counter'
 
-test('Counter', async () => {
+it('should increment counter', async () => {
   const { user } = renderWithProviders(<Counter />)
 
   // initial value to be 0

@@ -1,6 +1,7 @@
-import { useRef } from 'react'
-import { useDialog } from 'react-aria'
 import type { AriaDialogProps } from 'react-aria'
+
+import React, { useRef } from 'react'
+import { useDialog } from 'react-aria'
 
 export function Dialog({
   children,

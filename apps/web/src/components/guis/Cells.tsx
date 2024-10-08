@@ -1,58 +1,61 @@
-import { memo, useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
+
+import React, { memo, useEffect, useRef, useState } from 'react'
+
+import type { Cell } from '@7gui/state/cellsSlice'
+import type {
+  CellProps,
+  ColHeaderProps,
+  RowHeaderProps,
+} from '~/components/Spreadsheet/Spreadsheet'
 
 import {
   cellChanged,
   selectCellMatrix,
   selectColumnLabels,
 } from '@7gui/state/cellsSlice'
-import type { Cell } from '@7gui/state/cellsSlice'
-
-import { cn } from '~/lib/utils'
 import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
-import type {
-  CellProps,
-  ColHeaderProps,
-  RowHeaderProps,
-} from '~/components/Spreadsheet/Spreadsheet'
+import { cn } from '~/lib/utils'
 import { useAppDispatch, useAppSelector } from '~/store'
 
-const RowHeader = memo(function RowHeader({
+const RowHeader = memo(({
   isFocusedRow,
   row,
   ...props
-}: RowHeaderProps) {
+}: RowHeaderProps) => {
   return (
     <div
       {...props}
       className={cn(
         'flex h-8 w-16 items-center justify-center border border-[var(--gray-a6)]',
         isFocusedRow ? 'bg-[var(--accent-a5)]' : 'bg-[var(--gray-a2)]',
-      )}>
+      )}
+    >
       {row}
     </div>
   )
 })
 
-const ColHeader = memo(function ColHeader({
+const ColHeader = memo(({
   isFocusedCol,
   columnLabel,
   ...props
-}: Omit<ColHeaderProps, 'columnIndex'>) {
+}: Omit<ColHeaderProps, 'columnIndex'>) => {
   return (
     <div
       {...props}
       className={cn(
         'flex h-8 w-16 items-center justify-center border border-[var(--gray-a6)]',
         isFocusedCol ? 'bg-[var(--accent-a5)]' : 'bg-[var(--gray-a2)]',
-      )}>
+      )}
+    >
       {columnLabel}
     </div>
   )
 })
 
 const SpreadsheetCell = memo(
-  function SpreadsheetCell({
+  ({
     cell,
     row,
     col,
@@ -64,7 +67,7 @@ const SpreadsheetCell = memo(
     columnLength,
     ariaProps,
     tabIndex = 0,
-  }: CellProps<Cell> & { tabIndex?: number }) {
+  }: CellProps<Cell> & { tabIndex?: number }) => {
     const [inputValue, setInputValue] = useState('')
     const [isEditing, setIsEditing] = useState(false)
 
@@ -115,44 +118,55 @@ const SpreadsheetCell = memo(
           if (row + 1 < dataLength) {
             focusCell(row + 1, col)
           }
-        } else {
+        }
+        else {
           // Enter edit mode
           setInputValue(cell.formula ?? cell.computedValue ?? '')
           enterEditMode()
         }
-      } else if (e.key === 'Escape') {
+      }
+      else if (e.key === 'Escape') {
         // Cancel edit mode
         cancelEditMode()
-      } else if (e.key === 'ArrowRight') {
+      }
+      else if (e.key === 'ArrowRight') {
         // on edit mode, doesn't do anything
-        if (isEditing) return
+        if (isEditing)
+          return
 
         // Move focus right
         if (col + 1 < columnLength) {
           focusCell(row, col + 1)
         }
-      } else if (e.key === 'ArrowLeft') {
+      }
+      else if (e.key === 'ArrowLeft') {
         // on edit mode, doesn't do anything
-        if (isEditing) return
+        if (isEditing)
+          return
         // Move focus left
         if (col - 1 >= 0) {
           focusCell(row, col - 1)
         }
-      } else if (e.key === 'ArrowDown') {
+      }
+      else if (e.key === 'ArrowDown') {
         // on edit mode, doesn't do anything
-        if (isEditing) return
+        if (isEditing)
+          return
         // Move focus down
         if (row + 1 < dataLength) {
           focusCell(row + 1, col)
         }
-      } else if (e.key === 'ArrowUp') {
+      }
+      else if (e.key === 'ArrowUp') {
         // on edit mode, doesn't do anything
-        if (isEditing) return
+        if (isEditing)
+          return
         // Move focus up
         if (row - 1 >= 0) {
           focusCell(row - 1, col)
         }
-      } else if (e.key === 'Tab') {
+      }
+      else if (e.key === 'Tab') {
         if (isEditing) {
           e.preventDefault() // Prevent default tab behavior
           exitEditMode()
@@ -165,7 +179,8 @@ const SpreadsheetCell = memo(
           if (nextCol >= columnLength) {
             nextCol = 0
             nextRow = row + 1
-          } else if (nextCol < 0) {
+          }
+          else if (nextCol < 0) {
             nextCol = columnLength - 1
             nextRow = row - 1
           }
@@ -188,30 +203,33 @@ const SpreadsheetCell = memo(
           isFocused ? 'border-[var(--accent-a9)]' : 'border-[var(--gray-a6)]',
         )}
         onFocus={() => focusCurrentCell()}
-        onKeyDown={(e) => handleKeyDown(e)}
+        onKeyDown={e => handleKeyDown(e)}
         onClick={() => {
           focusCurrentCell()
         }}
         onDoubleClick={() => {
           focusCurrentCell()
           enterEditMode()
-        }}>
-        {isEditing ? (
-          <input
-            id={`input-${cell.id}`}
-            type="text"
-            className="h-full w-full focus:outline-none"
-            value={inputValue}
-            onChange={(e) => handleChange(e)}
-            onBlur={() => {
-              cellChange()
-              exitEditMode()
-            }}
-            autoFocus
-          />
-        ) : (
-          cell.computedValue
-        )}
+        }}
+      >
+        {isEditing
+          ? (
+              <input
+                id={`input-${cell.id}`}
+                type="text"
+                className="h-full w-full focus:outline-none"
+                value={inputValue}
+                onChange={e => handleChange(e)}
+                onBlur={() => {
+                  cellChange()
+                  exitEditMode()
+                }}
+                autoFocus
+              />
+            )
+          : (
+              cell.computedValue
+            )}
       </div>
     )
   },

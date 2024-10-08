@@ -1,5 +1,6 @@
-import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
@@ -87,14 +88,16 @@ const circleDrawerSlice = createSlice({
       const { x: newX, y: newY, radius: newRadius } = circle
       const circleToUpdate = state.circles.byId[circle.id]
       // make sure circle exists, and there are changes to the circle
-      if (!circleToUpdate) return
+      if (!circleToUpdate)
+        return
 
       if (
-        circleToUpdate.radius === newRadius &&
-        circleToUpdate.x === newX &&
-        circleToUpdate.y === newY
-      )
+        circleToUpdate.radius === newRadius
+        && circleToUpdate.x === newX
+        && circleToUpdate.y === newY
+      ) {
         return
+      }
 
       // when undo happens, go back to the old circle state
       state.undos.push({ type: 'update', ...circleToUpdate })
@@ -129,7 +132,8 @@ const circleDrawerSlice = createSlice({
           case 'update': {
             // add update to redo
             const circleToUpdate = state.circles.byId[circleId]
-            if (!circleToUpdate) break
+            if (!circleToUpdate)
+              break
             state.redos.push({ type: 'update', ...circleToUpdate })
 
             // update circle
@@ -145,7 +149,8 @@ const circleDrawerSlice = createSlice({
           case 'delete': {
             // add to redo
             const circleToDelete = state.circles.byId[circleId]
-            if (!circleToDelete) break
+            if (!circleToDelete)
+              break
             state.redos.push({ type: 'add', ...circleToDelete })
 
             // delete circle
@@ -184,7 +189,8 @@ const circleDrawerSlice = createSlice({
           case 'update': {
             // add update to undo
             const circleToUpdate = state.circles.byId[circleId]
-            if (!circleToUpdate) break
+            if (!circleToUpdate)
+              break
             state.undos.push({ type: 'update', ...circleToUpdate })
 
             // update circle
@@ -200,7 +206,8 @@ const circleDrawerSlice = createSlice({
           case 'delete': {
             // add to undo
             const circleToDelete = state.circles.byId[circleId]
-            if (!circleToDelete) break
+            if (!circleToDelete)
+              break
             state.undos.push({ type: 'add', ...circleToDelete })
 
             // delete circle
@@ -218,7 +225,8 @@ const circleDrawerSlice = createSlice({
     circleSelected: (state, action: PayloadAction<string>) => {
       const id = action.payload
       const circle = state.circles.byId[id]
-      if (!circle) return
+      if (!circle)
+        return
       state.ui.selectedCircleId = id
       state.ui.selectedCircleRadius = circle.radius
     },
@@ -234,10 +242,10 @@ const circleDrawerSlice = createSlice({
     },
   },
   selectors: {
-    selectUI: (state) => state.ui,
-    selectCircles: (state) => state.circles,
-    selectUndoDisabled: (state) => state.undos.length === 0,
-    selectRedoDisabled: (state) => state.redos.length === 0,
+    selectUI: state => state.ui,
+    selectCircles: state => state.circles,
+    selectUndoDisabled: state => state.undos.length === 0,
+    selectRedoDisabled: state => state.redos.length === 0,
     selectCircleById: (state, id: string) => state.circles.byId[id],
   },
 })

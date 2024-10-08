@@ -13,20 +13,21 @@ export default function CRUD() {
       <GuiDisplay
         content={<CRUDGui />}
         // description will be redux debugger
-        description={
+        description={(
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />
-        }
+        )}
       />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/crudSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/crudSlice.ts"
+        >
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -90,15 +91,21 @@ export default function CRUD() {
         Implementing CRUD functionality is a common requirement in many
         applications. Using Redux for UI state management increased the lines of
         code (LOC) that there&apos;s more Redux UI state code than CRUD business
-        logic. Utilizing <Code>useState</Code> for UI code would&apos;ve been a
+        logic. Utilizing
+        {' '}
+        <Code>useState</Code>
+        {' '}
+        for UI code would&apos;ve been a
         better choice for the component&apos;s internal state.
       </Text>
 
       <Text mb="4" as="p" size="3">
-        I chose to use{' '}
+        I chose to use
+        {' '}
         <Link href="https://react-spectrum.adobe.com/react-aria/useListBox.html">
           Listbox
-        </Link>{' '}
+        </Link>
+        {' '}
         from React Aria because Radix UI doesn’t offer a built-in option for
         this functionality.
       </Text>

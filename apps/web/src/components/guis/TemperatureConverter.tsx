@@ -5,7 +5,6 @@ import {
   selectTemperatures,
   temperatureChanged,
 } from '@7gui/state/temperatureConverterSlice'
-
 import { useAppDispatch, useAppSelector } from '~/store'
 
 export default function TemperatureConverter() {
@@ -16,7 +15,8 @@ export default function TemperatureConverter() {
       <Flex
         align={{ initial: 'start', sm: 'center' }}
         direction={{ initial: 'column', sm: 'row' }}
-        gap={{ initial: '1', sm: '3' }}>
+        gap={{ initial: '1', sm: '3' }}
+      >
         <TextField.Root
           id="celcius"
           size={{ initial: '2', sm: '3' }}
@@ -42,7 +42,8 @@ export default function TemperatureConverter() {
       <Flex
         align={{ initial: 'start', sm: 'center' }}
         direction={{ initial: 'column', sm: 'row' }}
-        gap={{ initial: '1', sm: '3' }}>
+        gap={{ initial: '1', sm: '3' }}
+      >
         <TextField.Root
           id="fahrenheit"
           size={{ initial: '2', sm: '3' }}

@@ -1,7 +1,6 @@
 import { Button, Flex, Text } from '@radix-ui/themes'
 
 import { increment, selectCount } from '@7gui/state/counterSlice'
-
 import { useAppDispatch, useAppSelector } from '~/store'
 
 export default function Counter() {
@@ -17,7 +16,8 @@ export default function Counter() {
         color="gray"
         variant="solid"
         highContrast
-        onClick={() => dispatch(increment(1))}>
+        onClick={() => dispatch(increment(1))}
+      >
         Increment
       </Button>
     </Flex>

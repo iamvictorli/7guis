@@ -47,7 +47,8 @@ export default function GUI() {
               width="100%"
               px={{ initial: '5', xs: '6', sm: '7', md: '9' }}
               size={{ initial: '2', sm: '4' }}
-              className="max-w-4xl">
+              className="max-w-4xl"
+            >
               <Outlet />
             </Section>
           </main>

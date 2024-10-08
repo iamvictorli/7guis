@@ -13,19 +13,20 @@ export default function FlightBooker() {
       <GuiDisplay
         content={<FlightBookerGUI />}
         // description will be redux debugger
-        description={
+        description={(
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />
-        }
+        )}
       />
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/flightBookerSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/flightBookerSlice.ts"
+        >
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -95,9 +96,14 @@ export default function FlightBooker() {
       </Text>
 
       <Text mb="4" as="p" size="3">
-        The <Code>&lt;input type=&quot;date&quot; /&gt;</Code> element provides
+        The
+        {' '}
+        <Code>&lt;input type=&quot;date&quot; /&gt;</Code>
+        {' '}
+        element provides
         support for date pickers, but broader date/time/month/week types are
-        only{' '}
+        only
+        {' '}
         <Link href="https://caniuse.com/input-datetime">
           partially supported by all browsers
         </Link>
@@ -105,21 +111,27 @@ export default function FlightBooker() {
       </Text>
 
       <Text mb="4" as="p" size="3">
-        I decided to use{' '}
+        I decided to use
+        {' '}
         <Link href="https://react-spectrum.adobe.com/react-aria/index.html">
           React Aria
-        </Link>{' '}
+        </Link>
+        {' '}
         for building both the date picker and date range picker due to its
         built-in accessibility, composability, and flexibility. There is a
         learning curve when working with the broader React Aria
-        ecosystem—including{' '}
+        ecosystem—including
+        {' '}
         <Link href="https://react-spectrum.adobe.com/react-stately/index.html">
           React Stately
-        </Link>{' '}
-        for state management and{' '}
+        </Link>
+        {' '}
+        for state management and
+        {' '}
         <Link href="https://react-spectrum.adobe.com/internationalized/date/index.html">
           @internationalized/date
-        </Link>{' '}
+        </Link>
+        {' '}
         for working with dates.
       </Text>
 
@@ -159,9 +171,14 @@ export default function FlightBooker() {
 
       <Text mb="4" as="p" size="3">
         While working on the flight booker, I’ve taken inspiration from popular
-        flight booking sites like{' '}
-        <Link href="https://www.google.com/travel/flights">Google Flights</Link>{' '}
-        and <Link href="https://www.skyscanner.com/">Skyscanner</Link>. Below
+        flight booking sites like
+        {' '}
+        <Link href="https://www.google.com/travel/flights">Google Flights</Link>
+        {' '}
+        and
+        {' '}
+        <Link href="https://www.skyscanner.com/">Skyscanner</Link>
+        . Below
         are key tasks I would like to implement (if I had more time), following
         their design principles:
       </Text>

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 import { Link as RRDLink } from 'react-router-dom'
 
-import { cn } from '~/lib/utils'
 import { useMobileMenuContext } from '~/hooks/useMobileMenuContext'
+import { cn } from '~/lib/utils'
 
 type ScrollState = 'at-top' | 'scrolling-up' | 'scrolling-down'
 
@@ -17,8 +17,8 @@ export default function Header() {
     let previousScrollY = window.scrollY
 
     const handleScroll = () => {
-      const direction =
-        previousScrollY < window.scrollY ? 'scrolling-down' : 'scrolling-up'
+      const direction
+        = previousScrollY < window.scrollY ? 'scrolling-down' : 'scrolling-up'
       const state = window.scrollY < 30 ? 'at-top' : direction
       previousScrollY = window.scrollY
       setScrollState(state)
@@ -37,26 +37,30 @@ export default function Header() {
         className={cn(
           scrollState === 'scrolling-down' && 'duration-100',
           'fixed left-0 right-0 top-0 z-10 min-w-[320px] select-none bg-[var(--color-background)] [box-shadow:0_1px_var(--gray-a4)] [height:inherit] [transition:background-color_180ms,_box-shadow_180ms]',
-        )}>
+        )}
+      >
         <Box
           className={
             (cn(RemoveScroll.classNames.fullWidth),
             'absolute left-0 right-0 top-0 [height:inherit]')
-          }>
+          }
+        >
           <Flex
             align="center"
             position="absolute"
             top="0"
             bottom="0"
             left="0"
-            pl="4">
+            pl="4"
+          >
             <Link
               asChild
               size="6"
               weight="bold"
               underline="none"
               color="gray"
-              highContrast>
+              highContrast
+            >
               <RRDLink to="/">7GUIs</RRDLink>
             </Link>
           </Flex>
@@ -68,21 +72,25 @@ export default function Header() {
             top="0"
             bottom="0"
             right="0"
-            pr="4">
+            pr="4"
+          >
             <Tooltip
               className="radix-themes-custom-fonts"
-              content="View GitHub">
+              content="View GitHub"
+            >
               <Link
                 href="https://github.com/iamvictorli/7gui"
                 target="_blank"
                 aria-label="View GitHub"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <IconButton
                   asChild
                   size="3"
                   variant="ghost"
                   color="gray"
-                  highContrast>
+                  highContrast
+                >
                   <GitHubLogoIcon width="24" height="24" />
                 </IconButton>
               </Link>
@@ -93,9 +101,10 @@ export default function Header() {
                 size="3"
                 variant="ghost"
                 color="gray"
-                onClick={() => setOpen((open) => !open)}
+                onClick={() => setOpen(open => !open)}
                 className="lg:hidden"
-                aria-label="Navigation">
+                aria-label="Navigation"
+              >
                 <HamburgerMenuIcon width="16" height="16" />
               </IconButton>
             </Tooltip>

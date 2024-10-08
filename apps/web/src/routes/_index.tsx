@@ -30,11 +30,13 @@ export default function Index() {
             <Flex
               align="center"
               gap={{ initial: '2', sm: '3' }}
-              className="border-y border-solid px-1 py-2">
+              className="border-y border-solid px-1 py-2"
+            >
               <Tooltip content="View Github">
                 <Link
                   href="https://github.com/iamvictorli/7gui"
-                  aria-label="View Github">
+                  aria-label="View Github"
+                >
                   <IconButton asChild variant="ghost" highContrast size="2">
                     <GitHubLogoIcon width="24" height="24" />
                   </IconButton>
@@ -42,7 +44,8 @@ export default function Index() {
               </Tooltip>
               <Link
                 size={{ initial: '2', sm: '3' }}
-                href="https://www.linkedin.com/in/iamvictorli">
+                href="https://www.linkedin.com/in/iamvictorli"
+              >
                 Victor Li
               </Link>
             </Flex>
@@ -52,23 +55,29 @@ export default function Index() {
             weight="regular"
             size={{ initial: '4', sm: '5' }}
             color="gray"
-            className="italic">
+            className="italic"
+          >
             There are countless GUI toolkits in different languages and with
             diverse approaches to GUI development. Yet, diligent comparisons
             between them are rare. Whereas in a traditional benchmark competing
             implementations are compared in terms of their resource consumption,
             here implementations are compared in terms of their notation. To
-            that end, 7GUIs defines{' '}
+            that end, 7GUIs defines
+            {' '}
             <Link
               href="https://eugenkiss.github.io/7guis/tasks"
-              weight="medium">
+              weight="medium"
+            >
               seven tasks
-            </Link>{' '}
+            </Link>
+            {' '}
             that represent typical challenges in GUI programming. In addition,
-            7GUIs provides a recommended set of{' '}
+            7GUIs provides a recommended set of
+            {' '}
             <Link
               href="https://eugenkiss.github.io/7guis/dimensions"
-              weight="medium">
+              weight="medium"
+            >
               evaluation dimensions
             </Link>
             .
@@ -80,16 +89,28 @@ export default function Index() {
             </Heading>
             <Box height={{ initial: '28px', sm: '32px' }} />
             <Text size={{ initial: '4', sm: '5' }}>
-              My implementation uses modern Redux with{' '}
-              <Link href="https://redux-toolkit.js.org/">Redux Toolkit</Link>.
-              Additionally, contemporary tools such as{' '}
-              <Link href="https://vitejs.dev/">Vite</Link>,{' '}
-              <Link href="https://vitest.dev/">Vitest</Link>,{' '}
-              <Link href="https://tailwindcss.com/">Tailwind</Link>,{' '}
-              <Link href="https://www.radix-ui.com/">Radix UI</Link>, and{' '}
+              My implementation uses modern Redux with
+              {' '}
+              <Link href="https://redux-toolkit.js.org/">Redux Toolkit</Link>
+              .
+              Additionally, contemporary tools such as
+              {' '}
+              <Link href="https://vitejs.dev/">Vite</Link>
+              ,
+              {' '}
+              <Link href="https://vitest.dev/">Vitest</Link>
+              ,
+              {' '}
+              <Link href="https://tailwindcss.com/">Tailwind</Link>
+              ,
+              {' '}
+              <Link href="https://www.radix-ui.com/">Radix UI</Link>
+              , and
+              {' '}
               <Link href="https://testing-library.com/docs/react-testing-library/intro/">
                 React Testing Library
-              </Link>{' '}
+              </Link>
+              {' '}
               were used to enhance the development process.
             </Text>
           </Section>

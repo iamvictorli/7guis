@@ -15,12 +15,11 @@ import {
   selectUndoDisabled,
   undo,
 } from '@7gui/state/circleDrawerSlice'
-
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 const Circle = memo(
-  function Circle({
+  ({
     id,
     isSelected,
     selectedCircleRadius,
@@ -28,10 +27,11 @@ const Circle = memo(
     id: string
     isSelected: boolean
     selectedCircleRadius: number
-  }) {
-    const circle = useAppSelector((state) => selectCircleById(state, id))
+  }) => {
+    const circle = useAppSelector(state => selectCircleById(state, id))
     const dispatch = useAppDispatch()
-    if (!circle) return null
+    if (!circle)
+      return null
     return (
       <Popover.Root>
         <Popover.Trigger>
@@ -54,19 +54,21 @@ const Circle = memo(
           width="250px"
           side="right"
           align="end"
-          onClick={(event) => event.stopPropagation()}
+          onClick={event => event.stopPropagation()}
           onEscapeKeyDown={() => {
             dispatch(deselect())
           }}
           onPointerDownOutside={() => {
             dispatch(deselect())
-          }}>
+          }}
+        >
           <Slider
             value={[selectedCircleRadius]}
             min={10}
             max={80}
             onValueChange={([value]) => {
-              if (value) dispatch(radiusChanged(value))
+              if (value)
+                dispatch(radiusChanged(value))
             }}
             onValueCommit={([value]) => {
               if (value) {
@@ -94,9 +96,9 @@ const Circle = memo(
 
     // changing radius slider only rerenders the selected circle
     if (
-      prevProps.isSelected &&
-      nextProps.isSelected &&
-      prevProps.selectedCircleRadius !== nextProps.selectedCircleRadius
+      prevProps.isSelected
+      && nextProps.isSelected
+      && prevProps.selectedCircleRadius !== nextProps.selectedCircleRadius
     ) {
       return false
     }
@@ -120,14 +122,16 @@ export default function CircleDrawer() {
           onClick={() => {
             dispatch(undo())
           }}
-          disabled={undoDisabled}>
+          disabled={undoDisabled}
+        >
           Undo
         </Button>
         <Button
           onClick={() => {
             dispatch(redo())
           }}
-          disabled={redoDisabled}>
+          disabled={redoDisabled}
+        >
           Redo
         </Button>
       </Flex>
@@ -146,8 +150,9 @@ export default function CircleDrawer() {
             radius: 20,
           }
           dispatch(circleAdded(circle))
-        }}>
-        {circleIds.map((circleId) => (
+        }}
+      >
+        {circleIds.map(circleId => (
           <Circle
             key={circleId}
             id={circleId}

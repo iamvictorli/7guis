@@ -14,20 +14,21 @@ export default function TemperatureConverter() {
       <GuiDisplay
         content={<TemperatureConverterGUI />}
         // description will be redux debugger
-        description={
+        description={(
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />
-        }
+        )}
       />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/temperatureConverterSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/temperatureConverterSlice.ts"
+        >
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -83,7 +84,11 @@ export default function TemperatureConverter() {
       </Heading>
 
       <Text mb="4" as="p" size="3">
-        Another scenario where using <Code>useState</Code> would have been a
+        Another scenario where using
+        {' '}
+        <Code>useState</Code>
+        {' '}
+        would have been a
         more suitable choice.
       </Text>
     </>

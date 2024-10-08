@@ -1,8 +1,9 @@
 {
   "name": "7gui",
-  "private": true,
-  "version": "1.0.0",
   "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.11.0",
   "scripts": {
     "build": "pnpm -r run build",
     "clean": "pnpm -r run clean && rimraf node_modules",
@@ -10,35 +11,29 @@
     "dev:web": "pnpm -F web run dev",
     "dev:state": "pnpm -F state run dev",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "format": "prettier --write .",
     "preview:web": "pnpm -F web run preview",
     "prepare": "husky",
     "knip": "knip"
   },
   "devDependencies": {
-    "@eslint/js": "^9.11.1",
-    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+    "@antfu/eslint-config": "^3.7.3",
+    "@eslint-react/eslint-plugin": "^1.14.2",
     "concurrently": "^9.0.1",
     "eslint": "^9.11.1",
-    "eslint-plugin-react": "^7.37.0",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-format": "^0.1.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.12",
-    "globals": "^15.9.0",
     "husky": "^9.1.6",
     "knip": "^5.30.6",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.8",
     "rimraf": "^6.0.1",
-    "typescript-eslint": "^8.7.0",
     "vitest": "^2.1.1"
   },
-  "packageManager": "pnpm@9.11.0",
   "lint-staged": {
     "*{.js,.jsx,.ts,.tsx}": [
       "eslint --cache --fix",
-      "prettier --cache --write --ignore-unknown",
       "vitest related --run"
     ]
   }

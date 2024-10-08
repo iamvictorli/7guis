@@ -1,5 +1,6 @@
-import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 
 import type { EntityMapOrdering } from './types'
 
@@ -46,8 +47,8 @@ const crudSlice = createSlice({
 
         // selected name to be new name record if it fits the search input
         if (
-          nameRecord.name.includes(searchInput) ||
-          nameRecord.surname.includes(searchInput)
+          nameRecord.name.includes(searchInput)
+          || nameRecord.surname.includes(searchInput)
         ) {
           state.ui.nameSelectedId = nameRecord.id
           state.ui.nameInput = nameRecord.name
@@ -55,14 +56,14 @@ const crudSlice = createSlice({
         }
 
         // Retrieve the currently selected name record from the state using the selected ID
-        const currentSelectedNameRecord =
-          state.nameRecords.byId[state.ui.nameSelectedId]
+        const currentSelectedNameRecord
+          = state.nameRecords.byId[state.ui.nameSelectedId]
         // Check if the current selected name record exists and if either the name or surname
         // fits the new search input. If so, no need to change the selected name record
         if (
-          currentSelectedNameRecord &&
-          (currentSelectedNameRecord.name.includes(searchInput) ||
-            currentSelectedNameRecord.surname.includes(searchInput))
+          currentSelectedNameRecord
+          && (currentSelectedNameRecord.name.includes(searchInput)
+            || currentSelectedNameRecord.surname.includes(searchInput))
         ) {
           return
         }
@@ -91,35 +92,37 @@ const crudSlice = createSlice({
       const searchInput = state.ui.searchInput
 
       // Retrieve the currently selected name record from the state using the selected ID
-      const currentSelectedNameRecord =
-        state.nameRecords.byId[state.ui.nameSelectedId]
+      const currentSelectedNameRecord
+        = state.nameRecords.byId[state.ui.nameSelectedId]
       // Check if the current selected name record exists and if either the name or surname
       // fits the new search input. If so, no need to change the selected name record
       if (
-        currentSelectedNameRecord &&
-        (currentSelectedNameRecord.name.includes(searchInput) ||
-          currentSelectedNameRecord.surname.includes(searchInput))
+        currentSelectedNameRecord
+        && (currentSelectedNameRecord.name.includes(searchInput)
+          || currentSelectedNameRecord.surname.includes(searchInput))
       ) {
         return
       }
 
       const newNameSelectedIndex = state.nameRecords.allIds.find((id) => {
         const nameRecord = state.nameRecords.byId[id]
-        if (!nameRecord) return false
+        if (!nameRecord)
+          return false
         const { name, surname } = nameRecord
 
         return name.includes(searchInput) || surname.includes(searchInput)
       })
 
       if (
-        newNameSelectedIndex &&
-        state.nameRecords.byId[newNameSelectedIndex]
+        newNameSelectedIndex
+        && state.nameRecords.byId[newNameSelectedIndex]
       ) {
         state.ui.nameSelectedId = newNameSelectedIndex
         state.ui.nameInput = state.nameRecords.byId[newNameSelectedIndex].name
-        state.ui.surnameInput =
-          state.nameRecords.byId[newNameSelectedIndex].surname
-      } else {
+        state.ui.surnameInput
+          = state.nameRecords.byId[newNameSelectedIndex].surname
+      }
+      else {
         state.ui.nameSelectedId = ''
         state.ui.nameInput = ''
         state.ui.surnameInput = ''
@@ -129,10 +132,11 @@ const crudSlice = createSlice({
       const idToDelete = action.payload
       delete state.nameRecords.byId[idToDelete]
       const index = state.nameRecords.allIds.findIndex(
-        (id) => id === idToDelete,
+        id => id === idToDelete,
       )
 
-      if (index !== -1) state.nameRecords.allIds.splice(index, 1)
+      if (index !== -1)
+        state.nameRecords.allIds.splice(index, 1)
 
       if (state.ui.nameSelectedId === idToDelete) {
         const searchInput = state.ui.searchInput
@@ -140,21 +144,23 @@ const crudSlice = createSlice({
         // updates selected name record to the first on the list
         const newNameSelectedIndex = state.nameRecords.allIds.find((id) => {
           const nameRecord = state.nameRecords.byId[id]
-          if (!nameRecord) return false
+          if (!nameRecord)
+            return false
           const { name, surname } = nameRecord
 
           return name.includes(searchInput) || surname.includes(searchInput)
         })
 
         if (
-          newNameSelectedIndex &&
-          state.nameRecords.byId[newNameSelectedIndex]
+          newNameSelectedIndex
+          && state.nameRecords.byId[newNameSelectedIndex]
         ) {
           state.ui.nameSelectedId = newNameSelectedIndex
           state.ui.nameInput = state.nameRecords.byId[newNameSelectedIndex].name
-          state.ui.surnameInput =
-            state.nameRecords.byId[newNameSelectedIndex].surname
-        } else {
+          state.ui.surnameInput
+            = state.nameRecords.byId[newNameSelectedIndex].surname
+        }
+        else {
           state.ui.nameSelectedId = ''
           state.ui.nameInput = ''
           state.ui.surnameInput = ''
@@ -168,7 +174,8 @@ const crudSlice = createSlice({
       if (action.payload === '' || !selectedNameRecord) {
         state.ui.nameInput = ''
         state.ui.surnameInput = ''
-      } else {
+      }
+      else {
         state.ui.nameInput = selectedNameRecord.name
         state.ui.surnameInput = selectedNameRecord.surname
       }
@@ -178,14 +185,14 @@ const crudSlice = createSlice({
       state.ui.searchInput = newSearchInput
 
       // Retrieve the currently selected name record from the state using the selected ID
-      const currentSelectedNameRecord =
-        state.nameRecords.byId[state.ui.nameSelectedId]
+      const currentSelectedNameRecord
+        = state.nameRecords.byId[state.ui.nameSelectedId]
       // Check if the current selected name record exists and if either the name or surname
       // fits the new search input. If so, no need to change the selected name record
       if (
-        currentSelectedNameRecord &&
-        (currentSelectedNameRecord.name.includes(newSearchInput) ||
-          currentSelectedNameRecord.surname.includes(newSearchInput))
+        currentSelectedNameRecord
+        && (currentSelectedNameRecord.name.includes(newSearchInput)
+          || currentSelectedNameRecord.surname.includes(newSearchInput))
       ) {
         return
       }
@@ -193,21 +200,23 @@ const crudSlice = createSlice({
       // updates selected name record to the first on the list
       const newNameSelectedIndex = state.nameRecords.allIds.find((id) => {
         const nameRecord = state.nameRecords.byId[id]
-        if (!nameRecord) return false
+        if (!nameRecord)
+          return false
         const { name, surname } = nameRecord
 
         return name.includes(newSearchInput) || surname.includes(newSearchInput)
       })
 
       if (
-        newNameSelectedIndex &&
-        state.nameRecords.byId[newNameSelectedIndex]
+        newNameSelectedIndex
+        && state.nameRecords.byId[newNameSelectedIndex]
       ) {
         state.ui.nameSelectedId = newNameSelectedIndex
         state.ui.nameInput = state.nameRecords.byId[newNameSelectedIndex].name
-        state.ui.surnameInput =
-          state.nameRecords.byId[newNameSelectedIndex].surname
-      } else {
+        state.ui.surnameInput
+          = state.nameRecords.byId[newNameSelectedIndex].surname
+      }
+      else {
         state.ui.nameSelectedId = ''
         state.ui.nameInput = ''
         state.ui.surnameInput = ''
@@ -221,8 +230,8 @@ const crudSlice = createSlice({
     },
   },
   selectors: {
-    selectNameRecords: (state) => state.nameRecords,
-    selectUI: (state) => state.ui,
+    selectNameRecords: state => state.nameRecords,
+    selectUI: state => state.ui,
   },
 })
 
@@ -247,8 +256,8 @@ export const selectFilteredNameRecords = createSelector(
   (nameRecords, searchInput) => {
     return Object.values(nameRecords.byId).filter((nameRecord) => {
       return (
-        nameRecord.name.includes(searchInput) ||
-        nameRecord.surname.includes(searchInput)
+        nameRecord.name.includes(searchInput)
+        || nameRecord.surname.includes(searchInput)
       )
     })
   },

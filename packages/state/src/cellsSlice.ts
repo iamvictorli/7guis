@@ -1,5 +1,6 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
@@ -87,15 +88,15 @@ const initialState = getInitialState(
 function splitFormula(formula: string) {
   return formula
     .replace(/\s+/g, '')
-    .split(/(=|\+|-|\*|\/)/)
-    .filter((char) => char !== '')
+    .split(/([=+\-*/])/)
+    .filter(char => char !== '')
 }
 
 /**
  * Checks if a given symbol is a valid cell ID.
  */
 function isCellId(symbol: string) {
-  const regex = new RegExp(/^([A-Za-z])([0-9]{1}|[0-9]{2})$/)
+  const regex = /^[A-Z]\d|\d{2}$/i
   return regex.test(symbol)
 }
 
@@ -103,11 +104,11 @@ function isCellId(symbol: string) {
  * Retrieves the parent cell IDs from a given formula.
  */
 function getParentIds(formula: string) {
-  return splitFormula(formula).filter((symbol) => isCellId(symbol))
+  return splitFormula(formula).filter(symbol => isCellId(symbol))
 }
 
 function isFormula(string: string) {
-  return isNaN(Number(string))
+  return Number.isNaN(Number(string))
 }
 
 const cellsSlice = createSlice({
@@ -116,25 +117,27 @@ const cellsSlice = createSlice({
   reducers: {
     cellChanged: (
       state,
-      action: PayloadAction<{ id: string; value: string }>,
+      action: PayloadAction<{ id: string, value: string }>,
     ) => {
       // adds childId to parentId's children
       function addChild(parentId: string, childId: string) {
         const parentCell = state.cells.byId[parentId]
-        if (parentCell) parentCell.children[childId] = childId
+        if (parentCell)
+          parentCell.children[childId] = childId
       }
 
       // removes childId to parentId's children
       function removeChild(parentId: string, childId: string) {
         const parentCell = state.cells.byId[parentId]
-        if (parentCell) delete parentCell.children[childId]
+        if (parentCell)
+          delete parentCell.children[childId]
       }
 
       function evaluateFormula(formula: string) {
         const [firstSymbol, ...rest] = splitFormula(formula)
 
         if (firstSymbol !== FORMULA_SYMBOL) {
-          throw Error()
+          throw new Error('formula does not start with =')
         }
 
         const replaceCellsWithValues = rest.map((symbol) => {
@@ -144,10 +147,11 @@ const cellsSlice = createSlice({
           }
           return symbol
         })
+        // eslint-disable-next-line no-eval
         const value = eval(replaceCellsWithValues.join('')) as number
 
-        if (isNaN(value)) {
-          throw Error()
+        if (Number.isNaN(value)) {
+          throw new TypeError('formula does not evaluate to a number')
         }
 
         return value.toString()
@@ -155,10 +159,12 @@ const cellsSlice = createSlice({
 
       function calcCell(id: string, visited = new Set<string>()) {
         const cell = state.cells.byId[id]
-        if (!cell) return
+        if (!cell)
+          return
         // no need to calculate cell if cell is not a formula
         const formula = cell.formula
-        if (!formula) return
+        if (!formula)
+          return
         // for detecting cycles in cells and children
         if (visited.has(id)) {
           cell.computedValue = 'ERROR'
@@ -169,7 +175,8 @@ const cellsSlice = createSlice({
         try {
           const value = evaluateFormula(formula)
           computedValue = value
-        } catch {
+        }
+        catch {
           computedValue = 'ERROR'
         }
 
@@ -182,13 +189,16 @@ const cellsSlice = createSlice({
 
       const { id, value: newValue } = action.payload
       const cell = state.cells.byId[id]
-      if (!cell) return
+      if (!cell)
+        return
 
       // if formula exists, check if the editing value is the same as formula
-      if (cell.formula !== null && cell.formula === newValue) return
+      if (cell.formula !== null && cell.formula === newValue)
+        return
 
       // if formula doesnt exist, check if editing value is the same as computed value
-      if (cell.formula === null && cell.computedValue === newValue) return
+      if (cell.formula === null && cell.computedValue === newValue)
+        return
 
       // remove existing formula, remove cells that were part of this formula
       // ie, =B2+3, removes id from B2
@@ -210,7 +220,8 @@ const cellsSlice = createSlice({
         })
         cell.formula = newValue
         cell.computedValue = ''
-      } else {
+      }
+      else {
         cell.formula = null
         cell.computedValue = newValue
       }
@@ -223,9 +234,9 @@ const cellsSlice = createSlice({
     },
   },
   selectors: {
-    selectColumnLabels: (state) => state.columnLabels,
-    selectCellLabelMatrix: (state) => state.cellLabelMatrix,
-    selectCells: (state) => state.cells,
+    selectColumnLabels: state => state.columnLabels,
+    selectCellLabelMatrix: state => state.cellLabelMatrix,
+    selectCells: state => state.cells,
   },
 })
 

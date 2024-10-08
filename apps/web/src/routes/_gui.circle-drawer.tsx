@@ -13,20 +13,21 @@ export default function CircleDrawer() {
       <GuiDisplay
         content={<CircleDrawerGui />}
         // description will be redux debugger
-        description={
+        description={(
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />
-        }
+        )}
       />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/circleDrawerSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/circleDrawerSlice.ts"
+        >
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -101,12 +102,19 @@ export default function CircleDrawer() {
         Implementing the circle drawer felt similar to the CRUD application
         since it also involves managing a collection of records—in this case,
         circles on a canvas. However, the main difference here is the inclusion
-        of <Strong>undo/redo</Strong> functionality, which adds a new layer of
+        of
+        {' '}
+        <Strong>undo/redo</Strong>
+        {' '}
+        functionality, which adds a new layer of
         complexity.
       </Text>
 
       <Text mb="4" as="p" size="3">
-        I used a <Strong>snapshot-based approach</Strong>, where each action,
+        I used a
+        {' '}
+        <Strong>snapshot-based approach</Strong>
+        , where each action,
         like creating a circle or adjusting its size, stores the entire current
         state of the canvas and makes a new copy with appending new state
         changes. A disadvantage of this approach is that it can become
@@ -125,7 +133,9 @@ export default function CircleDrawer() {
       </Text>
 
       <Text mb="4" as="p" size="3">
-        <Strong>Edit:</Strong> Changed to use stack of actions for undo/redo
+        <Strong>Edit:</Strong>
+        {' '}
+        Changed to use stack of actions for undo/redo
         functionality
       </Text>
     </>

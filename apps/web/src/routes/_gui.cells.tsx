@@ -24,20 +24,21 @@ export default function Cells() {
       <GuiDisplay
         content={<CellsGui />}
         // description will be redux debugger
-        description={
+        description={(
           <Box
             className="box-border overflow-hidden whitespace-pre leading-6"
             py="3"
             px="4"
           />
-        }
+        )}
       />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/cellsSlice.ts">
+          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/cellsSlice.ts"
+        >
           View Redux Slice
           <Box asChild className="color=[var(--gray-9)]">
             <ArrowTopRightIcon />
@@ -91,27 +92,78 @@ export default function Cells() {
       <Text mb="4" as="p" size="3">
         One of the standout features of the spreadsheet is the support for
         formulas, which are central to the functionality of any spreadsheet
-        application. In this application, formulas begin with an{' '}
-        <Code>&quot;=&quot;</Code> sign and can reference other cell values as
-        part of mathematical expressions, utilizing operators like{' '}
-        <Code>+</Code>, <Code>-</Code>, <Code>*</Code>, and
-        <Code>/</Code>. For example, if cell <Em>A1</Em> contains the value{' '}
-        <Code>5</Code>, setting cell <Em>A2</Em> to <Code>=A1*2</Code> would
-        display <Code>10</Code> in <Em>A2</Em>. If the value in <Em>A1</Em> is
-        later updated to <Code>20</Code>, <Em>A2</Em> automatically updates to{' '}
-        <Code>20</Code>. This is a core concept of <Strong>reactivity</Strong>,
+        application. In this application, formulas begin with an
+        {' '}
+        <Code>&quot;=&quot;</Code>
+        {' '}
+        sign and can reference other cell values as
+        part of mathematical expressions, utilizing operators like
+        {' '}
+        <Code>+</Code>
+        ,
+        <Code>-</Code>
+        ,
+        <Code>*</Code>
+        , and
+        <Code>/</Code>
+        . For example, if cell
+        <Em>A1</Em>
+        {' '}
+        contains the value
+        {' '}
+        <Code>5</Code>
+        , setting cell
+        <Em>A2</Em>
+        {' '}
+        to
+        <Code>=A1*2</Code>
+        {' '}
+        would
+        display
+        <Code>10</Code>
+        {' '}
+        in
+        <Em>A2</Em>
+        . If the value in
+        <Em>A1</Em>
+        {' '}
+        is
+        later updated to
+        <Code>20</Code>
+        ,
+        <Em>A2</Em>
+        {' '}
+        automatically updates to
+        {' '}
+        <Code>20</Code>
+        . This is a core concept of
+        <Strong>reactivity</Strong>
+        ,
         where changes in one part of the system propagate automatically to
         dependent parts.
       </Text>
 
       <Text mb="4" as="p" size="3">
-        I utilized a <Strong>graph data structure</Strong> to track dependencies
+        I utilized a
+        {' '}
+        <Strong>graph data structure</Strong>
+        {' '}
+        to track dependencies
         between cells. This structure makes it possible to efficiently handle
         updates, ensuring that when one cell changes, only the cells dependent
-        on that change are recalculated. However, if there are{' '}
-        <Strong>cyclic dependencies</Strong> (e.g., cells referencing each other
-        in a loop), an <Strong>ERROR</Strong> message is displayed in the
-        relevant cells. An <Strong>ERROR</Strong> message also gets displayed on
+        on that change are recalculated. However, if there are
+        {' '}
+        <Strong>cyclic dependencies</Strong>
+        {' '}
+        (e.g., cells referencing each other
+        in a loop), an
+        <Strong>ERROR</Strong>
+        {' '}
+        message is displayed in the
+        relevant cells. An
+        <Strong>ERROR</Strong>
+        {' '}
+        message also gets displayed on
         an invalid mathematical expression.
       </Text>
 
@@ -124,8 +176,13 @@ export default function Cells() {
         <ul className="mb-5 [list-style-type:circle]">
           <li>
             <Text>
-              Editing cells by either double-clicking or pressing{' '}
-              <Kbd>Enter</Kbd> or <Kbd>F2</Kbd>.
+              Editing cells by either double-clicking or pressing
+              {' '}
+              <Kbd>Enter</Kbd>
+              {' '}
+              or
+              <Kbd>F2</Kbd>
+              .
             </Text>
           </li>
           <li>
@@ -133,19 +190,31 @@ export default function Cells() {
           </li>
           <li>
             <Text>
-              When editing, pressing <Kbd>Escape</Kbd> cancels the input and
+              When editing, pressing
+              {' '}
+              <Kbd>Escape</Kbd>
+              {' '}
+              cancels the input and
               restores the original cell content.
             </Text>
           </li>
           <li>
             <Text>
-              When editing, pressing <Kbd>Enter</Kbd> makes changes and focus on
+              When editing, pressing
+              {' '}
+              <Kbd>Enter</Kbd>
+              {' '}
+              makes changes and focus on
               the row below.
             </Text>
           </li>
           <li>
             <Text>
-              When editing, pressing <Kbd>Tab</Kbd> makes changes and focuses on
+              When editing, pressing
+              {' '}
+              <Kbd>Tab</Kbd>
+              {' '}
+              makes changes and focuses on
               the column to the right.
             </Text>
           </li>
@@ -159,13 +228,17 @@ export default function Cells() {
       </Flex>
 
       <Text mb="4" as="p" size="3">
-        A key design choice was making the spreadsheet component{' '}
-        <Strong>headless</Strong>, meaning it doesn’t impose any particular
+        A key design choice was making the spreadsheet component
+        {' '}
+        <Strong>headless</Strong>
+        , meaning it doesn’t impose any particular
         styling. Instead, the consumer of the component provides the necessary
-        styles, labels, and behaviors using a{' '}
+        styles, labels, and behaviors using a
+        {' '}
         <Link href="https://react.dev/reference/react/Children#calling-a-render-prop-to-customize-rendering">
           render prop pattern
-        </Link>{' '}
+        </Link>
+        {' '}
         as recommended by the React documentation. This approach keeps the
         spreadsheet flexible and reusable in different contexts.
       </Text>
@@ -174,7 +247,8 @@ export default function Cells() {
         During development, I encountered some performance issues with cell
         re-renders. Every time an update was made, all cells would re-render,
         leading to sluggish performance in larger spreadsheets. By utilizing the
-        React Profiler in{' '}
+        React Profiler in
+        {' '}
         <Link href="https://react.dev/learn/react-developer-tools">
           React dev tools
         </Link>
@@ -185,23 +259,28 @@ export default function Cells() {
       </Text>
 
       <Text mb="4" as="p" size="3">
-        As a followup, for larger spreadsheets use virtualization with{' '}
+        As a followup, for larger spreadsheets use virtualization with
+        {' '}
         <Link href="https://github.com/bvaughn/react-virtualized">
           react-virtialized
         </Link>
-        ,{' '}
+        ,
+        {' '}
         <Link href="https://github.com/bvaughn/react-window">react-window</Link>
-        , or{' '}
+        , or
+        {' '}
         <Link href="https://tanstack.com/virtual/latest">
           @tanstack/react-virtual
         </Link>
       </Text>
 
       <Text mb="4" as="p" size="3">
-        The{' '}
+        The
+        {' '}
         <Link href="https://www.youtube.com/watch?v=AdNJ3fydeao">
           first talk
-        </Link>{' '}
+        </Link>
+        {' '}
         of Svelte (framework) was about spreadsheets.
       </Text>
 

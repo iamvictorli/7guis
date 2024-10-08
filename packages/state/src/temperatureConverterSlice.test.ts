@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 
 import {
   initialState,
@@ -8,7 +8,7 @@ import {
   temperatureChanged,
 } from './temperatureConverterSlice'
 
-test('should update fahrenheit when celcius is changed', () => {
+it('should update fahrenheit when celcius is changed', () => {
   let state = initialState
   expect(selectTemperatures({ [name]: state })).toEqual({
     ...initialState,
@@ -51,7 +51,7 @@ test('should update fahrenheit when celcius is changed', () => {
   })
 })
 
-test('should update celcius when fahrenheit is changed', () => {
+it('should update celcius when fahrenheit is changed', () => {
   let state = initialState
   expect(selectTemperatures({ [name]: state })).toEqual({
     ...initialState,

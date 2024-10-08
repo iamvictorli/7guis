@@ -1,10 +1,11 @@
+import type { DateValue } from 'react-aria'
+import type { DateRangePickerStateOptions } from 'react-stately'
+
 import { CalendarIcon, ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import { Label } from '@radix-ui/react-label'
 import { useRef } from 'react'
 import { useDateRangePicker } from 'react-aria'
-import type { DateValue } from 'react-aria'
 import { useDateRangePickerState } from 'react-stately'
-import type { DateRangePickerStateOptions } from 'react-stately'
 
 import { FieldButton } from './Button'
 import { DateField } from './DateField'

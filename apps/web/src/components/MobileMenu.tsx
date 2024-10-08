@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot'
 import { Box, Portal, Theme } from '@radix-ui/themes'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useLocation } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ import {
   useMobileMenuContext,
 } from '~/hooks/useMobileMenuContext'
 
-const MobileMenuProvider = ({ children }: { children: React.ReactNode }) => {
+function MobileMenuProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
   const location = useLocation()
 
@@ -23,7 +23,7 @@ const MobileMenuProvider = ({ children }: { children: React.ReactNode }) => {
     const mediaQueryList = window.matchMedia('(min-width: 1024px)')
 
     const handleChange = () => {
-      setOpen((open) => (open ? !mediaQueryList.matches : false))
+      setOpen(open => (open ? !mediaQueryList.matches : false))
     }
 
     handleChange()
@@ -41,7 +41,7 @@ const MobileMenuProvider = ({ children }: { children: React.ReactNode }) => {
 /**
  * when mobile menu is open, overlays screen with rendered children
  */
-const MobileMenuContent = ({ children }: { children: React.ReactNode }) => {
+function MobileMenuContent({ children }: { children: React.ReactNode }) {
   const mobileMenu = useMobileMenuContext()
 
   if (!mobileMenu.open) {
@@ -55,7 +55,8 @@ const MobileMenuContent = ({ children }: { children: React.ReactNode }) => {
           <Box
             position="fixed"
             inset="0"
-            className="bg-[var(--color-background)]">
+            className="bg-[var(--color-background)]"
+          >
             {children}
           </Box>
         </RemoveScroll>

@@ -1,10 +1,11 @@
 // https://react-spectrum.adobe.com/react-aria/useListBox.html#example
 import type { Node } from '@react-types/shared'
-import { useRef } from 'react'
 import type { AriaListBoxProps } from 'react-aria'
+import type { ListState } from 'react-stately'
+
+import { useRef } from 'react'
 import { mergeProps, useFocusRing, useListBox, useOption } from 'react-aria'
 import { Item, useListState } from 'react-stately'
-import type { ListState } from 'react-stately'
 
 import { cn } from '~/lib/utils'
 
@@ -15,19 +16,21 @@ function ListBoxProvider<T extends object>(props: AriaListBoxProps<T>) {
   // Get props for the listbox element
   const ref = useRef(null)
   const { listBoxProps, labelProps } = useListBox(props, state, ref)
+  const { label } = props
 
   return (
     <>
-      <div {...labelProps}>{props.label}</div>
+      <div {...labelProps}>{label}</div>
       <ul
         {...listBoxProps}
         ref={ref}
         className={cn(
           'mt-2 h-[200px] overflow-auto rounded-[var(--radius-4)] border border-solid border-[var(--gray-a7)] p-2 transition-colors',
-          state.selectionManager.isFocused &&
-            'outline outline-1 -outline-offset-1 outline-[var(--gray-a8)]',
-        )}>
-        {[...state.collection].map((item) => (
+          state.selectionManager.isFocused
+          && 'outline outline-1 -outline-offset-1 outline-[var(--gray-a8)]',
+        )}
+      >
+        {[...state.collection].map(item => (
           <Option key={item.key} item={item} state={state} />
         ))}
       </ul>
@@ -35,7 +38,7 @@ function ListBoxProvider<T extends object>(props: AriaListBoxProps<T>) {
   )
 }
 
-function Option<T>({ item, state }: { item: Node<T>; state: ListState<T> }) {
+function Option<T>({ item, state }: { item: Node<T>, state: ListState<T> }) {
   // Get props for the option element
   const ref = useRef(null)
   const { optionProps } = useOption({ key: item.key }, state, ref)
@@ -54,7 +57,8 @@ function Option<T>({ item, state }: { item: Node<T>; state: ListState<T> }) {
         isFocusVisible
           ? 'rounded-[var(--radius-2)] outline outline-2 outline-offset-2 outline-[var(--accent-a9)]'
           : '[outline:none]',
-      )}>
+      )}
+    >
       {item.rendered}
     </li>
   )

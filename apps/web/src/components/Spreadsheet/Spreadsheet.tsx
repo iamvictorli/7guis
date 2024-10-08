@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 interface GridProps {
   role: 'grid'
@@ -106,11 +106,11 @@ export default function Spreadsheet<T>({
 
   // Render the grid
   return renderGridContainer({
-    role: 'grid',
-    ['aria-label']: label,
-    ['aria-rowcount']: data.length + 1, // +1 to include header row
-    ['aria-colcount']: columns.length + 1, // +1 to include header column
-    children: (
+    'role': 'grid',
+    'aria-label': label,
+    'aria-rowcount': data.length + 1, // +1 to include header row
+    'aria-colcount': columns.length + 1, // +1 to include header column
+    'children': (
       <>
         {/* Render first row with column names */}
         {renderTopRowContainer({
@@ -119,20 +119,20 @@ export default function Spreadsheet<T>({
             <>
               {/* Top-left corner cell (empty) */}
               {renderTopLeftCorner({
-                role: 'gridcell',
-                ['aria-readonly']: true,
-                ['aria-rowindex']: 1,
-                ['aria-colindex']: 1,
+                'role': 'gridcell',
+                'aria-readonly': true,
+                'aria-rowindex': 1,
+                'aria-colindex': 1,
               })}
 
               {columns.map((column, columnIndex) =>
                 renderColHeader({
-                  role: 'columnheader',
-                  ['aria-readonly']: true,
-                  ['aria-rowindex']: 1,
-                  ['aria-colindex']: columnIndex + 2, // adding 2, +1 b/c of 0 based, +1 for the top left corner cell
-                  isFocusedCol: focusedCell?.col === columnIndex,
-                  columnLabel: column,
+                  'role': 'columnheader',
+                  'aria-readonly': true,
+                  'aria-rowindex': 1,
+                  'aria-colindex': columnIndex + 2, // adding 2, +1 b/c of 0 based, +1 for the top left corner cell
+                  'isFocusedCol': focusedCell?.col === columnIndex,
+                  'columnLabel': column,
                   columnIndex,
                 }),
               )}
@@ -148,25 +148,26 @@ export default function Spreadsheet<T>({
             children: (
               <>
                 {renderRowHeader({
-                  role: 'rowheader',
-                  ['aria-readonly']: true,
-                  ['aria-colindex']: 1,
-                  ['aria-rowindex']: rowIndex + 2, // adding 2, +1 b/c 0 based, +1 from column header row
-                  isFocusedRow: focusedCell?.row === rowIndex,
-                  row: rowIndex + 1, // must be 1 based row headers
+                  'role': 'rowheader',
+                  'aria-readonly': true,
+                  'aria-colindex': 1,
+                  'aria-rowindex': rowIndex + 2, // adding 2, +1 b/c 0 based, +1 from column header row
+                  'isFocusedRow': focusedCell?.row === rowIndex,
+                  'row': rowIndex + 1, // must be 1 based row headers
                 })}
 
                 {/* Render cells */}
                 {columns.map((column, colIndex) => {
                   const cell = dataRow[column]
-                  if (!cell)
+                  if (!cell) {
                     throw new Error(
                       `Key ${column} does not exist in row index ${rowIndex}`,
                     )
+                  }
                   const isFocused = !!(
-                    focusedCell &&
-                    focusedCell.row === rowIndex &&
-                    focusedCell.col === colIndex
+                    focusedCell
+                    && focusedCell.row === rowIndex
+                    && focusedCell.col === colIndex
                   )
                   const focusCell = (row: number, col: number) => {
                     setFocusedCell({ row, col })
@@ -176,10 +177,10 @@ export default function Spreadsheet<T>({
                   }
                   const hasSpreadsheetBeenFocused = !!focusedCell
                   const ariaProps = {
-                    role: 'gridcell' as const,
-                    ['aria-rowindex']: rowIndex + 2, // adding 2, for 0 based and column header row
-                    ['aria-colindex']: colIndex + 2, // adding 2, for 0 based and extra column for row header
-                    ['aria-selected']: isFocused,
+                    'role': 'gridcell' as const,
+                    'aria-rowindex': rowIndex + 2, // adding 2, for 0 based and column header row
+                    'aria-colindex': colIndex + 2, // adding 2, for 0 based and extra column for row header
+                    'aria-selected': isFocused,
                   }
                   return renderCell({
                     cell,

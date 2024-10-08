@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 
 import {
   increment,
@@ -8,7 +8,7 @@ import {
   selectCount,
 } from './counterSlice'
 
-test('count should increment', () => {
+it('should increment', () => {
   let state = initialState
   expect(selectCount({ [name]: state })).toBe(0)
 

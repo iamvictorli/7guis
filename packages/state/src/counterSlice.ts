@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+import { createSlice } from '@reduxjs/toolkit'
 
 interface CounterState {
   count: number
@@ -19,7 +20,7 @@ const counterSlice = createSlice({
     },
   },
   selectors: {
-    selectCount: (state) => state.count,
+    selectCount: state => state.count,
   },
 })
 
