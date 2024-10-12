@@ -11,7 +11,7 @@ export default antfu({
     'node/prefer-global/process': ['off'],
     'node/no-process-env': ['error'],
     'perfectionist/sort-imports': ['error', {
-      internalPattern: ['@7gui/**', '~/**'],
+      internalPattern: ['@7gui/**', '~/**', 'app/**'],
     }],
   },
 })

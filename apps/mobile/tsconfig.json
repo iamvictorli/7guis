@@ -1,0 +1,25 @@
+{
+  "extends": "@7gui/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "lib": [
+      "DOM",
+      "ES2022"
+    ],
+    "moduleResolution": "node",
+    "paths": {
+      "app/*": [
+        "./app/*"
+      ],
+      "assets/*": [
+        "./assets/*"
+      ]
+    },
+    "noEmit": true
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js"
+  ]
+}
