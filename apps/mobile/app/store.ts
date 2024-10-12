@@ -1,11 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 
-// TODO: @7gui/state exports *, to just import @7gui/state
 import {
   name as counterName,
   reducer as counterReducer,
-} from '@7gui/state/dist/counterSlice'
+} from '@7gui/state/counterSlice'
 
 const rootReducer = combineReducers({
   [counterName]: counterReducer,

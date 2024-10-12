@@ -6,7 +6,7 @@
       "DOM",
       "ES2022"
     ],
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "paths": {
       "app/*": [
         "./app/*"
