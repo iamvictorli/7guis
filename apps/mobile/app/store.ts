@@ -10,9 +10,9 @@ const rootReducer = combineReducers({
   [counterName]: counterReducer,
 })
 
-export type RootState = ReturnType<typeof rootReducer>
+type RootState = ReturnType<typeof rootReducer>
 
-export function setupStore(preloadedState?: Partial<RootState>) {
+function setupStore(preloadedState?: Partial<RootState>) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
@@ -21,7 +21,7 @@ export function setupStore(preloadedState?: Partial<RootState>) {
 
 export const store = setupStore({})
 
-export type AppStore = ReturnType<typeof setupStore>
+// export type AppStore = ReturnType<typeof setupStore>
 
 type AppDispatch = typeof store.dispatch
 

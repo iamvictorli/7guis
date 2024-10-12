@@ -2,7 +2,6 @@ import type {
   GestureResponderEvent,
 } from 'react-native'
 
-import * as React from 'react'
 import {
   StyleSheet,
   Text,
