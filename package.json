@@ -10,6 +10,7 @@
     "dev": "concurrently pnpm:dev:*",
     "dev:web": "pnpm -F web run dev",
     "dev:state": "pnpm -F state run dev",
+    "dev:mobile": "pnpm -F mobile run start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",

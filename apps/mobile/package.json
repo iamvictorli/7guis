@@ -5,6 +5,7 @@
   "description": "7gui mobile",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "clean": "rimraf node_modules",
     "start": "expo start",
     "android": "expo start --android",
