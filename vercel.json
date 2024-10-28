@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/vite.svg", "destination": "/vite.svg" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
