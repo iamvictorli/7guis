@@ -40,11 +40,11 @@ export function DatePicker(props: DatePickerStateOptions<CalendarDate>) {
         <div className="relative flex items-center rounded-l-[var(--radius-3)] border border-[var(--gray-7)] bg-[var(--color-background)] p-1 pr-10 transition-colors group-focus-within:border-[var(--accent-9)] group-hover:border-[var(--gray-10)] group-focus-within:group-hover:border-[var(--accent-9)]">
           <DateField {...fieldProps} />
           {state.isInvalid && (
-            <ExclamationTriangleIcon className="absolute right-1 h-5 w-5 text-[var(--red-9)]" />
+            <ExclamationTriangleIcon className="absolute right-1 size-5 text-[var(--red-9)]" />
           )}
         </div>
         <FieldButton {...buttonProps} isPressed={state.isOpen}>
-          <CalendarIcon className="h-5 w-5 text-[var(--gray-11)] group-focus-within:text-[var(--accent-9)]" />
+          <CalendarIcon className="size-5 text-[var(--gray-11)] group-focus-within:text-[var(--accent-9)]" />
         </FieldButton>
       </div>
       {state.isOpen && (

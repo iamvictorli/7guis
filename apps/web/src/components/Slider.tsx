@@ -29,7 +29,7 @@ const Slider = React.forwardRef<
       {value.map((_value, i) => (
         <SliderPrimitive.Thumb
           key={i}
-          className="block h-5 w-5 rounded-[var(--radius-thumb)] border border-[var(--black-a4)] bg-white ring-offset-[var(--accent-3)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-8)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          className="block size-5 rounded-[var(--radius-thumb)] border border-[var(--black-a4)] bg-white ring-offset-[var(--accent-3)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-8)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
           aria-label={thumbLabel}
         />
       ))}

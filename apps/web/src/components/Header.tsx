@@ -74,10 +74,7 @@ export default function Header() {
             right="0"
             pr="4"
           >
-            <Tooltip
-              className="radix-themes-custom-fonts"
-              content="View GitHub"
-            >
+            <Tooltip content="View GitHub">
               <Link
                 href="https://github.com/iamvictorli/7gui"
                 target="_blank"

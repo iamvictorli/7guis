@@ -1,4 +1,4 @@
-import type { KeyboardEvent } from 'react'
+import type { InputHTMLAttributes, KeyboardEvent } from 'react'
 
 import React, { memo, useEffect, useRef, useState } from 'react'
 
@@ -17,6 +17,18 @@ import {
 import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
 import { cn } from '~/lib/utils'
 import { useAppDispatch, useAppSelector } from '~/store'
+
+function CellInput(props: InputHTMLAttributes<HTMLInputElement>) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [])
+  return (
+    <input {...props} ref={inputRef} />
+  )
+}
 
 const RowHeader = memo(({
   isFocusedRow,
@@ -196,6 +208,7 @@ const SpreadsheetCell = memo(
     return (
       <div
         {...ariaProps}
+        role="textbox"
         tabIndex={tabIndex}
         ref={ref}
         className={cn(
@@ -214,17 +227,16 @@ const SpreadsheetCell = memo(
       >
         {isEditing
           ? (
-              <input
+              <CellInput
                 id={`input-${cell.id}`}
                 type="text"
-                className="h-full w-full focus:outline-none"
+                className="size-full focus:outline-none"
                 value={inputValue}
                 onChange={e => handleChange(e)}
                 onBlur={() => {
                   cellChange()
                   exitEditMode()
                 }}
-                autoFocus
               />
             )
           : (

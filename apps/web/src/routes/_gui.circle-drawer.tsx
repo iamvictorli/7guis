@@ -29,7 +29,7 @@ export default function CircleDrawer() {
           href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/circleDrawerSlice.ts"
         >
           View Redux Slice
-          <Box asChild className="color=[var(--gray-9)]">
+          <Box asChild className="text-[var(--gray-9)]">
             <ArrowTopRightIcon />
           </Box>
         </Link>

@@ -44,11 +44,11 @@ export function DateRangePicker(props: DateRangePickerStateOptions<DateValue>) {
           </span>
           <DateField {...endFieldProps} />
           {state.isInvalid && (
-            <ExclamationTriangleIcon className="absolute right-1 h-6 w-6 text-[var(--red-a5)]" />
+            <ExclamationTriangleIcon className="absolute right-1 size-6 text-[var(--red-a5)]" />
           )}
         </div>
         <FieldButton {...buttonProps} isPressed={state.isOpen}>
-          <CalendarIcon className="h-5 w-5 text-[var(--gray-11)] group-focus-within:text-[var(--accent-12)]" />
+          <CalendarIcon className="size-5 text-[var(--gray-11)] group-focus-within:text-[var(--accent-12)]" />
         </FieldButton>
       </div>
       {state.isOpen && (
