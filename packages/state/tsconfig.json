@@ -6,7 +6,7 @@
     "lib": ["ES2022"],
     "rootDir": "src",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
 
     "types": ["vitest/globals"],
     "declaration": true,

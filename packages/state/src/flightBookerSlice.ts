@@ -80,12 +80,12 @@ const flightBookerSlice = createSlice({
           (trip === FlightTrip.OneWay
             && departureDate !== null
             && isSameOrBeforeToday(departureDate))
-            || (trip === FlightTrip.RoundTrip
-              && departureDate !== null
-              && returnDate !== null
-              && isSameOrBefore(departureDate, returnDate)
-              && isSameOrBeforeToday(departureDate)
-              && isSameOrBeforeToday(returnDate))
+          || (trip === FlightTrip.RoundTrip
+            && departureDate !== null
+            && returnDate !== null
+            && isSameOrBefore(departureDate, returnDate)
+            && isSameOrBeforeToday(departureDate)
+            && isSameOrBeforeToday(returnDate))
         )
       }
       catch {

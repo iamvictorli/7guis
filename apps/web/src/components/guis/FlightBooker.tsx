@@ -80,7 +80,7 @@ export default function FlightBooker() {
               onChange={(value) => {
                 dispatch(
                   dateChanged({
-                    departureDate: value.toString(),
+                    departureDate: value?.toString() || '',
                   }),
                 )
               }}
@@ -92,11 +92,14 @@ export default function FlightBooker() {
               minValue={today(getLocalTimeZone())}
               // @ts-expect-error both departure date and return date could be null, and the types expect both to be a DateValue and not null
               value={getRangePickerValue(departureDate, returnDate)}
-              onChange={({ start, end }) => {
+              onChange={(dateValue) => {
+                if (!dateValue)
+                  return
+                const { start, end } = dateValue
                 dispatch(
                   dateChanged({
-                    departureDate: start.toString(),
-                    returnDate: end.toString(),
+                    departureDate: start?.toString() || '',
+                    returnDate: end?.toString() || '',
                   }),
                 )
               }}

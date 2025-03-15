@@ -67,9 +67,9 @@ export function CalendarCell({
     = isSelected && (isSelectionStart || dayOfWeek === 0 || date.day === 1)
   const isRoundedRight
     = isSelected
-    && (isSelectionEnd
-      || dayOfWeek === 6
-      || date.day === date.calendar.getDaysInMonth(date))
+      && (isSelectionEnd
+        || dayOfWeek === 6
+        || date.day === date.calendar.getDaysInMonth(date))
 
   const { focusProps, isFocusVisible } = useFocusRing()
 

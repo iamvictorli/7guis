@@ -22,7 +22,7 @@ export default antfu(
   {
     rules: {
       'perfectionist/sort-imports': ['error', {
-        internalPattern: ['@7gui/**', '~/**', 'app/**'],
+        internalPattern: ['@7gui/.*', '~/.*'],
       }],
     },
   },

@@ -1,11 +1,8 @@
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
-import { Provider } from 'react-redux'
 
 import { increment, selectCount } from '@7gui/state/counterSlice'
-import { Button } from 'app/components/Button'
-
-import { store, useAppDispatch, useAppSelector } from './store'
+import { Button } from '~/components/Button'
+import { useAppDispatch, useAppSelector } from '~/store'
 
 function Counter() {
   const count = useAppSelector(selectCount)
@@ -27,13 +24,10 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function App() {
+export default function Index() {
   return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <Counter />
-        <StatusBar style="auto" />
-      </View>
-    </Provider>
+    <View style={styles.container}>
+      <Counter />
+    </View>
   )
 }

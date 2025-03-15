@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-export interface ButtonProps {
+interface ButtonProps {
   text: string
   onClick?: (event: GestureResponderEvent) => void
 }
