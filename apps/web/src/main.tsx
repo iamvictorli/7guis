@@ -1,5 +1,5 @@
 import { Theme } from '@radix-ui/themes'
-import { StrictMode, Suspense } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -7,17 +7,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { GuiSkeleton, IndexSkeleton } from '~/components/Skeleton'
 
 import './index.css'
-import {
-  Cells,
-  CircleDrawer,
-  Counter,
-  CRUD,
-  FlightBooker,
-  Index,
-  TemperatureConverter,
-  Timer,
-} from './routes'
 import GUI from './routes/_gui'
+import Cells from './routes/_gui.cells'
+import CircleDrawer from './routes/_gui.circle-drawer'
+import Counter from './routes/_gui.counter'
+import CRUD from './routes/_gui.crud'
+import FlightBooker from './routes/_gui.flight-booker'
+import TemperatureConverter from './routes/_gui.temperature-converter'
+import Timer from './routes/_gui.timer'
+import Index from './routes/_index'
 import ErrorPage from './routes/error-page'
 import { store } from './store'
 
@@ -27,78 +25,54 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <Suspense fallback={<IndexSkeleton />}>
-            <Index />
-          </Suspense>
-        ),
+        HydrateFallback: IndexSkeleton,
+        Component: Index,
         errorElement: <ErrorPage />,
       },
       {
-        element: <GUI />,
+        Component: GUI,
         errorElement: <ErrorPage />,
         children: [
           {
             path: 'counter',
-            element: (
-              <Suspense fallback={<GuiSkeleton />}>
-                <Counter />
-              </Suspense>
-            ),
+            HydrateFallback: GuiSkeleton,
+            Component: Counter,
             errorElement: <ErrorPage />,
           },
           {
             path: 'temperature-converter',
-            element: (
-              <Suspense fallback={<GuiSkeleton />}>
-                <TemperatureConverter />
-              </Suspense>
-            ),
+            HydrateFallback: GuiSkeleton,
+            Component: TemperatureConverter,
             errorElement: <ErrorPage />,
           },
           {
             path: 'flight-booker',
-            element: (
-              <Suspense fallback={<GuiSkeleton />}>
-                <FlightBooker />
-              </Suspense>
-            ),
+            HydrateFallback: GuiSkeleton,
+            Component: FlightBooker,
             errorElement: <ErrorPage />,
           },
           {
             path: 'timer',
-            element: (
-              <Suspense fallback={<GuiSkeleton />}>
-                <Timer />
-              </Suspense>
-            ),
+            HydrateFallback: GuiSkeleton,
+            Component: Timer,
             errorElement: <ErrorPage />,
           },
           {
             path: 'crud',
-            element: (
-              <Suspense fallback={<GuiSkeleton />}>
-                <CRUD />
-              </Suspense>
-            ),
+            HydrateFallback: GuiSkeleton,
+            Component: CRUD,
             errorElement: <ErrorPage />,
           },
           {
             path: 'circle-drawer',
-            element: (
-              <Suspense fallback={<GuiSkeleton />}>
-                <CircleDrawer />
-              </Suspense>
-            ),
+            HydrateFallback: GuiSkeleton,
+            Component: CircleDrawer,
             errorElement: <ErrorPage />,
           },
           {
             path: 'cells',
-            element: (
-              <Suspense fallback={<GuiSkeleton />}>
-                <Cells />
-              </Suspense>
-            ),
+            HydrateFallback: GuiSkeleton,
+            Component: Cells,
             errorElement: <ErrorPage />,
           },
         ],
