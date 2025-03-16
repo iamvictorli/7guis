@@ -231,7 +231,7 @@ importers:
       react-remove-scroll:
         specifier: ^2.6.3
         version: 2.6.3(@types/react@18.3.18)(react@18.3.1)
-      react-router-dom:
+      react-router:
         specifier: ^7.3.0
         version: 7.3.0(react-dom@18.3.1)(react@18.3.1)
       react-stately:
@@ -2372,7 +2372,7 @@ packages:
 
   /@expo/bunyan@4.0.1:
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {'0': node >=0.10.0}
+    engines: {node: '>=0.10.0'}
     dependencies:
       uuid: 8.3.2
 
@@ -14116,18 +14116,6 @@ packages:
       tslib: 2.8.1
       use-callback-ref: 1.3.3(@types/react@18.3.18)(react@18.3.1)
       use-sidecar: 1.1.3(@types/react@18.3.18)(react@18.3.1)
-    dev: false
-
-  /react-router-dom@7.3.0(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-z7Q5FTiHGgQfEurX/FBinkOXhWREJIAB2RiU24lvcBa82PxUpwqvs/PAXb9lJyPjTs2jrl6UkLvCZVGJPeNuuQ==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-router: 7.3.0(react-dom@18.3.1)(react@18.3.1)
     dev: false
 
   /react-router@7.3.0(react-dom@18.3.1)(react@18.3.1):

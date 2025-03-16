@@ -2,7 +2,7 @@ import { Theme } from '@radix-ui/themes'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import { GuiSkeleton, IndexSkeleton } from '~/components/Skeleton'
 

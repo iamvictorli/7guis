@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Text } from '@radix-ui/themes'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 
 import { cn } from '~/lib/utils'
 

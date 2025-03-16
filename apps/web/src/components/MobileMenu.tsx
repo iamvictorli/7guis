@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot'
 import { Box, Portal, Theme } from '@radix-ui/themes'
 import React, { useEffect, useState } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 
 import {
   MenuProvider,

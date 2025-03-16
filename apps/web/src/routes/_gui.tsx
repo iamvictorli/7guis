@@ -1,5 +1,5 @@
 import { Box, Flex, ScrollArea, Section } from '@radix-ui/themes'
-import { Outlet, ScrollRestoration } from 'react-router-dom'
+import { Outlet, ScrollRestoration } from 'react-router'
 
 import Header from '~/components/Header'
 import MobileMenu from '~/components/MobileMenu'
