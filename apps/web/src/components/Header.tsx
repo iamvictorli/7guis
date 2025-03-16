@@ -61,7 +61,7 @@ export default function Header() {
               color="gray"
               highContrast
             >
-              <RRDLink to="/">7GUIs</RRDLink>
+              <RRDLink to="../">7GUIs</RRDLink>
             </Link>
           </Flex>
 
@@ -94,16 +94,17 @@ export default function Header() {
             </Tooltip>
 
             <Tooltip content="Navigation">
-              <IconButton
-                size="3"
-                variant="ghost"
-                color="gray"
-                onClick={() => setOpen(open => !open)}
-                className="lg:hidden"
-                aria-label="Navigation"
-              >
-                <HamburgerMenuIcon width="16" height="16" />
-              </IconButton>
+              <Box display={{ md: 'none' }} asChild>
+                <IconButton
+                  size="3"
+                  variant="ghost"
+                  color="gray"
+                  onClick={() => setOpen(open => !open)}
+                  aria-label="Navigation"
+                >
+                  <HamburgerMenuIcon width="16" height="16" />
+                </IconButton>
+              </Box>
             </Tooltip>
           </Flex>
         </Box>
