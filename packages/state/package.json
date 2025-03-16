@@ -40,8 +40,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@internationalized/date": "^3.5.5",
-    "@reduxjs/toolkit": "^2.2.7"
+    "@internationalized/date": "^3.7.0",
+    "@reduxjs/toolkit": "^2.6.1"
   },
   "devDependencies": {
     "@7gui/typescript-config": "workspace:*",
