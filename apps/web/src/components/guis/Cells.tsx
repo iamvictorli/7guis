@@ -230,7 +230,7 @@ const SpreadsheetCell = memo(
               <CellInput
                 id={`input-${cell.id}`}
                 type="text"
-                className="size-full focus:outline-none"
+                className="focus:outline-hidden size-full"
                 value={inputValue}
                 onChange={e => handleChange(e)}
                 onBlur={() => {

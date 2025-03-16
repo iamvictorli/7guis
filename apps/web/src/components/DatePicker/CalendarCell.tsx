@@ -83,7 +83,7 @@ export function CalendarCell({
         ref={ref}
         hidden={isOutsideVisibleRange}
         className={cn(
-          'group h-10 w-10 outline-none',
+          'group h-10 w-10 outline-hidden',
           isRoundedLeft && 'rounded-l-[var(--radius-thumb)]',
           isRoundedRight && 'rounded-r-[var(--radius-thumb)]',
           isSelected

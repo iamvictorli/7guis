@@ -41,7 +41,7 @@ export default function Nav({ routes }: NavProps) {
               to={page.slug}
               className={({ isActive }) => {
                 return cn(
-                  'flex min-h-8 select-none items-center rounded-[var(--radius-thumb)] px-3 py-2 text-[var(--gray-12)] no-underline [transition:background-color_50ms_linear] hover:bg-[var(--accent-a4)] focus:outline-none focus-visible:[box-shadow:inset_0_0_0_1px_var(--accent-8),_0_0_0_1px_var(--accent-8)]',
+                  'flex min-h-8 select-none items-center rounded-[var(--radius-thumb)] px-3 py-2 text-[var(--gray-12)] no-underline [transition:background-color_50ms_linear] hover:bg-[var(--accent-a4)] focus:outline-hidden focus-visible:[box-shadow:inset_0_0_0_1px_var(--accent-8),_0_0_0_1px_var(--accent-8)]',
                   isActive
                     ? 'bg-[var(--accent-a5)] hover:bg-[var(--accent-a5)]'
                     : '',

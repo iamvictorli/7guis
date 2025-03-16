@@ -30,7 +30,8 @@ export default function Index() {
             <Flex
               align="center"
               gap={{ initial: '2', sm: '3' }}
-              className="border-y border-solid px-1 py-2"
+              // eslint-disable-next-line tailwindcss/no-unnecessary-arbitrary-value
+              className="border-y border-[#e5e7eb] px-1 py-2"
             >
               <Tooltip content="View Github">
                 <Link
