@@ -3,17 +3,23 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "rootDir": "src",
+    "baseUrl": ".",
+    "rootDirs": [".", "./.react-router/types"],
     "module": "ESNext",
     "moduleResolution": "bundler",
 
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./app/*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
     "noEmit": true,
     "outDir": "dist"
   },
-  "include": ["src"],
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    "**/.client/**/*",
+    ".react-router/types/**/*"
+  ],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { renderWithProviders } from '~/test-utils'
+import { renderWithProviders } from '~/lib/test-utils'
 
 import CircleDrawer from './CircleDrawer'
 

@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import { expect, it } from 'vitest'
 
-import { renderWithProviders } from '~/test-utils'
+import { renderWithProviders } from '~/lib/test-utils'
 
 import Counter from './Counter'
 

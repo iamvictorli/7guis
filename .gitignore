@@ -91,3 +91,6 @@ xcuserdata
 
 # VSCode
 .history/
+
+.vercel
+.react-router
