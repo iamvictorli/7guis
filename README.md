@@ -111,3 +111,9 @@ pnpm test
 5. **Extend & Scale**
    - Adding more tasks or deeper functionalities is straightforward—add or extend Redux slices, then surface them in the UI.
    - The domain logic remains consistent, tested, and platform-agnostic.
+
+---
+
+## Further Reading
+
+For lessons learned while building these 7GUIs, check out [**my blog article**](https://iamvictorli.com/blog/7guis). It covers architectural decisions, detailed code insights, and more.
