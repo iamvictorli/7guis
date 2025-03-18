@@ -55,12 +55,24 @@ const initialState: CircleDrawerState = {
     selectedCircleId: '',
     selectedCircleRadius: 0,
   },
-} satisfies CircleDrawerState as CircleDrawerState
+}
 
+/**
+ * Circle Drawer slice for managing an interactive circle drawer.
+ *
+ * Features:
+ * - Users can add circles by clicking on the canvas.
+ * - Clicking a circle selects it, enabling diameter adjustments.
+ * - Supports undo/redo functionality using an action stack.
+ */
 const circleDrawerSlice = createSlice({
   name: 'circles-drawer',
   initialState,
   reducers: {
+    /**
+     * Adds a new circle at the specified location.
+     * Clears the redo stack to prevent conflicts.
+     */
     circleAdded: {
       reducer: (state, action: PayloadAction<Circle>) => {
         const newCircle = action.payload
@@ -83,6 +95,11 @@ const circleDrawerSlice = createSlice({
         }
       },
     },
+
+    /**
+     * Updates a circle's size or position.
+     * Previous state is stored for undo functionality.
+     */
     circleUpdated: (state, action: PayloadAction<Circle>) => {
       const circle = action.payload
       const { x: newX, y: newY, radius: newRadius } = circle
@@ -108,6 +125,10 @@ const circleDrawerSlice = createSlice({
       // clear redos
       state.redos = []
     },
+
+    /**
+     * Reverts the last action using an undo stack.
+     */
     undo: (state) => {
       if (state.undos.length > 0) {
         // pop and do that action
@@ -165,6 +186,10 @@ const circleDrawerSlice = createSlice({
         state.ui.selectedCircleId = ''
       }
     },
+
+    /**
+     * Re-applies the last undone action using a redo stack.
+     */
     redo: (state) => {
       if (state.redos.length > 0) {
         // pop and do that action

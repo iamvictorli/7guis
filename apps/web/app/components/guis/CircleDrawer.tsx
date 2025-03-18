@@ -18,6 +18,10 @@ import {
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
 
+/**
+ * Circle Component renders an SVG circle with interactive popover controls to adjust its radius.
+ * The circle appearance changes when selected.
+ */
 const Circle = memo(
   ({
     id,
@@ -32,6 +36,7 @@ const Circle = memo(
     const dispatch = useAppDispatch()
     if (!circle)
       return null
+
     return (
       <Popover.Root>
         <Popover.Trigger>
@@ -55,12 +60,8 @@ const Circle = memo(
           side="right"
           align="end"
           onClick={event => event.stopPropagation()}
-          onEscapeKeyDown={() => {
-            dispatch(deselect())
-          }}
-          onPointerDownOutside={() => {
-            dispatch(deselect())
-          }}
+          onEscapeKeyDown={() => dispatch(deselect())}
+          onPointerDownOutside={() => dispatch(deselect())}
         >
           <Slider
             value={[selectedCircleRadius]}
@@ -90,26 +91,21 @@ const Circle = memo(
   },
   (prevProps, nextProps) => {
     // only rerender selected/deselected circle
-    if (prevProps.isSelected !== nextProps.isSelected) {
+    if (prevProps.isSelected !== nextProps.isSelected)
       return false
-    }
-
     // changing radius slider only rerenders the selected circle
-    if (
-      prevProps.isSelected
-      && nextProps.isSelected
-      && prevProps.selectedCircleRadius !== nextProps.selectedCircleRadius
-    ) {
+    if (prevProps.isSelected && nextProps.isSelected && prevProps.selectedCircleRadius !== nextProps.selectedCircleRadius)
       return false
-    }
-
     return true
   },
 )
 
+/**
+ * CircleDrawer Component handles drawing circles on an SVG canvas. Supports interactive creation, selection,
+ * undo, and redo functionalities.
+ */
 export default function CircleDrawer() {
   const dispatch = useAppDispatch()
-
   const undoDisabled = useAppSelector(selectUndoDisabled)
   const redoDisabled = useAppSelector(selectRedoDisabled)
   const circleIds = useAppSelector(selectCircleIds)
@@ -118,20 +114,10 @@ export default function CircleDrawer() {
   return (
     <>
       <Flex gap="3" justify="center">
-        <Button
-          onClick={() => {
-            dispatch(undo())
-          }}
-          disabled={undoDisabled}
-        >
+        <Button onClick={() => dispatch(undo())} disabled={undoDisabled}>
           Undo
         </Button>
-        <Button
-          onClick={() => {
-            dispatch(redo())
-          }}
-          disabled={redoDisabled}
-        >
+        <Button onClick={() => dispatch(redo())} disabled={redoDisabled}>
           Redo
         </Button>
       </Flex>

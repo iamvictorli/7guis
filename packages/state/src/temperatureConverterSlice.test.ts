@@ -8,7 +8,7 @@ import {
   temperatureChanged,
 } from './temperatureConverterSlice'
 
-it('should update fahrenheit when celcius is changed', () => {
+it('should update fahrenheit when celsius is changed', () => {
   let state = initialState
   expect(selectTemperatures({ [name]: state })).toEqual({
     ...initialState,
@@ -16,42 +16,42 @@ it('should update fahrenheit when celcius is changed', () => {
 
   state = reducer(
     state,
-    temperatureChanged({ temperatureType: 'celcius', value: '10' }),
+    temperatureChanged({ temperatureType: 'celsius', value: '10' }),
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
-    celcius: '10',
+    celsius: '10',
     fahrenheit: '50',
   })
 
   state = reducer(
     state,
-    temperatureChanged({ temperatureType: 'celcius', value: '25' }),
+    temperatureChanged({ temperatureType: 'celsius', value: '25' }),
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
-    celcius: '25',
+    celsius: '25',
     fahrenheit: '77',
   })
 
   state = reducer(
     state,
-    temperatureChanged({ temperatureType: 'celcius', value: '0' }),
+    temperatureChanged({ temperatureType: 'celsius', value: '0' }),
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
-    celcius: '0',
+    celsius: '0',
     fahrenheit: '32',
   })
 
   state = reducer(
     state,
-    temperatureChanged({ temperatureType: 'celcius', value: '' }),
+    temperatureChanged({ temperatureType: 'celsius', value: '' }),
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
-    celcius: '',
+    celsius: '',
     fahrenheit: '',
   })
 })
 
-it('should update celcius when fahrenheit is changed', () => {
+it('should update celsius when fahrenheit is changed', () => {
   let state = initialState
   expect(selectTemperatures({ [name]: state })).toEqual({
     ...initialState,
@@ -63,7 +63,7 @@ it('should update celcius when fahrenheit is changed', () => {
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
     fahrenheit: '68',
-    celcius: '20',
+    celsius: '20',
   })
 
   state = reducer(
@@ -72,7 +72,7 @@ it('should update celcius when fahrenheit is changed', () => {
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
     fahrenheit: '95',
-    celcius: '35',
+    celsius: '35',
   })
 
   state = reducer(
@@ -81,7 +81,7 @@ it('should update celcius when fahrenheit is changed', () => {
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
     fahrenheit: '50',
-    celcius: '10',
+    celsius: '10',
   })
 
   state = reducer(
@@ -90,6 +90,6 @@ it('should update celcius when fahrenheit is changed', () => {
   )
   expect(selectTemperatures({ [name]: state })).toEqual({
     fahrenheit: '',
-    celcius: '',
+    celsius: '',
   })
 })

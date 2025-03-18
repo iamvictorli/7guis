@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '~/store'
 
 export default function TemperatureConverter() {
   const dispatch = useAppDispatch()
-  const { celcius, fahrenheit } = useAppSelector(selectTemperatures)
+  const { celsius, fahrenheit } = useAppSelector(selectTemperatures)
   return (
     <Flex gap={{ initial: '2', sm: '3' }} align="center">
       <Flex
@@ -18,22 +18,22 @@ export default function TemperatureConverter() {
         gap={{ initial: '1', sm: '3' }}
       >
         <TextField.Root
-          id="celcius"
+          id="celsius"
           size={{ initial: '2', sm: '3' }}
           placeholder="°C"
-          value={celcius}
+          value={celsius}
           type="number"
           onChange={(event) => {
             dispatch(
               temperatureChanged({
-                temperatureType: 'celcius',
+                temperatureType: 'celsius',
                 value: event.currentTarget.value,
               }),
             )
           }}
         />
-        <Label htmlFor="celcius">
-          <Text size={{ initial: '5', sm: '6' }}>Celcius</Text>
+        <Label htmlFor="celsius">
+          <Text size={{ initial: '5', sm: '6' }}>Celsius</Text>
         </Label>
       </Flex>
 

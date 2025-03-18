@@ -18,6 +18,9 @@ import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
 import { cn } from '~/lib/utils'
 import { useAppDispatch, useAppSelector } from '~/store'
 
+/**
+ * CellInput component that automatically focuses when rendered.
+ */
 function CellInput(props: InputHTMLAttributes<HTMLInputElement>) {
   const inputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
@@ -25,11 +28,12 @@ function CellInput(props: InputHTMLAttributes<HTMLInputElement>) {
       inputRef.current.focus()
     }
   }, [])
-  return (
-    <input {...props} ref={inputRef} />
-  )
+  return <input {...props} ref={inputRef} />
 }
 
+/**
+ * Row header with styling indicating focus.
+ */
 const RowHeader = memo(({
   isFocusedRow,
   row,
@@ -48,6 +52,9 @@ const RowHeader = memo(({
   )
 })
 
+/**
+ * Column Header with styles indicating focus.
+ */
 const ColHeader = memo(({
   isFocusedCol,
   columnLabel,
@@ -66,6 +73,11 @@ const ColHeader = memo(({
   )
 })
 
+/**
+ * SpreadsheetCell Component
+ *
+ * Manages focus, edit mode, and keyboard navigation for a single spreadsheet cell.
+ */
 const SpreadsheetCell = memo(
   ({
     cell,
@@ -82,9 +94,9 @@ const SpreadsheetCell = memo(
   }: CellProps<Cell> & { tabIndex?: number }) => {
     const [inputValue, setInputValue] = useState('')
     const [isEditing, setIsEditing] = useState(false)
-
     const ref = useRef<HTMLDivElement | null>(null)
 
+    // Focus the cell if it is focused and not in edit mode.
     useEffect(() => {
       if (isFocused && ref.current && !isEditing) {
         ref.current.focus()
@@ -97,29 +109,27 @@ const SpreadsheetCell = memo(
       }
     }
 
-    // Function to exit edit mode
     function exitEditMode() {
-      setIsEditing(false) // Exit edit mode
+      setIsEditing(false)
     }
 
-    // Function to enter edit mode
     function enterEditMode() {
-      setIsEditing(true) // Set the cell in edit mode
+      setIsEditing(true)
     }
 
-    // Function to cancel editing
     function cancelEditMode() {
       if (isEditing) {
         setIsEditing(false)
       }
     }
 
-    // Function to handle input changes
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       setInputValue(e.target.value)
     }
 
-    // Function to handle keyboard navigation and interactions
+    /**
+     * Handles keyboard interactions for cell navigation and editing.
+     */
     function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
       if (e.key === 'Enter' || e.key === 'F2') {
         if (isEditing) {
@@ -138,69 +148,45 @@ const SpreadsheetCell = memo(
         }
       }
       else if (e.key === 'Escape') {
-        // Cancel edit mode
         cancelEditMode()
       }
-      else if (e.key === 'ArrowRight') {
-        // on edit mode, doesn't do anything
-        if (isEditing)
-          return
-
+      else if (e.key === 'ArrowRight' && !isEditing && col + 1 < columnLength) {
         // Move focus right
-        if (col + 1 < columnLength) {
-          focusCell(row, col + 1)
-        }
+        focusCell(row, col + 1)
       }
-      else if (e.key === 'ArrowLeft') {
-        // on edit mode, doesn't do anything
-        if (isEditing)
-          return
+      else if (e.key === 'ArrowLeft' && !isEditing && col - 1 >= 0) {
         // Move focus left
-        if (col - 1 >= 0) {
-          focusCell(row, col - 1)
-        }
+        focusCell(row, col - 1)
       }
-      else if (e.key === 'ArrowDown') {
-        // on edit mode, doesn't do anything
-        if (isEditing)
-          return
+      else if (e.key === 'ArrowDown' && !isEditing && row + 1 < dataLength) {
         // Move focus down
-        if (row + 1 < dataLength) {
-          focusCell(row + 1, col)
-        }
+        focusCell(row + 1, col)
       }
-      else if (e.key === 'ArrowUp') {
-        // on edit mode, doesn't do anything
-        if (isEditing)
-          return
+      else if (e.key === 'ArrowUp' && !isEditing && row - 1 >= 0) {
         // Move focus up
-        if (row - 1 >= 0) {
-          focusCell(row - 1, col)
-        }
+        focusCell(row - 1, col)
       }
-      else if (e.key === 'Tab') {
-        if (isEditing) {
-          e.preventDefault() // Prevent default tab behavior
-          exitEditMode()
-          cellChange()
-          // Move focus to next or previous cell
-          let nextRow = row
-          let nextCol = col + (e.shiftKey ? -1 : 1)
+      else if (e.key === 'Tab' && isEditing) {
+        e.preventDefault()
+        exitEditMode()
+        cellChange()
+        // Move focus to next or previous cell
+        let nextRow = row
+        let nextCol = col + (e.shiftKey ? -1 : 1)
 
-          // Handle wrapping to next/previous row
-          if (nextCol >= columnLength) {
-            nextCol = 0
-            nextRow = row + 1
-          }
-          else if (nextCol < 0) {
-            nextCol = columnLength - 1
-            nextRow = row - 1
-          }
+        // Handle wrapping to next/previous row
+        if (nextCol >= columnLength) {
+          nextCol = 0
+          nextRow = row + 1
+        }
+        else if (nextCol < 0) {
+          nextCol = columnLength - 1
+          nextRow = row - 1
+        }
 
-          // Check bounds and update focusedCell
-          if (nextRow >= 0 && nextRow < dataLength) {
-            focusCell(nextRow, nextCol)
-          }
+        // Check bounds and update focusedCell
+        if (nextRow >= 0 && nextRow < dataLength) {
+          focusCell(nextRow, nextCol)
         }
       }
     }
@@ -212,18 +198,13 @@ const SpreadsheetCell = memo(
         tabIndex={tabIndex}
         ref={ref}
         className={cn(
-          'flex h-8 w-16 items-center justify-center border focus:outline focus:outline-1 focus:outline-[var(--focus-10)]',
+          'flex h-8 w-16 items-center justify-center border focus:outline-1 focus:outline-[var(--focus-10)]',
           isFocused ? 'border-[var(--accent-a9)]' : 'border-[var(--gray-a6)]',
         )}
-        onFocus={() => focusCurrentCell()}
-        onKeyDown={e => handleKeyDown(e)}
-        onClick={() => {
-          focusCurrentCell()
-        }}
-        onDoubleClick={() => {
-          focusCurrentCell()
-          enterEditMode()
-        }}
+        onFocus={focusCurrentCell}
+        onKeyDown={handleKeyDown}
+        onClick={focusCurrentCell}
+        onDoubleClick={enterEditMode}
       >
         {isEditing
           ? (
@@ -232,7 +213,7 @@ const SpreadsheetCell = memo(
                 type="text"
                 className="focus:outline-hidden size-full"
                 value={inputValue}
-                onChange={e => handleChange(e)}
+                onChange={handleChange}
                 onBlur={() => {
                   cellChange()
                   exitEditMode()
@@ -247,14 +228,12 @@ const SpreadsheetCell = memo(
   },
   (prevProps, nextProps) => {
     // Re-render if isFocused changes
-    if (prevProps.isFocused !== nextProps.isFocused) {
+    if (prevProps.isFocused !== nextProps.isFocused)
       return false
-    }
 
     // Re-render if the cells computedValue has changed
-    if (prevProps.cell.computedValue !== nextProps.cell.computedValue) {
+    if (prevProps.cell.computedValue !== nextProps.cell.computedValue)
       return false
-    }
 
     // Otherwise, do not re-render
     return true
@@ -279,51 +258,25 @@ export default function Cells() {
         )
       }}
       label="Spreadsheet"
-      renderGridContainer={(gridProps) => {
-        return (
-          <div
-            {...gridProps}
-            className="inline-block rounded-[var(--radius-1)] border border-solid border-[var(--gray-a6)]"
-          />
-        )
-      }}
-      renderTopRowContainer={(topRowProps) => {
-        return <div {...topRowProps} className="flex" />
-      }}
-      renderTopLeftCorner={(cornerProps) => {
-        return (
-          <div
-            {...cornerProps}
-            className="h-8 w-16 border border-[var(--gray-a6)] bg-[var(--gray-a2)]"
-          />
-        )
-      }}
-      renderColHeader={({ columnIndex, ...colHeaderProps }) => {
-        return <ColHeader {...colHeaderProps} key={columnIndex} />
-      }}
-      renderRowsContainer={({ rowIndex, ...rowsContainerProps }) => {
-        return <div {...rowsContainerProps} className="flex" key={rowIndex} />
-      }}
-      renderRowHeader={(rowHeaderProps) => {
-        return <RowHeader {...rowHeaderProps} />
-      }}
+      renderGridContainer={gridProps => (
+        <div {...gridProps} className="inline-block rounded-[var(--radius-1)] border border-solid border-[var(--gray-a6)]" />
+      )}
+      renderTopRowContainer={topRowProps => <div {...topRowProps} className="flex" />}
+      renderTopLeftCorner={cornerProps => (
+        <div {...cornerProps} className="h-8 w-16 border border-[var(--gray-a6)] bg-[var(--gray-a2)]" />
+      )}
+      renderColHeader={({ columnIndex, ...colHeaderProps }) => <ColHeader {...colHeaderProps} key={columnIndex} />}
+      renderRowsContainer={({ rowIndex, ...rowsContainerProps }) => <div {...rowsContainerProps} className="flex" key={rowIndex} />}
+      renderRowHeader={rowHeaderProps => <RowHeader {...rowHeaderProps} />}
       renderCell={(cellProps) => {
-        const { isFocused, hasSpreadsheetBeenFocused, row, col } = cellProps
+        const { isFocused, row, col, hasSpreadsheetBeenFocused } = cellProps
         // if spreadsheet hasnt been focused yet, make the first cell tabIndex of 0
         // else set current focused cell tabIndex of 0
         const tabIndex = hasSpreadsheetBeenFocused
-          ? isFocused
-            ? 0
-            : -1
-          : row === 0 && col === 0
-            ? 0
-            : -1
+          ? isFocused ? 0 : -1
+          : row === 0 && col === 0 ? 0 : -1
         return (
-          <SpreadsheetCell
-            {...cellProps}
-            key={cellProps.cell.id}
-            tabIndex={tabIndex}
-          />
+          <SpreadsheetCell {...cellProps} key={cellProps.cell.id} tabIndex={tabIndex} />
         )
       }}
     />

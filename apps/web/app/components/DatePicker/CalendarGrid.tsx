@@ -5,6 +5,10 @@ import { useCalendarGrid, useLocale } from 'react-aria'
 
 import { CalendarCell } from './CalendarCell'
 
+/**
+ * CalendarGrid component renders the calendar's grid, displaying weeks and individual day cells.
+ * It dynamically calculates the number of weeks in the current month.
+ */
 export function CalendarGrid({
   state,
   ...props
@@ -14,7 +18,7 @@ export function CalendarGrid({
   const { locale } = useLocale()
   const { gridProps, headerProps, weekDays } = useCalendarGrid(props, state)
 
-  // Get the number of weeks in the month so we can render the proper number of rows.
+  // Calculate the number of weeks in the month for proper grid rendering.
   const weeksInMonth = getWeeksInMonth(state.visibleRange.start, locale)
 
   return (

@@ -12,6 +12,13 @@ import {
 
 import { cn } from '~/lib/utils'
 
+/**
+ * Renders an individual cell within a calendar grid.
+ *
+ * This component leverages React Aria hooks to manage accessibility, focus,
+ * and interaction. It handles both single-date and range calendar states.
+ *
+ */
 export function CalendarCell({
   state,
   date,
@@ -20,6 +27,8 @@ export function CalendarCell({
   date: CalendarDate
 }) {
   const ref = useRef(null)
+
+  // Obtain accessibility and interaction props for the cell
   const {
     cellProps,
     buttonProps,
@@ -30,47 +39,36 @@ export function CalendarCell({
     isInvalid,
   } = useCalendarCell({ date }, state, ref)
 
+  // Determine if this cell represents the start or end of a range selection.
   let isSelectionStart = isSelected
   let isSelectionEnd = isSelected
 
-  // The start and end date of the selected range will have
-  // an emphasized appearance.
+  // If the calendar supports range selection, update start/end flags.
   if ('highlightedRange' in state) {
     if (state.highlightedRange === null) {
       isSelectionStart = false
       isSelectionEnd = false
     }
     else {
-      if (state.highlightedRange.start === null) {
-        isSelectionStart = false
-      }
-      else {
-        isSelectionStart = isSameDay(date, state.highlightedRange.start)
-      }
-
-      if (state.highlightedRange.end === null) {
-        isSelectionEnd = false
-      }
-      else {
-        isSelectionEnd = isSameDay(date, state.highlightedRange.end)
-      }
+      isSelectionStart = state.highlightedRange.start
+        ? isSameDay(date, state.highlightedRange.start)
+        : false
+      isSelectionEnd = state.highlightedRange.end
+        ? isSameDay(date, state.highlightedRange.end)
+        : false
     }
   }
 
-  // We add rounded corners on the left for the first day of the month,
-  // the first day of each week, and the start date of the selection.
-  // We add rounded corners on the right for the last day of the month,
-  // the last day of each week, and the end date of the selection.
+  // Compute rounded corners based on position within the month and selection boundaries.
   const { locale } = useLocale()
   const dayOfWeek = getDayOfWeek(date, locale)
   const isRoundedLeft
     = isSelected && (isSelectionStart || dayOfWeek === 0 || date.day === 1)
   const isRoundedRight
     = isSelected
-      && (isSelectionEnd
-        || dayOfWeek === 6
-        || date.day === date.calendar.getDaysInMonth(date))
+      && (isSelectionEnd || dayOfWeek === 6 || date.day === date.calendar.getDaysInMonth(date))
 
+  // Manage focus styling using React Aria's useFocusRing hook.
   const { focusProps, isFocusVisible } = useFocusRing()
 
   return (
@@ -104,9 +102,7 @@ export function CalendarCell({
             isSelected
             && !isDisabled
             && !(isSelectionStart || isSelectionEnd)
-            && (isInvalid
-              ? 'hover:bg-[var(--red-5)]'
-              : 'hover:bg-[var(--accent-5)]'),
+            && (isInvalid ? 'hover:bg-[var(--red-5)]' : 'hover:bg-[var(--accent-5)]'),
             !isSelected && !isDisabled && 'hover:bg-[var(--accent-4)]',
           )}
         >

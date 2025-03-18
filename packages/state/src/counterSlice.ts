@@ -8,12 +8,22 @@ interface CounterState {
 
 export const initialState: CounterState = {
   count: 0,
-} satisfies CounterState as CounterState
+}
 
+/**
+ * Counter slice.
+ *
+ * Provides actions and reducers for managing a numeric counter.
+ * Actions:
+ * - increment: Increase the counter by a specified value.
+ */
 const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    /**
+     * Increment the counter by an amount
+     */
     increment: (state, action: PayloadAction<number>) => {
       const incrementBy = action.payload
       state.count += incrementBy

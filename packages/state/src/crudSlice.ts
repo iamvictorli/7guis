@@ -31,13 +31,25 @@ const initialState: CRUDState = {
     searchInput: '',
     nameSelectedId: '',
   },
-} satisfies CRUDState as CRUDState
+}
 
+/**
+ * CRUD slice for managing a simple CRUD interface.
+ *
+ * Features:
+ * - Supports adding, updating, and deleting name records.
+ * - Implements real-time search filtering.
+ * - Maintains UI state for selected and input values.
+ */
 const crudSlice = createSlice({
   name: 'crud',
   initialState,
   reducers: {
     nameCreated: {
+      /**
+       * Adds a new name record.
+       * Updates the selected record if it matches the search criteria.
+       */
       reducer: (state, action: PayloadAction<Name>) => {
         const nameRecord = action.payload
         state.nameRecords.byId[nameRecord.id] = nameRecord
@@ -83,6 +95,11 @@ const crudSlice = createSlice({
         }
       },
     },
+
+    /**
+     * Updates an existing name record.
+     * If the updated record no longer matches the search input, another record is selected.
+     */
     nameUpdated: (state, action: PayloadAction<Name>) => {
       const name = action.payload
       if (state.nameRecords.byId[name.id]) {
@@ -128,6 +145,10 @@ const crudSlice = createSlice({
         state.ui.surnameInput = ''
       }
     },
+
+    /**
+     * Deletes a selected name record and updates the selection.
+     */
     nameDeleted: (state, action: PayloadAction<string>) => {
       const idToDelete = action.payload
       delete state.nameRecords.byId[idToDelete]

@@ -36,39 +36,43 @@ export enum FlightTrip {
 }
 
 interface FlightBookerState {
+  trip: FlightTrip
   departureDate: string | null // will be in YYYY-MM-DD format
   returnDate: string | null
-  trip: FlightTrip
 }
 
 const initialState: FlightBookerState = {
+  trip: FlightTrip.OneWay,
   departureDate: null,
   returnDate: null,
-  trip: FlightTrip.OneWay,
-} satisfies FlightBookerState as FlightBookerState
+}
 
+/**
+ * FlightBooker slice.
+ *
+ * Manages the flight booking state, including the selected flight type and dates.
+ * Actions:
+ * - flightTypeChanged: Update the flight type.
+ * - dateChanged: Update the departure and/or return dates.
+ */
 const flightBookerSlice = createSlice({
   name: 'flight-booker',
   initialState,
   reducers: {
+    /**
+     * Change the flight type.
+     */
     flightTypeChanged: (state, action: PayloadAction<FlightTrip>) => {
       state.trip = action.payload
-      // reset return date
-      if (action.payload === FlightTrip.OneWay) {
-        state.returnDate = null
-      }
     },
-    dateChanged: (
-      state,
-      action: PayloadAction<{
-        departureDate: string
-        returnDate?: string
-      }>,
-    ) => {
-      const { departureDate, returnDate } = action.payload
-      state.departureDate = departureDate
-      if (returnDate) {
-        state.returnDate = returnDate
+
+    /**
+     * Change the flight dates.
+     */
+    dateChanged: (state, action: PayloadAction<{ departureDate: string, returnDate?: string }>) => {
+      state.departureDate = action.payload.departureDate
+      if (action.payload.returnDate) {
+        state.returnDate = action.payload.returnDate
       }
     },
   },

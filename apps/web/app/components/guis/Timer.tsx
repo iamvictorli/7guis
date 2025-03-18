@@ -13,48 +13,55 @@ import {
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
 
+/**
+ * A timer that displays elapsed time with a progress bar.
+ * It allows the user to adjust the duration and reset the timer.
+ */
 export default function Timer() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
   const dispatch = useAppDispatch()
   const duration = useAppSelector(selectDuration)
   const elapsedMs = useSelector(selectElapsedMs)
 
+  /**
+   * Starts the timer by setting an interval that updates the current time.
+   */
   const startTimer = useCallback(() => {
     clearInterval(intervalRef.current)
-
     dispatch(nowChanged(new Date().getTime()))
-
     intervalRef.current = setInterval(() => {
       dispatch(nowChanged(new Date().getTime()))
     }, 100)
   }, [dispatch])
 
+  /**
+   * Stops the timer by clearing the interval.
+   */
   function stopTimer() {
     clearInterval(intervalRef.current)
   }
 
+  // Initialize the timer on mount and reset on unmount.
   useEffect(() => {
     dispatch(timerReset())
     startTimer()
-
     return () => {
       stopTimer()
     }
   }, [dispatch, startTimer])
 
-  // clear interval after a min
+  // Automatically stop the timer after one minute.
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       stopTimer()
     }, 60 * 1000)
-
     return () => {
       clearTimeout(timeoutId)
     }
   }, [])
 
   const seconds = Math.floor(elapsedMs / 1000)
-  const decisecond = Math.trunc(Math.floor(elapsedMs % 1000) / 100)
+  const decisecond = Math.trunc((elapsedMs % 1000) / 100)
 
   return (
     <Flex direction="column" gap="4" maxWidth="350px">
@@ -65,7 +72,7 @@ export default function Timer() {
           max={duration}
           value={elapsedMs}
           size="3"
-          aria-label="Elapased Time"
+          aria-label="Elapsed Time"
         />
       </Flex>
 

@@ -15,24 +15,26 @@ import {
 import ListBox from '~/components/ListBox/ListBox'
 import { useAppDispatch, useAppSelector } from '~/store'
 
+/**
+ * A form for managing name records including creation, update, deletion,
+ * and filtering via search. Integrates a list box for record selection.
+ */
 export default function Crud() {
   const dispatch = useAppDispatch()
-  const { nameInput, surnameInput, searchInput, nameSelectedId }
-    = useAppSelector(selectUI)
+  const { nameInput, surnameInput, searchInput, nameSelectedId } = useAppSelector(selectUI)
   const filteredNameRecords = useAppSelector(state =>
     selectFilteredNameRecords(state, searchInput),
   )
 
   return (
     <>
+      {/* Search Input */}
       <Label htmlFor="search">Search:</Label>
       <Box height="8px" />
       <TextField.Root
         id="search"
         value={searchInput}
-        onChange={(event) => {
-          dispatch(searchChanged(event.currentTarget.value))
-        }}
+        onChange={event => dispatch(searchChanged(event.currentTarget.value))}
         placeholder="Search"
       />
       <Box height="16px" />
@@ -43,13 +45,12 @@ export default function Crud() {
         align={{ initial: 'stretch', sm: 'center' }}
         className="w-full"
       >
+        {/* List Box for Name Records */}
         <Box className="flex-1">
           <ListBox.Root
             label="Name Records:"
             selectionMode="single"
-            onSelectionChange={(keys) => {
-              dispatch(nameSelected((Array.from(keys)[0] as string) || ''))
-            }}
+            onSelectionChange={keys => dispatch(nameSelected((Array.from(keys)[0] as string) || ''))}
             selectedKeys={[nameSelectedId]}
             items={filteredNameRecords}
             shouldFocusWrap
@@ -61,15 +62,14 @@ export default function Crud() {
           </ListBox.Root>
         </Box>
 
+        {/* Form Inputs for Name and Surname */}
         <Box className="flex-1">
           <Label htmlFor="name">Name:</Label>
           <Box height="8px" />
           <TextField.Root
             id="name"
             value={nameInput}
-            onChange={(event) => {
-              dispatch(nameInputChanged(event.currentTarget.value))
-            }}
+            onChange={event => dispatch(nameInputChanged(event.currentTarget.value))}
             placeholder="Name"
           />
 
@@ -80,9 +80,7 @@ export default function Crud() {
           <TextField.Root
             id="surname"
             value={surnameInput}
-            onChange={(event) => {
-              dispatch(surnameInputChanged(event.currentTarget.value))
-            }}
+            onChange={event => dispatch(surnameInputChanged(event.currentTarget.value))}
             placeholder="Surname"
           />
         </Box>
@@ -90,17 +88,17 @@ export default function Crud() {
 
       <Box height="16px" />
 
+      {/* Action Buttons */}
       <Flex gap="3">
         <Button
           variant="outline"
-          onClick={() => {
+          onClick={() =>
             dispatch(
               nameCreated({
                 name: nameInput,
                 surname: surnameInput,
               }),
-            )
-          }}
+            )}
           // Couldn't override styles with className, so had to use style
           style={{ flex: '1 1 0' }}
         >
@@ -109,15 +107,14 @@ export default function Crud() {
 
         <Button
           variant="outline"
-          onClick={() => {
+          onClick={() =>
             dispatch(
               nameUpdated({
                 id: nameSelectedId,
                 name: nameInput,
                 surname: surnameInput,
               }),
-            )
-          }}
+            )}
           style={{ flex: '1 1 0' }}
           disabled={nameSelectedId === ''}
         >
@@ -126,9 +123,7 @@ export default function Crud() {
 
         <Button
           variant="outline"
-          onClick={() => {
-            dispatch(nameDeleted(nameSelectedId))
-          }}
+          onClick={() => dispatch(nameDeleted(nameSelectedId))}
           style={{ flex: '1 1 0' }}
           disabled={nameSelectedId === ''}
         >

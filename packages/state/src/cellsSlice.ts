@@ -76,10 +76,10 @@ function getInitialState(rows: number, columns: number): CellsState {
 
 const FORMULA_SYMBOL = '='
 
-const initialState = getInitialState(
+const initialState: CellsState = getInitialState(
   ROW_COUNT,
   COLUMN_COUNT,
-) satisfies CellsState
+)
 
 /**
  * Splits a formula string into an array of strings, separating them by operators =, +, -, *, /
@@ -111,10 +111,23 @@ function isFormula(string: string) {
   return Number.isNaN(Number(string))
 }
 
+/**
+ * Cells slice for managing a spreadsheet-like grid with reactive cell updates.
+ *
+ * Features:
+ * - Cells can store static values or formulas.
+ * - Formulas are evaluated dynamically and updates propagate to dependent cells.
+ * - A dependency graph ensures that changes update only affected cells.
+ * - Cyclic dependencies result in an "ERROR" display.
+ */
 const cellsSlice = createSlice({
   name: 'cells',
   initialState,
   reducers: {
+    /**
+     * Updates a cell value or formula.
+     * If the value is a formula, it updates dependencies and recalculates values.
+     */
     cellChanged: (
       state,
       action: PayloadAction<{ id: string, value: string }>,
@@ -210,6 +223,7 @@ const cellsSlice = createSlice({
         })
       }
 
+      // Handle formula parsing and dependency updates
       // if formula, update new parent ids
       // else set computed value
       if (isFormula(newValue)) {
@@ -225,6 +239,8 @@ const cellsSlice = createSlice({
         cell.formula = null
         cell.computedValue = newValue
       }
+
+      // Recalculate the cell and its dependencies
       calcCell(id)
 
       // update children cells that depend on this cell

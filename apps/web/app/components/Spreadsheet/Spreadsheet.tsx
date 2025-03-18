@@ -63,6 +63,63 @@ export interface CellProps<T> {
   }
 }
 
+interface SpreadsheetProps<T> {
+  /**
+   * An array of records representing the spreadsheet cells.
+   *
+   * Keys of the record should be derived from columns string.
+   */
+  data: Record<string, T>[]
+
+  /** Array of column header labels. */
+  columns: string[]
+
+  /** Accessible label for the spreadsheet. */
+  label: string
+
+  /** Callback function when a cell's value changes. */
+  onCellChange: ({
+    rowIndex,
+    colIndex,
+    value,
+  }: {
+    rowIndex: number
+    colIndex: number
+    value: string
+  }) => void
+
+  /** Render prop for grid container */
+  renderGridContainer: (gridProps: GridProps) => React.ReactNode
+
+  /** Render prop for top row container. */
+  renderTopRowContainer: (topRowProps: TopRowProps) => React.ReactNode
+
+  /** Render prop for top left container. */
+  renderTopLeftCorner: (cornerProps: CornerProps) => React.ReactNode
+
+  /** Render prop for column header. */
+  renderColHeader: (colHeaderProps: ColHeaderProps) => React.ReactNode
+
+  /** Render prop for the row container. */
+  renderRowsContainer: (
+    rowsContainerProps: RowsContainerProps,
+  ) => React.ReactNode
+
+  /** Render prop for the row header. */
+  renderRowHeader: (rowHeaderProps: RowHeaderProps) => React.ReactNode
+
+  /** Render props for an individual cell */
+  renderCell: (cellProps: CellProps<T>) => React.ReactNode
+}
+
+/**
+ * Spreadsheet Component
+ *
+ * A customizable and accessible grid component for displaying and editing tabular data.
+ * It delegates the rendering of specific areas (such as headers, cells, and containers)
+ * to custom render functions provided via props.
+ *
+ */
 export default function Spreadsheet<T>({
   data,
   columns,
@@ -75,29 +132,7 @@ export default function Spreadsheet<T>({
   renderRowsContainer,
   renderRowHeader,
   renderCell,
-}: {
-  data: Record<string, T>[]
-  columns: string[]
-  label: string
-  onCellChange: ({
-    rowIndex,
-    colIndex,
-    value,
-  }: {
-    rowIndex: number
-    colIndex: number
-    value: string
-  }) => void
-  renderGridContainer: (gridProps: GridProps) => React.ReactNode
-  renderTopRowContainer: (topRowProps: TopRowProps) => React.ReactNode
-  renderTopLeftCorner: (cornerProps: CornerProps) => React.ReactNode
-  renderColHeader: (colHeaderProps: ColHeaderProps) => React.ReactNode
-  renderRowsContainer: (
-    rowsContainerProps: RowsContainerProps,
-  ) => React.ReactNode
-  renderRowHeader: (rowHeaderProps: RowHeaderProps) => React.ReactNode
-  renderCell: (cellProps: CellProps<T>) => React.ReactNode
-}) {
+}: SpreadsheetProps<T>) {
   // State for the currently focused cell
   const [focusedCell, setFocusedCell] = useState<{
     row: number

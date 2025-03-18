@@ -16,12 +16,9 @@ import { useToast } from '~/hooks/useToast'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 /**
- * Retrieves the range picker value based on the departure and return dates.
+ * Retrieves the range picker value based on departure and return dates.
  */
-function getRangePickerValue(
-  departureDate: string | null,
-  returnDate: string | null,
-) {
+function getRangePickerValue(departureDate: string | null, returnDate: string | null) {
   if (!departureDate)
     return null
   return {
@@ -30,11 +27,13 @@ function getRangePickerValue(
   }
 }
 
+/**
+ * Flight booking form that conditionally displays a one-way or round-trip UI.
+ * It integrates date pickers and toast notifications to provide feedback on booking.
+ */
 export default function FlightBooker() {
   const dispatch = useAppDispatch()
-  const { departureDate, returnDate, trip } = useAppSelector(
-    selectFlightBookerState,
-  )
+  const { departureDate, returnDate, trip } = useAppSelector(selectFlightBookerState)
   const isBookableFlight = useAppSelector(selectIsBookableFlight)
   const { toast } = useToast()
 
@@ -48,9 +47,7 @@ export default function FlightBooker() {
         </Label>
         <Select.Root
           value={trip}
-          onValueChange={(value) => {
-            dispatch(flightTypeChanged(value as FlightTrip))
-          }}
+          onValueChange={value => dispatch(flightTypeChanged(value as FlightTrip))}
         >
           <Select.Trigger id="flight-trip" aria-label="Select Flight Type">
             <Flex as="span" align="center" gap="2">
@@ -60,12 +57,8 @@ export default function FlightBooker() {
           </Select.Trigger>
           <Select.Content position="popper">
             <Select.Group>
-              <Select.Item value={FlightTrip.OneWay}>
-                {FlightTrip.OneWay}
-              </Select.Item>
-              <Select.Item value={FlightTrip.RoundTrip}>
-                {FlightTrip.RoundTrip}
-              </Select.Item>
+              <Select.Item value={FlightTrip.OneWay}>{FlightTrip.OneWay}</Select.Item>
+              <Select.Item value={FlightTrip.RoundTrip}>{FlightTrip.RoundTrip}</Select.Item>
             </Select.Group>
           </Select.Content>
         </Select.Root>
@@ -78,19 +71,15 @@ export default function FlightBooker() {
               minValue={today(getLocalTimeZone())}
               value={departureDate ? parseDate(departureDate) : null}
               onChange={(value) => {
-                dispatch(
-                  dateChanged({
-                    departureDate: value?.toString() || '',
-                  }),
-                )
+                dispatch(dateChanged({ departureDate: value?.toString() || '' }))
               }}
             />
           )
         : (
             <DateRangePicker
-              label="Deparature and Return Dates"
+              label="Departure and Return Dates"
               minValue={today(getLocalTimeZone())}
-              // @ts-expect-error both departure date and return date could be null, and the types expect both to be a DateValue and not null
+              // @ts-expect-error: both departure and return dates could be null.
               value={getRangePickerValue(departureDate, returnDate)}
               onChange={(dateValue) => {
                 if (!dateValue)

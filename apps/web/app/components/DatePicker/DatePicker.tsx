@@ -13,6 +13,10 @@ import { DateField } from './DateField'
 import { Dialog } from './Dialog'
 import { Popover } from './Popover'
 
+/**
+ * DatePicker component combines a segmented date field, a calendar popover for date selection,
+ * and error indicators. It handles user interactions and displays validation feedback.
+ */
 export function DatePicker(props: DatePickerStateOptions<CalendarDate>) {
   const state = useDatePickerState(props)
   const ref = useRef<HTMLDivElement>(null)
@@ -24,9 +28,6 @@ export function DatePicker(props: DatePickerStateOptions<CalendarDate>) {
     dialogProps,
     calendarProps,
   } = useDatePicker(props, state, ref)
-
-  // TODO: replace with radix components
-  // - Div, Span, Popper, Button
 
   const { label } = props
 

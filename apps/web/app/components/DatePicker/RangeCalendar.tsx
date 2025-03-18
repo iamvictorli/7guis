@@ -9,6 +9,10 @@ import { useRangeCalendarState } from 'react-stately'
 import { CalendarButton } from './Button'
 import { CalendarGrid } from './CalendarGrid'
 
+/**
+ * RangeCalendar component renders a calendar that supports range selection.
+ * It provides navigation (previous/next) and highlights the selected start and end dates.
+ */
 export function RangeCalendar(props: RangeCalendarProps<DateValue>) {
   const { locale } = useLocale()
   const state = useRangeCalendarState({
@@ -23,6 +27,7 @@ export function RangeCalendar(props: RangeCalendarProps<DateValue>) {
 
   return (
     <div {...calendarProps} ref={ref} className="inline-block">
+      {/* Header with title and navigation buttons */}
       <div className="flex items-center pb-4">
         <h2 className="ml-2 flex-1 text-xl font-bold">{title}</h2>
         <CalendarButton {...prevButtonProps}>

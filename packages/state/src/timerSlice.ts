@@ -3,27 +3,49 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
 interface TimerState {
+  duration: number
   start: number
   now: number
-  duration: number
 }
 
 const initialState: TimerState = {
+  duration: 15000, // Default duration of 15 seconds.
   start: new Date().getTime(),
   now: new Date().getTime(),
-  duration: 15000,
-} satisfies TimerState as TimerState
+}
 
+/**
+ * Timer slice.
+ *
+ * Manages timer state, including resetting the timer, updating the current time,
+ * and adjusting the duration.
+ * Actions:
+ * - durationChanged: Change the timer duration.
+ * - nowChanged: Updates the current time
+ * - timerReset: Resets the timer state.
+ */
 const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
+
+    /**
+     * Change the timer duration.
+     */
     durationChanged: (state, action: PayloadAction<number>) => {
       state.duration = action.payload
     },
+
+    /**
+     * Updates the current time.
+     */
     nowChanged: (state, action: PayloadAction<number>) => {
       state.now = action.payload
     },
+
+    /**
+     * Reset the timer.
+     */
     timerReset: {
       // using prepare callback to get the current timestamp
       reducer: (state, action: PayloadAction<number>) => {

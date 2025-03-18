@@ -8,6 +8,10 @@ import { useDateFieldState } from 'react-stately'
 
 import { cn } from '~/lib/utils'
 
+/**
+ * DateField component manages date input by splitting it into segments (day, month, year)
+ * and displaying placeholders to avoid layout shift during editing.
+ */
 export function DateField(props: AriaDatePickerProps<DateValue>) {
   const { locale } = useLocale()
   const state = useDateFieldState({
@@ -28,6 +32,12 @@ export function DateField(props: AriaDatePickerProps<DateValue>) {
   )
 }
 
+/**
+ * Renders an individual segment of a date.
+ *
+ * The segment shows the text or placeholder and handles focus and style.
+ *
+ */
 function DateSegment({
   segment,
   state,
@@ -44,7 +54,7 @@ function DateSegment({
       ref={ref}
       style={{
         ...segmentProps.style,
-        // couldnt put this in tailwind classname
+        // Determine the width based on the maximum value length to prevent layout shifts.
         minWidth: segment.maxValue
           ? `${String(segment.maxValue).length}ch`
           : undefined,
@@ -54,7 +64,7 @@ function DateSegment({
         segment.isEditable ? 'text-[var(--gray-12)]' : 'text-[var(--gray-11)]',
       )}
     >
-      {/* Always reserve space for the placeholder, to prevent layout shift when editing. */}
+      {/* Reserve space for placeholder to prevent layout shifts during editing */}
       <span
         aria-hidden="true"
         className="block w-full text-center italic text-[var(--gray-11)] group-focus:text-white"

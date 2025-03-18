@@ -10,17 +10,17 @@ describe('temperatureConverter', () => {
     renderWithProviders(<TemperatureConverter />)
 
     expect(
-      screen.getByLabelText(/celcius/i, { selector: 'input' }),
+      screen.getByLabelText(/celsius/i, { selector: 'input' }),
     ).toHaveValue(null)
     expect(
       screen.getByLabelText(/fahrenheit/i, { selector: 'input' }),
     ).toHaveValue(null)
   })
 
-  it('updates fahrenheit field when number is entered in celcius field', async () => {
+  it('updates fahrenheit field when number is entered in celsius field', async () => {
     const { user } = renderWithProviders(<TemperatureConverter />)
 
-    const celciusInput = screen.getByLabelText(/celcius/i, {
+    const celsiusInput = screen.getByLabelText(/celsius/i, {
       selector: 'input',
     })
 
@@ -28,22 +28,22 @@ describe('temperatureConverter', () => {
       selector: 'input',
     })
 
-    await user.type(celciusInput, '10')
+    await user.type(celsiusInput, '10')
     expect(fahrenheitInput).toHaveValue(50)
 
-    await user.clear(celciusInput)
-    await user.type(celciusInput, '25')
+    await user.clear(celsiusInput)
+    await user.type(celsiusInput, '25')
     expect(fahrenheitInput).toHaveValue(77)
 
-    await user.clear(celciusInput)
-    await user.type(celciusInput, '0')
+    await user.clear(celsiusInput)
+    await user.type(celsiusInput, '0')
     expect(fahrenheitInput).toHaveValue(32)
   })
 
-  it('updates celcius field when number is entered in fahrenheit field', async () => {
+  it('updates celsius field when number is entered in fahrenheit field', async () => {
     const { user } = renderWithProviders(<TemperatureConverter />)
 
-    const celciusInput = screen.getByLabelText(/celcius/i, {
+    const celsiusInput = screen.getByLabelText(/celsius/i, {
       selector: 'input',
     })
 
@@ -52,14 +52,14 @@ describe('temperatureConverter', () => {
     })
 
     await user.type(fahrenheitInput, '68')
-    expect(celciusInput).toHaveValue(20)
+    expect(celsiusInput).toHaveValue(20)
 
     await user.clear(fahrenheitInput)
     await user.type(fahrenheitInput, '95')
-    expect(celciusInput).toHaveValue(35)
+    expect(celsiusInput).toHaveValue(35)
 
     await user.clear(fahrenheitInput)
     await user.type(fahrenheitInput, '50')
-    expect(celciusInput).toHaveValue(10)
+    expect(celsiusInput).toHaveValue(10)
   })
 })
