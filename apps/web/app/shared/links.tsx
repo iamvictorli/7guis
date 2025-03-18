@@ -55,7 +55,7 @@ export const routes = [
     pages: [
       {
         title: 'GitHub',
-        slug: 'https://github.com/iamvictorli/7gui',
+        slug: 'https://github.com/iamvictorli/7guis',
         icon: <GitHubLogoIcon />,
       },
     ],

@@ -11,7 +11,7 @@ import {
   selectFilteredNameRecords,
   selectUI,
   surnameInputChanged,
-} from '@7gui/state/crudSlice'
+} from '@7guis/state/crudSlice'
 import ListBox from '~/components/ListBox/ListBox'
 import { useAppDispatch, useAppSelector } from '~/store'
 

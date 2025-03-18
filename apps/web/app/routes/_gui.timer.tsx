@@ -26,7 +26,7 @@ export default function Timer() {
         <Link
           size="3"
           target="_blank"
-          href="https://github.com/iamvictorli/7gui/blob/main/packages/state/src/timerSlice.ts"
+          href="https://github.com/iamvictorli/7guis/blob/main/packages/state/src/timerSlice.ts"
         >
           View Redux Slice
           <Box asChild className="text-[var(--gray-9)]">

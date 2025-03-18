@@ -2,9 +2,6 @@ import type { LayoutRouteProps } from 'react-router'
 
 import { Theme } from '@radix-ui/themes'
 import { StrictMode } from 'react'
-
-import './index.css'
-
 import {
   isRouteErrorResponse,
   Links,
@@ -17,6 +14,8 @@ import {
 import { IndexSkeleton } from '~/components/Skeleton'
 
 import type { Route } from './+types/root'
+
+import './index.css'
 
 export function Layout({ children }: LayoutRouteProps) {
   return (

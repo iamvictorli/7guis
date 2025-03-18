@@ -34,11 +34,13 @@ export function DateRangePicker(props: DateRangePickerStateOptions<DateValue>) {
     calendarProps,
   } = useDateRangePicker(props, state, ref)
 
+  const { label } = props
+
   return (
     <div className="relative inline-flex flex-col gap-1 text-left text-base">
       {/* Label for the date range picker */}
       <Label asChild>
-        <span {...labelProps}>{props.label}</span>
+        <span {...labelProps}>{label}</span>
       </Label>
 
       <div {...groupProps} ref={ref} className="group flex">

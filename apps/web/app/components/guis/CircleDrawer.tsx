@@ -14,7 +14,7 @@ import {
   selectUI,
   selectUndoDisabled,
   undo,
-} from '@7gui/state/circleDrawerSlice'
+} from '@7guis/state/circleDrawerSlice'
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
 

@@ -30,12 +30,11 @@ export default function Index() {
             <Flex
               align="center"
               gap={{ initial: '2', sm: '3' }}
-              // eslint-disable-next-line tailwindcss/no-unnecessary-arbitrary-value
               className="border-y border-[#e5e7eb] px-1 py-2"
             >
               <Tooltip content="View Github">
                 <Link
-                  href="https://github.com/iamvictorli/7gui"
+                  href="https://github.com/iamvictorli/7guis"
                   aria-label="View Github"
                 >
                   <IconButton asChild variant="ghost" highContrast size="2">

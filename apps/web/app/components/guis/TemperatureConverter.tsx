@@ -4,7 +4,7 @@ import { Flex, Text, TextField } from '@radix-ui/themes'
 import {
   selectTemperatures,
   temperatureChanged,
-} from '@7gui/state/temperatureConverterSlice'
+} from '@7guis/state/temperatureConverterSlice'
 import { useAppDispatch, useAppSelector } from '~/store'
 
 export default function TemperatureConverter() {

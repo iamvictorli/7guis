@@ -9,7 +9,7 @@ import {
   flightTypeChanged,
   selectFlightBookerState,
   selectIsBookableFlight,
-} from '@7gui/state/flightBookerSlice'
+} from '@7guis/state/flightBookerSlice'
 import { DatePicker } from '~/components/DatePicker/DatePicker'
 import { DateRangePicker } from '~/components/DatePicker/DateRangePicker'
 import { useToast } from '~/hooks/useToast'

@@ -1,5 +1,5 @@
 {
-  "name": "@7gui/state",
+  "name": "@7guis/state",
   "type": "module",
   "version": "1.0.0",
   "description": "7gui state using redux",
@@ -44,7 +44,7 @@
     "@reduxjs/toolkit": "^2.6.1"
   },
   "devDependencies": {
-    "@7gui/typescript-config": "workspace:*",
+    "@7guis/typescript-config": "workspace:*",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.2",
     "vitest": "^3.0.8"

@@ -9,21 +9,19 @@ export default antfu(
     formatters: true,
     react: true,
     typescript: true,
+    ...tailwind.configs['flat/recommended'],
+    ...jsxA11y.flatConfigs.recommended,
+    rules: {
+      'perfectionist/sort-imports': ['error', {
+        internalPattern: ['@7guis/.*', '~/.*'],
+      }],
+    },
   },
-  ...tailwind.configs['flat/recommended'],
-  jsxA11y.flatConfigs.recommended,
   {
     files: [
       '**/*.test.ts?(x)',
     ],
     ...testingLibrary.configs['flat/react'],
     ...jestDom.configs['flat/recommended'],
-  },
-  {
-    rules: {
-      'perfectionist/sort-imports': ['error', {
-        internalPattern: ['@7gui/.*', '~/.*'],
-      }],
-    },
   },
 )

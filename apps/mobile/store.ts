@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   name as counterName,
   reducer as counterReducer,
-} from '@7gui/state/counterSlice'
+} from '@7guis/state/counterSlice'
 
 const rootReducer = combineReducers({
   [counterName]: counterReducer,

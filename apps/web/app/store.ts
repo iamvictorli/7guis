@@ -4,28 +4,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   name as cellsName,
   reducer as cellsReducer,
-} from '@7gui/state/cellsSlice'
+} from '@7guis/state/cellsSlice'
 import {
   name as circleDrawerName,
   reducer as circleDrawerReducer,
-} from '@7gui/state/circleDrawerSlice'
+} from '@7guis/state/circleDrawerSlice'
 import {
   name as counterName,
   reducer as counterReducer,
-} from '@7gui/state/counterSlice'
-import { name as crudName, reducer as crudReducer } from '@7gui/state/crudSlice'
+} from '@7guis/state/counterSlice'
+import { name as crudName, reducer as crudReducer } from '@7guis/state/crudSlice'
 import {
   name as flightBookerName,
   reducer as flightBookerReducer,
-} from '@7gui/state/flightBookerSlice'
+} from '@7guis/state/flightBookerSlice'
 import {
   name as temperatureConverterName,
   reducer as temperatureConverterReducer,
-} from '@7gui/state/temperatureConverterSlice'
+} from '@7guis/state/temperatureConverterSlice'
 import {
   name as timerName,
   reducer as timerReducer,
-} from '@7gui/state/timerSlice'
+} from '@7guis/state/timerSlice'
 
 const rootReducer = combineReducers({
   [counterName]: counterReducer,

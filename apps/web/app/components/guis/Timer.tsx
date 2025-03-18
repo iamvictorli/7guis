@@ -9,7 +9,7 @@ import {
   selectDuration,
   selectElapsedMs,
   timerReset,
-} from '@7gui/state/timerSlice'
+} from '@7guis/state/timerSlice'
 import Slider from '~/components/Slider'
 import { useAppDispatch, useAppSelector } from '~/store'
 

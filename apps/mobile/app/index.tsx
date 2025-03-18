@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 
-import { increment, selectCount } from '@7gui/state/counterSlice'
+import { increment, selectCount } from '@7guis/state/counterSlice'
 import { Button } from '~/components/Button'
 import { useAppDispatch, useAppSelector } from '~/store'
 
