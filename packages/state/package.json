@@ -47,6 +47,6 @@
     "@7guis/typescript-config": "workspace:*",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.2",
-    "vitest": "^3.0.8"
+    "vitest": "^3.0.9"
   }
 }
