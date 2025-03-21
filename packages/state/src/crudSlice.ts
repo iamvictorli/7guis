@@ -10,7 +10,7 @@ interface Name {
   id: string
 }
 
-interface CRUDState {
+export interface CRUDState {
   nameRecords: EntityMapOrdering<Name>
   ui: {
     nameInput: string
@@ -20,7 +20,7 @@ interface CRUDState {
   }
 }
 
-const initialState: CRUDState = {
+export const initialState: CRUDState = {
   nameRecords: {
     byId: {},
     allIds: [],
@@ -189,14 +189,15 @@ const crudSlice = createSlice({
       }
     },
     nameSelected: (state, action: PayloadAction<string>) => {
-      state.ui.nameSelectedId = action.payload
       const selectedNameRecord = state.nameRecords.byId[action.payload]
       // empty string to deselect
       if (action.payload === '' || !selectedNameRecord) {
         state.ui.nameInput = ''
         state.ui.surnameInput = ''
+        state.ui.nameSelectedId = ''
       }
       else {
+        state.ui.nameSelectedId = action.payload
         state.ui.nameInput = selectedNameRecord.name
         state.ui.surnameInput = selectedNameRecord.surname
       }
@@ -270,8 +271,7 @@ export const {
   surnameInputChanged,
 } = actions
 
-export const { selectUI } = selectors
-const { selectNameRecords } = selectors
+export const { selectUI, selectNameRecords } = selectors
 export const selectFilteredNameRecords = createSelector(
   [selectNameRecords, (_, searchInput: string) => searchInput],
   (nameRecords, searchInput) => {

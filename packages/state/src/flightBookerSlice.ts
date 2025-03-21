@@ -1,33 +1,19 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
+import { parseDate } from '@internationalized/date'
 import { createSlice } from '@reduxjs/toolkit'
 
 /**
- * Determines if the selected date is the same or before the reference date.
+ * Determines if the selected date is the same or after the reference date.
  */
-function isSameOrBefore(
+function isSameOrAfter(
   selectedDate: string | null,
   referenceDate: string | null,
 ) {
   if (selectedDate === null || referenceDate === null)
     return false
 
-  return parseDate(selectedDate).compare(parseDate(referenceDate)) <= 0
-}
-
-/**
- * Checks if the given date is the same as or before today.
- */
-function isSameOrBeforeToday(date: string | null) {
-  if (date === null)
-    return false
-  const givenDate = parseDate(date).toString()
-  // Get today's date
-  const todayDate = today(getLocalTimeZone()).toString()
-
-  // Compare the selected date to today
-  return isSameOrBefore(todayDate, givenDate)
+  return parseDate(selectedDate).compare(parseDate(referenceDate)) >= 0
 }
 
 export enum FlightTrip {
@@ -41,7 +27,7 @@ interface FlightBookerState {
   returnDate: string | null
 }
 
-const initialState: FlightBookerState = {
+export const initialState: FlightBookerState = {
   trip: FlightTrip.OneWay,
   departureDate: null,
   returnDate: null,
@@ -71,7 +57,7 @@ const flightBookerSlice = createSlice({
      */
     dateChanged: (state, action: PayloadAction<{ departureDate: string, returnDate?: string }>) => {
       state.departureDate = action.payload.departureDate
-      if (action.payload.returnDate) {
+      if (action.payload.returnDate && state.trip === FlightTrip.RoundTrip) {
         state.returnDate = action.payload.returnDate
       }
     },
@@ -79,24 +65,19 @@ const flightBookerSlice = createSlice({
   selectors: {
     selectFlightBookerState: state => state,
     selectIsBookableFlight: ({ trip, departureDate, returnDate }) => {
-      try {
-        return (
-          (trip === FlightTrip.OneWay
-            && departureDate !== null
-            && isSameOrBeforeToday(departureDate))
-          || (trip === FlightTrip.RoundTrip
-            && departureDate !== null
-            && returnDate !== null
-            && isSameOrBefore(departureDate, returnDate)
-            && isSameOrBeforeToday(departureDate)
-            && isSameOrBeforeToday(returnDate))
+      return (
+        (trip === FlightTrip.OneWay
+          && departureDate !== null
+          && departureDate.match(/^\d{4}-\d{2}-\d{2}$/) !== null
         )
-      }
-      catch {
-        // parse date can throw an error if dates dont match YYYY-MM-DD format
-        // https://github.com/adobe/react-spectrum/blob/98e21e19d50b4bf5c9114e17a75cca4c11254db0/packages/%40internationalized/date/src/string.ts#L48-L50
-        return false
-      }
+        || (trip === FlightTrip.RoundTrip
+          && departureDate !== null
+          && departureDate.match(/^\d{4}-\d{2}-\d{2}$/) !== null
+          && returnDate !== null
+          && returnDate.match(/^\d{4}-\d{2}-\d{2}$/) !== null
+          && isSameOrAfter(returnDate, departureDate)
+        )
+      )
     },
   },
 })

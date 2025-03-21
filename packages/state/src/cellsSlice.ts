@@ -4,7 +4,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
-const ROW_COUNT = 10
+export const ROW_COUNT = 10
 const COLUMN_COUNT = 10
 
 const ALPHABET_START = 65 // ASCII value for 'A'
@@ -34,17 +34,29 @@ function generateColumnLabels(n: number) {
 
 export interface Cell {
   id: string
-  // children are dependencies cellIds, once the cell is updated, all of the children needs to be updated as well
-  children: Record<string, string> // should be using Set, but redux does not work with set b/c set is not serializable. https://github.com/reduxjs/redux-toolkit/issues/3197
-  computedValue: string // displayed value of cell. if formula exists and the edit mode is on cell, displayed value is formula
-  formula: string | null // null means cell is not a formula
+
+  /**
+   * Children are dependencies cellIds, once the cell is updated, all of the children needs to be updated as well.
+   *
+   * Should be using Set, but redux does not work with set b/c set is not serializable. https://github.com/reduxjs/redux-toolkit/issues/3197
+   */
+  children: Record<string, string>
+
+  /** Displayed value of cell. if formula exists and the edit mode is on cell, displayed value is formula */
+  computedValue: string
+
+  /** null means cell is not a formula */
+  formula: string | null
 }
 
 interface CellsState {
   cells: EntityMap<Cell>
-  // The columnLabels and cellLabelMatrix property is not part of the state, as it does not change and can probably be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI.
+
+  /**  The columnLabels and cellLabelMatrix property is not part of the state, as it does not change and can probably be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI. */
   columnLabels: string[]
-  cellLabelMatrix: Record<string, string>[] // Record of columnLabel to cellId, to be later used in selectCellMatrix
+
+  /**  Record of columnLabel to cellId, to be later used in selectCellMatrix */
+  cellLabelMatrix: Record<string, string>[]
 }
 
 function getInitialState(rows: number, columns: number): CellsState {
@@ -76,7 +88,7 @@ function getInitialState(rows: number, columns: number): CellsState {
 
 const FORMULA_SYMBOL = '='
 
-const initialState: CellsState = getInitialState(
+export const initialState = getInitialState(
   ROW_COUNT,
   COLUMN_COUNT,
 )

@@ -8,8 +8,8 @@ interface TimerState {
   now: number
 }
 
-const initialState: TimerState = {
-  duration: 15000, // Default duration of 15 seconds.
+export const initialState: TimerState = {
+  duration: 15 * 1000, // Default duration of 15 seconds.
   start: new Date().getTime(),
   now: new Date().getTime(),
 }

@@ -1,9 +1,5 @@
 import { Container, Section, Skeleton } from '@radix-ui/themes'
 
-export function GuiSkeleton() {
-  return <Skeleton minHeight="500px" />
-}
-
 export function IndexSkeleton() {
   return (
     <Container size="2" px={{ initial: '5', sm: '0' }}>

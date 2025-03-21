@@ -4,7 +4,7 @@ import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 
 import type { EntityMap } from './types'
 
-interface Circle {
+export interface Circle {
   id: string
   x: number
   y: number
@@ -45,7 +45,7 @@ interface CircleDrawerState {
   }
 }
 
-const initialState: CircleDrawerState = {
+export const initialState: CircleDrawerState = {
   circles: {
     byId: {},
   },
@@ -183,7 +183,7 @@ const circleDrawerSlice = createSlice({
             break
         }
 
-        state.ui.selectedCircleId = ''
+        state.ui = initialState.ui
       }
     },
 
@@ -244,7 +244,7 @@ const circleDrawerSlice = createSlice({
             break
         }
 
-        state.ui.selectedCircleId = ''
+        state.ui = initialState.ui
       }
     },
     circleSelected: (state, action: PayloadAction<string>) => {
@@ -256,8 +256,7 @@ const circleDrawerSlice = createSlice({
       state.ui.selectedCircleRadius = circle.radius
     },
     deselect: (state) => {
-      state.ui.selectedCircleId = ''
-      state.ui.selectedCircleRadius = 0
+      state.ui = initialState.ui
     },
     radiusChanged: (state, action: PayloadAction<number>) => {
       const newRadius = action.payload
