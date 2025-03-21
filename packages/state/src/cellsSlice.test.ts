@@ -64,6 +64,36 @@ describe('cellsSlice', () => {
       expect(state.cells.byId[childId]?.computedValue).toBe('15')
     })
 
+    it('should update dependencies for formula cells two layers deep', () => {
+      // First set up cells in A1 <- B1 <- C1 chain
+      const cellA1 = 'A1'
+      const cellB1 = 'B1'
+      const cellC1 = 'C1'
+
+      // Set A1 to a value
+      let state = reducer(initialState, cellChanged({ id: cellA1, value: '5' }))
+      // Set B1 to reference A1
+      state = reducer(state, cellChanged({ id: cellB1, value: '=A1*2' }))
+      // B1 should be 10
+      expect(state.cells.byId[cellB1]?.computedValue).toBe('10')
+      // Set C1 to reference B1
+      state = reducer(state, cellChanged({ id: cellC1, value: '=A1+B1' }))
+      // C1 should be 15
+      expect(state.cells.byId[cellC1]?.computedValue).toBe('15')
+
+      // A1 should have B1 as a child
+      expect(state.cells.byId[cellA1]?.children[cellB1]).toBe(cellB1)
+      // B1 should have C1 as a child
+      expect(state.cells.byId[cellB1]?.children[cellC1]).toBe(cellC1)
+
+      // If we change A1, both B1 and C1 should update
+      state = reducer(state, cellChanged({ id: cellA1, value: '10' }))
+      // B1 should now be 20
+      expect(state.cells.byId[cellB1]?.computedValue).toBe('20')
+      // C1 should now be 25
+      expect(state.cells.byId[cellC1]?.computedValue).toBe('30')
+    })
+
     it('should remove old dependencies when a cell is updated from a formula to a static value', () => {
       const cellId = 'D1'
 
@@ -97,6 +127,31 @@ describe('cellsSlice', () => {
       // should force both cells to be set to "ERROR"
       expect(state.cells.byId[cellF1]?.computedValue).toBe('ERROR')
       expect(state.cells.byId[cellF2]?.computedValue).toBe('ERROR')
+    })
+
+    it('should detect cyclic dependencies and set computedValue to "ERROR" two layers deep', () => {
+      // Test a 3-cell cycle: H1 -> H2 -> H3 -> H1
+      const cellH1 = 'H1'
+      const cellH2 = 'H2'
+      const cellH3 = 'H3'
+
+      // Set up the chain: H1 depends on H3
+      let state = reducer(initialState, cellChanged({ id: cellH1, value: '=H3+1' }))
+      // H2 depends on H1
+      state = reducer(state, cellChanged({ id: cellH2, value: '=H1+1' }))
+      // H3 depends on H2, completing the cycle
+      state = reducer(state, cellChanged({ id: cellH3, value: '=H2+1' }))
+
+      // The cycle should be detected and all cells marked as ERROR
+      expect(state.cells.byId[cellH1]?.computedValue).toBe('ERROR')
+      expect(state.cells.byId[cellH2]?.computedValue).toBe('ERROR')
+      expect(state.cells.byId[cellH3]?.computedValue).toBe('ERROR')
+
+      // change back, so no more cycles
+      state = reducer(state, cellChanged({ id: cellH3, value: '5' }))
+      expect(state.cells.byId[cellH3]?.computedValue).toBe('5')
+      expect(state.cells.byId[cellH2]?.computedValue).toBe('7')
+      expect(state.cells.byId[cellH1]?.computedValue).toBe('6')
     })
 
     it('should set computedValue to "ERROR" for an invalid formula', () => {
