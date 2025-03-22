@@ -2,13 +2,13 @@ import { Box, Flex, ScrollArea, Section } from '@radix-ui/themes'
 import { Provider } from 'react-redux'
 import { Outlet } from 'react-router'
 
+import { store } from '@7guis/state/store'
 import Header from '~/components/Header'
 import MobileMenu from '~/components/MobileMenu'
 import Nav from '~/components/Nav'
 import Sidebar from '~/components/Sidebar'
 import { Toaster } from '~/components/Toast/Toaster'
 import { routes } from '~/shared/links'
-import { store } from '~/store'
 
 function GuiHeader() {
   return (

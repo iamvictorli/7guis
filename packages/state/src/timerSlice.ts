@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
 
-interface TimerState {
+export interface TimerState {
   duration: number
   start: number
   now: number

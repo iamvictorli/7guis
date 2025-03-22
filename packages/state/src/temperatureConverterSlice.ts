@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 type TemperatureType = 'fahrenheit' | 'celsius'
 
-interface TemperatureConverterState {
+export interface TemperatureConverterState {
   fahrenheit: string
   celsius: string
 }

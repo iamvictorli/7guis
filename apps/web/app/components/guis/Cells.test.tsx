@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { selectCellMatrix, selectColumnLabels } from '@7guis/state/cellsSlice'
 import { renderWithProviders } from '~/lib/test-utils'
@@ -7,26 +7,6 @@ import { renderWithProviders } from '~/lib/test-utils'
 import Cells from './Cells'
 
 describe('cells', () => {
-  // Mock pointer events and scrolling for Radix UI components
-  beforeAll(() => {
-    class MockPointerEvent extends Event {
-      button: number
-      ctrlKey: boolean
-      pointerType: string
-
-      constructor(type: string, props: PointerEventInit) {
-        super(type, props)
-        this.button = props.button || 0
-        this.ctrlKey = props.ctrlKey || false
-        this.pointerType = props.pointerType || 'mouse'
-      }
-    }
-    window.PointerEvent = MockPointerEvent as any
-    window.HTMLElement.prototype.scrollIntoView = vi.fn()
-    window.HTMLElement.prototype.releasePointerCapture = vi.fn()
-    window.HTMLElement.prototype.hasPointerCapture = vi.fn()
-  })
-
   it('renders the spreadsheet with correct structure', () => {
     const { store } = renderWithProviders(
       <Cells />,

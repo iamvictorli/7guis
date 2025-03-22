@@ -31,6 +31,10 @@
     "./cellsSlice": {
       "types": "./src/cellsSlice.ts",
       "default": "./dist/cellsSlice.js"
+    },
+    "./store": {
+      "types": "./src/store.ts",
+      "default": "./dist/store.js"
     }
   },
   "scripts": {

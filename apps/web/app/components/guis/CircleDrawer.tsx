@@ -16,7 +16,7 @@ import {
   undo,
 } from '@7guis/state/circleDrawerSlice'
 import Slider from '~/components/Slider'
-import { useAppDispatch, useAppSelector } from '~/store'
+import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 
 /**
  * Circle Component renders an SVG circle with interactive popover controls to adjust its radius.

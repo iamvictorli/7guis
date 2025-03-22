@@ -1,31 +1,30 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { useDispatch, useSelector } from 'react-redux'
 
 import {
   name as cellsName,
   reducer as cellsReducer,
-} from '@7guis/state/cellsSlice'
+} from './cellsSlice'
 import {
   name as circleDrawerName,
   reducer as circleDrawerReducer,
-} from '@7guis/state/circleDrawerSlice'
+} from './circleDrawerSlice'
 import {
   name as counterName,
   reducer as counterReducer,
-} from '@7guis/state/counterSlice'
-import { name as crudName, reducer as crudReducer } from '@7guis/state/crudSlice'
+} from './counterSlice'
+import { name as crudName, reducer as crudReducer } from './crudSlice'
 import {
   name as flightBookerName,
   reducer as flightBookerReducer,
-} from '@7guis/state/flightBookerSlice'
+} from './flightBookerSlice'
 import {
   name as temperatureConverterName,
   reducer as temperatureConverterReducer,
-} from '@7guis/state/temperatureConverterSlice'
+} from './temperatureConverterSlice'
 import {
   name as timerName,
   reducer as timerReducer,
-} from '@7guis/state/timerSlice'
+} from './timerSlice'
 
 const rootReducer = combineReducers({
   [counterName]: counterReducer,
@@ -50,7 +49,4 @@ export const store = setupStore({})
 
 export type AppStore = ReturnType<typeof setupStore>
 
-type AppDispatch = typeof store.dispatch
-
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
-export const useAppSelector = useSelector.withTypes<RootState>()
+export type AppDispatch = typeof store.dispatch

@@ -12,8 +12,8 @@ import {
 } from '@7guis/state/flightBookerSlice'
 import { DatePicker } from '~/components/DatePicker/DatePicker'
 import { DateRangePicker } from '~/components/DatePicker/DateRangePicker'
+import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 import { useToast } from '~/hooks/useToast'
-import { useAppDispatch, useAppSelector } from '~/store'
 
 /**
  * Retrieves the range picker value based on departure and return dates.

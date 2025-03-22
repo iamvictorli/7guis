@@ -49,7 +49,7 @@ export interface Cell {
   formula: string | null
 }
 
-interface CellsState {
+export interface CellsState {
   cells: EntityMap<Cell>
 
   /**  The columnLabels and cellLabelMatrix property is not part of the state, as it does not change and can probably be derived from the cell IDs. However, they are included in the state for easier access and to provide meta information for the UI. */

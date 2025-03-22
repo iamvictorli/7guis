@@ -15,8 +15,8 @@ import {
   selectColumnLabels,
 } from '@7guis/state/cellsSlice'
 import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
+import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 import { cn } from '~/lib/utils'
-import { useAppDispatch, useAppSelector } from '~/store'
 
 /**
  * CellInput component that automatically focuses when rendered.

@@ -13,7 +13,7 @@ import {
   surnameInputChanged,
 } from '@7guis/state/crudSlice'
 import ListBox from '~/components/ListBox/ListBox'
-import { useAppDispatch, useAppSelector } from '~/store'
+import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 
 /**
  * A form for managing name records including creation, update, deletion,

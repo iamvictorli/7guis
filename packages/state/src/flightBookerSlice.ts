@@ -21,7 +21,7 @@ export enum FlightTrip {
   RoundTrip = 'Round Trip',
 }
 
-interface FlightBookerState {
+export interface FlightBookerState {
   trip: FlightTrip
   departureDate: string | null // will be in YYYY-MM-DD format
   returnDate: string | null

@@ -34,7 +34,7 @@ interface CircleUpdateAction {
 
 type CircleAction = CircleAddAction | CircleDeleteAction | CircleUpdateAction
 
-interface CircleDrawerState {
+export interface CircleDrawerState {
   circles: EntityMap<Circle>
   // undos and redos is a stack of circles actions, when popped does the CircleAction
   undos: CircleAction[]
