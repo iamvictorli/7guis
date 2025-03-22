@@ -9,7 +9,7 @@ export default function Counter() {
 
   return (
     <Flex align="center" gap="4">
-      <Text size="9" weight="bold" data-testid="count">
+      <Text size="9" weight="bold">
         {count}
       </Text>
       <Button

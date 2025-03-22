@@ -6,60 +6,97 @@ import { renderWithProviders } from '~/lib/test-utils'
 import TemperatureConverter from './TemperatureConverter'
 
 describe('temperatureConverter', () => {
-  it('text fields to be initially empty', () => {
+  it('renders both input fields and labels', () => {
     renderWithProviders(<TemperatureConverter />)
-
-    expect(
-      screen.getByLabelText(/celsius/i, { selector: 'input' }),
-    ).toHaveValue(null)
-    expect(
-      screen.getByLabelText(/fahrenheit/i, { selector: 'input' }),
-    ).toHaveValue(null)
+    expect(screen.getByRole('spinbutton', {
+      name: /celsius/i,
+    })).toBeInTheDocument()
+    expect(screen.getByRole('spinbutton', {
+      name: /fahrenheit/i,
+    })).toBeInTheDocument()
   })
 
-  it('updates fahrenheit field when number is entered in celsius field', async () => {
+  it('updates Fahrenheit when Celsius is changed', async () => {
     const { user } = renderWithProviders(<TemperatureConverter />)
-
-    const celsiusInput = screen.getByLabelText(/celsius/i, {
-      selector: 'input',
+    const celsiusInput = screen.getByRole('spinbutton', {
+      name: /celsius/i,
     })
 
-    const fahrenheitInput = screen.getByLabelText(/fahrenheit/i, {
-      selector: 'input',
+    await user.type(celsiusInput, '100') // 100°C
+
+    const fahrenheitInput = screen.getByRole('spinbutton', {
+      name: /fahrenheit/i,
+    })
+    expect(fahrenheitInput).toHaveValue(212) // 212°F
+  })
+
+  it('updates Celsius when Fahrenheit is changed', async () => {
+    const { user } = renderWithProviders(<TemperatureConverter />)
+    const fahrenheitInput = screen.getByRole('spinbutton', {
+      name: /fahrenheit/i,
     })
 
-    await user.type(celsiusInput, '10')
-    expect(fahrenheitInput).toHaveValue(50)
+    await user.type(fahrenheitInput, '32') // 32°F
+    const celsiusInput = screen.getByRole('spinbutton', {
+      name: /celsius/i,
+    })
+    expect(celsiusInput).toHaveValue(0) // 0°C
+  })
 
-    await user.clear(celsiusInput)
+  it('resets both fields if input is cleared', async () => {
+    const { user } = renderWithProviders(<TemperatureConverter />)
+    const fahrenheitInput = screen.getByRole('spinbutton', {
+      name: /fahrenheit/i,
+    })
+    const celsiusInput = screen.getByRole('spinbutton', {
+      name: /celsius/i,
+    })
+
+    // Enter some values first
     await user.type(celsiusInput, '25')
-    expect(fahrenheitInput).toHaveValue(77)
+    expect(fahrenheitInput).not.toHaveValue(null)
 
+    // Clear the Celsius input
     await user.clear(celsiusInput)
-    await user.type(celsiusInput, '0')
-    expect(fahrenheitInput).toHaveValue(32)
+    expect(celsiusInput).toHaveValue(null)
+    expect(fahrenheitInput).toHaveValue(null)
   })
 
-  it('updates celsius field when number is entered in fahrenheit field', async () => {
+  it('handles negative values correctly', async () => {
     const { user } = renderWithProviders(<TemperatureConverter />)
-
-    const celsiusInput = screen.getByLabelText(/celsius/i, {
-      selector: 'input',
+    const fahrenheitInput = screen.getByRole('spinbutton', {
+      name: /fahrenheit/i,
+    })
+    const celsiusInput = screen.getByRole('spinbutton', {
+      name: /celsius/i,
     })
 
-    const fahrenheitInput = screen.getByLabelText(/fahrenheit/i, {
-      selector: 'input',
+    await user.type(celsiusInput, '-40') // -40°C
+    expect(fahrenheitInput).toHaveValue(-40) // -40
+
+    // Clear input to test the other direction
+    await user.clear(celsiusInput)
+    await user.type(fahrenheitInput, '-40') // -40°F
+    expect(celsiusInput).toHaveValue(-40) // -40°C
+
+    // Test backspace functionality
+    await user.type(fahrenheitInput, '{backspace}')
+    expect(fahrenheitInput).toHaveValue(-4)
+    expect(celsiusInput).toHaveValue(-20) // -20°C
+  })
+
+  it('handles invalid number inputs gracefully', async () => {
+    const { user } = renderWithProviders(<TemperatureConverter />)
+    const celsiusInput = screen.getByRole('spinbutton', {
+      name: /celsius/i,
     })
 
-    await user.type(fahrenheitInput, '68')
-    expect(celsiusInput).toHaveValue(20)
+    // Simulate partially typed/invalid input
+    await user.type(celsiusInput, 'abc')
 
-    await user.clear(fahrenheitInput)
-    await user.type(fahrenheitInput, '95')
-    expect(celsiusInput).toHaveValue(35)
-
-    await user.clear(fahrenheitInput)
-    await user.type(fahrenheitInput, '50')
-    expect(celsiusInput).toHaveValue(10)
+    const fahrenheitInput = screen.getByRole('spinbutton', {
+      name: /fahrenheit/i,
+    })
+    expect(fahrenheitInput).toHaveValue(null)
   })
 })

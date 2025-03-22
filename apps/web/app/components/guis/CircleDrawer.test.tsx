@@ -39,7 +39,7 @@ describe('circleDrawer', () => {
   })
 
   // resource: https://github.com/adevinta/spark/blob/main/packages/components/slider/src/Slider.test.tsx
-  it('adjust diamter of circle', async () => {
+  it('adjust diameter of circle', async () => {
     const { user } = renderWithProviders(<CircleDrawer />)
     // expects both empty undo and redo
     expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled()
