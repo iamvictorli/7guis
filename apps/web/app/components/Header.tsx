@@ -2,7 +2,7 @@ import { GitHubLogoIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Box, Flex, IconButton, Link, Tooltip } from '@radix-ui/themes'
 import { useEffect, useState } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
-import { Link as RRDLink } from 'react-router'
+import { href, Link as RRDLink } from 'react-router'
 
 import { useMobileMenuContext } from '~/hooks/useMobileMenuContext'
 import { cn } from '~/lib/utils'
@@ -61,7 +61,7 @@ export default function Header() {
               color="gray"
               highContrast
             >
-              <RRDLink to="../">7GUIs</RRDLink>
+              <RRDLink to={href('/')}>7GUIs</RRDLink>
             </Link>
           </Flex>
 

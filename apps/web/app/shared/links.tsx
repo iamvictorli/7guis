@@ -1,33 +1,34 @@
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { href } from 'react-router'
 
 export const navLinks = [
   {
     title: 'Counter',
-    to: '/counter',
+    to: href('/counter'),
   },
   {
     title: 'Temperature Converter',
-    to: '/temperature-converter',
+    to: href('/temperature-converter'),
   },
   {
     title: 'Flight Booker',
-    to: '/flight-booker',
+    to: href('/flight-booker'),
   },
   {
     title: 'Timer',
-    to: '/timer',
+    to: href('/timer'),
   },
   {
     title: 'CRUD',
-    to: '/crud',
+    to: href('/crud'),
   },
   {
     title: 'Circle Drawer',
-    to: '/circle-drawer',
+    to: href('/circle-drawer'),
   },
   {
     title: 'Cells',
-    to: '/cells',
+    to: href('/cells'),
   },
 ]
 
@@ -37,17 +38,17 @@ export const routes = [
     pages: [
       {
         title: 'Counter',
-        slug: '/counter',
+        slug: href('/counter'),
       },
       {
         title: 'Temperature Converter',
-        slug: '/temperature-converter',
+        slug: href('/temperature-converter'),
       },
-      { title: 'Flight Booker', slug: '/flight-booker' },
-      { title: 'Timer', slug: '/timer' },
-      { title: 'CRUD', slug: '/crud' },
-      { title: 'Circle Drawer', slug: '/circle-drawer' },
-      { title: 'Cells', slug: '/cells' },
+      { title: 'Flight Booker', slug: href('/flight-booker') },
+      { title: 'Timer', slug: href('/timer') },
+      { title: 'CRUD', slug: href('/crud') },
+      { title: 'Circle Drawer', slug: href('/circle-drawer') },
+      { title: 'Cells', slug: href('/cells') },
     ],
   },
   {
