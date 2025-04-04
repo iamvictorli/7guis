@@ -1,3 +1,4 @@
+const withStorybook = require('@storybook/react-native/metro/withStorybook')
 // Learn more https://docs.expo.dev/guides/monorepos
 const { getDefaultConfig } = require('expo/metro-config')
 // const path = require('node:path')
@@ -22,4 +23,4 @@ const config = getDefaultConfig(__dirname)
 config.resolver.unstable_conditionNames = ['require', 'default', 'browser']
 config.resolver.unstable_enablePackageExports = true
 
-module.exports = config
+module.exports = withStorybook(config)

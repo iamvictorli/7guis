@@ -6,6 +6,9 @@ import testingLibrary from 'eslint-plugin-testing-library'
 
 export default antfu(
   {
+    ignores: [
+      'apps/mobile/.storybook/storybook.requires.ts',
+    ],
     formatters: true,
     react: true,
     typescript: true,
