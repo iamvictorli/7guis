@@ -1,7 +1,7 @@
 import { Button, Flex, Text } from '@radix-ui/themes'
 
 import { increment, selectCount } from '@7guis/state/counterSlice'
-import { useAppDispatch, useAppSelector } from '~/hooks/redux'
+import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 
 export default function Counter() {
   const count = useAppSelector(selectCount)

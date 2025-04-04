@@ -14,8 +14,8 @@ import {
   selectCellMatrix,
   selectColumnLabels,
 } from '@7guis/state/cellsSlice'
+import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
-import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 import { cn } from '~/lib/utils'
 
 /**

@@ -35,6 +35,10 @@
     "./store": {
       "types": "./src/store.ts",
       "default": "./dist/store.js"
+    },
+    "./hooks": {
+      "types": "./src/hooks.ts",
+      "default": "./dist/hooks.js"
     }
   },
   "scripts": {

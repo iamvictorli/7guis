@@ -15,8 +15,8 @@ import {
   selectUndoDisabled,
   undo,
 } from '@7guis/state/circleDrawerSlice'
+import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import Slider from '~/components/Slider'
-import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 
 /**
  * Circle Component renders an SVG circle with interactive popover controls to adjust its radius.

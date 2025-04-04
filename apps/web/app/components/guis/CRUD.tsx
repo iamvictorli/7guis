@@ -12,8 +12,8 @@ import {
   selectUI,
   surnameInputChanged,
 } from '@7guis/state/crudSlice'
+import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import ListBox from '~/components/ListBox/ListBox'
-import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 
 /**
  * A form for managing name records including creation, update, deletion,

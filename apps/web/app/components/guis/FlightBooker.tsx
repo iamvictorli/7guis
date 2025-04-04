@@ -10,9 +10,9 @@ import {
   selectFlightBookerState,
   selectIsBookableFlight,
 } from '@7guis/state/flightBookerSlice'
+import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import { DatePicker } from '~/components/DatePicker/DatePicker'
 import { DateRangePicker } from '~/components/DatePicker/DateRangePicker'
-import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 import { useToast } from '~/hooks/useToast'
 
 /**

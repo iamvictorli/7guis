@@ -3,6 +3,7 @@ import { Button, Flex, Progress, Text } from '@radix-ui/themes'
 import { useCallback, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
+import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import {
   durationChanged,
   nowChanged,
@@ -11,7 +12,6 @@ import {
   timerReset,
 } from '@7guis/state/timerSlice'
 import Slider from '~/components/Slider'
-import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 
 /**
  * A timer that displays elapsed time with a progress bar.

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 
 import { increment, selectCount } from '@7guis/state/counterSlice'
+import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import { Button } from '~/components/Button'
-import { useAppDispatch, useAppSelector } from '~/hooks/redux'
 
 function Counter() {
   const count = useAppSelector(selectCount)
