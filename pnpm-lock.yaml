@@ -177,6 +177,9 @@ importers:
       '@storybook/addon-ondevice-notes':
         specifier: ^8.6.2
         version: 8.6.2(react-native@0.76.9)(react@18.3.1)(storybook@8.6.12)
+      '@storybook/types':
+        specifier: ^8.6.12
+        version: 8.6.12(storybook@8.6.12)
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -2437,7 +2440,7 @@ packages:
 
   /@expo/bunyan@4.0.1:
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {node: '>=0.10.0'}
+    engines: {'0': node >=0.10.0}
     dependencies:
       uuid: 8.3.2
 
@@ -6892,6 +6895,14 @@ packages:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
     dependencies:
       storybook: 8.6.12(prettier@2.8.8)
+
+  /@storybook/types@8.6.12(storybook@8.6.12):
+    resolution: {integrity: sha512-G/nR+js7KV1qKH3nAcOfwceERBic5e03dpkeA6PDmqBiQ8XeM9B6N4NTMhXi/2gM5ZAGJ+NxJMaW6zLnc32DjA==}
+    peerDependencies:
+      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
+    dependencies:
+      storybook: 8.6.12(prettier@2.8.8)
+    dev: true
 
   /@stylistic/eslint-plugin@4.2.0(eslint@9.24.0)(typescript@5.8.3):
     resolution: {integrity: sha512-8hXezgz7jexGHdo5WN6JBEIPHCSFyyU4vgbxevu4YLVS5vl+sxqAAGyXSzfNDyR6xMNSH5H1x67nsXcYMOHtZA==}

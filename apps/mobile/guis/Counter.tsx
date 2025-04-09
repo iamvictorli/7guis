@@ -37,7 +37,7 @@ export function Counter() {
         {count}
       </Text>
       <Button
-        title="Count"
+        title="Increment"
         onPress={handlePress}
         style={styles.button}
       />

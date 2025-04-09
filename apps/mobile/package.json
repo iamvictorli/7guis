@@ -59,6 +59,7 @@
     "@storybook/addon-ondevice-actions": "^8.6.2",
     "@storybook/addon-ondevice-controls": "^8.6.2",
     "@storybook/addon-ondevice-notes": "^8.6.2",
+    "@storybook/types": "^8.6.12",
     "@types/jest": "^29.5.14",
     "@types/react": "~18.3.12",
     "@types/react-test-renderer": "^18.3.0",
