@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export interface DatePickerProps {
+export interface DatePickerProps extends Omit<Parameters<typeof DateTimePicker>[0], 'value' | 'onChange' | 'mode' | 'display' | 'disabled'> {
   /** The currently selected date. */
   value: Date
   /** Callback function when the date/time is selected or the picker is dismissed. */
@@ -65,7 +65,7 @@ export interface DatePickerProps {
   /** Optional label displayed above the trigger. */
   label?: string
   /** Placeholder text when no date is selected (if value could be null/undefined). */
-  placeholder?: string // Added placeholder for flexibility
+  placeholder?: string
   /** Custom style for the outer container View. */
   containerStyle?: StyleProp<ViewStyle>
   /** Custom style for the label AppText. */

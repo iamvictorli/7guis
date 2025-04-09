@@ -118,11 +118,13 @@ export interface DropdownProps {
   pickerContainerStyle?: StyleProp<ViewStyle>
 }
 
+const emptyPlaceholder = {}
+
 export function Dropdown({
   items,
   value,
   onValueChange,
-  placeholder = {}, // Default to no placeholder
+  placeholder = emptyPlaceholder, // Default to no placeholder
   label,
   disabled = false,
   containerStyle,

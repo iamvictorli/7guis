@@ -25,13 +25,6 @@ function DatePickerStateWrapper(props: DatePickerProps) {
     : new Date()
   const [date, setDate] = useState(initialDate)
 
-  // Update state if story controls change the value prop
-  React.useEffect(() => {
-    if (props.value instanceof Date && !Number.isNaN(props.value.getTime())) {
-      setDate(props.value)
-    }
-  }, [props.value])
-
   const handleChange = (
     event: DateTimePickerEvent,
     selectedDate?: Date,

@@ -1,7 +1,6 @@
 import { Label } from '@radix-ui/react-label'
 import { Button, Flex, Progress, Text } from '@radix-ui/themes'
 import { useCallback, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
 
 import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import {
@@ -21,13 +20,13 @@ export default function Timer() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
   const dispatch = useAppDispatch()
   const duration = useAppSelector(selectDuration)
-  const elapsedMs = useSelector(selectElapsedMs)
+  const elapsedMs = useAppSelector(selectElapsedMs)
 
   /**
    * Starts the timer by setting an interval that updates the current time.
    */
   const startTimer = useCallback(() => {
-    clearInterval(intervalRef.current)
+    stopTimer()
     dispatch(nowChanged(new Date().getTime()))
     intervalRef.current = setInterval(() => {
       dispatch(nowChanged(new Date().getTime()))

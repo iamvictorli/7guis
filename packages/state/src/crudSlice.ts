@@ -4,7 +4,7 @@ import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 
 import type { EntityMapOrdering } from './types'
 
-interface Name {
+export interface Name {
   name: string
   surname: string
   id: string

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 })
 
 // Define the props, extending the base slider props implicitly via ...rest
-export interface SliderProps {
+export interface SliderProps extends React.ComponentProps<typeof RNSlider> {
   /** The current value of the slider. */
   value: number
   /** Callback function that is called when the slider value changes. */
@@ -55,8 +55,6 @@ export interface SliderProps {
   showValue?: boolean
   /** Custom style for the outer container View. */
   containerStyle?: StyleProp<ViewStyle>
-  // Other RNSlider props like minimumTrackTintColor, maximumTrackTintColor, thumbTintColor
-  // can be passed directly via ...rest if needed for fine-grained control.
 }
 
 export function Slider({
