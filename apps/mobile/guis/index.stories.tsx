@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native'
 
 import theme from '~/styles/theme'
 
+import { Cells } from './Cells'
 import { CircleDrawer } from './CircleDrawer'
 import { Counter } from './Counter'
 import { CRUD } from './CRUD'
@@ -13,7 +14,7 @@ import { TemperatureConverter } from './TemperatureConverter'
 import { Timer } from './Timer'
 
 const meta: Meta = {
-  title: 'GUIs', // Group under GUIs
+  title: 'GUIs',
 }
 
 export default meta
@@ -135,6 +136,25 @@ export const CircleDrawerStory: Story = {
   render: () => (
     <View style={circleDrawerStyles.decoratorView}>
       <CircleDrawer />
+    </View>
+  ),
+}
+
+const cellsStyles = StyleSheet.create({
+  decoratorView: {
+    flex: 1,
+    alignSelf: 'stretch',
+    // No border needed if using fullscreen layout
+    // borderWidth: 1,
+    // borderColor: theme.colors.border,
+  },
+})
+
+export const CellsStory: Story = {
+  name: 'Cells',
+  render: () => (
+    <View style={cellsStyles.decoratorView}>
+      <Cells />
     </View>
   ),
 }

@@ -119,22 +119,71 @@ export const Default: Story = {
   },
 }
 
-// TODO: not preselected
-export const WithValueSelected: Story = {
-  args: {
-    label: 'Selected Framework',
-    value: 'vue', // Pre-select Vue
-    placeholder: placeholderItem, // Still include placeholder in list
-  },
+function ValueSelected() {
+  const [selectedValue, setSelectedValue] = useState('vue')
+  const handleValueChange = (value: any, index: number) => {
+    setSelectedValue(value)
+    // eslint-disable-next-line no-console
+    console.log(`Selected: ${value} at index ${index}`)
+  }
+
+  return (
+    <View>
+      <Dropdown
+        items={sampleItems}
+        value={selectedValue}
+        onValueChange={handleValueChange}
+      />
+      {/* Optional: Display current value below for debugging */}
+      <Text>
+        Current Value:
+        {' '}
+        {JSON.stringify(selectedValue)}
+      </Text>
+    </View>
+  )
 }
 
-// TODO: not disabled
-export const Disabled: Story = {
-  args: {
-    label: 'Cannot Change Framework',
-    value: 'react',
-    disabled: true,
-  },
+export const WithValueSelectedStory: Story = {
+  name: 'With Value Selected',
+  render: () => (
+    <ValueSelected />
+  ),
+}
+
+function Disabled() {
+  const [selectedValue, setSelectedValue] = useState('vue')
+  const handleValueChange = (value: any, index: number) => {
+    setSelectedValue(value)
+    // eslint-disable-next-line no-console
+    console.log(`Selected: ${value} at index ${index}`)
+  }
+
+  return (
+    <View>
+      <Dropdown
+        items={sampleItems}
+        value={selectedValue}
+        onValueChange={handleValueChange}
+        disabled
+      />
+      {/* Optional: Display current value below for debugging */}
+      <Text>
+        Current Value:
+        {' '}
+        {JSON.stringify(selectedValue)}
+      </Text>
+    </View>
+  )
+}
+
+// TODO: On iOS, react dropdown is not disabled
+// https://github.com/react-native-picker/picker/issues/575
+export const DisabledStory: Story = {
+  name: 'Disabled',
+  render: () => (
+    <Disabled />
+  ),
 }
 
 export const NoPlaceholder: Story = {
