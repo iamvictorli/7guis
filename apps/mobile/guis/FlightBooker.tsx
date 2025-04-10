@@ -14,7 +14,6 @@ import theme from '~/styles/theme'
 const styles = StyleSheet.create({
   container: {
     padding: theme.spacing.l,
-    // justifyContent: 'center', // Let content flow from top
   },
   inputSpacing: {
     marginBottom: theme.spacing.l, // Space between inputs
@@ -54,11 +53,24 @@ export function FlightBooker() {
 
   const handleBooking = () => {
     if (trip === FlightTrip.OneWay) {
-      Alert.alert('One-Way Flight Booked', `Your one-way flight for ${departureDate} has been successfully booked`)
+      Alert.alert('One-Way Flight Booked', `Your one-way flight for ${departureDate || new Date().toString()} has been successfully booked`)
     }
     else {
-      Alert.alert('Round-trip Flight Booked', `Your round-trip flight has been successfully booked. Departure on ${departureDate}, returning on ${returnDate}`)
+      Alert.alert('Round-trip Flight Booked', `Your round-trip flight has been successfully booked. Departure on ${departureDate || new Date().toString()}, returning on ${returnDate || (departureDate || new Date().toString())}`)
     }
+  }
+
+  let returnDatePickerValue = new Date()
+
+  if (!returnDate) {
+    if (departureDate)
+      returnDatePickerValue = new Date(departureDate)
+    else returnDatePickerValue = new Date()
+  }
+  else {
+    if (departureDate)
+      returnDatePickerValue = new Date(Math.max(new Date(departureDate).getTime(), new Date(returnDate).getTime()))
+    else returnDatePickerValue = new Date(returnDate)
   }
 
   return (
@@ -80,12 +92,12 @@ export function FlightBooker() {
       />
       <DatePicker
         label="Return Date"
-        value={returnDate ? new Date(returnDate) : new Date()} // Provide a fallback value if null for picker
+        value={returnDatePickerValue}
         onChange={handleReturnDateChange}
         mode="date"
         disabled={trip === FlightTrip.OneWay} // Disable if one-way
         containerStyle={styles.inputSpacing}
-        minimumDate={new Date()} // Return cannot be before start
+        minimumDate={departureDate ? new Date(departureDate) : new Date()} // Return cannot be before start
       />
       <Button
         title="Book Flight"

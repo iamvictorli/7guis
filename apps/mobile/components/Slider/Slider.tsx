@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   },
   label: {
     color: theme.colors.textSecondary,
-    // No margin bottom needed here as container has it
   },
   valueText: {
     color: theme.colors.text,
@@ -111,7 +110,7 @@ export function Slider({
         minimumTrackTintColor={disabled ? theme.colors.disabled : theme.colors.primary}
         maximumTrackTintColor={theme.colors.border} // A neutral background track color
         thumbTintColor={disabled ? theme.colors.disabled : theme.colors.primary} // Or theme.colors.surface for a white thumb
-        {...rest} // Pass other RNSlider props
+        {...rest}
       />
     </View>
   )

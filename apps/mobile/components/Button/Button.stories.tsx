@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 
 import theme from '~/styles/theme'
 
@@ -10,14 +10,12 @@ import { Button } from './Button'
 const styles = StyleSheet.create({
   decoratorView: {
     padding: theme.spacing.m,
-    alignItems: 'center', // Center button in the view
+    alignItems: 'center',
   },
 })
 
-// Dummy onPress handler for stories
 function handlePress() {
-  // eslint-disable-next-line no-console
-  console.log('Button pressed')
+  Alert.alert('Button pressed')
 }
 
 const meta: Meta<typeof Button> = {
@@ -120,7 +118,7 @@ export const TextDisabled: Story = {
 
 export const Loading: Story = {
   args: {
-    title: 'Loading...', // Title is hidden, but good for context
+    title: 'Loading...',
     variant: 'primary',
     isLoading: true,
   },
@@ -142,13 +140,13 @@ export const CustomStyle: Story = {
     variant: 'primary',
     style: {
       borderRadius: 20,
-      backgroundColor: theme.colors.secondary, // Overriding variant background
-      paddingVertical: theme.spacing.s, // Making it shorter
+      backgroundColor: theme.colors.secondary,
+      paddingVertical: theme.spacing.s,
     },
     textStyle: {
       textTransform: 'uppercase',
       letterSpacing: 1,
-      color: 'black', // Overriding variant text color
+      color: 'black',
     },
   },
 }

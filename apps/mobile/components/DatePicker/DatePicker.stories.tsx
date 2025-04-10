@@ -2,11 +2,12 @@ import type { DateTimePickerEvent } from '@react-native-community/datetimepicker
 import type { Meta, StoryObj } from '@storybook/react'
 
 import React, { useState } from 'react'
-import { Alert, Platform, StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
+
+import theme from '~/styles/theme'
 
 import type { DatePickerProps } from './DatePicker'
 
-import theme from '../../styles/theme'
 import { DatePicker } from './DatePicker'
 
 const styles = StyleSheet.create({
@@ -36,8 +37,6 @@ function DatePickerStateWrapper(props: DatePickerProps) {
     // Only update the state if a date was selected (type 'set')
     if (event.type === 'set' && selectedDate) {
       setDate(selectedDate)
-      // Optionally show an alert for confirmation in the story
-      Alert.alert('Date Selected', selectedDate.toLocaleDateString())
     }
     else {
       // Handle dismissal if needed, e.g., show an alert
@@ -128,28 +127,4 @@ export const Disabled: Story = {
     value: new Date(),
     disabled: true,
   },
-}
-
-export const WithPlaceholder: Story = {
-  args: {
-    label: 'Optional Date',
-    placeholder: 'Tap to select an optional date',
-    // To demonstrate placeholder, we need to manage null/undefined state,
-    // which requires modifying the wrapper or using a different render function.
-    // For simplicity, we'll just set the placeholder text here.
-    // If the component allowed `value: Date | null`, the wrapper could handle it.
-    value: new Date('invalid date'), // Pass an invalid date to trigger placeholder formatting
-  },
-  // If strict Date prop is needed, you might need a story-specific render:
-  // render: (args) => {
-  //     const [date, setDate] = useState<Date | null>(null);
-  //     const handleChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-  //         if (event.type === 'set' && selectedDate) { setDate(selectedDate); }
-  //         args.onChange?.(event, selectedDate);
-  //     };
-  //     // Need to pass a valid Date to DateTimePicker even if displaying null initially
-  //     const pickerValue = date || new Date();
-  //     // Display logic needs adjustment in component or wrapper to show placeholder for null
-  //     return <AppDatePicker {...args} value={pickerValue} onChange={handleChange} />;
-  // }
 }

@@ -3,31 +3,40 @@ import { Pressable, StyleSheet, View } from 'react-native'
 
 import type { Name } from '@7guis/state/crudSlice'
 
-import { nameCreated, nameDeleted, nameInputChanged, nameSelected, nameUpdated, selectFilteredNameRecords, selectUI, surnameInputChanged } from '@7guis/state/crudSlice'
+import { nameCreated, nameDeleted, nameInputChanged, nameSelected, nameUpdated, searchChanged, selectFilteredNameRecords, selectUI, surnameInputChanged } from '@7guis/state/crudSlice'
 import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import { Button } from '~/components/Button/Button'
 import { ListView } from '~/components/ListView/ListView'
 import { Text } from '~/components/Text/Text'
 import { TextInput } from '~/components/TextInput/TextInput'
 import { commonStyles } from '~/styles/commonStyles'
-import theme from '~/styles/theme' // Adjust path
+import theme from '~/styles/theme'
 
 const styles = StyleSheet.create({
   container: {
     padding: theme.spacing.m,
-    flex: 1, // Make container take full height
+    flex: 1,
   },
-  filterRow: {
+  // New style for the search bar container
+  searchBarContainer: {
+    marginBottom: theme.spacing.m, // Space below search bar
+  },
+  searchInput: { // Style for the TextInput container itself
+    marginBottom: 0, // Remove default TextInput margin
+  },
+  // Renamed from filterRow
+  detailInputsRow: {
     flexDirection: 'row',
     marginBottom: theme.spacing.m,
-    gap: theme.spacing.m, // Use gap for spacing between inputs
+    gap: theme.spacing.m,
   },
-  filterInput: {
-    flex: 1, // Make inputs share width
-    marginBottom: 0, // Remove default margin from input container
+  // Renamed from filterInput
+  detailInput: {
+    flex: 1,
+    marginBottom: 0,
   },
   listContainer: {
-    flex: 1, // Allow list to take remaining vertical space
+    flex: 1,
     borderWidth: 1,
     borderColor: theme.colors.border,
     marginBottom: theme.spacing.m,
@@ -38,25 +47,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.l,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
-    backgroundColor: theme.colors.surface, // Default background
+    backgroundColor: theme.colors.surface,
   },
   listItemSelected: {
-    backgroundColor: theme.colors.primary, // Highlight color
+    backgroundColor: theme.colors.primary,
   },
   listItemText: {
     color: theme.colors.text,
   },
   listItemSelectedText: {
-    color: theme.colors.surface, // Text color on highlight
+    color: theme.colors.surface,
   },
   buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around', // Distribute buttons evenly
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   button: {
-    flex: 1, // Allow buttons to grow
-    marginHorizontal: theme.spacing.xs, // Add small space between buttons
+    flex: 1,
+    marginHorizontal: theme.spacing.xs,
   },
 })
 
@@ -97,6 +106,7 @@ export function CRUD() {
         <Text style={isSelected ? styles.listItemSelectedText : styles.listItemText}>
           {item.surname}
           ,
+          {' '}
           {item.name}
         </Text>
       </Pressable>
@@ -108,29 +118,38 @@ export function CRUD() {
 
   return (
     <View style={[commonStyles.container, styles.container]}>
-      {/* Filter Inputs */}
-      <View style={styles.filterRow}>
+      <View style={styles.searchBarContainer}>
         <TextInput
-          label="Filter Name"
-          value={nameInput}
-          onChangeText={text => dispatch(nameInputChanged(text))}
-          containerStyle={styles.filterInput}
-        />
-        <TextInput
-          label="Filter Surname"
-          value={surnameInput}
-          onChangeText={text => dispatch(surnameInputChanged(text))}
-          containerStyle={styles.filterInput}
+          label="Search"
+          placeholder="Search"
+          value={searchInput}
+          onChangeText={text => dispatch(searchChanged(text))}
+          containerStyle={styles.searchInput}
         />
       </View>
 
-      {/* List View */}
+      {/* Name/Surname Detail Inputs */}
+      <View style={styles.detailInputsRow}>
+        <TextInput
+          label="Name"
+          value={nameInput}
+          onChangeText={text => dispatch(nameInputChanged(text))}
+          containerStyle={styles.detailInput}
+        />
+        <TextInput
+          label="Surname"
+          value={surnameInput}
+          onChangeText={text => dispatch(surnameInputChanged(text))}
+          containerStyle={styles.detailInput}
+        />
+      </View>
+
       <View style={styles.listContainer}>
         <ListView
           data={filteredNameRecords}
           renderItem={renderItem}
+          keyExtractor={item => item.id} // Use stable ID for keys
           emptyStateMessage="No matching entries found."
-        // style={{ flex: 1 }} // Ensure list takes space
         />
       </View>
 

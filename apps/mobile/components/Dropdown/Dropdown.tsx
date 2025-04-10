@@ -42,15 +42,6 @@ const styles = StyleSheet.create({
       borderRadius: 8,
       backgroundColor: theme.colors.surface,
     }),
-    ...(Platform.OS !== 'android' && Platform.OS !== 'ios' && { // Basic web styles
-      minHeight: 48,
-      paddingHorizontal: theme.spacing.m,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 8,
-      backgroundColor: theme.colors.surface,
-      appearance: 'none', // Remove default browser styling
-    }),
   },
   iosItemStyle: {
     // Add specific iOS item styles here if needed (e.g., fontSize)

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { Text } from '~/components/Text/Text'
@@ -29,14 +29,13 @@ const sampleItems = [
 
 const placeholderItem = { label: 'Select framework...', value: null }
 
-// Helper component to manage state for controlled dropdown stories
 function DropdownStateWrapper(props: DropdownProps) {
   // Initialize state with the value from args, or placeholder value if applicable
   const initialValue = props.value ?? (props.placeholder && 'value' in props.placeholder ? props.placeholder.value : null)
   const [selectedValue, setSelectedValue] = useState(initialValue)
 
   // Update state if story controls change the value prop
-  React.useEffect(() => {
+  useEffect(() => {
     setSelectedValue(props.value)
   }, [props.value])
 
@@ -120,6 +119,7 @@ export const Default: Story = {
   },
 }
 
+// TODO: not preselected
 export const WithValueSelected: Story = {
   args: {
     label: 'Selected Framework',
@@ -128,6 +128,7 @@ export const WithValueSelected: Story = {
   },
 }
 
+// TODO: not disabled
 export const Disabled: Story = {
   args: {
     label: 'Cannot Change Framework',

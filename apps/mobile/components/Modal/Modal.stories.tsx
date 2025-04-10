@@ -106,8 +106,8 @@ export const SimpleContent: Story = {
     title: 'Information',
     triggerTitle: 'Show Simple Modal',
   },
-  render: (args) => { // Define story-specific render
-    const modalContent = ( // Define the children JSX here
+  render: (args) => {
+    const modalContent = (
       <View>
         <Text style={styles.storyText}>
           This is the content of the modal. You can put any React components here.
@@ -131,7 +131,6 @@ export const ComplexContent: Story = {
       <View>
         <TextInput label="Name" placeholder="Enter your name" style={styles.inputSpacing} />
         <TextInput label="Email" placeholder="Enter your email" keyboardType="email-address" style={styles.inputSpacing} />
-        {/* In a real app, onSubmit would likely close the modal via onClose */}
         <Button title="Submit" onPress={() => Alert.alert('Submit pressed!')} />
       </View>
     )
@@ -226,7 +225,7 @@ function NoCloseButtonStory({ ...props }: Partial<ModalProps>) {
 }
 
 export const NoCloseButton: Story = {
-  args: { // Only serializable args
+  args: {
     title: 'Custom Close Logic',
     hideCloseButton: true,
     closeOnBackdropPress: false,

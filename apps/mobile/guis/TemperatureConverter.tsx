@@ -5,33 +5,30 @@ import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
 import { selectTemperatures, temperatureChanged } from '@7guis/state/temperatureConverterSlice'
 import { Text } from '~/components/Text/Text'
 import { TextInput } from '~/components/TextInput/TextInput'
-import { commonStyles } from '~/styles/commonStyles'
 import theme from '~/styles/theme'
 
 const styles = StyleSheet.create({
   container: {
-    padding: theme.spacing.l,
-    justifyContent: 'center', // Center row vertically if container has flex:1
-    alignItems: 'center', // Center row horizontally
+    padding: theme.spacing.m,
   },
   inputRow: {
     flexDirection: 'row',
-    alignItems: 'center', // Align items vertically in the center
-    width: '100%', // Take full width
-    maxWidth: 400, // Limit max width for better appearance
+    alignItems: 'center',
+    width: '100%',
   },
   inputContainer: {
-    flex: 1, // Allow input containers to take equal space
-    marginBottom: 0, // Override default bottom margin from AppTextInput container
+    flex: 1,
+    marginBottom: 0,
   },
   input: {
-    textAlign: 'center', // Center text within the input field
-    // Adjust padding if needed
+    textAlign: 'center',
+    paddingHorizontal: theme.spacing.s,
   },
   equalsText: {
-    marginHorizontal: theme.spacing.m,
+    marginHorizontal: theme.spacing.s,
     fontSize: 24,
     color: theme.colors.textSecondary,
+    marginTop: theme.spacing.m,
   },
 })
 
@@ -54,15 +51,15 @@ export function TemperatureConverter() {
   }
 
   return (
-    <View style={[commonStyles.container, styles.container]}>
+    <View style={styles.container}>
       <View style={styles.inputRow}>
         <TextInput
           label="Celsius"
           value={celsius}
           onChangeText={handleCelsiusChange}
           keyboardType="numeric"
-          style={styles.input} // Apply specific input style
-          containerStyle={styles.inputContainer} // Control container flex
+          style={styles.input}
+          containerStyle={styles.inputContainer}
         />
         <Text style={styles.equalsText}>=</Text>
         <TextInput
@@ -70,8 +67,8 @@ export function TemperatureConverter() {
           value={fahrenheit}
           onChangeText={handleFahrenheitChange}
           keyboardType="numeric"
-          style={styles.input} // Apply specific input style
-          containerStyle={styles.inputContainer} // Control container flex
+          style={styles.input}
+          containerStyle={styles.inputContainer}
         />
       </View>
     </View>

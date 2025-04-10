@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // This works correctly now
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: theme.spacing.m,
     paddingBottom: theme.spacing.s,
@@ -143,10 +143,8 @@ export function Modal({
                     {title}
                   </Text>
                 )}
-                {/* This area will still take flex space even if title is null */}
               </View>
 
-              {/* Right Area (Close Button) */}
               {!hideCloseButton && (
                 <TouchableOpacity
                   style={styles.closeButton}

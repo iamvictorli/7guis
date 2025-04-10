@@ -88,13 +88,13 @@ export function DatePicker({
   labelStyle,
   triggerStyle,
   textStyle,
-  ...rest // Pass other DateTimePicker props if needed (like minimumDate, maximumDate)
+  ...rest
 }: DatePickerProps) {
   const [showPicker, setShowPicker] = useState(false)
 
   const handlePress = () => {
     if (!disabled) {
-      setShowPicker(true)
+      setShowPicker(!showPicker)
     }
   }
 
@@ -102,8 +102,6 @@ export function DatePicker({
     event: DateTimePickerEvent,
     selectedDate?: Date,
   ) => {
-    setShowPicker(false) // Hide picker on any action (select or dismiss)
-
     // Only call the parent onChange if a date was actually selected or if it's a dismissal event
     // (The parent might want to know about dismissals too)
     // The library behavior might vary slightly, check docs if needed.
@@ -128,7 +126,7 @@ export function DatePicker({
     }
     catch (error) {
       console.error('Error formatting date:', error)
-      return placeholder // Fallback on error
+      return placeholder
     }
   }
 
@@ -169,14 +167,14 @@ export function DatePicker({
         </Text>
       </Pressable>
 
-      {showPicker && (
+      {showPicker && !disabled && (
         <DateTimePicker
-          value={value instanceof Date && !Number.isNaN(value.getTime()) ? value : new Date()} // Ensure value is a valid Date
+          value={value instanceof Date && !Number.isNaN(value.getTime()) ? value : new Date()}
           mode={mode}
           display={display}
           onChange={handlePickerChange}
-          disabled={disabled} // Pass disabled state
-          {...rest} // Pass other props like minimumDate, maximumDate
+          disabled={disabled}
+          {...rest}
         />
       )}
     </View>

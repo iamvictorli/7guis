@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import theme from '~/styles/theme' // Adjust path if needed
+import theme from '~/styles/theme'
 
 import type { TextInputProps } from './TextInput'
 

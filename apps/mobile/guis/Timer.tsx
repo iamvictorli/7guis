@@ -52,11 +52,6 @@ const styles = StyleSheet.create({
   },
 })
 
-// Helper to format milliseconds to seconds string (e.g., "12.3s")
-function formatTime(ms: number): string {
-  return `${(ms / 1000).toFixed(1)}s`
-}
-
 export function Timer() {
   const dispatch = useAppDispatch()
   const duration = useAppSelector(selectDuration)
@@ -143,11 +138,8 @@ export function Timer() {
         value={duration}
         onValueChange={handleDurationChange}
         containerStyle={styles.sliderContainer}
-        showValue={false} // We show formatted duration below
+        showValue={false}
       />
-      <Text variant="body" style={styles.durationDisplay}>
-        {formatTime(duration)}
-      </Text>
 
       {/* Reset Button */}
       <Button

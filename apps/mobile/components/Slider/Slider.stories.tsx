@@ -146,6 +146,4 @@ export const CustomColors: Story = {
     maximumTrackTintColor: '#FECACA', // Red-100
     thumbTintColor: theme.colors.error, // Red-500
   },
-  // Override render to pass props directly if wrapper interferes,
-  // or ensure wrapper passes ...rest correctly (it does now)
 }
