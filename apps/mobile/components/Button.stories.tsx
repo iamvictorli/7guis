@@ -4,7 +4,7 @@ import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 
 import { Button } from '@victorli/7guis-ui-mobile/Button'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

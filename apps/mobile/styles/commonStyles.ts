@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 export const commonStyles = StyleSheet.create({
   container: {

@@ -7,7 +7,7 @@ import type { DropdownProps } from '@victorli/7guis-ui-mobile/Dropdown'
 
 import { Dropdown } from '@victorli/7guis-ui-mobile/Dropdown'
 import { Text } from '@victorli/7guis-ui-mobile/Text'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

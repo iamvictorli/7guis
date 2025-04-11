@@ -1,7 +1,7 @@
 {
   "name": "@victorli/7guis-ui-mobile",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reusable UI mobile components for 7guis",
   "homepage": "https://7guis.iamvictorli.com",
   "license": "MIT",

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { Button } from '@victorli/7guis-ui-mobile/Button'
 import { DatePicker } from '@victorli/7guis-ui-mobile/DatePicker'
 import { Dropdown } from '@victorli/7guis-ui-mobile/Dropdown'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
 
 const styles = StyleSheet.create({

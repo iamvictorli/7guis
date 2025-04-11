@@ -9,7 +9,7 @@ import { Button } from '@victorli/7guis-ui-mobile/Button'
 import { ListView } from '@victorli/7guis-ui-mobile/ListView'
 import { Text } from '@victorli/7guis-ui-mobile/Text'
 import { TextInput } from '@victorli/7guis-ui-mobile/TextInput'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
 
 const styles = StyleSheet.create({

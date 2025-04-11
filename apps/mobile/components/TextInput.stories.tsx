@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native'
 import type { TextInputProps } from '@victorli/7guis-ui-mobile/TextInput'
 
 import { TextInput } from '@victorli/7guis-ui-mobile/TextInput'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

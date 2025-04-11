@@ -7,7 +7,7 @@ import { Platform, StyleSheet, View } from 'react-native'
 import type { DatePickerProps } from '@victorli/7guis-ui-mobile/DatePicker'
 
 import { DatePicker } from '@victorli/7guis-ui-mobile/DatePicker'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

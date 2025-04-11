@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native'
 import type { SliderProps } from '@victorli/7guis-ui-mobile/Slider'
 
 import { Slider } from '@victorli/7guis-ui-mobile/Slider'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

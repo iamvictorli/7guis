@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { selectTemperatures, temperatureChanged } from '@victorli/7guis-state/temperatureConverterSlice'
 import { Text } from '@victorli/7guis-ui-mobile/Text'
 import { TextInput } from '@victorli/7guis-ui-mobile/TextInput'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   container: {

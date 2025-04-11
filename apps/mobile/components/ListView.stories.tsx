@@ -7,7 +7,7 @@ import type { ListViewProps } from '@victorli/7guis-ui-mobile/ListView'
 
 import { ListView } from '@victorli/7guis-ui-mobile/ListView'
 import { Text } from '@victorli/7guis-ui-mobile/Text'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

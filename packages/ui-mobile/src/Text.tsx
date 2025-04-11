@@ -5,7 +5,7 @@ import { Text as RNText } from 'react-native'
 
 import type { colors, typography } from './theme'
 
-import theme from './theme'
+import { theme } from './theme'
 
 // Define the props interface
 interface TextProps extends RNTextProps {

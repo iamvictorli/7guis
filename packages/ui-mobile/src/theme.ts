@@ -63,10 +63,8 @@ export const typography: TypographyVariants = {
   },
 }
 
-const theme = {
+export const theme = {
   colors,
   spacing,
   typography,
 }
-
-export default theme

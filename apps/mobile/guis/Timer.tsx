@@ -6,7 +6,7 @@ import { durationChanged, nowChanged, selectDuration, selectElapsedMs, timerRese
 import { Button } from '@victorli/7guis-ui-mobile/Button'
 import { Slider } from '@victorli/7guis-ui-mobile/Slider'
 import { Text } from '@victorli/7guis-ui-mobile/Text'
-import theme from '@victorli/7guis-ui-mobile/theme'
+import { theme } from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
 
 const styles = StyleSheet.create({
