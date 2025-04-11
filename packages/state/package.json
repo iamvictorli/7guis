@@ -1,7 +1,7 @@
 {
   "name": "@victorli/7guis-state",
   "type": "module",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "7GUIs state management slices using Redux Toolkit",
   "homepage": "https://7guis.iamvictorli.com",
   "repository": {
@@ -17,6 +17,10 @@
     "typescript"
   ],
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./counterSlice": {
       "types": "./src/counterSlice.ts",
       "default": "./dist/counterSlice.js"
