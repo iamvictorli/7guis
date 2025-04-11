@@ -1,7 +1,7 @@
 {
   "name": "@victorli/7guis-state",
   "type": "module",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "7GUIs state management slices using Redux Toolkit",
   "homepage": "https://7guis.iamvictorli.com",
   "repository": {
@@ -54,6 +54,9 @@
       "default": "./dist/hooks.js"
     }
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/"
   ],
