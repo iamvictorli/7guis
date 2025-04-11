@@ -63,7 +63,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist node_modules tsconfig.tsbuildinfo",
-    "prepublish-clean": "rimraf dist",
+    "prepublish-clean": "rimraf dist tsconfig.tsbuildinfo",
     "dev": "tsc --watch",
     "test": "vitest",
     "prepublishOnly": "pnpm prepublish-clean && pnpm build && pnpm test"
