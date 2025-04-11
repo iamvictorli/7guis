@@ -1,0 +1,18 @@
+{
+  "extends": "@victorli/7guis-tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+
+    "jsx": "react-native",
+    "rootDir": "src",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "outDir": "dist",
+    "sourceMap": true
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

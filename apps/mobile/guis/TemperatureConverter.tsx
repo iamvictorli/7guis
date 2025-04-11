@@ -3,9 +3,9 @@ import { StyleSheet, View } from 'react-native'
 
 import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { selectTemperatures, temperatureChanged } from '@victorli/7guis-state/temperatureConverterSlice'
-import { Text } from '~/components/Text/Text'
-import { TextInput } from '~/components/TextInput/TextInput'
-import theme from '~/styles/theme'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import { TextInput } from '@victorli/7guis-ui-mobile/TextInput'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   container: {

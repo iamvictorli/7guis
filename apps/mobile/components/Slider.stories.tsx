@@ -3,11 +3,10 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import theme from '~/styles/theme'
+import type { SliderProps } from '@victorli/7guis-ui-mobile/Slider'
 
-import type { SliderProps } from './Slider'
-
-import { Slider } from './Slider'
+import { Slider } from '@victorli/7guis-ui-mobile/Slider'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

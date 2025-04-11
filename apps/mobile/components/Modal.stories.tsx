@@ -3,14 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 
-import { Button } from '~/components/Button/Button'
-import { Text } from '~/components/Text/Text'
-import { TextInput } from '~/components/TextInput/TextInput'
-import theme from '~/styles/theme'
+import type { ModalProps } from '@victorli/7guis-ui-mobile/Modal'
 
-import type { ModalProps } from './Modal'
-
-import { Modal } from './Modal'
+import { Button } from '@victorli/7guis-ui-mobile/Button'
+import { Modal } from '@victorli/7guis-ui-mobile/Modal'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import { TextInput } from '@victorli/7guis-ui-mobile/TextInput'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

@@ -3,12 +3,11 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 
-import { Text } from '~/components/Text/Text'
-import theme from '~/styles/theme'
+import type { ListViewProps } from '@victorli/7guis-ui-mobile/ListView'
 
-import type { ListViewProps } from './ListView'
-
-import { ListView } from './ListView'
+import { ListView } from '@victorli/7guis-ui-mobile/ListView'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

@@ -4,11 +4,10 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 
-import theme from '~/styles/theme'
+import type { DatePickerProps } from '@victorli/7guis-ui-mobile/DatePicker'
 
-import type { DatePickerProps } from './DatePicker'
-
-import { DatePicker } from './DatePicker'
+import { DatePicker } from '@victorli/7guis-ui-mobile/DatePicker'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

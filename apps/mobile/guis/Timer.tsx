@@ -3,11 +3,11 @@ import { StyleSheet, View } from 'react-native'
 
 import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { durationChanged, nowChanged, selectDuration, selectElapsedMs, timerReset } from '@victorli/7guis-state/timerSlice'
-import { Button } from '~/components/Button/Button'
-import { Slider } from '~/components/Slider/Slider'
-import { Text } from '~/components/Text/Text'
+import { Button } from '@victorli/7guis-ui-mobile/Button'
+import { Slider } from '@victorli/7guis-ui-mobile/Slider'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import theme from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
-import theme from '~/styles/theme'
 
 const styles = StyleSheet.create({
   container: {

@@ -3,8 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import theme from '~/styles/theme'
-
+import theme from '../../../packages/ui-mobile/src/theme'
 import { CircleDrawer } from './CircleDrawer'
 import { Counter } from './Counter'
 import { CRUD } from './CRUD'

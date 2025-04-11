@@ -3,9 +3,9 @@ import type { TextProps as RNTextProps, StyleProp, TextStyle } from 'react-nativ
 import React from 'react'
 import { Text as RNText } from 'react-native'
 
-import type { colors, typography } from '~/styles/theme'
+import type { colors, typography } from './theme'
 
-import theme from '~/styles/theme'
+import theme from './theme'
 
 // Define the props interface
 interface TextProps extends RNTextProps {

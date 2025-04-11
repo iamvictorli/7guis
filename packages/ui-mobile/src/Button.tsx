@@ -7,8 +7,8 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import { Text } from '~/components/Text/Text'
-import theme from '~/styles/theme'
+import { Text } from './Text'
+import theme from './theme'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'text'
 

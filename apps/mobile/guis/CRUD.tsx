@@ -5,12 +5,12 @@ import type { Name } from '@victorli/7guis-state/crudSlice'
 
 import { nameCreated, nameDeleted, nameInputChanged, nameSelected, nameUpdated, searchChanged, selectFilteredNameRecords, selectUI, surnameInputChanged } from '@victorli/7guis-state/crudSlice'
 import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
-import { Button } from '~/components/Button/Button'
-import { ListView } from '~/components/ListView/ListView'
-import { Text } from '~/components/Text/Text'
-import { TextInput } from '~/components/TextInput/TextInput'
+import { Button } from '@victorli/7guis-ui-mobile/Button'
+import { ListView } from '@victorli/7guis-ui-mobile/ListView'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import { TextInput } from '@victorli/7guis-ui-mobile/TextInput'
+import theme from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
-import theme from '~/styles/theme'
 
 const styles = StyleSheet.create({
   container: {

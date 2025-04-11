@@ -1,0 +1,85 @@
+{
+  "name": "@victorli/7guis-ui-mobile",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Reusable UI mobile components for 7guis",
+  "homepage": "https://7guis.iamvictorli.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamvictorli/7guis",
+    "directory": "packages/ui-mobile"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./Button": {
+      "types": "./src/Button.tsx",
+      "default": "./dist/Button.js"
+    },
+    "./DatePicker": {
+      "types": "./src/DatePicker.tsx",
+      "default": "./dist/DatePicker.js"
+    },
+    "./Dropdown": {
+      "types": "./src/Dropdown.tsx",
+      "default": "./dist/Dropdown.js"
+    },
+    "./ListView": {
+      "types": "./src/ListView.tsx",
+      "default": "./dist/ListView.js"
+    },
+    "./Modal": {
+      "types": "./src/Modal.tsx",
+      "default": "./dist/Modal.js"
+    },
+    "./Slider": {
+      "types": "./src/Slider.tsx",
+      "default": "./dist/Slider.js"
+    },
+    "./Text": {
+      "types": "./src/Text.tsx",
+      "default": "./dist/Text.js"
+    },
+    "./TextInput": {
+      "types": "./src/TextInput.tsx",
+      "default": "./dist/TextInput.js"
+    },
+    "./theme": {
+      "types": "./src/theme.ts",
+      "default": "./dist/theme.js"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist node_modules tsconfig.tsbuildinfo",
+    "prepublish-clean": "rimraf dist tsconfig.tsbuildinfo",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm prepublish-clean && pnpm build"
+  },
+  "dependencies": {
+    "@react-native-community/datetimepicker": "8.2.0",
+    "@react-native-community/slider": "4.5.5",
+    "@react-native-picker/picker": "2.9.0",
+    "react": "18.3.1",
+    "react-native": "0.76.9"
+  },
+  "devDependencies": {
+    "@types/react": "~18.3.12",
+    "@victorli/7guis-tsconfig": "workspace:*",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -3,11 +3,10 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import theme from '~/styles/theme'
+import type { TextInputProps } from '@victorli/7guis-ui-mobile/TextInput'
 
-import type { TextInputProps } from './TextInput'
-
-import { TextInput } from './TextInput'
+import { TextInput } from '@victorli/7guis-ui-mobile/TextInput'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

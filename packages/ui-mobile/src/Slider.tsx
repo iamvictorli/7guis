@@ -4,8 +4,8 @@ import RNSlider from '@react-native-community/slider'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from '~/components/Text/Text'
-import theme from '~/styles/theme'
+import { Text } from './Text'
+import theme from './theme'
 
 const styles = StyleSheet.create({
   container: {

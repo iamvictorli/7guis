@@ -3,12 +3,11 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from '~/components/Text/Text'
-import theme from '~/styles/theme'
+import type { DropdownProps } from '@victorli/7guis-ui-mobile/Dropdown'
 
-import type { DropdownProps } from './Dropdown'
-
-import { Dropdown } from './Dropdown'
+import { Dropdown } from '@victorli/7guis-ui-mobile/Dropdown'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {

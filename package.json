@@ -9,6 +9,7 @@
     "dev:web": "pnpm -F @victorli/7guis-web run dev",
     "dev:state": "pnpm -F @victorli/7guis-state run dev",
     "dev:mobile": "pnpm -F @victorli/7guis-mobile run start",
+    "dev:ui-mobile": "pnpm -F @victorli/7guis-ui-mobile run dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",

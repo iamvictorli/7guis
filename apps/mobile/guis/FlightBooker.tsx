@@ -5,11 +5,11 @@ import { Alert, StyleSheet, View } from 'react-native'
 
 import { dateChanged, FlightTrip, flightTypeChanged, selectFlightBookerState, selectIsBookableFlight } from '@victorli/7guis-state/flightBookerSlice'
 import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
-import { Button } from '~/components/Button/Button'
-import { DatePicker } from '~/components/DatePicker/DatePicker'
-import { Dropdown } from '~/components/Dropdown/Dropdown'
+import { Button } from '@victorli/7guis-ui-mobile/Button'
+import { DatePicker } from '@victorli/7guis-ui-mobile/DatePicker'
+import { Dropdown } from '@victorli/7guis-ui-mobile/Dropdown'
+import theme from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
-import theme from '~/styles/theme'
 
 const styles = StyleSheet.create({
   container: {

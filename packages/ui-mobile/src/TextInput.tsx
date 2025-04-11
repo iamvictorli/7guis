@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native'
 
-import { Text } from '~/components/Text/Text'
-import theme from '~/styles/theme'
+import { Text } from './Text'
+import theme from './theme'
 
 // Extend React Native's TextInputProps and add our custom ones
 export interface TextInputProps extends RNTextInputProps {

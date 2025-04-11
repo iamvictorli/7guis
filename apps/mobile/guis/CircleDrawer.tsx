@@ -6,11 +6,11 @@ import Svg, { Circle as SvgCircle } from 'react-native-svg'
 
 import { circleAdded, circleSelected, circleUpdated, deselect, radiusChanged, redo, selectCircleById, selectCircleIds, selectRedoDisabled, selectUI, selectUndoDisabled, undo } from '@victorli/7guis-state/circleDrawerSlice'
 import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
-import { Button } from '~/components/Button/Button'
-import { Modal } from '~/components/Modal/Modal'
-import { Slider } from '~/components/Slider/Slider'
-import { Text } from '~/components/Text/Text'
-import theme from '~/styles/theme'
+import { Button } from '@victorli/7guis-ui-mobile/Button'
+import { Modal } from '@victorli/7guis-ui-mobile/Modal'
+import { Slider } from '@victorli/7guis-ui-mobile/Slider'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   screenContainer: {

@@ -3,9 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import theme from '~/styles/theme'
-
-import { Text } from './Text'
+import { Text } from '@victorli/7guis-ui-mobile/Text'
+import theme from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {
