@@ -1,5 +1,5 @@
 {
-  "name": "@7guis/web",
+  "name": "@victorli/7guis-web",
   "type": "module",
   "version": "1.0.0",
   "description": "7gui web",
@@ -12,7 +12,6 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@7guis/state": "workspace:*",
     "@internationalized/date": "^3.7.0",
     "@radix-ui/react-context": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.2",
@@ -25,6 +24,7 @@
     "@react-router/fs-routes": "^7.4.1",
     "@react-router/node": "^7.4.1",
     "@react-router/serve": "^7.4.1",
+    "@victorli/7guis-state": "workspace:*",
     "clsx": "^2.1.1",
     "isbot": "^5.1.25",
     "react": "^18.3.1",
@@ -38,7 +38,6 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@7guis/typescript-config": "workspace:*",
     "@react-router/dev": "^7.4.1",
     "@react-types/shared": "^3.28.0",
     "@tailwindcss/vite": "^4.1.2",
@@ -49,6 +48,7 @@
     "@types/react": "^18.3.19",
     "@types/react-dom": "^18.3.6",
     "@vercel/react-router": "^1.1.0",
+    "@victorli/7guis-tsconfig": "workspace:*",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^26.0.0",
     "resize-observer-polyfill": "^1.5.1",

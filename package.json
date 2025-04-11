@@ -6,13 +6,13 @@
   "scripts": {
     "build": "pnpm -r run build",
     "clean": "pnpm -r run clean && rimraf node_modules",
-    "dev:web": "pnpm -F web run dev",
-    "dev:state": "pnpm -F state run dev",
-    "dev:mobile": "pnpm -F mobile run start",
+    "dev:web": "pnpm -F @victorli/7guis-web run dev",
+    "dev:state": "pnpm -F @victorli/7guis-state run dev",
+    "dev:mobile": "pnpm -F @victorli/7guis-mobile run start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "preview:web": "pnpm -F web run preview",
+    "preview:web": "pnpm -F @victorli/7guis-web run preview",
     "prepare": "husky",
     "knip": "knip"
   },

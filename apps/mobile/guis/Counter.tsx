@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { increment, selectCount } from '@7guis/state/counterSlice'
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+import { increment, selectCount } from '@victorli/7guis-state/counterSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { Button } from '~/components/Button/Button'
 import { Text } from '~/components/Text/Text'
 import { commonStyles } from '~/styles/commonStyles'

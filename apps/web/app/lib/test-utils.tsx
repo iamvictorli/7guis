@@ -6,9 +6,9 @@ import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
 
-import type { AppStore, RootState } from '@7guis/state/store'
+import type { AppStore, RootState } from '@victorli/7guis-state/store'
 
-import { setupStore } from '@7guis/state/store'
+import { setupStore } from '@victorli/7guis-state/store'
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.

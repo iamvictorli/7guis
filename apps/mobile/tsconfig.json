@@ -1,5 +1,5 @@
 {
-  "extends": "@7guis/typescript-config/tsconfig.json",
+  "extends": "@victorli/7guis-tsconfig/tsconfig.json",
   "compilerOptions": {
     "jsx": "react-native",
     "moduleResolution": "bundler",

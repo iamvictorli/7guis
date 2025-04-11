@@ -1,11 +1,11 @@
 import { Label } from '@radix-ui/react-label'
 import { Flex, Text, TextField } from '@radix-ui/themes'
 
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import {
   selectTemperatures,
   temperatureChanged,
-} from '@7guis/state/temperatureConverterSlice'
+} from '@victorli/7guis-state/temperatureConverterSlice'
 
 export default function TemperatureConverter() {
   const dispatch = useAppDispatch()

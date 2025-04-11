@@ -1,8 +1,21 @@
 {
-  "name": "@7guis/state",
+  "name": "@victorli/7guis-state",
   "type": "module",
-  "version": "1.0.0",
-  "description": "7gui state using redux",
+  "version": "1.0.2",
+  "description": "7GUIs state management slices using Redux Toolkit",
+  "homepage": "https://7guis.iamvictorli.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamvictorli/7guis",
+    "directory": "packages/state"
+  },
+  "keywords": [
+    "7guis",
+    "redux",
+    "redux-toolkit",
+    "state-management",
+    "typescript"
+  ],
   "exports": {
     "./counterSlice": {
       "types": "./src/counterSlice.ts",
@@ -41,20 +54,31 @@
       "default": "./dist/hooks.js"
     }
   },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist node_modules tsconfig.tsbuildinfo",
+    "prepublish-clean": "rimraf dist",
     "dev": "tsc --watch",
-    "test": "vitest"
+    "test": "vitest",
+    "prepublishOnly": "pnpm prepublish-clean && pnpm build && pnpm test"
   },
   "dependencies": {
     "@internationalized/date": "^3.7.0",
     "@reduxjs/toolkit": "^2.6.1"
   },
   "devDependencies": {
-    "@7guis/typescript-config": "workspace:*",
+    "@victorli/7guis-tsconfig": "workspace:*",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.2",
     "vitest": "^3.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

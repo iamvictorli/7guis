@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
-import { selectTemperatures, temperatureChanged } from '@7guis/state/temperatureConverterSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
+import { selectTemperatures, temperatureChanged } from '@victorli/7guis-state/temperatureConverterSlice'
 import { Text } from '~/components/Text/Text'
 import { TextInput } from '~/components/TextInput/TextInput'
 import theme from '~/styles/theme'

@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { selectCellMatrix, selectColumnLabels } from '@7guis/state/cellsSlice'
+import { selectCellMatrix, selectColumnLabels } from '@victorli/7guis-state/cellsSlice'
 import { renderWithProviders } from '~/lib/test-utils'
 
 import Cells from './Cells'

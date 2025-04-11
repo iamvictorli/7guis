@@ -16,7 +16,7 @@ export default antfu(
     ...jsxA11y.flatConfigs.recommended,
     rules: {
       'perfectionist/sort-imports': ['error', {
-        internalPattern: ['@7guis/.*', '~/.*'],
+        internalPattern: ['@victorli/.*', '~/.*'],
       }],
     },
   },

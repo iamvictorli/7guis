@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { selectCount } from '@7guis/state/counterSlice'
+import { selectCount } from '@victorli/7guis-state/counterSlice'
 import { renderWithProviders } from '~/lib/test-utils'
 
 import Counter from './Counter'

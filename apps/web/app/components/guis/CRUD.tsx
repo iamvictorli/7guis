@@ -11,8 +11,8 @@ import {
   selectFilteredNameRecords,
   selectUI,
   surnameInputChanged,
-} from '@7guis/state/crudSlice'
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+} from '@victorli/7guis-state/crudSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import ListBox from '~/components/ListBox/ListBox'
 
 /**

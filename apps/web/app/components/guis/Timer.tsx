@@ -2,14 +2,14 @@ import { Label } from '@radix-ui/react-label'
 import { Button, Flex, Progress, Text } from '@radix-ui/themes'
 import { useCallback, useEffect, useRef } from 'react'
 
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import {
   durationChanged,
   nowChanged,
   selectDuration,
   selectElapsedMs,
   timerReset,
-} from '@7guis/state/timerSlice'
+} from '@victorli/7guis-state/timerSlice'
 import Slider from '~/components/Slider'
 
 /**

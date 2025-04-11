@@ -1,10 +1,10 @@
 import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 
-import type { Name } from '@7guis/state/crudSlice'
+import type { Name } from '@victorli/7guis-state/crudSlice'
 
-import { nameCreated, nameDeleted, nameInputChanged, nameSelected, nameUpdated, searchChanged, selectFilteredNameRecords, selectUI, surnameInputChanged } from '@7guis/state/crudSlice'
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+import { nameCreated, nameDeleted, nameInputChanged, nameSelected, nameUpdated, searchChanged, selectFilteredNameRecords, selectUI, surnameInputChanged } from '@victorli/7guis-state/crudSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { Button } from '~/components/Button/Button'
 import { ListView } from '~/components/ListView/ListView'
 import { Text } from '~/components/Text/Text'

@@ -3,8 +3,8 @@ import type { DateTimePickerEvent } from '@react-native-community/datetimepicker
 import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 
-import { dateChanged, FlightTrip, flightTypeChanged, selectFlightBookerState, selectIsBookableFlight } from '@7guis/state/flightBookerSlice'
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+import { dateChanged, FlightTrip, flightTypeChanged, selectFlightBookerState, selectIsBookableFlight } from '@victorli/7guis-state/flightBookerSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { Button } from '~/components/Button/Button'
 import { DatePicker } from '~/components/DatePicker/DatePicker'
 import { Dropdown } from '~/components/Dropdown/Dropdown'

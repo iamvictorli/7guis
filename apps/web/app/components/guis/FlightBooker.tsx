@@ -9,8 +9,8 @@ import {
   flightTypeChanged,
   selectFlightBookerState,
   selectIsBookableFlight,
-} from '@7guis/state/flightBookerSlice'
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+} from '@victorli/7guis-state/flightBookerSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import { DatePicker } from '~/components/DatePicker/DatePicker'
 import { DateRangePicker } from '~/components/DatePicker/DateRangePicker'
 import { useToast } from '~/hooks/useToast'

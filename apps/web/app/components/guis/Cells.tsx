@@ -2,7 +2,7 @@ import type { InputHTMLAttributes, KeyboardEvent } from 'react'
 
 import React, { memo, useEffect, useRef, useState } from 'react'
 
-import type { Cell } from '@7guis/state/cellsSlice'
+import type { Cell } from '@victorli/7guis-state/cellsSlice'
 import type {
   CellProps,
   ColHeaderProps,
@@ -13,8 +13,8 @@ import {
   cellChanged,
   selectCellMatrix,
   selectColumnLabels,
-} from '@7guis/state/cellsSlice'
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
+} from '@victorli/7guis-state/cellsSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
 import SpreadSheet from '~/components/Spreadsheet/Spreadsheet'
 import { cn } from '~/lib/utils'
 

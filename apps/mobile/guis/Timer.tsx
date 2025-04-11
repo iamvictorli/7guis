@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { useAppDispatch, useAppSelector } from '@7guis/state/hooks'
-import { durationChanged, nowChanged, selectDuration, selectElapsedMs, timerReset } from '@7guis/state/timerSlice'
+import { useAppDispatch, useAppSelector } from '@victorli/7guis-state/hooks'
+import { durationChanged, nowChanged, selectDuration, selectElapsedMs, timerReset } from '@victorli/7guis-state/timerSlice'
 import { Button } from '~/components/Button/Button'
 import { Slider } from '~/components/Slider/Slider'
 import { Text } from '~/components/Text/Text'
