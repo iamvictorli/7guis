@@ -36,12 +36,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  durationDisplay: {
-    textAlign: 'center',
-    color: theme.colors.textSecondary,
-    marginBottom: theme.spacing.l, // Space before reset button
-    marginTop: theme.spacing.xs, // Space after slider
-  },
   sliderContainer: {
     marginBottom: 0, // Remove default slider bottom margin
   },
