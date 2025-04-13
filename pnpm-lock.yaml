@@ -56,21 +56,12 @@ importers:
 
   apps/mobile:
     dependencies:
-      '@expo/vector-icons':
-        specifier: ^14.0.4
-        version: 14.1.0(expo-font@13.0.4)(react-native@0.76.9)(react@18.3.1)
       '@gorhom/bottom-sheet':
         specifier: ^5.1.2
         version: 5.1.2(@types/react@18.3.20)(react-native-gesture-handler@2.20.2)(react-native-reanimated@3.16.7)(react-native@0.76.9)(react@18.3.1)
       '@react-native-async-storage/async-storage':
         specifier: 1.23.1
         version: 1.23.1(react-native@0.76.9)
-      '@react-navigation/bottom-tabs':
-        specifier: ^7.3.10
-        version: 7.3.10(@react-navigation/native@7.1.6)(react-native-safe-area-context@4.12.0)(react-native-screens@4.4.0)(react-native@0.76.9)(react@18.3.1)
-      '@react-navigation/native':
-        specifier: ^7.1.6
-        version: 7.1.6(react-native@0.76.9)(react@18.3.1)
       '@storybook/react-native':
         specifier: ^8.6.2
         version: 8.6.2(@gorhom/bottom-sheet@5.1.2)(react-dom@18.3.1)(react-native-gesture-handler@2.20.2)(react-native-reanimated@3.16.7)(react-native-safe-area-context@4.12.0)(react-native-svg@15.8.0)(react-native@0.76.9)(react@18.3.1)(typescript@5.8.3)
@@ -83,18 +74,9 @@ importers:
       expo:
         specifier: ~52.0.44
         version: 52.0.44(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(react-native-webview@13.12.5)(react-native@0.76.9)(react@18.3.1)
-      expo-blur:
-        specifier: ~14.0.3
-        version: 14.0.3(expo@52.0.44)(react-native@0.76.9)(react@18.3.1)
       expo-constants:
         specifier: ~17.0.8
         version: 17.0.8(expo@52.0.44)(react-native@0.76.9)
-      expo-font:
-        specifier: ~13.0.4
-        version: 13.0.4(expo@52.0.44)(react@18.3.1)
-      expo-haptics:
-        specifier: ~14.0.1
-        version: 14.0.1(expo@52.0.44)
       expo-linking:
         specifier: ~7.0.5
         version: 7.0.5(expo@52.0.44)(react-native@0.76.9)(react@18.3.1)
@@ -104,18 +86,9 @@ importers:
       expo-splash-screen:
         specifier: ~0.29.22
         version: 0.29.22(expo@52.0.44)
-      expo-status-bar:
-        specifier: ~2.0.1
-        version: 2.0.1(react-native@0.76.9)(react@18.3.1)
-      expo-symbols:
-        specifier: ~0.2.2
-        version: 0.2.2(expo@52.0.44)
       expo-system-ui:
         specifier: ~4.0.9
         version: 4.0.9(expo@52.0.44)(react-native-web@0.19.13)(react-native@0.76.9)
-      expo-web-browser:
-        specifier: ~14.0.2
-        version: 14.0.2(expo@52.0.44)(react-native@0.76.9)
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -177,9 +150,6 @@ importers:
       '@types/react':
         specifier: ~18.3.12
         version: 18.3.20
-      '@types/react-test-renderer':
-        specifier: ^18.3.0
-        version: 18.3.1
       '@victorli/7guis-tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -189,9 +159,6 @@ importers:
       jest-expo:
         specifier: ~52.0.6
         version: 52.0.6(@babel/core@7.26.10)(expo@52.0.44)(jest@29.7.0)(react-dom@18.3.1)(react-native@0.76.9)(react@18.3.1)(webpack@5.99.5)
-      react-test-renderer:
-        specifier: 18.3.1
-        version: 18.3.1(react@18.3.1)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -7308,12 +7275,6 @@ packages:
     dependencies:
       '@types/react': 18.3.20
 
-  /@types/react-test-renderer@18.3.1:
-    resolution: {integrity: sha512-vAhnk0tG2eGa37lkU9+s5SoroCsRI08xnsWFiAXOuPH2jqzMbcXvKExXViPi1P5fIklDeCvXqyrdmipFaSkZrA==}
-    dependencies:
-      '@types/react': 18.3.20
-    dev: true
-
   /@types/react@18.3.20:
     resolution: {integrity: sha512-IPaCZN7PShZK/3t6Q87pfTkRm6oLTd4vztyoj+cbHUF1g3FfVb2tFIL79uCRKEfv16AhqDMBywP2VW3KIZUvcg==}
     dependencies:
@@ -10548,18 +10509,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /expo-blur@14.0.3(expo@52.0.44)(react-native@0.76.9)(react@18.3.1):
-    resolution: {integrity: sha512-BL3xnqBJbYm3Hg9t/HjNjdeY7N/q8eK5tsLYxswWG1yElISWZmMvrXYekl7XaVCPfyFyz8vQeaxd7q74ZY3Wrw==}
-    peerDependencies:
-      expo: '*'
-      react: '*'
-      react-native: '*'
-    dependencies:
-      expo: 52.0.44(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(react-native-webview@13.12.5)(react-native@0.76.9)(react@18.3.1)
-      react: 18.3.1
-      react-native: 0.76.9(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(@types/react@18.3.20)(react@18.3.1)
-    dev: false
-
   /expo-constants@17.0.8(expo@52.0.44)(react-native@0.76.9):
     resolution: {integrity: sha512-XfWRyQAf1yUNgWZ1TnE8pFBMqGmFP5Gb+SFSgszxDdOoheB/NI5D4p7q86kI2fvGyfTrxAe+D+74nZkfsGvUlg==}
     peerDependencies:
@@ -10592,14 +10541,6 @@ packages:
       expo: 52.0.44(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(react-native-webview@13.12.5)(react-native@0.76.9)(react@18.3.1)
       fontfaceobserver: 2.3.0
       react: 18.3.1
-
-  /expo-haptics@14.0.1(expo@52.0.44):
-    resolution: {integrity: sha512-V81FZ7xRUfqM6uSI6FA1KnZ+QpEKnISqafob/xEfcx1ymwhm4V3snuLWWFjmAz+XaZQTqlYa8z3QbqEXz7G63w==}
-    peerDependencies:
-      expo: '*'
-    dependencies:
-      expo: 52.0.44(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(react-native-webview@13.12.5)(react-native@0.76.9)(react@18.3.1)
-    dev: false
 
   /expo-keep-awake@14.0.3(expo@52.0.44)(react@18.3.1):
     resolution: {integrity: sha512-6Jh94G6NvTZfuLnm2vwIpKe3GdOiVBuISl7FI8GqN0/9UOg9E0WXXp5cDcfAG8bn80RfgLJS8P7EPUGTZyOvhg==}
@@ -10700,25 +10641,6 @@ packages:
       - supports-color
     dev: false
 
-  /expo-status-bar@2.0.1(react-native@0.76.9)(react@18.3.1):
-    resolution: {integrity: sha512-AkIPX7jWHRPp83UBZ1iXtVvyr0g+DgBVvIXTtlmPtmUsm8Vq9Bb5IGj86PW8osuFlgoTVAg7HI/+Ok7yEYwiRg==}
-    peerDependencies:
-      react: '*'
-      react-native: '*'
-    dependencies:
-      react: 18.3.1
-      react-native: 0.76.9(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(@types/react@18.3.20)(react@18.3.1)
-    dev: false
-
-  /expo-symbols@0.2.2(expo@52.0.44):
-    resolution: {integrity: sha512-yTk1MxhA61YflYIMortImD57MCneKEoSvU1acqQ4oKigV5+cNw1XKB7GhcKe3d8Ny3ikC/b1Ia+HQjR0Hmr4JA==}
-    peerDependencies:
-      expo: '*'
-    dependencies:
-      expo: 52.0.44(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(react-native-webview@13.12.5)(react-native@0.76.9)(react@18.3.1)
-      sf-symbols-typescript: 2.1.0
-    dev: false
-
   /expo-system-ui@4.0.9(expo@52.0.44)(react-native-web@0.19.13)(react-native@0.76.9):
     resolution: {integrity: sha512-hqBc0EWeK/BTB8i4H84vqNjje8GgxhapYrcWdg5qriaRA/u+bNNxhmpZXdAjFuhonOP4SmAbF+gjoJJWsTrhUg==}
     peerDependencies:
@@ -10736,16 +10658,6 @@ packages:
       react-native-web: 0.19.13(react-dom@18.3.1)(react@18.3.1)
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /expo-web-browser@14.0.2(expo@52.0.44)(react-native@0.76.9):
-    resolution: {integrity: sha512-Hncv2yojhTpHbP6SGWARBFdl7P6wBHc1O8IKaNsH0a/IEakq887o1eRhLxZ5IwztPQyRDhpqHdgJ+BjWolOnwA==}
-    peerDependencies:
-      expo: '*'
-      react-native: '*'
-    dependencies:
-      expo: 52.0.44(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(react-native-webview@13.12.5)(react-native@0.76.9)(react@18.3.1)
-      react-native: 0.76.9(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(@types/react@18.3.20)(react@18.3.1)
     dev: false
 
   /expo@52.0.44(@babel/core@7.26.10)(@babel/preset-env@7.26.9)(react-native-webview@13.12.5)(react-native@0.76.9)(react@18.3.1):
@@ -15970,11 +15882,6 @@ packages:
 
   /setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
-
-  /sf-symbols-typescript@2.1.0:
-    resolution: {integrity: sha512-ezT7gu/SHTPIOEEoG6TF+O0m5eewl0ZDAO4AtdBi5HjsrUI6JdCG17+Q8+aKp0heM06wZKApRCn5olNbs0Wb/A==}
-    engines: {node: '>=10'}
-    dev: false
 
   /shallow-clone@3.0.1:
     resolution: {integrity: sha512-/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==}
