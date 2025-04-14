@@ -6,25 +6,30 @@ Welcome to **7GUIs**, an exploration of building the classic [7GUIs](https://eug
 
 ## 1. Summary of Project 📖
 
-1. **7GUIs Overview**
-   The 7GUIs tasks—**Counter**, **Temperature Converter**, **Flight Booker**, **Timer**, **CRUD**, **Circle Drawer**, and **Cells**—provide a solid baseline for comparing GUI frameworks. Our approach:
+1.  **7GUIs Overview**
+    The 7GUIs tasks—**Counter**, **Temperature Converter**, **Flight Booker**, **Timer**, **CRUD**, **Circle Drawer**, and **Cells**—provide a solid baseline for comparing GUI frameworks. Our approach:
 
-   - Builds robust business logic in Redux (the data layer).
-   - Reduces UI-specific logic in React/React Native.
-   - Ensures a clear separation of concerns—**Redux** for state, **React** for rendering.
+    - Builds robust business logic in Redux (the data layer).
+    - Reduces UI-specific logic in React/React Native.
+    - Ensures a clear separation of concerns—**Redux** for state, **React/React Native** for rendering.
 
-2. **Philosophy: ‘UI as an Afterthought’**
+2.  **Philosophy: ‘UI as an Afterthought’**
 
-   - Inspired by [Michel Weststrate’s blog post](https://michel.codes/blogs/ui-as-an-afterthought), we first create all necessary domain logic and Redux slices in **`packages/state`**.
-   - Only afterward do we assemble the **React** and **React Native** view, hooking them into the already-functional Redux data.
-   - This results in a single source of truth for app logic.
+    - Inspired by [Michel Weststrate’s blog post](https://michel.codes/blogs/ui-as-an-afterthought), we first create all necessary domain logic and Redux slices in **`packages/state`**.
+    - Only afterward do we assemble the **React** and **React Native** view layers, hooking them into the already-functional Redux data.
+    - This results in a single source of truth for app logic across multiple platforms.
 
-3. **Monorepo Structure**
-   - **apps/**
-     - **web/**: The React + Vite web client implementing the 7GUIs tasks in the browser.
-     - **mobile/**: An Expo-based React Native client, illustrating how the same data logic can power mobile.
-   - **packages/**
-     - **state/**: All Redux slices (domain logic) for the 7 tasks, with minimal/no UI entanglement.
+3.  **Monorepo Structure**
+    The project is organized as a pnpm monorepo:
+
+    - **`apps/`**: Contains the platform-specific applications (the view layers).
+      - **`web/`**: The React + Vite web client implementing the 7GUIs tasks in the browser. Uses Radix UI for components.
+      - **`mobile/`**: An Expo-based React Native client, showcasing the same data logic powering a mobile interface. Uses components from `packages/ui-mobile`.
+    - **`packages/`**: Contains shared code, logic, and configuration.
+      - **`state/`**: The core Redux Toolkit slices (domain logic) for all 7 tasks. Designed to be UI-agnostic.
+      - **`ui-mobile/`**: Reusable React Native UI components specifically built for the mobile app.
+      - **`tsconfig/`**: Shared TypeScript configurations used across the monorepo.
+    - **Root**: Contains shared configuration files (`eslint.config.js`, `package.json`, `pnpm-workspace.yaml`, `vitest.workspace.ts`, etc.) and scripts to manage the monorepo.
 
 ---
 
@@ -32,9 +37,11 @@ Welcome to **7GUIs**, an exploration of building the classic [7GUIs](https://eug
 
 ### 2.1 Installation & Setup
 
+Clone the repository and install dependencies using pnpm:
+
 ```bash
-git clone https://github.com/iamvictorli/7gui.git
-cd 7gui
+git clone https://github.com/iamvictorli/7guis.git
+cd 7guis
 pnpm install
 ```
 
@@ -50,6 +57,8 @@ This ensures that the shared Redux logic is properly compiled and ready for web 
 
 ### 2.3 Running the Web App
 
+Starts the Vite development server for the web application.
+
 ```bash
 pnpm dev:web
 ```
@@ -57,7 +66,15 @@ pnpm dev:web
 - Opens at `http://localhost:5173`.
 - Navigate to any of the 7 tasks via the homepage links.
 
-### 2.3 Running the Mobile App (Expo)
+### 2.4 Build the Mobile UI Library
+
+Before running the mobile app, make sure the **ui-moile** package is built or actively compiled. You can do this in watch mode:
+
+```bash
+pnpm dev:ui-mobile
+```
+
+### 2.5 Running the Mobile App (Expo)
 
 ```bash
 pnpm dev:mobile
@@ -66,7 +83,7 @@ pnpm dev:mobile
 - Launches the Expo dev server for React Native.
 - Scan the QR code for Expo go or run in an emulator.
 
-### 2.4 Testing
+### 2.6 Testing
 
 ```bash
 pnpm test
@@ -107,6 +124,8 @@ pnpm test
    - `apps/web` → web UI (React)
    - `apps/mobile` → mobile UI (React Native)
    - `packages/state` → Redux slices, actions, and selectors for each GUI.
+   - `packages/ui-mobile` → Shared React Native UI components
+   - `packages/tsconfig` → Shared TS config
 
 5. **Extend & Scale**
    - Adding more tasks or deeper functionalities is straightforward—add or extend Redux slices, then surface them in the UI.
