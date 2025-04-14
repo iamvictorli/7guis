@@ -3,6 +3,7 @@ import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from '~/components/GuiDisplay'
 import CRUDGui from '~/components/guis/CRUD'
+import SnackEmbed from '~/components/SnackEmbed'
 
 export default function CRUD() {
   return (
@@ -21,6 +22,8 @@ export default function CRUD() {
           />
         )}
       />
+
+      <SnackEmbed snackId="@livictor/crud-react-native" />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link

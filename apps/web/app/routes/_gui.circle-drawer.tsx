@@ -3,6 +3,7 @@ import { Box, Flex, Heading, Link, Strong, Text } from '@radix-ui/themes'
 
 import GuiDisplay from '~/components/GuiDisplay'
 import CircleDrawerGui from '~/components/guis/CircleDrawer'
+import SnackEmbed from '~/components/SnackEmbed'
 
 export default function CircleDrawer() {
   return (
@@ -21,6 +22,8 @@ export default function CircleDrawer() {
           />
         )}
       />
+
+      <SnackEmbed snackId="@livictor/circledrawer-react-native" />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link

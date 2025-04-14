@@ -3,6 +3,7 @@ import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from '~/components/GuiDisplay'
 import FlightBookerGUI from '~/components/guis/FlightBooker'
+import SnackEmbed from '~/components/SnackEmbed'
 
 export default function FlightBooker() {
   return (
@@ -21,6 +22,9 @@ export default function FlightBooker() {
           />
         )}
       />
+
+      <SnackEmbed snackId="@livictor/flight-booker-react-native" />
+
       <Flex asChild align="center" gap="2" mt="5">
         <Link
           size="3"

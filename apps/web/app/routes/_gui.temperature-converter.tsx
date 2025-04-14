@@ -3,6 +3,7 @@ import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from '~/components/GuiDisplay'
 import TemperatureConverterGUI from '~/components/guis/TemperatureConverter'
+import SnackEmbed from '~/components/SnackEmbed'
 
 export default function TemperatureConverter() {
   return (
@@ -22,6 +23,8 @@ export default function TemperatureConverter() {
           />
         )}
       />
+
+      <SnackEmbed snackId="@livictor/temperature-converter-react-native" />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link

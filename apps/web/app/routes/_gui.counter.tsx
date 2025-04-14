@@ -3,6 +3,7 @@ import { Box, Code, Flex, Heading, Link, Text } from '@radix-ui/themes'
 
 import GuiDisplay from '~/components/GuiDisplay'
 import CounterGUI from '~/components/guis/Counter'
+import SnackEmbed from '~/components/SnackEmbed'
 
 export default function Counter() {
   return (
@@ -22,21 +23,7 @@ export default function Counter() {
         )}
       />
 
-      <div
-        data-snack-id="@livictor/counter"
-        data-snack-platform="ios"
-        data-snack-preview="true"
-        data-snack-supportedplatforms="mydevice,ios,android"
-        style={{
-          overflow: 'hidden',
-          background: '#fbfcfd',
-          border: '1px solid var(--color-border)',
-          borderRadius: '4px',
-          height: '505px',
-          width: '100%',
-        }}
-      />
-      <script src="https://snack.expo.dev/embed.js" />
+      <SnackEmbed snackId="@livictor/counter-react-native" />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link

@@ -3,6 +3,7 @@ import { Box, Code, Flex, Heading, Link, Strong, Text } from '@radix-ui/themes'
 
 import GuiDisplay from '~/components/GuiDisplay'
 import TimerGUI from '~/components/guis/Timer'
+import SnackEmbed from '~/components/SnackEmbed'
 
 export default function Timer() {
   return (
@@ -21,6 +22,8 @@ export default function Timer() {
           />
         )}
       />
+
+      <SnackEmbed snackId="@livictor/timer-react-native" />
 
       <Flex asChild align="center" gap="2" mt="5">
         <Link
