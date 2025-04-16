@@ -1,7 +1,6 @@
 import antfu from '@antfu/eslint-config'
 import jestDom from 'eslint-plugin-jest-dom'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
-import tailwind from 'eslint-plugin-tailwindcss'
 import testingLibrary from 'eslint-plugin-testing-library'
 
 export default antfu(
@@ -12,7 +11,6 @@ export default antfu(
     formatters: true,
     react: true,
     typescript: true,
-    ...tailwind.configs['flat/recommended'],
     ...jsxA11y.flatConfigs.recommended,
     rules: {
       'perfectionist/sort-imports': ['error', {
