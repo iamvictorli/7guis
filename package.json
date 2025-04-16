@@ -15,7 +15,8 @@
     "test": "vitest",
     "preview:web": "pnpm -F @victorli/7guis-web run preview",
     "prepare": "husky",
-    "knip": "knip"
+    "knip": "knip",
+    "typecheck": "pnpm -r run typecheck"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.12.0",
