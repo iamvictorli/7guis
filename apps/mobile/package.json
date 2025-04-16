@@ -19,6 +19,8 @@
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.1.2",
     "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-community/datetimepicker": "8.2.0",
+    "@storybook/react": "^8.6.12",
     "@storybook/react-native": "^8.6.2",
     "@victorli/7guis-state": "workspace:*",
     "@victorli/7guis-ui-mobile": "workspace:*",
