@@ -76,11 +76,6 @@ jobs:
         with:
           version: 9.11.0
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
       - name: ⎔ Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -89,6 +84,9 @@ jobs:
 
       - name: 📥 Install dependencies
         run: pnpm install
+
+      - name: 🏗️ Build State
+        run: pnpm build:state
 
       - name: 🔎 Type check
         run: pnpm typecheck

@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build": "pnpm -r run build",
+    "build:state": "pnpm -F @victorli/7guis-state run build",
     "clean": "pnpm -r run clean && rimraf node_modules",
     "dev:web": "pnpm -F @victorli/7guis-web run dev",
     "dev:state": "pnpm -F @victorli/7guis-state run dev",
