@@ -61,6 +61,9 @@ jobs:
       - name: 📥 Install dependencies
         run: pnpm install
 
+      - name: 🏗️ Build State
+        run: pnpm build:state
+
       - name: ⚡ Run tests
         run: pnpm test
 
@@ -84,9 +87,6 @@ jobs:
 
       - name: 📥 Install dependencies
         run: pnpm install
-
-      - name: 🏗️ Build State
-        run: pnpm build:state
 
       - name: 🔎 Type check
         run: pnpm typecheck
