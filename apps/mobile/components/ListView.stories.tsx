@@ -10,56 +10,55 @@ import { Text } from '@victorli/7guis-ui-mobile/Text'
 import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
-  decoratorView: {
-    padding: theme.spacing.m,
-    flex: 1, // Allow list to take available space in decorator
-    height: 400, // Give a fixed height for vertical lists
-    width: '100%', // Take full width
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  simpleItem: {
-    paddingVertical: theme.spacing.m,
-    paddingHorizontal: theme.spacing.l,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-  },
   cardItem: {
     backgroundColor: theme.colors.surface,
-    padding: theme.spacing.m,
     borderRadius: 8,
+    padding: theme.spacing.m,
     // Add shadow/elevation if desired
     ...Platform.select({
       ios: { shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.2, shadowRadius: 1.41 },
       android: { elevation: 2 },
     }),
   },
+  customEmptyContainer: {
+    alignItems: 'center',
+    backgroundColor: theme.colors.background, // Slightly different background
+    borderRadius: theme.spacing.s,
+    justifyContent: 'center',
+    padding: theme.spacing.l,
+  },
+  customEmptyText: {
+    marginBottom: theme.spacing.s,
+    textAlign: 'center',
+  },
+  decoratorView: {
+    borderColor: theme.colors.border,
+    borderWidth: 1,
+    flex: 1, // Allow list to take available space in decorator
+    height: 400, // Give a fixed height for vertical lists
+    padding: theme.spacing.m,
+    width: '100%', // Take full width
+  },
+  horizontalItem: {
+    alignItems: 'center',
+    backgroundColor: theme.colors.surface,
+    borderColor: theme.colors.border,
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 100, // Give horizontal items height
+    justifyContent: 'center',
+    marginRight: theme.spacing.m, // Space between horizontal items
+    padding: theme.spacing.m,
+    width: 100, // And width
+  },
   separator: {
     height: theme.spacing.m, // Space between card items
   },
-  horizontalItem: {
-    backgroundColor: theme.colors.surface,
-    padding: theme.spacing.m,
-    borderRadius: 8,
-    marginRight: theme.spacing.m, // Space between horizontal items
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    height: 100, // Give horizontal items height
-    width: 100, // And width
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  // Custom Empty State Styles
-  customEmptyContainer: {
-    padding: theme.spacing.l,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.background, // Slightly different background
-    borderRadius: theme.spacing.s,
-  },
-  customEmptyText: {
-    textAlign: 'center',
-    marginBottom: theme.spacing.s,
+  simpleItem: {
+    borderBottomColor: theme.colors.border,
+    borderBottomWidth: 1,
+    paddingHorizontal: theme.spacing.l,
+    paddingVertical: theme.spacing.m,
   },
 })
 

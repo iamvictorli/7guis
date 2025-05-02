@@ -12,25 +12,50 @@ import { Text } from './Text'
 import { theme } from './theme'
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: theme.spacing.m,
-  },
-  label: {
-    marginBottom: theme.spacing.s,
-    color: theme.colors.textSecondary,
-  },
-  // Wrapper needed for Android background/border styling
   androidPickerContainer: {
-    borderWidth: 1,
+    backgroundColor: theme.colors.surface,
     borderColor: theme.colors.border,
     borderRadius: 8,
-    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
     justifyContent: 'center', // Helps center text vertically somewhat
     minHeight: 48, // Match TextInput height
   },
+  container: {
+    marginBottom: theme.spacing.m,
+  },
+  disabledBackground: {
+    backgroundColor: theme.colors.background,
+    borderColor: theme.colors.disabled, // Match disabled input border
+  },
+  disabledText: {
+    color: theme.colors.disabled,
+  },
+  iosArrow: {
+    borderLeftWidth: 6,
+    borderRightWidth: 6,
+    borderStyle: 'solid',
+    borderTopColor: theme.colors.textSecondary, // Arrow color
+    borderTopWidth: 8,
+    bottom: 18,
+    height: 0,
+    position: 'absolute',
+    right: theme.spacing.m,
+    width: 0,
+    // backgroundColor: 'transparent',
+    // borderLeftColor: 'transparent',
+    // borderRightColor: 'transparent',
+  },
+  iosItemStyle: {
+    // Add specific iOS item styles here if needed (e.g., fontSize)
+    // fontSize: theme.typography.body.fontSize,
+  },
+  label: {
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.s,
+  },
   picker: {
-    width: '100%',
     color: theme.colors.text,
+    width: '100%',
     // On iOS, style here affects the trigger text, height might be needed
     // On Android, styling here is limited, use the container ^
     ...(Platform.OS === 'ios' && {
@@ -42,33 +67,6 @@ const styles = StyleSheet.create({
       borderRadius: 8,
       backgroundColor: theme.colors.surface,
     }),
-  },
-  iosItemStyle: {
-    // Add specific iOS item styles here if needed (e.g., fontSize)
-    // fontSize: theme.typography.body.fontSize,
-  },
-  disabledBackground: {
-    backgroundColor: theme.colors.background,
-    borderColor: theme.colors.disabled, // Match disabled input border
-  },
-  disabledText: {
-    color: theme.colors.disabled,
-  },
-  // Simple visual arrow for iOS (optional)
-  iosArrow: {
-    position: 'absolute',
-    right: theme.spacing.m,
-    bottom: 18, // Adjust vertical position as needed
-    width: 0,
-    height: 0,
-    borderLeftWidth: 6,
-    borderRightWidth: 6,
-    borderTopWidth: 8,
-    borderStyle: 'solid',
-    backgroundColor: 'transparent',
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderTopColor: theme.colors.textSecondary, // Arrow color
   },
 })
 

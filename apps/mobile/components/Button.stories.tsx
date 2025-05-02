@@ -8,8 +8,8 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {
-    padding: theme.spacing.m,
     alignItems: 'center',
+    padding: theme.spacing.m,
   },
 })
 

@@ -11,38 +11,38 @@ import { commonStyles } from '~/styles/commonStyles'
 
 const styles = StyleSheet.create({
   container: {
-    padding: theme.spacing.l,
-    alignItems: 'stretch', // Make children stretch horizontally by default
+    alignItems: 'stretch',
+    padding: theme.spacing.l, // Make children stretch horizontally by default
   },
   label: {
-    marginBottom: theme.spacing.xs,
     color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.xs,
   },
   progressBarContainer: {
-    height: 10,
-    width: '100%',
     backgroundColor: theme.colors.border,
     borderRadius: 5,
-    overflow: 'hidden', // Ensure fill stays within bounds
+    height: 10,
     marginBottom: theme.spacing.s,
+    overflow: 'hidden', // Ensure fill stays within bounds
+    width: '100%',
   },
   progressBarFill: {
-    height: '100%',
     backgroundColor: theme.colors.primary,
     borderRadius: 5,
+    height: '100%',
   },
-  timeText: {
-    marginBottom: theme.spacing.xl, // More space after elapsed time
-    textAlign: 'center',
-    fontWeight: 'bold',
+  resetButton: {
+    alignSelf: 'center', // Center the button
+    marginTop: theme.spacing.m,
+    minWidth: 150,
   },
   sliderContainer: {
     marginBottom: 0, // Remove default slider bottom margin
   },
-  resetButton: {
-    marginTop: theme.spacing.m,
-    alignSelf: 'center', // Center the button
-    minWidth: 150,
+  timeText: {
+    fontWeight: 'bold',
+    marginBottom: theme.spacing.xl, // More space after elapsed time
+    textAlign: 'center',
   },
 })
 

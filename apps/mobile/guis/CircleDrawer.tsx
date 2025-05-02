@@ -13,28 +13,28 @@ import { Text } from '@victorli/7guis-ui-mobile/Text'
 import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-    backgroundColor: theme.colors.background, // Canvas background
-  },
-  canvas: {
-    flex: 1, // Take up all available space above buttons
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface, // White drawing area
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: theme.spacing.m,
-    paddingHorizontal: theme.spacing.l,
-    borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
-    backgroundColor: theme.colors.background, // Match screen background
-  },
   button: {
     flex: 1, // Allow buttons to grow
     marginHorizontal: theme.spacing.s,
+  },
+  buttonRow: {
+    backgroundColor: theme.colors.background,
+    borderTopColor: theme.colors.border,
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: theme.spacing.l,
+    paddingVertical: theme.spacing.m, // Match screen background
+  },
+  canvas: {
+    backgroundColor: theme.colors.surface, // White drawing area
+    borderColor: theme.colors.border,
+    borderWidth: 1,
+    flex: 1, // Take up all available space above buttons
+  },
+  screenContainer: {
+    backgroundColor: theme.colors.background,
+    flex: 1, // Canvas background
   },
   // Styles for modal content if needed (already handled by AppModal mostly)
 })

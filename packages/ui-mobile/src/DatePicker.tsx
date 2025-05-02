@@ -17,37 +17,37 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: theme.spacing.m,
   },
+  disabledText: {
+    color: theme.colors.disabled,
+  },
   label: {
+    color: theme.colors.textSecondary,
     marginBottom: theme.spacing.s,
+  },
+  placeholderText: {
     color: theme.colors.textSecondary,
   },
   trigger: {
-    borderWidth: 1,
+    backgroundColor: theme.colors.surface,
     borderColor: theme.colors.border,
     borderRadius: 8,
+    borderWidth: 1,
+    justifyContent: 'center', // Center text vertically
+    minHeight: 48, // Match TextInput height
     paddingHorizontal: theme.spacing.m,
     paddingVertical: theme.spacing.s, // Match TextInput vertical padding
-    backgroundColor: theme.colors.surface,
-    minHeight: 48, // Match TextInput height
-    justifyContent: 'center', // Center text vertically
-  },
-  triggerPressed: {
-    borderColor: theme.colors.primary, // Indicate interaction
-    // backgroundColor: theme.colors.background, // Optional subtle press feedback
   },
   triggerDisabled: {
     backgroundColor: theme.colors.background,
     borderColor: theme.colors.disabled,
   },
+  triggerPressed: {
+    borderColor: theme.colors.primary, // Indicate interaction
+    // backgroundColor: theme.colors.background, // Optional subtle press feedback
+  },
   triggerText: {
-    fontSize: theme.typography.body.fontSize,
     color: theme.colors.text,
-  },
-  placeholderText: {
-    color: theme.colors.textSecondary,
-  },
-  disabledText: {
-    color: theme.colors.disabled,
+    fontSize: theme.typography.body.fontSize,
   },
 })
 

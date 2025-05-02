@@ -10,6 +10,8 @@ export const colors = {
   disabled: '#D1D5DB', // Gray 300
   error: '#EF4444', // Red 500
   border: '#E5E7EB', // Gray 200
+  circleBackgroundColor: '#F0F0F0',
+  modalBackgroundColor: 'rgba(0, 0, 0, 0.5)',
 }
 
 export const spacing = {

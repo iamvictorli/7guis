@@ -11,9 +11,9 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {
+    maxWidth: 400, // Limit max width
     padding: theme.spacing.m,
     width: '100%', // Ensure takes reasonable width
-    maxWidth: 400, // Limit max width
   },
 })
 

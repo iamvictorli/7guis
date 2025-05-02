@@ -8,8 +8,14 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {
+    alignItems: 'flex-start',
+    padding: theme.spacing.m, // Align text to start for better readability
+  },
+  longTextView: {
+    borderColor: theme.colors.border,
+    borderWidth: 1,
     padding: theme.spacing.m,
-    alignItems: 'flex-start', // Align text to start for better readability
+    width: 300,
   },
 })
 
@@ -115,7 +121,7 @@ export const LongText: Story = {
   },
   decorators: [ // Specific decorator for this story to show wrapping
     Story => (
-      <View style={{ padding: theme.spacing.m, width: 300, borderWidth: 1, borderColor: theme.colors.border }}>
+      <View style={styles.longTextView}>
         <Story />
       </View>
     ),

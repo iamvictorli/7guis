@@ -13,59 +13,56 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
 
 const styles = StyleSheet.create({
-  container: {
-    padding: theme.spacing.m,
+  button: {
     flex: 1,
+    marginHorizontal: theme.spacing.xs,
   },
-  // New style for the search bar container
+  buttonRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  container: {
+    flex: 1,
+    padding: theme.spacing.m,
+  },
+  detailInput: {
+    flex: 1,
+    marginBottom: 0,
+  },
+  detailInputsRow: {
+    flexDirection: 'row',
+    gap: theme.spacing.m,
+    marginBottom: theme.spacing.m,
+  },
+  listContainer: {
+    borderColor: theme.colors.border,
+    borderRadius: theme.spacing.xs,
+    borderWidth: 1,
+    flex: 1,
+    marginBottom: theme.spacing.m,
+  },
+  listItem: {
+    backgroundColor: theme.colors.surface,
+    borderBottomColor: theme.colors.border,
+    borderBottomWidth: 1,
+    paddingHorizontal: theme.spacing.l,
+    paddingVertical: theme.spacing.m,
+  },
+  listItemSelected: {
+    backgroundColor: theme.colors.primary,
+  },
+  listItemSelectedText: {
+    color: theme.colors.surface,
+  },
+  listItemText: {
+    color: theme.colors.text,
+  },
   searchBarContainer: {
     marginBottom: theme.spacing.m, // Space below search bar
   },
   searchInput: { // Style for the TextInput container itself
     marginBottom: 0, // Remove default TextInput margin
-  },
-  // Renamed from filterRow
-  detailInputsRow: {
-    flexDirection: 'row',
-    marginBottom: theme.spacing.m,
-    gap: theme.spacing.m,
-  },
-  // Renamed from filterInput
-  detailInput: {
-    flex: 1,
-    marginBottom: 0,
-  },
-  listContainer: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    marginBottom: theme.spacing.m,
-    borderRadius: theme.spacing.xs,
-  },
-  listItem: {
-    paddingVertical: theme.spacing.m,
-    paddingHorizontal: theme.spacing.l,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
-  },
-  listItemSelected: {
-    backgroundColor: theme.colors.primary,
-  },
-  listItemText: {
-    color: theme.colors.text,
-  },
-  listItemSelectedText: {
-    color: theme.colors.surface,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  button: {
-    flex: 1,
-    marginHorizontal: theme.spacing.xs,
   },
 })
 

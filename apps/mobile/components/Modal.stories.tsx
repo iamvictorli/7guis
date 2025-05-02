@@ -13,29 +13,29 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {
-    padding: theme.spacing.m,
-    flex: 1,
     alignItems: 'center', // Center trigger button
+    flex: 1,
     justifyContent: 'center', // Center trigger button
+    padding: theme.spacing.m,
+  },
+  inputSpacing: {
+    marginBottom: theme.spacing.m,
   },
   storyContainer: {
     alignItems: 'center', // Center trigger button within container
   },
-  storybookNote: {
-    marginTop: theme.spacing.l,
-    textAlign: 'center',
-    fontStyle: 'italic',
-    color: theme.colors.textSecondary,
-    position: 'absolute', // Position note at bottom
-    bottom: theme.spacing.m,
-    left: theme.spacing.m,
-    right: theme.spacing.m,
-  },
   storyText: {
     marginBottom: theme.spacing.m,
   },
-  inputSpacing: {
-    marginBottom: theme.spacing.m,
+  storybookNote: {
+    bottom: theme.spacing.m,
+    color: theme.colors.textSecondary,
+    fontStyle: 'italic',
+    left: theme.spacing.m,
+    marginTop: theme.spacing.l,
+    position: 'absolute', // Position note at bottom
+    right: theme.spacing.m,
+    textAlign: 'center',
   },
 })
 

@@ -51,6 +51,7 @@ const Circle = memo(
               event.stopPropagation()
               dispatch(circleSelected(circle.id))
             }}
+            data-testid="circle"
           />
         </Popover.Trigger>
 

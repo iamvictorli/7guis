@@ -9,17 +9,17 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
 
 const styles = StyleSheet.create({
+  button: {
+    minWidth: 150, // Give the button a decent minimum width
+  },
   container: {
     // Add specific padding if centeredContent doesn't provide enough
     padding: theme.spacing.l,
   },
   countText: {
-    marginBottom: theme.spacing.l, // Space between text and button
     fontSize: 48, // Make the count number larger
     fontWeight: 'bold',
-  },
-  button: {
-    minWidth: 150, // Give the button a decent minimum width
+    marginBottom: theme.spacing.l, // Space between text and button
   },
 })
 

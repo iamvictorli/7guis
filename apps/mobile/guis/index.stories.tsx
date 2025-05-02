@@ -22,13 +22,13 @@ type Story = StoryObj<typeof meta>
 
 const counterStyles = StyleSheet.create({
   decoratorView: {
-    padding: theme.spacing.m,
-    flex: 1, // Allow component to fill decorator space
-    alignSelf: 'stretch', // Ensure decorator stretches if needed
-    justifyContent: 'center', // Center the Counter component vertically
     alignItems: 'center', // Center the Counter component horizontally
-    borderWidth: 1, // Optional: Add border to visualize bounds
+    alignSelf: 'stretch', // Ensure decorator stretches if needed
     borderColor: theme.colors.border,
+    borderWidth: 1, // Optional: Add border to visualize bounds
+    flex: 1, // Allow component to fill decorator space
+    justifyContent: 'center', // Center the Counter component vertically
+    padding: theme.spacing.m,
   },
 })
 
@@ -43,13 +43,13 @@ export const CounterStory: Story = {
 
 const temperatureConverterStyles = StyleSheet.create({
   decoratorView: {
-    padding: theme.spacing.l, // Generous padding
-    flex: 1, // Allow component to fill decorator space
-    alignSelf: 'stretch',
-    justifyContent: 'center', // Center the component vertically
     alignItems: 'center', // Center the component horizontally
-    borderWidth: 1,
+    alignSelf: 'stretch',
     borderColor: theme.colors.border,
+    borderWidth: 1,
+    flex: 1, // Allow component to fill decorator space
+    justifyContent: 'center', // Center the component vertically
+    padding: theme.spacing.l, // Generous padding
   },
 })
 
@@ -64,11 +64,11 @@ export const TemperatureConverterStory: Story = {
 
 const flightBookerStyles = StyleSheet.create({
   decoratorView: {
-    padding: theme.spacing.l,
-    flex: 1,
     alignSelf: 'stretch',
-    borderWidth: 1,
     borderColor: theme.colors.border,
+    borderWidth: 1,
+    flex: 1,
+    padding: theme.spacing.l,
   },
 })
 
@@ -83,12 +83,12 @@ export const FlightBookerStory: Story = {
 
 const timerStyles = StyleSheet.create({
   decoratorView: {
-    padding: theme.spacing.l,
-    flex: 1,
     alignSelf: 'stretch',
-    borderWidth: 1,
     borderColor: theme.colors.border,
-    justifyContent: 'center', // Center content vertically
+    borderWidth: 1,
+    flex: 1,
+    justifyContent: 'center',
+    padding: theme.spacing.l, // Center content vertically
   },
 })
 
@@ -103,11 +103,11 @@ export const TimerStory: Story = {
 
 const CRUDStyles = StyleSheet.create({
   decoratorView: {
-    padding: theme.spacing.m,
-    flex: 1,
     alignSelf: 'stretch',
-    borderWidth: 1,
     borderColor: theme.colors.border,
+    borderWidth: 1,
+    flex: 1,
+    padding: theme.spacing.m,
   },
 })
 
@@ -122,11 +122,11 @@ export const CRUDStory: Story = {
 
 const circleDrawerStyles = StyleSheet.create({
   decoratorView: {
-    flex: 1,
     alignSelf: 'stretch',
-    borderWidth: 1,
+    backgroundColor: theme.colors.circleBackgroundColor,
     borderColor: theme.colors.border,
-    backgroundColor: '#f0f0f0', // Light background for contrast
+    borderWidth: 1,
+    flex: 1, // Light background for contrast
   },
 })
 

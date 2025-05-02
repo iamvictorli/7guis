@@ -30,20 +30,20 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: theme.spacing.m, // Spacing between input fields
   },
-  label: {
-    marginBottom: theme.spacing.s,
-    color: theme.colors.textSecondary, // Use theme color for label
+  error: {
+    color: theme.colors.error,
+    marginTop: theme.spacing.s, // Red color for error text
   },
   input: {
-    borderWidth: 1,
+    backgroundColor: theme.colors.surface,
     borderColor: theme.colors.border,
     borderRadius: 8,
+    borderWidth: 1,
+    color: theme.colors.text,
+    fontSize: theme.typography.body.fontSize,
+    minHeight: 48, // Ensure consistent height, similar to button
     paddingHorizontal: theme.spacing.m,
     paddingVertical: theme.spacing.s, // Adjust vertical padding as needed
-    fontSize: theme.typography.body.fontSize,
-    color: theme.colors.text,
-    backgroundColor: theme.colors.surface,
-    minHeight: 48, // Ensure consistent height, similar to button
   },
   inputDisabled: {
     backgroundColor: theme.colors.background, // Use a subtle background for disabled
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
   inputError: {
     borderColor: theme.colors.error, // Red border for error state
   },
-  error: {
-    marginTop: theme.spacing.s,
-    color: theme.colors.error, // Red color for error text
+  label: {
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.s, // Use theme color for label
   },
 })
 

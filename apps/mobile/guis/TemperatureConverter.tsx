@@ -11,24 +11,24 @@ const styles = StyleSheet.create({
   container: {
     padding: theme.spacing.m,
   },
-  inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
+  equalsText: {
+    color: theme.colors.textSecondary,
+    fontSize: 24,
+    marginHorizontal: theme.spacing.s,
+    marginTop: theme.spacing.m,
+  },
+  input: {
+    paddingHorizontal: theme.spacing.s,
+    textAlign: 'center',
   },
   inputContainer: {
     flex: 1,
     marginBottom: 0,
   },
-  input: {
-    textAlign: 'center',
-    paddingHorizontal: theme.spacing.s,
-  },
-  equalsText: {
-    marginHorizontal: theme.spacing.s,
-    fontSize: 24,
-    color: theme.colors.textSecondary,
-    marginTop: theme.spacing.m,
+  inputRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
   },
 })
 

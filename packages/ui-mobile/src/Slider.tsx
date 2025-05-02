@@ -12,25 +12,25 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.m,
     width: '100%', // Ensure container takes width for slider layout
   },
-  labelContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', // Puts label left, value right
-    alignItems: 'center',
-    marginBottom: theme.spacing.s,
+  disabledText: {
+    color: theme.colors.disabled,
   },
   label: {
     color: theme.colors.textSecondary,
   },
+  labelContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Puts label left, value right
+    marginBottom: theme.spacing.s,
+  },
+  slider: {
+    height: 40,
+    width: '100%', // Default height for the touchable area
+  },
   valueText: {
     color: theme.colors.text,
     fontWeight: '500',
-  },
-  disabledText: {
-    color: theme.colors.disabled,
-  },
-  slider: {
-    width: '100%',
-    height: 40, // Default height for the touchable area
   },
 })
 

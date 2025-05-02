@@ -12,16 +12,16 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 import { commonStyles } from '~/styles/commonStyles'
 
 const styles = StyleSheet.create({
+  bookButton: {
+    alignSelf: 'center', // Center the button
+    marginTop: theme.spacing.l, // Space above the button
+    minWidth: 180,
+  },
   container: {
     padding: theme.spacing.l,
   },
   inputSpacing: {
     marginBottom: theme.spacing.l, // Space between inputs
-  },
-  bookButton: {
-    marginTop: theme.spacing.l, // Space above the button
-    alignSelf: 'center', // Center the button
-    minWidth: 180,
   },
 })
 

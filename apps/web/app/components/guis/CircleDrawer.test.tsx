@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { renderWithProviders } from '~/lib/test-utils'
@@ -12,7 +12,7 @@ describe('circleDrawer', () => {
     expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled()
     expect(screen.getByRole('button', { name: /redo/i })).toBeDisabled()
     const canvas = screen.getByTestId('Circle Drawer')
-    expect(canvas.querySelectorAll('circle').length).toBe(0)
+    expect(canvas.childNodes.length).toBe(0)
 
     // pressing 2 circles, expect 2 circles and undo not disabled, redo disabled
     await user.pointer({ target: canvas, coords: { x: 200, y: 50 } })
@@ -21,19 +21,19 @@ describe('circleDrawer', () => {
     await user.pointer({ target: canvas, coords: { x: 300, y: 100 } })
     await user.click(canvas)
 
-    expect(canvas.querySelectorAll('circle').length).toBe(2)
+    expect(canvas.childNodes.length).toBe(2)
     expect(screen.getByRole('button', { name: /undo/i })).toBeEnabled()
     expect(screen.getByRole('button', { name: /redo/i })).toBeDisabled()
 
     // press undo, there should be one circle, undo not disabled, and redo not disabled
     await user.click(screen.getByRole('button', { name: /undo/i }))
-    expect(canvas.querySelectorAll('circle').length).toBe(1)
+    expect(canvas.childNodes.length).toBe(1)
     expect(screen.getByRole('button', { name: /undo/i })).toBeEnabled()
     expect(screen.getByRole('button', { name: /redo/i })).toBeEnabled()
 
     // press undo again, no circles, undo disabled, redo not disabled
     await user.click(screen.getByRole('button', { name: /undo/i }))
-    expect(canvas.querySelectorAll('circle').length).toBe(0)
+    expect(canvas.childNodes.length).toBe(0)
     expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled()
     expect(screen.getByRole('button', { name: /redo/i })).toBeEnabled()
   })
@@ -45,16 +45,16 @@ describe('circleDrawer', () => {
     expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled()
     expect(screen.getByRole('button', { name: /redo/i })).toBeDisabled()
     const canvas = screen.getByTestId('Circle Drawer')
-    expect(canvas.querySelectorAll('circle').length).toBe(0)
+    expect(canvas.childNodes.length).toBe(0)
 
     // add a circle
     await user.pointer({ target: canvas, coords: { x: 200, y: 50 } })
     await user.click(canvas)
 
-    expect(canvas.querySelectorAll('circle').length).toBe(1)
+    expect(canvas.childNodes.length).toBe(1)
     expect(screen.getByRole('button', { name: /undo/i })).toBeEnabled()
     expect(screen.getByRole('button', { name: /redo/i })).toBeDisabled()
-    const circle = canvas.querySelector('circle')
+    const circle = within(canvas).getByTestId('circle')
     expect(circle).toHaveAttribute('r', expect.stringMatching('20'))
 
     // adjust circle diameter,
@@ -83,7 +83,7 @@ describe('circleDrawer', () => {
 
     // press undo twice, undo disabled, redo not disabled, no more circles
     await user.dblClick(screen.getByRole('button', { name: /undo/i }))
-    expect(canvas.querySelectorAll('circle').length).toBe(0)
+    expect(canvas.childNodes.length).toBe(0)
     expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled()
     expect(screen.getByRole('button', { name: /redo/i })).toBeEnabled()
   })

@@ -10,9 +10,9 @@ import { theme } from '@victorli/7guis-ui-mobile/theme'
 
 const styles = StyleSheet.create({
   decoratorView: {
+    maxWidth: 400, // Limit max width for better readability
     padding: theme.spacing.m,
     width: '100%', // Ensure input takes reasonable width
-    maxWidth: 400, // Limit max width for better readability
   },
 })
 

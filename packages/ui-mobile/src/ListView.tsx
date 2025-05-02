@@ -11,30 +11,22 @@ import { Text } from './Text'
 import { theme } from './theme'
 
 const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing.l,
-  },
-  // Style for the View wrapper around the empty text/component if needed
   emptyContainer: {
+    alignItems: 'center',
     flex: 1, // Ensure it can take up space if FlatList is within a flex container
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing.l,
     minHeight: 150, // Give it some minimum height
+    padding: theme.spacing.l,
+  },
+  emptyContentContainer: {
+    alignItems: 'center', // Center the empty component horizontally
+    flexGrow: 1, // Allow the container to grow
+    justifyContent: 'center', // Center the empty component vertically
   },
   // Style specifically for the empty text message
   emptyText: {
     color: theme.colors.textSecondary,
     textAlign: 'center',
-  },
-  // Style for the FlatList's content container when empty, helps center custom components
-  emptyContentContainer: {
-    flexGrow: 1, // Allow the container to grow
-    justifyContent: 'center', // Center the empty component vertically
-    alignItems: 'center', // Center the empty component horizontally
   },
 })
 

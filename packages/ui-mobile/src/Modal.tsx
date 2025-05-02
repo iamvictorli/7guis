@@ -16,20 +16,28 @@ import { theme } from './theme'
 
 const styles = StyleSheet.create({
   backdrop: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: theme.colors.modalBackgroundColor,
+    flex: 1,
+    justifyContent: 'center',
     padding: theme.spacing.m,
+  },
+  closeButton: {
+    padding: theme.spacing.s / 2, // Make touch target slightly larger than text
+  },
+  closeButtonText: {
+    color: theme.colors.textSecondary,
+    fontSize: 24,
+    fontWeight: '300',
   },
   contentContainer: {
     backgroundColor: theme.colors.surface,
     borderRadius: 12,
+    maxHeight: '90%',
+    maxWidth: 500,
+    overflow: 'hidden',
     padding: theme.spacing.l,
     width: '100%',
-    maxWidth: 500,
-    maxHeight: '90%',
-    overflow: 'hidden',
     ...Platform.select({
       ios: {
         shadowColor: '#000',
@@ -43,14 +51,19 @@ const styles = StyleSheet.create({
     }),
   },
   header: {
+    alignItems: 'center',
+    borderBottomColor: theme.colors.border,
+    borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     marginBottom: theme.spacing.m,
-    paddingBottom: theme.spacing.s,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-    minHeight: 30, // Ensure header has some minimum height even if empty
+    minHeight: 30,
+    paddingBottom: theme.spacing.s, // Ensure header has some minimum height even if empty
+  },
+  scrollView: {
+  },
+  scrollViewContent: {
+    flexGrow: 1,
   },
   titleArea: {
     flex: 1, // Takes up available space, pushing button right
@@ -58,19 +71,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: theme.colors.text,
-  },
-  closeButton: {
-    padding: theme.spacing.s / 2, // Make touch target slightly larger than text
-  },
-  closeButtonText: {
-    fontSize: 24,
-    color: theme.colors.textSecondary,
-    fontWeight: '300',
-  },
-  scrollView: {
-  },
-  scrollViewContent: {
-    flexGrow: 1,
   },
 })
 

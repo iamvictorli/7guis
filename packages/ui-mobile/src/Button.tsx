@@ -31,13 +31,13 @@ interface ButtonProps {
 
 const styles = StyleSheet.create({
   baseContainer: {
-    paddingVertical: theme.spacing.m,
-    paddingHorizontal: theme.spacing.l,
-    borderRadius: 8,
     alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 8,
     flexDirection: 'row', // Align loader and text horizontally if ever needed together
+    justifyContent: 'center',
     minHeight: 48, // Ensure consistent height
+    paddingHorizontal: theme.spacing.l,
+    paddingVertical: theme.spacing.m,
   },
   baseText: {
     // Use Text's default 'button' variant styles
