@@ -52,7 +52,7 @@ export function Timer() {
   const elapsedMs = useAppSelector(selectElapsedMs)
 
   // Use a ref to store the interval ID so cleanup works reliably
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   /**
    * Starts the timer by setting an interval that updates the current time.
