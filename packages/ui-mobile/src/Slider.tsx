@@ -1,3 +1,4 @@
+import type { SliderProps as RNSliderProps } from '@react-native-community/slider'
 import type { StyleProp, ViewStyle } from 'react-native'
 
 import RNSlider from '@react-native-community/slider'
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
 })
 
 // Define the props, extending the base slider props implicitly via ...rest
-export interface SliderProps extends React.ComponentProps<typeof RNSlider> {
+// Omitting ref, fixing typescript error, and ref only used on web, which we arent using
+export interface SliderProps extends Omit<RNSliderProps, 'ref'> {
   /** The current value of the slider. */
   value: number
   /** Callback function that is called when the slider value changes. */

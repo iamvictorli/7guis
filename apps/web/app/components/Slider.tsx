@@ -9,10 +9,7 @@ interface SliderProps
   thumbLabel: string
 }
 
-const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
-  SliderProps
->(({ className, thumbLabel, ...props }: SliderProps, ref) => {
+function Slider({ ref, className, thumbLabel, ...props }: SliderProps & { ref?: React.RefObject<React.ComponentRef<typeof SliderPrimitive.Root> | null> }) {
   const value = props.value ?? props.defaultValue ?? []
   return (
     <SliderPrimitive.Root
@@ -35,7 +32,7 @@ const Slider = React.forwardRef<
       ))}
     </SliderPrimitive.Root>
   )
-})
+}
 Slider.displayName = SliderPrimitive.Root.displayName
 
 export default Slider

@@ -1,7 +1,7 @@
 {
   "name": "@victorli/7guis-ui-mobile",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Reusable UI mobile components for 7guis",
   "license": "MIT",
   "homepage": "https://7guis.iamvictorli.com",
@@ -67,14 +67,14 @@
     "prepublishOnly": "pnpm prepublish-clean && pnpm build"
   },
   "dependencies": {
-    "@react-native-community/datetimepicker": "8.2.0",
-    "@react-native-community/slider": "4.5.5",
-    "@react-native-picker/picker": "2.9.0",
-    "react": "18.3.1",
-    "react-native": "0.76.9"
+    "@react-native-community/datetimepicker": "8.3.0",
+    "@react-native-community/slider": "4.5.6",
+    "@react-native-picker/picker": "2.11.0",
+    "react": "19.0.0",
+    "react-native": "0.79.2"
   },
   "devDependencies": {
-    "@types/react": "~18.3.12",
+    "@types/react": "~19.0.14",
     "@victorli/7guis-tsconfig": "workspace:*",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3"

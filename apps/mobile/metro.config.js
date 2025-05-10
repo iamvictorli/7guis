@@ -1,6 +1,7 @@
 const withStorybook = require('@storybook/react-native/metro/withStorybook')
 // Learn more https://docs.expo.dev/guides/monorepos
 const { getDefaultConfig } = require('expo/metro-config')
+const path = require('node:path')
 // const path = require('node:path')
 
 // Create the default Expo config for Metro
@@ -19,8 +20,7 @@ const config = getDefaultConfig(__dirname)
 //   path.resolve(workspaceRoot, 'node_modules'),
 // ];
 
-// https://github.com/supabase/supabase-js/issues/1258#issuecomment-2664354021
-config.resolver.unstable_conditionNames = ['require', 'default', 'browser']
-config.resolver.unstable_enablePackageExports = true
-
-module.exports = withStorybook(config)
+module.exports = withStorybook(config, {
+  enabled: true,
+  configPath: path.resolve(__dirname, './.storybook'),
+})
