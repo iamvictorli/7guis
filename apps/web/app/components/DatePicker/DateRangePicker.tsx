@@ -22,7 +22,7 @@ import { RangeCalendar } from './RangeCalendar'
  */
 export function DateRangePicker(props: DateRangePickerStateOptions<DateValue>) {
   const state = useDateRangePickerState(props)
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null!)
 
   const {
     groupProps,

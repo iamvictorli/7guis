@@ -19,7 +19,7 @@ import { Popover } from './Popover'
  */
 export function DatePicker(props: DatePickerStateOptions<CalendarDate>) {
   const state = useDatePickerState(props)
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null!)
   const {
     groupProps,
     labelProps,

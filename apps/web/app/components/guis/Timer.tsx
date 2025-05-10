@@ -17,7 +17,7 @@ import Slider from '~/components/Slider'
  * It allows the user to adjust the duration and reset the timer.
  */
 export default function Timer() {
-  const intervalRef = useRef<ReturnType<typeof setInterval>>()
+  const intervalRef = useRef<ReturnType<typeof setInterval>>(null)
   const dispatch = useAppDispatch()
   const duration = useAppSelector(selectDuration)
   const elapsedMs = useAppSelector(selectElapsedMs)
@@ -37,7 +37,9 @@ export default function Timer() {
    * Stops the timer by clearing the interval.
    */
   function stopTimer() {
-    clearInterval(intervalRef.current)
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current)
+    }
   }
 
   // Initialize the timer on mount and reset on unmount.
