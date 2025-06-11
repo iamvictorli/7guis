@@ -14,8 +14,6 @@ updates:
     groups:
       root-deps:
         patterns: ['*']
-    reviewers:
-      - iamvictorli
 
   # Maintain dependencies for apps/mobile
   - package-ecosystem: npm
@@ -31,8 +29,6 @@ updates:
     groups:
       mobile-deps:
         patterns: ['*']
-    reviewers:
-      - iamvictorli
 
   # Maintain dependencies for apps/web
   - package-ecosystem: npm
@@ -48,8 +44,6 @@ updates:
     groups:
       web-deps:
         patterns: ['*']
-    reviewers:
-      - iamvictorli
 
   # Maintain dependencies for packages/state
   - package-ecosystem: npm
@@ -65,8 +59,6 @@ updates:
     groups:
       state-deps:
         patterns: ['*']
-    reviewers:
-      - iamvictorli
 
   # Maintain dependencies for packages/tsconfig
   - package-ecosystem: npm
@@ -82,8 +74,6 @@ updates:
     groups:
       tsconfig-deps:
         patterns: ['*']
-    reviewers:
-      - iamvictorli
 
   # Maintain dependencies for packages/ui-mobile
   - package-ecosystem: npm
@@ -99,5 +89,3 @@ updates:
     groups:
       ui-mobile-deps:
         patterns: ['*']
-    reviewers:
-      - iamvictorli
