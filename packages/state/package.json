@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@internationalized/date": "catalog:",
-    "@reduxjs/toolkit": "^2.8.2",
+    "@reduxjs/toolkit": "^2.9.0",
     "react-redux": "catalog:"
   },
   "devDependencies": {
